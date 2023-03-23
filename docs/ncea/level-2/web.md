@@ -28,12 +28,8 @@ You will also need:
 - [SQLiteStudio](https://sqlitestudio.pl/) is used to edit your SQLite Database
 
 ## Getting Setup
-To setup your python project you should follow the guide [here]() and install these dependencies:
+To setup your python project you should follow the guide [here](../../guides/python/setting-up) and install these dependencies:
 - flask (Web server)
-
-You can also install these for more advanced projects:
-- flask-sqlalchemy (used to interact with the Database)
-- flask-wtf (used to handle HTML forms)
 
 
 ## Basic Flask
@@ -93,13 +89,12 @@ If you visit [`http://127.0.0.1:5000`](http://127.0.0.1:5000) you should be able
 
 ### Multiple Routes
 
-### 
+### Jinja Templates
 
 
+## Databases
 
 
 
 ## Further Resources
 - [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
-- [Flask WTF](https://flask-wtf.readthedocs.io)
-- [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
