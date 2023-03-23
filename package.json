@@ -1,12 +1,21 @@
 {
+  "name": "tuhura-tech-wiki",
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "postinstall": "husky install",
+    "prepack": "pinst --disable",
+    "postpack": "pinst --enable",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.4.4",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "husky": "^8.0.0",
     "mermaid": "9.1.7",
+    "pinst": "^3.0.0",
     "vitepress": "^1.0.0-alpha.61",
     "vitepress-plugin-mermaid": "^2.0.10",
     "vue": "^3.2.47"
