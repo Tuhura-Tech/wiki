@@ -88,3 +88,18 @@ Press CTRL+C to quit
 ```
 
 If you visit [`http://127.0.0.1:5000`](http://127.0.0.1:5000) you should be able to see you webpage.
+
+## Expanding on basic Flask
+
+### Multiple Routes
+
+### 
+
+
+
+
+
+## Further Resources
+- [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
+- [Flask WTF](https://flask-wtf.readthedocs.io)
+- [Flask SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/)
