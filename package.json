@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "mermaid": "9.1.7",
+    "vitepress": "^1.0.0-alpha.61",
+    "vitepress-plugin-mermaid": "^2.0.10",
+    "vue": "^3.2.47"
+  },
+  "packageManager": "yarn@3.3.1"
+}
