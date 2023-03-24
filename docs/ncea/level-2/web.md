@@ -88,8 +88,22 @@ If you visit [`http://127.0.0.1:5000`](http://127.0.0.1:5000) you should be able
 ## Expanding on basic Flask
 
 ### Multiple Routes
+With Flask you can have multiple routes in your application and each route will do something different. For example, we can add a new route that will display a different message when the user visits it. We can do this by adding the following code to our `main.py` file:
+
+```python
+@app.route("/fact")
+def hello():
+   facts = ["The first computer bug was an actual bug", "The first computer virus was created in 1983", "The first computer virus was created in 1983"]
+
+   return random.choice(facts)
+```
+This can now be accessed at [`http://127.0.0.1:5000/fact`](http://127.0.0.1:5000/fact). You can add as many routes as you want to your application and flask will use the string in the decorator to determine which function to run.
+
+#### Wildcards
 
 ### Jinja Templates
+
+### Multiple Files
 
 
 ## Databases

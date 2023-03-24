@@ -1,24 +1,8 @@
 export default [
   {
-    text: "NCEA",
-    activeMatch: "/ncea/",
-    items: [
-      {
-        text: "NCEA Level 1",
-        link: "/ncea/level-1/",
-        activeMatch: "/ncea/level-1/",
-      },
-      {
-        text: "NCEA Level 2",
-        link: "/ncea/level-2/",
-        activeMatch: "/ncea/level-2/",
-      },
-      {
-        text: "NCEA Level 3",
-        link: "/ncea/level-3/",
-        activeMatch: "/ncea/level-3/",
-      },
-    ],
+    text: "About",
+    link: "/about",
+    activeMatch: "/about",
   },
   {
     text: "Guides",
@@ -45,6 +29,27 @@ export default [
         activeMatch: "/guides/python/",
       },
       { text: "Rust", link: "/guides/rust/", activeMatch: "/guides/rust/" },
+    ],
+  },
+  {
+    text: "NCEA",
+    activeMatch: "/ncea/",
+    items: [
+      {
+        text: "NCEA Level 1",
+        link: "/ncea/level-1/",
+        activeMatch: "/ncea/level-1/",
+      },
+      {
+        text: "NCEA Level 2",
+        link: "/ncea/level-2/",
+        activeMatch: "/ncea/level-2/",
+      },
+      {
+        text: "NCEA Level 3",
+        link: "/ncea/level-3/",
+        activeMatch: "/ncea/level-3/",
+      },
     ],
   },
 ];
