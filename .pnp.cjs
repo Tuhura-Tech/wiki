@@ -28,9 +28,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["@commitlint/cli", "npm:17.5.0"],\
             ["@commitlint/config-conventional", "npm:17.4.4"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
+            ["@types/node", "npm:18.15.10"],\
+            ["commitlint", "npm:17.5.0"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
@@ -911,6 +912,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
+        ["npm:18.15.10", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.15.10-93118095ab-9aeae0b683.zip/node_modules/@types/node/",\
+          "packageDependencies": [\
+            ["@types/node", "npm:18.15.10"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:18.15.5", {\
           "packageLocation": "./.yarn/cache/@types-node-npm-18.15.5-8a64f4244c-5fbf3453bd.zip/node_modules/@types/node/",\
           "packageDependencies": [\
@@ -1537,6 +1545,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/commander-npm-7.2.0-19178180f8-53501cbeee.zip/node_modules/commander/",\
           "packageDependencies": [\
             ["commander", "npm:7.2.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["commitlint", [\
+        ["npm:17.5.0", {\
+          "packageLocation": "./.yarn/cache/commitlint-npm-17.5.0-9764d00442-5648776237.zip/node_modules/commitlint/",\
+          "packageDependencies": [\
+            ["commitlint", "npm:17.5.0"],\
+            ["@commitlint/cli", "npm:17.5.0"],\
+            ["@commitlint/types", "npm:17.4.4"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4595,9 +4614,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["tuhura-tech-wiki", "workspace:."],\
-            ["@commitlint/cli", "npm:17.5.0"],\
             ["@commitlint/config-conventional", "npm:17.4.4"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
+            ["@types/node", "npm:18.15.10"],\
+            ["commitlint", "npm:17.5.0"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\

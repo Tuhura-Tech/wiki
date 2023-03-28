@@ -10,9 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "@types/node": "^18.15.10",
+    "commitlint": "^17.5.0",
     "husky": "^8.0.0",
     "mermaid": "9.1.7",
     "pinst": "^3.0.0",
