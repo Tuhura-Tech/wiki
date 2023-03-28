@@ -4,6 +4,11 @@ This is a set of resources that cover 3 internals and is implemented in Python. 
 - Database [AS91892]() (4 credits)
 - Media (Web) [AS91893]() (4 credits)
 
+## What is Flask? What are we doing?
+Flask is a web framework that can be used in Python to build websites or other web applications. It is a very popular framework and is used by many large companies such as Pinterest, LinkedIn and Netflix. Flask is very easy to use and is a great way to learn how to build websites. It is used as a library in Python which means its a python application you can use and customise in your own code.
+
+Over this project we will build a Website using Flask and Python. The website will be able to connect to a database to store data and then display the data on the website.
+
 
 ## Expectations/Requirements
 This set of resources expects a basic understanding of Python programming.
@@ -54,7 +59,7 @@ There is a lot going on here already and its only a basic program but while it m
 from flask import Flask
 app = Flask(__name__)
 ```
-This imports the Flask library and creates a new Flask application. The `__name__` variable is used to determine the path of the application. This is used to find templates and static files.
+This imports the Flask library and creates a new Flask application. The `__name__` variable is used to determine the path of the application. The path is the location of the application on your computer and is used to determine where to look for files such as html files. In this case we are telling Flask to look in the same directory as the `main.py` file.
 
 ```python
 @app.route("/")
@@ -457,7 +462,7 @@ One of the most important parts of any API is the documentation. This is because
 
 To create a documentation page for your API you will need to install the [Flasgger](https://github.com/flasgger/flasgger) library. This library allows you to add OpenAPI documentation to your Flask application. To install it you can run the following command:
 
-```[sh]
+```sh
 $ poetry add flasgger
 ```
 
