@@ -3,12 +3,12 @@ There are many ways to set up your Python environment with different advantages 
 
 Your options are:
 - [Local development](#local-development) - the most flexible option, but requires some setup
-- [GitHub Codespaces](#github-codespaces) - a cloud-based IDE that gives you a full development environment
-- [Replit](#replit) - a cloud-based IDE that gives you simplified access to a Python environment
-- [IDLE](#idle) - a simple Python IDE that comes pre-installed with Python
+- [GitHub Codespaces](#github-codespaces) - a cloud-based IDE (Integrated Development Environment - aka fancy editor) that gives you a full development environment
+- [Replit](#replit) - a cloud-based IDE that gives you simplified access to a Python editor
+- [IDLE](#idle) - a simple Python editor that comes pre-installed with Python
 
 ## Local development
-This is the most flexible option as you can use any IDE you want and does not rely on an internet connection. This option also has the most complexity and learning due to all advanced features being available immediately. To use this option you will need to install Python and a code editor. You can download Python from the [Python website](https://www.python.org/downloads/). You can use any code editor you want, but we recommend [Visual Studio Code](https://code.visualstudio.com/).
+This is the most flexible option as you can use any IDE you want and does not rely on an internet connection. This should be done on your personal computer and not on a school computer. This option also has the most complexity and learning due to all advanced features being available immediately. To use this option you will need to install Python and a code editor. You can download Python from the [Python website](https://www.python.org/downloads/). You can use any code editor you want, but we recommend [Visual Studio Code](https://code.visualstudio.com/).
 
 ### Installing Python
 There are multiple ways to install Python, but the easiest way is to download the latest version from the [Python website](https://www.python.org/downloads/). Once you have downloaded the installer you can run it and follow the instructions to install Python.
@@ -36,9 +36,24 @@ $ asdf install python latest
 
 :::
 
+::: Not sure how to run commands?
+If you are not sure how to run commands we recommend installing python using the installer from the [Python website](https://www.python.org/downloads/).
+
+:::
+
 Once you have installed Python you can check that it has installed correctly by running the following command:
 ```sh
 $ python --version
+```
+
+::: How to run commands on your computer
+To run commands on your computer you will need to open a terminal. On macOS and Linux you can open a terminal by pressing `⌘ + Space` and typing `Terminal`. On Windows you can open a terminal by pressing `⊞ + Space` and typing `Terminal`. You can then run the command by typing it into the terminal and pressing `Enter`. The `$` is not part of the command and is just used to show that it is a command. You should not type the `$` when running the command.
+
+:::
+
+You should get an output similar to the following:
+```sh
+Python 3.11.1
 ```
 
 ### Setting up a project
@@ -67,7 +82,7 @@ As GitHub Codespaces is a cloud instance of Visual Studio Code the instructions 
 [Replit](https://replit.com) is an online IDE similar to GitHub CodeSpaces but has a simplified interface and is useful for small quick projects. To use Replit you will need to sign-up for a free account [here](https://replit.com/signup). Once you have an account you can create a new Python project by clicking the `+` button in the top left and selecting `New repl`. You can then select `Python` as the language, you can then start coding in Python.
 
 ### Adding libraries
-Replit has support for pyproject.toml and [Python Poetry](https://python-poetry.org) for managing libraries. To add a library you can run the poetry command in the terminal. You can also use the builtin package manager to install libraries.
+Replit has support for [Python Poetry](https://python-poetry.org) for managing libraries. To add a library you can run the poetry command in the terminal. You can also use the built in package manager to install libraries.
 
 ```sh
 $ poetry add <library>
@@ -88,12 +103,12 @@ With IDLE it is not recommended to install libraries and instead you should use 
 There are several libraries that are useful when programming in Python and can help with either style/formatting or type checking.
 
 #### Style and formatting
-These libraries help with formatting and style of your code, they can be used to automatically format your code to a standard style and can also be used to check your code for style errors. They should be added to your `[tool.poetry.group.style.dependencies]` group in your `pyproject.toml` file.
+These libraries help with formatting and style of your code, they can be used to automatically format your code to a standard style and can also be used to check your code for style errors. They should be added to your style dependencies using the below commands.
 
 - [Black Formatter](https://black.readthedocs.io/en/stable/)
 - [Flake8](https://flake8.pycqa.org/en/latest/)
 
-You can add into your `pyproject.toml` file by running the following commands:
+You can add them by running the following commands:
 ```sh
 $ poetry add black flake8 --group test
 ```
@@ -111,11 +126,11 @@ $ poetry run flake8 .
 ```
 
 #### Type checking
-These libraries help with type checking your code, they can be used to check your code for type errors. They should be added to your `[tool.poetry.group.test.dependencies]` group in your `pyproject.toml` file.
+These libraries help with type checking your code, they can be used to check your code for type errors. They should be added to the test dependencies using the below commands.
 
 - [MyPy](https://mypy.readthedocs.io/en/stable/)
 
-You can add into your `pyproject.toml` file by running the following commands:
+You can add them by running the following command:
 ```sh
 $ poetry add mypy --group test
 ```
