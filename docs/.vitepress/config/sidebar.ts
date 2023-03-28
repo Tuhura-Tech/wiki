@@ -58,4 +58,10 @@ export default {
       items: [],
     },
   ],
+  "/guides/git": [
+    {
+      text: "Git",
+      items: [],
+    },
+  ],
 };
