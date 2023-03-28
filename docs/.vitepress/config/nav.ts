@@ -29,6 +29,7 @@ export default [
         activeMatch: "/guides/python/",
       },
       { text: "Rust", link: "/guides/rust/", activeMatch: "/guides/rust/" },
+      { text: "Java", link: "/guides/java/", activeMatch: "/guides/java/" },
     ],
   },
   {

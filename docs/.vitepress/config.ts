@@ -15,6 +15,8 @@ export default withMermaid(
       nav,
       sidebar,
 
+      outline: "deep",
+
       socialLinks: [
         { icon: "github", link: "https://github.com/Tuhura-Tech/Wiki" },
         { icon: "discord", link: "https://discord.gg/PNxh7cwKfQ" },

@@ -9,10 +9,10 @@ hero:
   actions:
     - theme: brand
       text: NCEA Resources
-      link: /ncea
+      link: /ncea/
     - theme: alt
       text: Guides
-      link: /guides
+      link: /guides/
 
 features:
   - title: NCEA Resources
