@@ -478,74 +478,6 @@ def index():
 
 Finally, we need to use the `get_db` function to get the database connection in our route. This will allow us to access the database from our route. An example of this is shown above. We can then use our database connection to get the users from the database and return them in our route.
 
-
-### API or Jinja Templates
-
-## Documenting your API
-One of the most important parts of any API is the documentation. This is because it allows other people to use your API without having to read your code. There are a few different ways to document your API but we recommend using the [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0). This is a standard that is used by many different tools and is a good way to document your API. One of the big advantages is that the documentation can automatically be generated from your code and build an easy to read documentation page such as [this](https://petstore.swagger.io/).
-
-To create a documentation page for your API you will need to install the [Flasgger](https://github.com/flasgger/flasgger) library. This library allows you to add OpenAPI documentation to your Flask application. To install it you can run the following command:
-
-```sh
-$ poetry add flasgger
-```
-
-Once you have installed the library, flasgger can use your docstrings to automatically generate documentation. An example of this is below (this is taken from the flasgger documentation):
-
-```python
-from flask import Flask, jsonify
-from flasgger import Swagger
-
-app = Flask(__name__)
-swagger = Swagger(app)
-
-@app.route('/colors/<palette>/')
-def colors(palette):
-    """Example endpoint returning a list of colors by palette
-    This is using docstrings for specifications.
-    ---
-    parameters:
-      - name: palette
-        in: path
-        type: string
-        enum: ['all', 'rgb', 'cmyk']
-        required: true
-        default: all
-    definitions:
-      Palette:
-        type: object
-        properties:
-          palette_name:
-            type: array
-            items:
-              $ref: '#/definitions/Color'
-      Color:
-        type: string
-    responses:
-      200:
-        description: A list of colors (may be filtered by palette)
-        schema:
-          $ref: '#/definitions/Palette'
-        examples:
-          rgb: ['red', 'green', 'blue']
-    """
-    all_colors = {
-        'cmyk': ['cyan', 'magenta', 'yellow', 'black'],
-        'rgb': ['red', 'green', 'blue']
-    }
-    if palette == 'all':
-        result = all_colors
-    else:
-        result = {palette: all_colors.get(palette)}
-
-    return jsonify(result)
-
-if __name__ == "__main__":
-  app.run(debug=True)
-```
-
-You can then visit [` http://127.0.0.1:5000/apidocs/`](http://127.0.0.1:5000/apidocs/) to see the documentation page.
-
 ## Further Resources
 A copy of all the code used as a working Flask application can be found [here](https://github.com/Tuhura-Tech/ncea-lvl2-web-flask-example). Below is a set of useful resources and links to help you learn more about Flask and how to use it.
 
@@ -554,4 +486,3 @@ A copy of all the code used as a working Flask application can be found [here](h
 - [sqlite3 Documentation](https://docs.python.org/3/library/sqlite3.html)
 - [Jinja Documentation](https://jinja.palletsprojects.com/en/3.0.x/templates/)
 - [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0)
-- [Flasgger Documentation](https://github.com/flasgger/flasgger)
