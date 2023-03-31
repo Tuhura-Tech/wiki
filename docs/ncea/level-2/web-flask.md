@@ -5,7 +5,7 @@ This is a set of resources that cover 3 internals and is implemented in Python. 
 - Media (Web) [AS91893]() (4 credits)
 
 ## What is Flask? What are we doing?
-Flask is a web framework that can be used in Python to build websites or other web applications. It is a very popular framework and is used by many large companies such as Pinterest, LinkedIn and Netflix. Flask is very easy to use and is a great way to learn how to build websites. It is used as a library in Python which means its a python application you can use and customise in your own code.
+Flask is a web framework that can be used in Python to build websites or other web applications. It is a very popular framework and is used by many large companies such as Pinterest, LinkedIn and Netflix. Flask is very easy to use and is a great way to learn how to build websites. It is used as a library in Python which means its a bundle of code you can use and customise in your own code.
 
 Over this project we will build a Website using Flask and Python. The website will be able to connect to a database to store data and then display the data on the website.
 
@@ -17,7 +17,7 @@ This set of resources expects a basic understanding of Python programming.
 There are 2 potential ways to do this course. The first uses your own device and runs everything locally, the alternative is to ue an online IDE such as GitHub CodeSpaces (recommended) or Replit.
 
 ### General Requirements
-- [GitHub](https://github.com) Account - this is used to store a history of your code and also make sure you don't lose it.
+- [GitHub](https://github.com) Account - this is used to store a history of your code and also can function as a backup for your code.
 
 ### Device Requirements
 If you are doing local development you will need a modern computer running either Linux, Windows 10/11 or MacOS (Chromebooks do not work).
@@ -48,6 +48,10 @@ app = Flask(__name__)
 def hello():
    return "Hello World!"
 
+@app.route("/about")
+def about():
+   return "This is a basic Flask website"
+
 if __name__ == "__main__":
    app.run(debug=True)
 ```
@@ -65,14 +69,18 @@ This imports the Flask library and creates a new Flask application. The `__name_
 @app.route("/")
 def hello():
    return "Hello World!"
+
+@app.route("/about")
+def about():
+   return "This is a basic Flask website"
 ```
-This is a decorator that is used to tell Flask what URL should trigger the function. In this case we are telling Flask that when the user goes to the root of the website (e.g. `https://example.com/`) it should run the `hello()` function. The `hello()` function returns the string `"Hello World!"` which is then displayed to the user.
+This is a decorator that is used to tell Flask what URL should trigger the function. In this case we are telling Flask that when the user goes to the root of the website (e.g. `https://example.com/`) it should run the `hello()` function. The `hello()` function returns the string `"Hello World!"` which is then displayed to the user. The `about()` function is similar but is triggered when the user visits the `/about` page.
 
 ```python
 if __name__ == "__main__":
    app.run(debug=True)
 ```
-This is the last line of the program and is used to start the Flask application. The `debug=True` argument is used to tell Flask to restart the application when a file is changed. This is useful for development but should be removed when the application is deployed.
+This is the last line of the program and is used to start the Flask application. The `debug=True` argument is used to tell Flask to restart the application when a file is changed. This is useful for development but should be removed when the application is deployed. This is needed to make sure the application only runs when the file is run directly and not when it is imported by another file which could cause issues.
 
 
 
@@ -96,11 +104,27 @@ If you visit [`http://127.0.0.1:5000`](http://127.0.0.1:5000) you should be able
 With Flask you can have multiple routes in your application and each route will do something different. For example, we can add a new route that will display a different message when the user visits it. We can do this by adding the following code to our `main.py` file:
 
 ```python
-@app.route("/fact")
+import random
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
 def hello():
+   return "Hello World!"
+
+@app.route("/about")
+def about():
+   return "This is a basic Flask website"
+
+@app.route("/fact")
+def fact():
    facts = ["The first computer bug was an actual bug", "The first computer virus was created in 1983", "The first computer virus was created in 1983"]
 
    return random.choice(facts)
+
+if __name__ == "__main__":
+   app.run(debug=True)
 ```
 This can now be accessed at [`http://127.0.0.1:5000/fact`](http://127.0.0.1:5000/fact). You can add as many routes as you want to your application and flask will use the string in the decorator to determine which function to run.
 
@@ -109,7 +133,7 @@ As more complex webpages are added to your application you will need to be able 
 
 ```python
 @app.route("/user/<username>")
-def hello(username):
+def username(username):
    return f"Hello {username}"
 ```
 
@@ -440,7 +464,7 @@ def close_connection(exception):
        db.close()
 ```
 
-The next thing we need to do is close the connection to the database when the request is finished. This is done using the `teardown_appcontext` decorator. This decorator allows us to specify a function that is called after the request is finished. This function will then close the connection to the database.
+The next thing we need to do is close the connection to the database when the request is finished. This is done using the `teardown_appcontext` decorator. This decorator allows us to specify a function that is called after the request is finished. This function will then close the connection to the database. If we didn't do this we would have a lot of open connections to the database which would eventually cause the database to crash.
 
 ```python
 @app.route("/")

@@ -17,16 +17,16 @@ You can also install python using a package manager for a more advanced setup. I
 
 ::: code-group
 
+```sh [Chocolatey]
+$ choco install python
+```
+
 ```sh [Homebrew]
 $ brew install python
 ```
 
 ```sh [Linux]
 $ sudo apt install python3
-```
-
-```sh [Chocolatey]
-$ choco install python
 ```
 
 ```sh [asdf]
@@ -36,7 +36,7 @@ $ asdf install python latest
 
 :::
 
-::: Not sure how to run commands?
+:::tip Not sure how to run commands?
 If you are not sure how to run commands we recommend installing python using the installer from the [Python website](https://www.python.org/downloads/).
 
 :::
@@ -46,7 +46,7 @@ Once you have installed Python you can check that it has installed correctly by 
 $ python --version
 ```
 
-::: How to run commands on your computer
+::: details How to run commands on your computer
 To run commands on your computer you will need to open a terminal. On macOS and Linux you can open a terminal by pressing `⌘ + Space` and typing `Terminal`. On Windows you can open a terminal by pressing `⊞ + Space` and typing `Terminal`. You can then run the command by typing it into the terminal and pressing `Enter`. The `$` is not part of the command and is just used to show that it is a command. You should not type the `$` when running the command.
 
 :::
