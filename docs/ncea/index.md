@@ -2,9 +2,8 @@
 
 ## Resources
 
-### Level 1
+### [Level 1](/ncea/level-1/)
 
-### Level 2
-- [Web](/ncea/level-2/web-flask)
+### [Level 2](/ncea/level-2/)
 
-### Level 3
+### [Level 3](/ncea/level-3/)
