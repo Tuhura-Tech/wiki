@@ -11,7 +11,7 @@ export default {
             items: [
                 {
                     text: "Web Internal using Flask",
-                    link: "/ncea/level-2/web-flask",
+                    link: "/ncea/level-2/web",
                 },
             ],
         },
