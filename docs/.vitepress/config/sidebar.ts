@@ -10,7 +10,7 @@ export default {
       text: "NCEA Level 2",
       items: [
         {
-          text: "Web Internal",
+          text: "Web Internal using Flask",
           link: "/ncea/level-2/web",
         },
       ],
