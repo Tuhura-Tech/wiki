@@ -61,7 +61,20 @@ export default {
   "/guides/git": [
     {
       text: "Git",
-      items: [],
+      items: [
+        {
+          text: "Setting Up",
+          link: "/guides/git/setting-up",
+        },
+        {
+          text: "Git Basics",
+          link: "/guides/git/basics",
+        },
+        {
+          text: "Tips and Tricks",
+          link: "/guides/git/tips-and-tricks",
+        },
+      ],
     },
   ],
 };
