@@ -86,7 +86,7 @@ This is an example of adding `example.md` to the cybersecurity topic
 The only changed part of the code was `items: [],` to `items: [{ text: "Example", link: "/guides/cybersecurity/example"}],`
 
 #### New page in a new topic
-If you need to create a new topic folder for your documentation, make the new folder in `/docs/guides` and add the markdown file there
+If you need to create a new topic folder for your documentation, make the new folder in `/docs/guides` and add the markdown file there. Also add an `index.md` file there, this file is the home page for your topic so describe the topic here briefly. 
 
 Then, in `/docs/.vitepress/config/sidebar.ts` add your topic and page.  
 This is an example of a topic called `example` with a file called `example.md`
@@ -108,3 +108,7 @@ This is that same example for nav.ts
   activeMatch: "/guides/example/"
 },
 ```
+Finally, back on Github Desktop make sure the file(s) you have changed are ticked in the changes tab on your Wiki branch repository, give them a summary, and then commit them. 
+
+### Merging your changed
+Finally, to add your documentation to the main site. To do this create a [new pull request](https://github.com/Tuhura-Tech/Wiki/compare)
