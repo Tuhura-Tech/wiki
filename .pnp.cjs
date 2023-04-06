@@ -35,7 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-alpha.64"],\
+            ["vitepress", "npm:1.0.0-alpha.65"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
             ["vue", "npm:3.2.47"]\
           ],\
@@ -953,13 +953,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.1.0", {\
-          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-e1cb420de6/0/cache/@vitejs-plugin-vue-npm-4.1.0-7f9225ba6f-532192a3da.zip/node_modules/@vitejs/plugin-vue/",\
+        ["virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-2b7fbe592c/0/cache/@vitejs-plugin-vue-npm-4.1.0-7f9225ba6f-532192a3da.zip/node_modules/@vitejs/plugin-vue/",\
           "packageDependencies": [\
-            ["@vitejs/plugin-vue", "virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.1.0"],\
+            ["@vitejs/plugin-vue", "virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.1.0"],\
             ["@types/vite", null],\
             ["@types/vue", null],\
-            ["vite", "virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.2.1"],\
+            ["vite", "virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.2.1"],\
             ["vue", "npm:3.2.47"]\
           ],\
           "packagePeers": [\
@@ -4621,7 +4621,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-alpha.64"],\
+            ["vitepress", "npm:1.0.0-alpha.65"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
             ["vue", "npm:3.2.47"]\
           ],\
@@ -4736,10 +4736,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.2.1", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-d4eff5e8c3/0/cache/vite-npm-4.2.1-a0fa6996de-70eb162ffc.zip/node_modules/vite/",\
+        ["virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.2.1", {\
+          "packageLocation": "./.yarn/__virtual__/vite-virtual-62b99285db/0/cache/vite-npm-4.2.1-a0fa6996de-70eb162ffc.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.2.1"],\
+            ["vite", "virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.2.1"],\
             ["@types/less", null],\
             ["@types/node", null],\
             ["@types/sass", null],\
@@ -4774,18 +4774,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vitepress", [\
-        ["npm:1.0.0-alpha.64", {\
-          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-alpha.64-33cce7a509-4a8d216c08.zip/node_modules/vitepress/",\
+        ["npm:1.0.0-alpha.65", {\
+          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-alpha.65-f5af30c1c5-822829bbc1.zip/node_modules/vitepress/",\
           "packageDependencies": [\
-            ["vitepress", "npm:1.0.0-alpha.64"],\
+            ["vitepress", "npm:1.0.0-alpha.65"],\
             ["@docsearch/css", "npm:3.3.3"],\
             ["@docsearch/js", "npm:3.3.3"],\
-            ["@vitejs/plugin-vue", "virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.1.0"],\
+            ["@vitejs/plugin-vue", "virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.1.0"],\
             ["@vue/devtools-api", "npm:6.5.0"],\
             ["@vueuse/core", "npm:9.13.0"],\
             ["body-scroll-lock", "npm:4.0.0-beta.0"],\
             ["shiki", "npm:0.14.1"],\
-            ["vite", "virtual:33cce7a509b6a989ebcb085263d7bb44a5853915de0d9f60a00ede6516c22e77c8ca8e4a5ac19f3f34c650bcc81bfc7bdc85ab43e21fd791ca89a7dd063304fb#npm:4.2.1"],\
+            ["vite", "virtual:f5af30c1c5f9b70fb9bb756d680885a03c42b3e6bff09b19a2e7064b5055c90917b1cfc8e82be25244a4708e703b43916cf0b679b84f3fee68a9fa7dc919d028#npm:4.2.1"],\
             ["vue", "npm:3.2.47"]\
           ],\
           "linkType": "HARD"\
@@ -4806,7 +4806,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mermaid", null],\
             ["@types/vitepress", null],\
             ["mermaid", "npm:9.1.7"],\
-            ["vitepress", "npm:1.0.0-alpha.64"]\
+            ["vitepress", "npm:1.0.0-alpha.65"]\
           ],\
           "packagePeers": [\
             "@types/mermaid",\
