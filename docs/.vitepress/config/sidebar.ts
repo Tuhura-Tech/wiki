@@ -33,13 +33,8 @@ export default {
       text: "Cyber Security",
       items: [
         {
-          text: "Cyber Security",
-          items: [
-            {
-              text: "Competitions",
-              link: "/guides/cybersecurity/competitions",
-            },
-          ],
+          text: "Competitions",
+          link: "/guides/cybersecurity/competitions",
         },
       ],
     },
