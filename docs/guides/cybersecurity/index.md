@@ -1,3 +1,3 @@
 # Cyber Security
 
-# 🚧 WIP 
+- [Competitions](competitions.md)

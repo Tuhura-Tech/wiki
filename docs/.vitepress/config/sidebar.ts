@@ -31,7 +31,17 @@ export default {
   "/guides/cybersecurity": [
     {
       text: "Cyber Security",
-      items: [],
+      items: [
+        {
+          text: "Cyber Security",
+          items: [
+            {
+              text: "Competitions",
+              link: "/guides/cybersecurity/competitions",
+            },
+          ],
+        },
+      ],
     },
   ],
   "/guides/electronics": [
