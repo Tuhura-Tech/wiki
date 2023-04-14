@@ -28,10 +28,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.6.0"],\
+            ["@commitlint/config-conventional", "npm:17.6.1"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
             ["@types/node", "npm:18.15.11"],\
-            ["commitlint", "npm:17.6.0"],\
+            ["commitlint", "npm:17.6.1"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
@@ -309,12 +309,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/cli", [\
-        ["npm:17.6.0", {\
-          "packageLocation": "./.yarn/cache/@commitlint-cli-npm-17.6.0-ac6e372505-3b42aff92b.zip/node_modules/@commitlint/cli/",\
+        ["npm:17.6.1", {\
+          "packageLocation": "./.yarn/cache/@commitlint-cli-npm-17.6.1-c73335136c-ec559e1f52.zip/node_modules/@commitlint/cli/",\
           "packageDependencies": [\
-            ["@commitlint/cli", "npm:17.6.0"],\
+            ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/format", "npm:17.4.4"],\
-            ["@commitlint/lint", "npm:17.6.0"],\
+            ["@commitlint/lint", "npm:17.6.1"],\
             ["@commitlint/load", "npm:17.5.0"],\
             ["@commitlint/read", "npm:17.5.1"],\
             ["@commitlint/types", "npm:17.4.4"],\
@@ -328,10 +328,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/config-conventional", [\
-        ["npm:17.6.0", {\
-          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.6.0-06ded33c5c-ac62e3904d.zip/node_modules/@commitlint/config-conventional/",\
+        ["npm:17.6.1", {\
+          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.6.1-98d2a3c4e0-a854bae11f.zip/node_modules/@commitlint/config-conventional/",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.6.0"],\
+            ["@commitlint/config-conventional", "npm:17.6.1"],\
             ["conventional-changelog-conventionalcommits", "npm:5.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -395,13 +395,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/lint", [\
-        ["npm:17.6.0", {\
-          "packageLocation": "./.yarn/cache/@commitlint-lint-npm-17.6.0-6e42227dfb-0e29016628.zip/node_modules/@commitlint/lint/",\
+        ["npm:17.6.1", {\
+          "packageLocation": "./.yarn/cache/@commitlint-lint-npm-17.6.1-a6fb8f4c3f-990f6940fe.zip/node_modules/@commitlint/lint/",\
           "packageDependencies": [\
-            ["@commitlint/lint", "npm:17.6.0"],\
+            ["@commitlint/lint", "npm:17.6.1"],\
             ["@commitlint/is-ignored", "npm:17.4.4"],\
             ["@commitlint/parse", "npm:17.4.4"],\
-            ["@commitlint/rules", "npm:17.6.0"],\
+            ["@commitlint/rules", "npm:17.6.1"],\
             ["@commitlint/types", "npm:17.4.4"]\
           ],\
           "linkType": "HARD"\
@@ -481,10 +481,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/rules", [\
-        ["npm:17.6.0", {\
-          "packageLocation": "./.yarn/cache/@commitlint-rules-npm-17.6.0-280cb8dc71-66af1a387b.zip/node_modules/@commitlint/rules/",\
+        ["npm:17.6.1", {\
+          "packageLocation": "./.yarn/cache/@commitlint-rules-npm-17.6.1-50fd353ff2-e00b453e8a.zip/node_modules/@commitlint/rules/",\
           "packageDependencies": [\
-            ["@commitlint/rules", "npm:17.6.0"],\
+            ["@commitlint/rules", "npm:17.6.1"],\
             ["@commitlint/ensure", "npm:17.4.4"],\
             ["@commitlint/message", "npm:17.4.2"],\
             ["@commitlint/to-lines", "npm:17.4.0"],\
@@ -1550,11 +1550,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["commitlint", [\
-        ["npm:17.6.0", {\
-          "packageLocation": "./.yarn/cache/commitlint-npm-17.6.0-1e52a2ff2e-3e0478bb2b.zip/node_modules/commitlint/",\
+        ["npm:17.6.1", {\
+          "packageLocation": "./.yarn/cache/commitlint-npm-17.6.1-729c27cfc8-a4d6acad76.zip/node_modules/commitlint/",\
           "packageDependencies": [\
-            ["commitlint", "npm:17.6.0"],\
-            ["@commitlint/cli", "npm:17.6.0"],\
+            ["commitlint", "npm:17.6.1"],\
+            ["@commitlint/cli", "npm:17.6.1"],\
             ["@commitlint/types", "npm:17.4.4"]\
           ],\
           "linkType": "HARD"\
@@ -4614,10 +4614,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["tuhura-tech-wiki", "workspace:."],\
-            ["@commitlint/config-conventional", "npm:17.6.0"],\
+            ["@commitlint/config-conventional", "npm:17.6.1"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
             ["@types/node", "npm:18.15.11"],\
-            ["commitlint", "npm:17.6.0"],\
+            ["commitlint", "npm:17.6.1"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
