@@ -28,7 +28,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.4.4"],\
+            ["@commitlint/config-conventional", "npm:17.6.0"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
             ["@types/node", "npm:18.15.11"],\
             ["commitlint", "npm:17.6.0"],\
@@ -328,10 +328,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/config-conventional", [\
-        ["npm:17.4.4", {\
-          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.4.4-d7a5e82d69-679d92509f.zip/node_modules/@commitlint/config-conventional/",\
+        ["npm:17.6.0", {\
+          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.6.0-06ded33c5c-ac62e3904d.zip/node_modules/@commitlint/config-conventional/",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.4.4"],\
+            ["@commitlint/config-conventional", "npm:17.6.0"],\
             ["conventional-changelog-conventionalcommits", "npm:5.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -4614,7 +4614,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["tuhura-tech-wiki", "workspace:."],\
-            ["@commitlint/config-conventional", "npm:17.4.4"],\
+            ["@commitlint/config-conventional", "npm:17.6.0"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
             ["@types/node", "npm:18.15.11"],\
             ["commitlint", "npm:17.6.0"],\
