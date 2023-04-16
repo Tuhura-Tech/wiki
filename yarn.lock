@@ -3053,6 +3053,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mark.js@npm:^8.11.1":
+  version: 8.11.1
+  resolution: "mark.js@npm:8.11.1"
+  checksum: aa6b9ae1c67245348d5b7abd253ef2acd6bb05c6be358d7d192416d964e42665fc10e0e865591c6f93ab9b57e8da1f23c23216e8ebddb580905ea7a0c0df15d4
+  languageName: node
+  linkType: hard
+
 "meow@npm:^8.0.0":
   version: 8.1.2
   resolution: "meow@npm:8.1.2"
@@ -4218,8 +4225,8 @@ __metadata:
   linkType: hard
 
 "vitepress@npm:^1.0.0-alpha.61":
-  version: 1.0.0-alpha.69
-  resolution: "vitepress@npm:1.0.0-alpha.69"
+  version: 1.0.0-alpha.71
+  resolution: "vitepress@npm:1.0.0-alpha.71"
   dependencies:
     "@docsearch/css": ^3.3.3
     "@docsearch/js": ^3.3.3
@@ -4227,13 +4234,14 @@ __metadata:
     "@vue/devtools-api": ^6.5.0
     "@vueuse/core": ^10.0.2
     body-scroll-lock: 4.0.0-beta.0
+    mark.js: ^8.11.1
     minisearch: ^6.0.1
     shiki: ^0.14.1
     vite: ^4.2.1
     vue: ^3.2.47
   bin:
     vitepress: bin/vitepress.js
-  checksum: 560060074e7151ba94c256388d2bbe798db975461f994178225e2b55fbf766e9864bc6cfc95a56e0f512120e88da8293b6ab080cfbc15a5d80b1a0eb3cf37bd9
+  checksum: ab0382999af486dd9fc14152d266a7fa9951e68508a2ac90cbf67776a5af9f11bfeec7bd649cb69d6005a4f83295b9e991df86585e41b66dcfc4d6c1798ee667
   languageName: node
   linkType: hard
 
