@@ -9,7 +9,7 @@ export default withMermaid(
     lastUpdated: true,
     cleanUrls: true,
 
-    head: [["meta", { name: "theme-color", content: "#3c8772" }]],
+    head: [["meta", { name: "theme-color", content: "#6aa469" }]],
 
     locales: locales.locales,
 

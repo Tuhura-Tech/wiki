@@ -6,6 +6,9 @@ hero:
   name: "Tūhura Tech"
   text: "Free and public resources from Tūhura Tech for NZ Students"
   tagline: Supporting the next generation
+  image:
+    src: /logo.png
+    alt: VitePress
   actions:
     - theme: brand
       text: NCEA Resources

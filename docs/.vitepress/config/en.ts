@@ -4,6 +4,7 @@ import sidebar from "./en/sidebar";
 
 export default defineConfig({
   lang: "en-US",
+  title: "Tūhura Tech",
   description: "Resources and guides for students from Tūhura Tech",
 
   themeConfig: {
