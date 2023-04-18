@@ -35,7 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-alpha.71"],\
+            ["vitepress", "npm:1.0.0-alpha.72"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
             ["vue", "npm:3.2.47"]\
           ],\
@@ -953,13 +953,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.1.0", {\
-          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-b8b842f4f5/0/cache/@vitejs-plugin-vue-npm-4.1.0-7f9225ba6f-532192a3da.zip/node_modules/@vitejs/plugin-vue/",\
+        ["virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-1ad230ce9b/0/cache/@vitejs-plugin-vue-npm-4.1.0-7f9225ba6f-532192a3da.zip/node_modules/@vitejs/plugin-vue/",\
           "packageDependencies": [\
-            ["@vitejs/plugin-vue", "virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.1.0"],\
+            ["@vitejs/plugin-vue", "virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.1.0"],\
             ["@types/vite", null],\
             ["@types/vue", null],\
-            ["vite", "virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.2.1"],\
+            ["vite", "virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.2.1"],\
             ["vue", "npm:3.2.47"]\
           ],\
           "packagePeers": [\
@@ -4639,7 +4639,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-alpha.71"],\
+            ["vitepress", "npm:1.0.0-alpha.72"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
             ["vue", "npm:3.2.47"]\
           ],\
@@ -4754,10 +4754,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.2.1", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-65bb03431c/0/cache/vite-npm-4.2.1-a0fa6996de-70eb162ffc.zip/node_modules/vite/",\
+        ["virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.2.1", {\
+          "packageLocation": "./.yarn/__virtual__/vite-virtual-1b023b0c62/0/cache/vite-npm-4.2.1-a0fa6996de-70eb162ffc.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.2.1"],\
+            ["vite", "virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.2.1"],\
             ["@types/less", null],\
             ["@types/node", null],\
             ["@types/sass", null],\
@@ -4792,20 +4792,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vitepress", [\
-        ["npm:1.0.0-alpha.71", {\
-          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-alpha.71-c85f05ca3f-ab0382999a.zip/node_modules/vitepress/",\
+        ["npm:1.0.0-alpha.72", {\
+          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-alpha.72-24671036b1-d941b3e638.zip/node_modules/vitepress/",\
           "packageDependencies": [\
-            ["vitepress", "npm:1.0.0-alpha.71"],\
+            ["vitepress", "npm:1.0.0-alpha.72"],\
             ["@docsearch/css", "npm:3.3.3"],\
             ["@docsearch/js", "npm:3.3.3"],\
-            ["@vitejs/plugin-vue", "virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.1.0"],\
+            ["@vitejs/plugin-vue", "virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.1.0"],\
             ["@vue/devtools-api", "npm:6.5.0"],\
             ["@vueuse/core", "npm:10.0.2"],\
             ["body-scroll-lock", "npm:4.0.0-beta.0"],\
             ["mark.js", "npm:8.11.1"],\
             ["minisearch", "npm:6.0.1"],\
             ["shiki", "npm:0.14.1"],\
-            ["vite", "virtual:c85f05ca3ff978cd5bf3dbdf2904cfc4afbb3a967834a472b5327b1d9420ead196e9d42a021e4d6dac4e5fa47e85a8aeffd01393d3ca1915a946dad56eead215#npm:4.2.1"],\
+            ["vite", "virtual:24671036b19286f6ea755466c8545a830e3a64ebbcdb933e456b8d19b8d209dcf31e5e1bf38f9be28740cd59e9e58bc2531eecef3511d109b3dcc3ff73b8e86f#npm:4.2.1"],\
             ["vue", "npm:3.2.47"]\
           ],\
           "linkType": "HARD"\
@@ -4826,7 +4826,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mermaid", null],\
             ["@types/vitepress", null],\
             ["mermaid", "npm:9.1.7"],\
-            ["vitepress", "npm:1.0.0-alpha.71"]\
+            ["vitepress", "npm:1.0.0-alpha.72"]\
           ],\
           "packagePeers": [\
             "@types/mermaid",\
