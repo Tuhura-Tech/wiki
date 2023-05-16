@@ -30,7 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@commitlint/config-conventional", "npm:17.6.3"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.16.9"],\
+            ["@types/node", "npm:18.16.10"],\
             ["commitlint", "npm:17.6.3"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
@@ -416,7 +416,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/execute-rule", "npm:17.4.0"],\
             ["@commitlint/resolve-extends", "npm:17.4.4"],\
             ["@commitlint/types", "npm:17.4.4"],\
-            ["@types/node", "npm:20.1.4"],\
+            ["@types/node", "npm:20.1.5"],\
             ["chalk", "npm:4.1.2"],\
             ["cosmiconfig", "npm:8.1.3"],\
             ["cosmiconfig-typescript-loader", "virtual:ef6136dc31186c42f92851afb237eadaa9d36085920cabb6ed6ea317680c8271d6b94afcb795fd7e58c08243e470be87ece6bb707daf3ecb0604f7fd8c1aa682#npm:4.3.0"],\
@@ -919,17 +919,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:18.16.9", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.16.9-b8c97d3012-7fe0ef372b.zip/node_modules/@types/node/",\
+        ["npm:18.16.10", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.16.10-fad6e82077-1db35543ae.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:18.16.9"]\
+            ["@types/node", "npm:18.16.10"]\
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:20.1.4", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-20.1.4-d60c29eee8-bffa6a6e92.zip/node_modules/@types/node/",\
+        ["npm:20.1.5", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-20.1.5-d8bc1146d5-0d073ed7b9.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:20.1.4"]\
+            ["@types/node", "npm:20.1.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1678,7 +1678,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["cosmiconfig-typescript-loader", "virtual:ef6136dc31186c42f92851afb237eadaa9d36085920cabb6ed6ea317680c8271d6b94afcb795fd7e58c08243e470be87ece6bb707daf3ecb0604f7fd8c1aa682#npm:4.3.0"],\
             ["@types/cosmiconfig", null],\
-            ["@types/node", "npm:20.1.4"],\
+            ["@types/node", "npm:20.1.5"],\
             ["@types/ts-node", null],\
             ["@types/typescript", null],\
             ["cosmiconfig", "npm:8.1.3"],\
@@ -4615,7 +4615,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.11"],\
             ["@tsconfig/node14", "npm:1.0.3"],\
             ["@tsconfig/node16", "npm:1.0.3"],\
-            ["@types/node", "npm:20.1.4"],\
+            ["@types/node", "npm:20.1.5"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -4648,7 +4648,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tuhura-tech-wiki", "workspace:."],\
             ["@commitlint/config-conventional", "npm:17.6.3"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.16.9"],\
+            ["@types/node", "npm:18.16.10"],\
             ["commitlint", "npm:17.6.3"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
