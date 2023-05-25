@@ -2,9 +2,9 @@
 
 This is a set of resources that cover 3 internals and is implemented in Python. The covered internal are:
 
-- Programming [AS91896]() (6 credits)
-- Database [AS91892]() (4 credits)
-- Media (Web) [AS91893]() (4 credits)
+- Programming [AS91896](https://www.nzqa.govt.nz/nqfdocs/ncea-resource/achievements/2019/as91896.pdf) (6 credits)
+- Database [AS91892](https://www.nzqa.govt.nz/nqfdocs/ncea-resource/achievements/2019/as91892.pdf) (4 credits)
+- Media (Web) [AS91893](https://www.nzqa.govt.nz/nqfdocs/ncea-resource/achievements/2019/as91893.pdf) (4 credits)
 
 ## What is Flask? What are we doing?
 
@@ -510,12 +510,69 @@ def index():
 
 Finally, we need to use the `get_db` function to get the database connection in our route. This will allow us to access the database from our route. An example of this is shown above. We can then use our database connection to get the users from the database and return them in our route.
 
+## Creating a full app
+
+With all the resources above there should be enough information to create a simple application.
+
+### Structure
+
+With this application all the code for flask will exist in a single `main.py` and there will be several webpages. The structure is as follows.
+
+```md
+- main.py
+- templates/
+- + base.html
+- + footer.html
+- + header.html
+- + index.html
+- + members.html
+- + products.html
+```
+
+### Our main file
+
+With flask currently all our code must exist in the same file and splitting into multiple files is outside the scope of what we are doing but useful resources on this exist in the [flask documentation](https://flask.palletsprojects.com/en/2.2.x/). Our flask app will need to contain the base code for our app to function.
+
+```py
+import sqlite3
+from flask import g, Flask
+
+app = Flask(__name__)
+
+def get_db():
+   db = getattr(g, "_database", None)
+   if db is None:
+       db = g._database = sqlite3.connect("users.db")
+   return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+   db = getattr(g, "_database", None)
+   if db is not None:
+       db.close()
+```
+
+We will need to setup our database which we can do when we create our db in `get_db()`.
+
+```python
+def get_db():
+   db = getattr(g, "_database", None)
+   if db is None:
+       db = g._database = sqlite3.connect("users.db")
+       c = db.cursor()
+       c.execute("CREATE TABLE users (id INTEGER PRIMARY KEY, name TEXT, email TEXT)")
+       c.execute("INSERT INTO users (name, email) VALUES ('John Doe', 'john.doe@example.com')")
+       conn.commit()
+   return db
+```
+
+
 ## Further Resources
 
 A copy of all the code used as a working Flask application can be found [here](https://github.com/Tuhura-Tech/ncea-lvl2-web-flask-example). Below is a set of useful resources and links to help you learn more about Flask and how to use it.
 
+- [Example Project](https://github.com/Tuhura-Tech/ncea-lvl2-web-flask-example)
 - [Flask Documentation](https://flask.palletsprojects.com/en/2.2.x/)
 - [SQLite Documentation](https://www.sqlite.org/docs.html)
 - [sqlite3 Documentation](https://docs.python.org/3/library/sqlite3.html)
 - [Jinja Documentation](https://jinja.palletsprojects.com/en/3.0.x/templates/)
-- [OpenAPI Specification](https://spec.openapis.org/oas/v3.1.0)
