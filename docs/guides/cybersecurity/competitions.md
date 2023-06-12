@@ -1,4 +1,4 @@
-# Competetitions
+# Competitions
 
 Cybersecurity competitions are a great way to learn and practice your skills in a safe and legal environment. These competitions are normally organized by universities, companies, and CTF teams and have a range of challenges suiting different skill levels and interests. Named CTFs (Capture the Flag), each of the challenges in the competition has a mock realistic scenario and a flag that you need to find. The flag is usually a string of characters that you need to submit to the competition's website to get points. The team with the most points at the end of the competition wins.
 
@@ -30,12 +30,22 @@ This is a set of resources and tools that are often useful in CTFs and can help 
 
 ### Pwnable
 
+Pwnable challenges are normally about finding vulnerabilities in a program and exploiting them to get the flag.
+
+- [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
+- [Pwntools](https://docs.pwntools.com/en/stable/) - Pwntools is a CTF framework and exploit development library for python.
+
+
 ### Reverse Engineering
+
+Reverse Engineering is the process of taking a compiled binary and turning it back into source code.
 
 - [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
 - [Binary Ninja](https://binary.ninja/) - Binary Ninja is a multi-platform binary analysis tool. It has a nicer UI than Ghidra however is ot Open Source or free.
 
 ### Web
+
+Web challenges are normally about finding vulnerabilities in a website and exploiting them to get the flag.
 
 - [Burp Suite](https://portswigger.net/burp) - Burp Suite is a web application security testing tool that allows you to intercept and manipulate HTTP and HTTPS requests.
 - [SQLMap](https://sqlmap.org/) - SQLMap is an open source penetration testing tool that automates the process of detecting and exploiting SQL injection flaws and taking over of database servers.
@@ -43,12 +53,14 @@ This is a set of resources and tools that are often useful in CTFs and can help 
 
 ### Crypto
 
+Crypto challenges are normally about finding the key to decrypt a message.
+
 - [CyberChef](https://gchq.github.io/CyberChef/) - CyberChef is a web application that allows you to perform a range of different operations on data.
 - [dcode](https://www.dcode.fr/) - dcode is a web application with a focus on cryptography. It has a range of different tools for different types of crypto challenges.
 
-### Misc
-
 ### Forensics
+
+Forensics challenges are normally about finding hidden information in files.
 
 - [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
 - [Binary Ninja](https://binary.ninja/) - Binary Ninja is a multi-platform binary analysis tool.
@@ -56,4 +68,23 @@ This is a set of resources and tools that are often useful in CTFs and can help 
 
 ### OSINT
 
+OSINT (Open Source Intelligence) is the process of gathering information about a target from publicly available sources.
+
+- [Google](https://www.google.com/) - Google is a search engine that can be used to find information about people and companies.
+- [Shodan](https://www.shodan.io/) - Shodan is a search engine for Internet-connected devices.
+- [The Wayback Machine](https://archive.org/web/) - The Wayback Machine is a digital archive of the World Wide Web.
+- [TinEye](https://tineye.com/) - TinEye is a reverse image search engine.
+
 ### Steganography
+
+Steganography is the process of hiding information in images.
+
+- [Stegsolve](https://github.com/Giotino/stegsolve/releases) - Stegsolve is a tool for analysing and visualising images.
+- [Steghide](http://steghide.sourceforge.net/) - Steghide is a tool for hiding information in images.
+- [Stegseek](https://github.com/RickdeJager/stegseek) - Worlds fastest steghide cracker, chewing through millions of passwords per second.
+
+### Misc
+
+
+- [CyberChef](https://gchq.github.io/CyberChef/) - CyberChef is a web application that allows you to perform a range of different operations on data.
+- [Audacity](https://www.audacityteam.org/) - Audacity is a free, open source, cross-platform audio software for multi-track recording and editing.
