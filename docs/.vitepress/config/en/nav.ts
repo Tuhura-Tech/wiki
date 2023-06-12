@@ -8,28 +8,28 @@ export default [
     text: "Guides",
     activeMatch: "/guides/",
     items: [
-      {
-        text: "3D Printing",
-        link: "/guides/3d-printing/",
-        activeMatch: "/guides/3d-printing/",
-      },
+      // {
+      //   text: "3D Printing",
+      //   link: "/guides/3d-printing/",
+      //   activeMatch: "/guides/3d-printing/",
+      // },
       {
         text: "Cyber Security",
         link: "/guides/cybersecurity/",
         activeMatch: "/guides/cybersecurity/",
       },
-      {
-        text: "Electronics",
-        link: "/guides/electronics/",
-        activeMatch: "/guides/electronics/",
-      },
+      // {
+      //   text: "Electronics",
+      //   link: "/guides/electronics/",
+      //   activeMatch: "/guides/electronics/",
+      // },
       {
         text: "Python",
         link: "/guides/python/",
         activeMatch: "/guides/python/",
       },
-      { text: "Rust", link: "/guides/rust/", activeMatch: "/guides/rust/" },
-      { text: "Java", link: "/guides/java/", activeMatch: "/guides/java/" },
+      // { text: "Rust", link: "/guides/rust/", activeMatch: "/guides/rust/" },
+      // { text: "Java", link: "/guides/java/", activeMatch: "/guides/java/" },
       { text: "Git", link: "/guides/git/", activeMatch: "/guides/git/" },
     ],
   },
@@ -37,11 +37,11 @@ export default [
     text: "NCEA",
     activeMatch: "/ncea/",
     items: [
-      {
-        text: "NCEA Level 1",
-        link: "/ncea/level-1/",
-        activeMatch: "/ncea/level-1/",
-      },
+      // {
+      //   text: "NCEA Level 1",
+      //   link: "/ncea/level-1/",
+      //   activeMatch: "/ncea/level-1/",
+      // },
       {
         text: "NCEA Level 2",
         link: "/ncea/level-2/",

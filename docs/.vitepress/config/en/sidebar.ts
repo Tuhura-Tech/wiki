@@ -1,11 +1,11 @@
 export default {
-  "/ncea/level-1": [
-    {
-      text: "NCEA Level 1",
-      link: "/ncea/level-1/",
-      items: [],
-    },
-  ],
+  // "/ncea/level-1": [
+  //   {
+  //     text: "NCEA Level 1",
+  //     link: "/ncea/level-1/",
+  //     items: [],
+  //   },
+  // ],
   "/ncea/level-2": [
     {
       text: "NCEA Level 2",
@@ -22,16 +22,21 @@ export default {
     {
       text: "NCEA Level 3",
       link: "/ncea/level-3/",
-      items: [],
+      items: [
+        {
+          text: "Web Internal using Flask",
+          link: "/ncea/level-3/web-flask",
+        },
+      ],
     },
   ],
-  "/guides/3d-printing": [
-    {
-      text: "3D Printing",
-      link: "/guides/3d-printing/",
-      items: [],
-    },
-  ],
+  // "/guides/3d-printing": [
+  //   {
+  //     text: "3D Printing",
+  //     link: "/guides/3d-printing/",
+  //     items: [],
+  //   },
+  // ],
   "/guides/cybersecurity": [
     {
       text: "Cyber Security",
@@ -44,13 +49,13 @@ export default {
       ],
     },
   ],
-  "/guides/electronics": [
-    {
-      text: "Electronics",
-      link: "/guides/electronics/",
-      items: [],
-    },
-  ],
+  // "/guides/electronics": [
+  //   {
+  //     text: "Electronics",
+  //     link: "/guides/electronics/",
+  //     items: [],
+  //   },
+  // ],
   "/guides/python": [
     {
       text: "Python",
@@ -58,20 +63,20 @@ export default {
       items: [{ text: "Setting up", link: "/guides/python/setting-up" }],
     },
   ],
-  "/guides/rust": [
-    {
-      text: "Rust",
-      link: "/guides/rust/",
-      items: [],
-    },
-  ],
-  "/guides/java": [
-    {
-      text: "Java",
-      link: "/guides/java/",
-      items: [],
-    },
-  ],
+  // "/guides/rust": [
+  //   {
+  //     text: "Rust",
+  //     link: "/guides/rust/",
+  //     items: [],
+  //   },
+  // ],
+  // "/guides/java": [
+  //   {
+  //     text: "Java",
+  //     link: "/guides/java/",
+  //     items: [],
+  //   },
+  // ],
   "/guides/git": [
     {
       text: "Git",
