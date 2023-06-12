@@ -28,43 +28,67 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {\
           "packageLocation": "./",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.6.3"],\
+            ["@commitlint/config-conventional", "npm:17.6.5"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.16.12"],\
-            ["commitlint", "npm:17.6.3"],\
+            ["@types/node", "npm:18.16.17"],\
+            ["commitlint", "npm:17.6.5"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-beta.1"],\
+            ["vitepress", "npm:1.0.0-beta.2"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
-            ["vue", "npm:3.3.2"]\
+            ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "SOFT"\
         }]\
       ]],\
       ["@algolia/autocomplete-core", [\
-        ["npm:1.8.2", {\
-          "packageLocation": "./.yarn/cache/@algolia-autocomplete-core-npm-1.8.2-3baeffa20c-03c164d8ce.zip/node_modules/@algolia/autocomplete-core/",\
+        ["npm:1.9.2", {\
+          "packageLocation": "./.yarn/cache/@algolia-autocomplete-core-npm-1.9.2-aac587f11f-aa0b9db9f3.zip/node_modules/@algolia/autocomplete-core/",\
           "packageDependencies": [\
-            ["@algolia/autocomplete-core", "npm:1.8.2"],\
-            ["@algolia/autocomplete-shared", "npm:1.8.2"]\
+            ["@algolia/autocomplete-core", "npm:1.9.2"],\
+            ["@algolia/autocomplete-plugin-algolia-insights", "virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2"],\
+            ["@algolia/autocomplete-shared", "virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@algolia/autocomplete-plugin-algolia-insights", [\
+        ["npm:1.9.2", {\
+          "packageLocation": "./.yarn/cache/@algolia-autocomplete-plugin-algolia-insights-npm-1.9.2-36c3c0c3c5-e67370d44a.zip/node_modules/@algolia/autocomplete-plugin-algolia-insights/",\
+          "packageDependencies": [\
+            ["@algolia/autocomplete-plugin-algolia-insights", "npm:1.9.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2", {\
+          "packageLocation": "./.yarn/__virtual__/@algolia-autocomplete-plugin-algolia-insights-virtual-439fc517ef/0/cache/@algolia-autocomplete-plugin-algolia-insights-npm-1.9.2-36c3c0c3c5-e67370d44a.zip/node_modules/@algolia/autocomplete-plugin-algolia-insights/",\
+          "packageDependencies": [\
+            ["@algolia/autocomplete-plugin-algolia-insights", "virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2"],\
+            ["@algolia/autocomplete-shared", "virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2"],\
+            ["@types/search-insights", null],\
+            ["search-insights", null]\
+          ],\
+          "packagePeers": [\
+            "@types/search-insights",\
+            "search-insights"\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@algolia/autocomplete-preset-algolia", [\
-        ["npm:1.8.2", {\
-          "packageLocation": "./.yarn/cache/@algolia-autocomplete-preset-algolia-npm-1.8.2-c4e38b1691-f968b0f9d0.zip/node_modules/@algolia/autocomplete-preset-algolia/",\
+        ["npm:1.9.2", {\
+          "packageLocation": "./.yarn/cache/@algolia-autocomplete-preset-algolia-npm-1.9.2-c762caf140-0dac7d4d28.zip/node_modules/@algolia/autocomplete-preset-algolia/",\
           "packageDependencies": [\
-            ["@algolia/autocomplete-preset-algolia", "npm:1.8.2"]\
+            ["@algolia/autocomplete-preset-algolia", "npm:1.9.2"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:810125df352dd611a737ab78670f668291af45a9f9f43c3f6d1c8b7d0a434f36d9754d2a9e4473edc415b58f496d5d8ea4333e0464d139ad38de48a607370918#npm:1.8.2", {\
-          "packageLocation": "./.yarn/__virtual__/@algolia-autocomplete-preset-algolia-virtual-84763c55ae/0/cache/@algolia-autocomplete-preset-algolia-npm-1.8.2-c4e38b1691-f968b0f9d0.zip/node_modules/@algolia/autocomplete-preset-algolia/",\
+        ["virtual:4b4a9b97a50f0008550bc6fe72e630c3e28198c2d2718b1e4b5f4c0e54a7a7a68299ba6dfc920f40a0f083d12799cb92fca6ecf4fda20335bbf3318e18d8cd86#npm:1.9.2", {\
+          "packageLocation": "./.yarn/__virtual__/@algolia-autocomplete-preset-algolia-virtual-5bb24a3f4e/0/cache/@algolia-autocomplete-preset-algolia-npm-1.9.2-c762caf140-0dac7d4d28.zip/node_modules/@algolia/autocomplete-preset-algolia/",\
           "packageDependencies": [\
-            ["@algolia/autocomplete-preset-algolia", "virtual:810125df352dd611a737ab78670f668291af45a9f9f43c3f6d1c8b7d0a434f36d9754d2a9e4473edc415b58f496d5d8ea4333e0464d139ad38de48a607370918#npm:1.8.2"],\
-            ["@algolia/autocomplete-shared", "npm:1.8.2"],\
+            ["@algolia/autocomplete-preset-algolia", "virtual:4b4a9b97a50f0008550bc6fe72e630c3e28198c2d2718b1e4b5f4c0e54a7a7a68299ba6dfc920f40a0f083d12799cb92fca6ecf4fda20335bbf3318e18d8cd86#npm:1.9.2"],\
+            ["@algolia/autocomplete-shared", "virtual:5bb24a3f4e67ed27c26c4f56d2314481bad96e7256e20c1a192d88ac962566294a6690bdbf4ae82685c4481124021ff1d39fe1ddd9a6c4216892dbbe57c5ddf7#npm:1.9.2"],\
             ["@algolia/client-search", null],\
             ["@types/algolia__client-search", null],\
             ["@types/algoliasearch", null],\
@@ -80,10 +104,44 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@algolia/autocomplete-shared", [\
-        ["npm:1.8.2", {\
-          "packageLocation": "./.yarn/cache/@algolia-autocomplete-shared-npm-1.8.2-206d208ceb-1ec17deb59.zip/node_modules/@algolia/autocomplete-shared/",\
+        ["npm:1.9.2", {\
+          "packageLocation": "./.yarn/cache/@algolia-autocomplete-shared-npm-1.9.2-56ec29b40d-663ba554d6.zip/node_modules/@algolia/autocomplete-shared/",\
           "packageDependencies": [\
-            ["@algolia/autocomplete-shared", "npm:1.8.2"]\
+            ["@algolia/autocomplete-shared", "npm:1.9.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:5bb24a3f4e67ed27c26c4f56d2314481bad96e7256e20c1a192d88ac962566294a6690bdbf4ae82685c4481124021ff1d39fe1ddd9a6c4216892dbbe57c5ddf7#npm:1.9.2", {\
+          "packageLocation": "./.yarn/__virtual__/@algolia-autocomplete-shared-virtual-f0f1956c6d/0/cache/@algolia-autocomplete-shared-npm-1.9.2-56ec29b40d-663ba554d6.zip/node_modules/@algolia/autocomplete-shared/",\
+          "packageDependencies": [\
+            ["@algolia/autocomplete-shared", "virtual:5bb24a3f4e67ed27c26c4f56d2314481bad96e7256e20c1a192d88ac962566294a6690bdbf4ae82685c4481124021ff1d39fe1ddd9a6c4216892dbbe57c5ddf7#npm:1.9.2"],\
+            ["@algolia/client-search", null],\
+            ["@types/algolia__client-search", null],\
+            ["@types/algoliasearch", null],\
+            ["algoliasearch", "npm:4.15.0"]\
+          ],\
+          "packagePeers": [\
+            "@algolia/client-search",\
+            "@types/algolia__client-search",\
+            "@types/algoliasearch",\
+            "algoliasearch"\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2", {\
+          "packageLocation": "./.yarn/__virtual__/@algolia-autocomplete-shared-virtual-e451cba930/0/cache/@algolia-autocomplete-shared-npm-1.9.2-56ec29b40d-663ba554d6.zip/node_modules/@algolia/autocomplete-shared/",\
+          "packageDependencies": [\
+            ["@algolia/autocomplete-shared", "virtual:aac587f11f81da5596211b864ae64cf4022827643e83031db64a52f8710cd8fee324ded6da4a617aeebd4f2e9e9e3dd6c4f50054cde65ea5c820baec36126a2a#npm:1.9.2"],\
+            ["@algolia/client-search", null],\
+            ["@types/algolia__client-search", null],\
+            ["@types/algoliasearch", null],\
+            ["algoliasearch", null]\
+          ],\
+          "packagePeers": [\
+            "@algolia/client-search",\
+            "@types/algolia__client-search",\
+            "@types/algoliasearch",\
+            "algoliasearch"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -309,12 +367,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/cli", [\
-        ["npm:17.6.3", {\
-          "packageLocation": "./.yarn/cache/@commitlint-cli-npm-17.6.3-583c622f77-e5a597ef45.zip/node_modules/@commitlint/cli/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-cli-npm-17.6.5-1dd10cbe12-acc57bdb73.zip/node_modules/@commitlint/cli/",\
           "packageDependencies": [\
-            ["@commitlint/cli", "npm:17.6.3"],\
+            ["@commitlint/cli", "npm:17.6.5"],\
             ["@commitlint/format", "npm:17.4.4"],\
-            ["@commitlint/lint", "npm:17.6.3"],\
+            ["@commitlint/lint", "npm:17.6.5"],\
             ["@commitlint/load", "npm:17.5.0"],\
             ["@commitlint/read", "npm:17.5.1"],\
             ["@commitlint/types", "npm:17.4.4"],\
@@ -328,10 +386,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/config-conventional", [\
-        ["npm:17.6.3", {\
-          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.6.3-dc84eb5c43-2dbe26cfaf.zip/node_modules/@commitlint/config-conventional/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-config-conventional-npm-17.6.5-ef8d82de49-f2c637a993.zip/node_modules/@commitlint/config-conventional/",\
           "packageDependencies": [\
-            ["@commitlint/config-conventional", "npm:17.6.3"],\
+            ["@commitlint/config-conventional", "npm:17.6.5"],\
             ["conventional-changelog-conventionalcommits", "npm:5.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -384,10 +442,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/is-ignored", [\
-        ["npm:17.6.3", {\
-          "packageLocation": "./.yarn/cache/@commitlint-is-ignored-npm-17.6.3-570445525b-db664b7e6b.zip/node_modules/@commitlint/is-ignored/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-is-ignored-npm-17.6.5-eb9c495070-2b7b7f0773.zip/node_modules/@commitlint/is-ignored/",\
           "packageDependencies": [\
-            ["@commitlint/is-ignored", "npm:17.6.3"],\
+            ["@commitlint/is-ignored", "npm:17.6.5"],\
             ["@commitlint/types", "npm:17.4.4"],\
             ["semver", "npm:7.5.0"]\
           ],\
@@ -395,13 +453,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/lint", [\
-        ["npm:17.6.3", {\
-          "packageLocation": "./.yarn/cache/@commitlint-lint-npm-17.6.3-fbda5b486d-f033d25fd3.zip/node_modules/@commitlint/lint/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-lint-npm-17.6.5-4378eb0cdb-6a6c04a5ec.zip/node_modules/@commitlint/lint/",\
           "packageDependencies": [\
-            ["@commitlint/lint", "npm:17.6.3"],\
-            ["@commitlint/is-ignored", "npm:17.6.3"],\
-            ["@commitlint/parse", "npm:17.4.4"],\
-            ["@commitlint/rules", "npm:17.6.1"],\
+            ["@commitlint/lint", "npm:17.6.5"],\
+            ["@commitlint/is-ignored", "npm:17.6.5"],\
+            ["@commitlint/parse", "npm:17.6.5"],\
+            ["@commitlint/rules", "npm:17.6.5"],\
             ["@commitlint/types", "npm:17.4.4"]\
           ],\
           "linkType": "HARD"\
@@ -416,7 +474,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@commitlint/execute-rule", "npm:17.4.0"],\
             ["@commitlint/resolve-extends", "npm:17.4.4"],\
             ["@commitlint/types", "npm:17.4.4"],\
-            ["@types/node", "npm:20.1.7"],\
+            ["@types/node", "npm:20.2.6"],\
             ["chalk", "npm:4.1.2"],\
             ["cosmiconfig", "npm:8.1.3"],\
             ["cosmiconfig-typescript-loader", "virtual:ef6136dc31186c42f92851afb237eadaa9d36085920cabb6ed6ea317680c8271d6b94afcb795fd7e58c08243e470be87ece6bb707daf3ecb0604f7fd8c1aa682#npm:4.3.0"],\
@@ -440,10 +498,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/parse", [\
-        ["npm:17.4.4", {\
-          "packageLocation": "./.yarn/cache/@commitlint-parse-npm-17.4.4-0475cff25c-2a6e5b0a5c.zip/node_modules/@commitlint/parse/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-parse-npm-17.6.5-af228ed605-579dd7b25d.zip/node_modules/@commitlint/parse/",\
           "packageDependencies": [\
-            ["@commitlint/parse", "npm:17.4.4"],\
+            ["@commitlint/parse", "npm:17.6.5"],\
             ["@commitlint/types", "npm:17.4.4"],\
             ["conventional-changelog-angular", "npm:5.0.13"],\
             ["conventional-commits-parser", "npm:3.2.4"]\
@@ -481,10 +539,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@commitlint/rules", [\
-        ["npm:17.6.1", {\
-          "packageLocation": "./.yarn/cache/@commitlint-rules-npm-17.6.1-50fd353ff2-e00b453e8a.zip/node_modules/@commitlint/rules/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/@commitlint-rules-npm-17.6.5-8317b1f8b5-7f62c59415.zip/node_modules/@commitlint/rules/",\
           "packageDependencies": [\
-            ["@commitlint/rules", "npm:17.6.1"],\
+            ["@commitlint/rules", "npm:17.6.5"],\
             ["@commitlint/ensure", "npm:17.4.4"],\
             ["@commitlint/message", "npm:17.4.2"],\
             ["@commitlint/to-lines", "npm:17.4.0"],\
@@ -534,40 +592,40 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@docsearch/css", [\
-        ["npm:3.3.5", {\
-          "packageLocation": "./.yarn/cache/@docsearch-css-npm-3.3.5-085a873116-4ed57fe501.zip/node_modules/@docsearch/css/",\
+        ["npm:3.5.0", {\
+          "packageLocation": "./.yarn/cache/@docsearch-css-npm-3.5.0-2d45a38bca-07e4b207f1.zip/node_modules/@docsearch/css/",\
           "packageDependencies": [\
-            ["@docsearch/css", "npm:3.3.5"]\
+            ["@docsearch/css", "npm:3.5.0"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@docsearch/js", [\
-        ["npm:3.3.5", {\
-          "packageLocation": "./.yarn/cache/@docsearch-js-npm-3.3.5-53d612b454-95950b4609.zip/node_modules/@docsearch/js/",\
+        ["npm:3.5.0", {\
+          "packageLocation": "./.yarn/cache/@docsearch-js-npm-3.5.0-409e2fa81c-f21fcd7a63.zip/node_modules/@docsearch/js/",\
           "packageDependencies": [\
-            ["@docsearch/js", "npm:3.3.5"],\
-            ["@docsearch/react", "virtual:53d612b4544eb8eef58be526c328e28a59996228a71680863216ba0d0b3b26cf6d8bad828a9a005f4735c61dc206d2949523bc98df8de49f8cfa055cedff5014#npm:3.3.5"],\
+            ["@docsearch/js", "npm:3.5.0"],\
+            ["@docsearch/react", "virtual:409e2fa81cb6f60ba340c02d319026423aa56271a27889867cc5a66e445939e88c2226538c969da804b5b61975f3dcf110acd167e7b1c053b0542ac516342b52#npm:3.5.0"],\
             ["preact", "npm:10.13.1"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@docsearch/react", [\
-        ["npm:3.3.5", {\
-          "packageLocation": "./.yarn/cache/@docsearch-react-npm-3.3.5-ee88c734f1-9786fa969a.zip/node_modules/@docsearch/react/",\
+        ["npm:3.5.0", {\
+          "packageLocation": "./.yarn/cache/@docsearch-react-npm-3.5.0-2558ccceb2-33cb27c2b5.zip/node_modules/@docsearch/react/",\
           "packageDependencies": [\
-            ["@docsearch/react", "npm:3.3.5"]\
+            ["@docsearch/react", "npm:3.5.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:53d612b4544eb8eef58be526c328e28a59996228a71680863216ba0d0b3b26cf6d8bad828a9a005f4735c61dc206d2949523bc98df8de49f8cfa055cedff5014#npm:3.3.5", {\
-          "packageLocation": "./.yarn/__virtual__/@docsearch-react-virtual-810125df35/0/cache/@docsearch-react-npm-3.3.5-ee88c734f1-9786fa969a.zip/node_modules/@docsearch/react/",\
+        ["virtual:409e2fa81cb6f60ba340c02d319026423aa56271a27889867cc5a66e445939e88c2226538c969da804b5b61975f3dcf110acd167e7b1c053b0542ac516342b52#npm:3.5.0", {\
+          "packageLocation": "./.yarn/__virtual__/@docsearch-react-virtual-4b4a9b97a5/0/cache/@docsearch-react-npm-3.5.0-2558ccceb2-33cb27c2b5.zip/node_modules/@docsearch/react/",\
           "packageDependencies": [\
-            ["@docsearch/react", "virtual:53d612b4544eb8eef58be526c328e28a59996228a71680863216ba0d0b3b26cf6d8bad828a9a005f4735c61dc206d2949523bc98df8de49f8cfa055cedff5014#npm:3.3.5"],\
-            ["@algolia/autocomplete-core", "npm:1.8.2"],\
-            ["@algolia/autocomplete-preset-algolia", "virtual:810125df352dd611a737ab78670f668291af45a9f9f43c3f6d1c8b7d0a434f36d9754d2a9e4473edc415b58f496d5d8ea4333e0464d139ad38de48a607370918#npm:1.8.2"],\
-            ["@docsearch/css", "npm:3.3.5"],\
+            ["@docsearch/react", "virtual:409e2fa81cb6f60ba340c02d319026423aa56271a27889867cc5a66e445939e88c2226538c969da804b5b61975f3dcf110acd167e7b1c053b0542ac516342b52#npm:3.5.0"],\
+            ["@algolia/autocomplete-core", "npm:1.9.2"],\
+            ["@algolia/autocomplete-preset-algolia", "virtual:4b4a9b97a50f0008550bc6fe72e630c3e28198c2d2718b1e4b5f4c0e54a7a7a68299ba6dfc920f40a0f083d12799cb92fca6ecf4fda20335bbf3318e18d8cd86#npm:1.9.2"],\
+            ["@docsearch/css", "npm:3.5.0"],\
             ["@types/react", null],\
             ["@types/react-dom", null],\
             ["algoliasearch", "npm:4.15.0"],\
@@ -919,17 +977,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:18.16.12", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.16.12-465eacba4d-90b316c097.zip/node_modules/@types/node/",\
+        ["npm:18.16.17", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.16.17-9aa686b2c3-2f7e3a552d.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:18.16.12"]\
+            ["@types/node", "npm:18.16.17"]\
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:20.1.7", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-20.1.7-5b16f346c1-b722794290.zip/node_modules/@types/node/",\
+        ["npm:20.2.6", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-20.2.6-2361edc0b5-5222bceb18.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:20.1.7"]\
+            ["@types/node", "npm:20.2.6"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -960,13 +1018,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.2.3", {\
-          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-a62c9507ad/0/cache/@vitejs-plugin-vue-npm-4.2.3-f2af5ce2fe-1c70c1cd18.zip/node_modules/@vitejs/plugin-vue/",\
+        ["virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.2.3", {\
+          "packageLocation": "./.yarn/__virtual__/@vitejs-plugin-vue-virtual-289cf832b8/0/cache/@vitejs-plugin-vue-npm-4.2.3-f2af5ce2fe-1c70c1cd18.zip/node_modules/@vitejs/plugin-vue/",\
           "packageDependencies": [\
-            ["@vitejs/plugin-vue", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.2.3"],\
+            ["@vitejs/plugin-vue", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.2.3"],\
             ["@types/vite", null],\
             ["@types/vue", null],\
-            ["vite", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.3.8"],\
+            ["vite", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.3.9"],\
             ["vue", "npm:3.3.4"]\
           ],\
           "packagePeers": [\
@@ -979,17 +1037,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/compiler-core", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-compiler-core-npm-3.3.2-676d62e286-fd6e8225e1.zip/node_modules/@vue/compiler-core/",\
-          "packageDependencies": [\
-            ["@vue/compiler-core", "npm:3.3.2"],\
-            ["@babel/parser", "npm:7.21.8"],\
-            ["@vue/shared", "npm:3.3.2"],\
-            ["estree-walker", "npm:2.0.2"],\
-            ["source-map-js", "npm:1.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-compiler-core-npm-3.3.4-e514bded25-5437942ea6.zip/node_modules/@vue/compiler-core/",\
           "packageDependencies": [\
@@ -1003,15 +1050,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/compiler-dom", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-compiler-dom-npm-3.3.2-4b1766057a-de77f14fed.zip/node_modules/@vue/compiler-dom/",\
-          "packageDependencies": [\
-            ["@vue/compiler-dom", "npm:3.3.2"],\
-            ["@vue/compiler-core", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-compiler-dom-npm-3.3.4-029250af79-1c2ac0c89d.zip/node_modules/@vue/compiler-dom/",\
           "packageDependencies": [\
@@ -1023,23 +1061,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/compiler-sfc", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-compiler-sfc-npm-3.3.2-cec34fccba-759edbd65a.zip/node_modules/@vue/compiler-sfc/",\
-          "packageDependencies": [\
-            ["@vue/compiler-sfc", "npm:3.3.2"],\
-            ["@babel/parser", "npm:7.21.8"],\
-            ["@vue/compiler-core", "npm:3.3.2"],\
-            ["@vue/compiler-dom", "npm:3.3.2"],\
-            ["@vue/compiler-ssr", "npm:3.3.2"],\
-            ["@vue/reactivity-transform", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"],\
-            ["estree-walker", "npm:2.0.2"],\
-            ["magic-string", "npm:0.30.0"],\
-            ["postcss", "npm:8.4.21"],\
-            ["source-map-js", "npm:1.0.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-compiler-sfc-npm-3.3.4-783aff746b-0a0adfdd3e.zip/node_modules/@vue/compiler-sfc/",\
           "packageDependencies": [\
@@ -1059,15 +1080,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/compiler-ssr", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-compiler-ssr-npm-3.3.2-17f0080fa5-e2591945c7.zip/node_modules/@vue/compiler-ssr/",\
-          "packageDependencies": [\
-            ["@vue/compiler-ssr", "npm:3.3.2"],\
-            ["@vue/compiler-dom", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-compiler-ssr-npm-3.3.4-9c5036c29f-5d1875d55e.zip/node_modules/@vue/compiler-ssr/",\
           "packageDependencies": [\
@@ -1088,14 +1100,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/reactivity", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-reactivity-npm-3.3.2-2b870dcd86-c25995fbee.zip/node_modules/@vue/reactivity/",\
-          "packageDependencies": [\
-            ["@vue/reactivity", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-reactivity-npm-3.3.4-4bb841d3a9-81c3d0c587.zip/node_modules/@vue/reactivity/",\
           "packageDependencies": [\
@@ -1106,18 +1110,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/reactivity-transform", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-reactivity-transform-npm-3.3.2-2a855a16f8-847be515a3.zip/node_modules/@vue/reactivity-transform/",\
-          "packageDependencies": [\
-            ["@vue/reactivity-transform", "npm:3.3.2"],\
-            ["@babel/parser", "npm:7.21.8"],\
-            ["@vue/compiler-core", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"],\
-            ["estree-walker", "npm:2.0.2"],\
-            ["magic-string", "npm:0.30.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-reactivity-transform-npm-3.3.4-bfbf394bf7-b425e78b20.zip/node_modules/@vue/reactivity-transform/",\
           "packageDependencies": [\
@@ -1132,15 +1124,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/runtime-core", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-runtime-core-npm-3.3.2-24f0325613-dd54510722.zip/node_modules/@vue/runtime-core/",\
-          "packageDependencies": [\
-            ["@vue/runtime-core", "npm:3.3.2"],\
-            ["@vue/reactivity", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-runtime-core-npm-3.3.4-4a56fcce5e-d402da5126.zip/node_modules/@vue/runtime-core/",\
           "packageDependencies": [\
@@ -1152,16 +1135,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/runtime-dom", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-runtime-dom-npm-3.3.2-891223df36-c5ea9be470.zip/node_modules/@vue/runtime-dom/",\
-          "packageDependencies": [\
-            ["@vue/runtime-dom", "npm:3.3.2"],\
-            ["@vue/runtime-core", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"],\
-            ["csstype", "npm:3.1.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-runtime-dom-npm-3.3.4-554b8c4277-dac9ada7f6.zip/node_modules/@vue/runtime-dom/",\
           "packageDependencies": [\
@@ -1174,13 +1147,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@vue/server-renderer", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-server-renderer-npm-3.3.2-14b32d753a-b976ef9155.zip/node_modules/@vue/server-renderer/",\
-          "packageDependencies": [\
-            ["@vue/server-renderer", "npm:3.3.2"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-server-renderer-npm-3.3.4-75b963f24d-e8598ed1a4.zip/node_modules/@vue/server-renderer/",\
           "packageDependencies": [\
@@ -1202,31 +1168,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "vue"\
           ],\
           "linkType": "HARD"\
-        }],\
-        ["virtual:5b840a0cf73c08af23ca96626fd366b0a1426d5fb1323c0970a74b6cdf7933f90cc36c99101bd983a24aab53cc0e8953d23d0681228cee2de5b0eb76ce2c4114#npm:3.3.2", {\
-          "packageLocation": "./.yarn/__virtual__/@vue-server-renderer-virtual-75873066a7/0/cache/@vue-server-renderer-npm-3.3.2-14b32d753a-b976ef9155.zip/node_modules/@vue/server-renderer/",\
-          "packageDependencies": [\
-            ["@vue/server-renderer", "virtual:5b840a0cf73c08af23ca96626fd366b0a1426d5fb1323c0970a74b6cdf7933f90cc36c99101bd983a24aab53cc0e8953d23d0681228cee2de5b0eb76ce2c4114#npm:3.3.2"],\
-            ["@types/vue", null],\
-            ["@vue/compiler-ssr", "npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"],\
-            ["vue", "npm:3.3.2"]\
-          ],\
-          "packagePeers": [\
-            "@types/vue",\
-            "vue"\
-          ],\
-          "linkType": "HARD"\
         }]\
       ]],\
       ["@vue/shared", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/@vue-shared-npm-3.3.2-665a680700-b142c41018.zip/node_modules/@vue/shared/",\
-          "packageDependencies": [\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/@vue-shared-npm-3.3.4-76d250afa2-12fe53ff81.zip/node_modules/@vue/shared/",\
           "packageDependencies": [\
@@ -1256,10 +1200,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:10.1.2", {\
-          "packageLocation": "./.yarn/__virtual__/@vueuse-integrations-virtual-8e551b295a/0/cache/@vueuse-integrations-npm-10.1.2-1dbf536d3f-6f4a1f5eda.zip/node_modules/@vueuse/integrations/",\
+        ["virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:10.1.2", {\
+          "packageLocation": "./.yarn/__virtual__/@vueuse-integrations-virtual-078740829d/0/cache/@vueuse-integrations-npm-10.1.2-1dbf536d3f-6f4a1f5eda.zip/node_modules/@vueuse/integrations/",\
           "packageDependencies": [\
-            ["@vueuse/integrations", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:10.1.2"],\
+            ["@vueuse/integrations", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:10.1.2"],\
             ["@types/async-validator", null],\
             ["@types/axios", null],\
             ["@types/change-case", null],\
@@ -1278,7 +1222,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["axios", null],\
             ["change-case", null],\
             ["drauu", null],\
-            ["focus-trap", "npm:7.4.2"],\
+            ["focus-trap", "npm:7.4.3"],\
             ["fuse.js", null],\
             ["idb-keyval", null],\
             ["jwt-decode", null],\
@@ -1740,11 +1684,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["commitlint", [\
-        ["npm:17.6.3", {\
-          "packageLocation": "./.yarn/cache/commitlint-npm-17.6.3-35c00d548e-b32967700e.zip/node_modules/commitlint/",\
+        ["npm:17.6.5", {\
+          "packageLocation": "./.yarn/cache/commitlint-npm-17.6.5-b21514f90f-97f6937b6c.zip/node_modules/commitlint/",\
           "packageDependencies": [\
-            ["commitlint", "npm:17.6.3"],\
-            ["@commitlint/cli", "npm:17.6.3"],\
+            ["commitlint", "npm:17.6.5"],\
+            ["@commitlint/cli", "npm:17.6.5"],\
             ["@commitlint/types", "npm:17.4.4"]\
           ],\
           "linkType": "HARD"\
@@ -1861,7 +1805,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["cosmiconfig-typescript-loader", "virtual:ef6136dc31186c42f92851afb237eadaa9d36085920cabb6ed6ea317680c8271d6b94afcb795fd7e58c08243e470be87ece6bb707daf3ecb0604f7fd8c1aa682#npm:4.3.0"],\
             ["@types/cosmiconfig", null],\
-            ["@types/node", "npm:20.1.7"],\
+            ["@types/node", "npm:20.2.6"],\
             ["@types/ts-node", null],\
             ["@types/typescript", null],\
             ["cosmiconfig", "npm:8.1.3"],\
@@ -2914,10 +2858,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["focus-trap", [\
-        ["npm:7.4.2", {\
-          "packageLocation": "./.yarn/cache/focus-trap-npm-7.4.2-968bd41e71-d34d66c06f.zip/node_modules/focus-trap/",\
+        ["npm:7.4.3", {\
+          "packageLocation": "./.yarn/cache/focus-trap-npm-7.4.3-d9a5670e97-3426a46b6e.zip/node_modules/focus-trap/",\
           "packageDependencies": [\
-            ["focus-trap", "npm:7.4.2"],\
+            ["focus-trap", "npm:7.4.3"],\
             ["tabbable", "npm:6.1.2"]\
           ],\
           "linkType": "HARD"\
@@ -4817,7 +4761,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@tsconfig/node12", "npm:1.0.11"],\
             ["@tsconfig/node14", "npm:1.0.3"],\
             ["@tsconfig/node16", "npm:1.0.3"],\
-            ["@types/node", "npm:20.1.7"],\
+            ["@types/node", "npm:20.2.6"],\
             ["@types/swc__core", null],\
             ["@types/swc__wasm", null],\
             ["@types/typescript", null],\
@@ -4848,16 +4792,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["tuhura-tech-wiki", "workspace:."],\
-            ["@commitlint/config-conventional", "npm:17.6.3"],\
+            ["@commitlint/config-conventional", "npm:17.6.5"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.16.12"],\
-            ["commitlint", "npm:17.6.3"],\
+            ["@types/node", "npm:18.16.17"],\
+            ["commitlint", "npm:17.6.5"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-beta.1"],\
+            ["vitepress", "npm:1.0.0-beta.2"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.10"],\
-            ["vue", "npm:3.3.2"]\
+            ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -4963,17 +4907,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vite", [\
-        ["npm:4.3.8", {\
-          "packageLocation": "./.yarn/cache/vite-npm-4.3.8-6b9e975795-454a7c0c1b.zip/node_modules/vite/",\
+        ["npm:4.3.9", {\
+          "packageLocation": "./.yarn/cache/vite-npm-4.3.9-24f3552941-8c45a51627.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "npm:4.3.8"]\
+            ["vite", "npm:4.3.9"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.3.8", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-abb538fec5/0/cache/vite-npm-4.3.8-6b9e975795-454a7c0c1b.zip/node_modules/vite/",\
+        ["virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.3.9", {\
+          "packageLocation": "./.yarn/__virtual__/vite-virtual-a99ba35258/0/cache/vite-npm-4.3.9-24f3552941-8c45a51627.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.3.8"],\
+            ["vite", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.3.9"],\
             ["@types/less", null],\
             ["@types/node", null],\
             ["@types/sass", null],\
@@ -5007,22 +4951,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vitepress", [\
-        ["npm:1.0.0-beta.1", {\
-          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-beta.1-bc08a5b7a8-bbb2c666cf.zip/node_modules/vitepress/",\
+        ["npm:1.0.0-beta.2", {\
+          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-beta.2-c41d529329-0259402b71.zip/node_modules/vitepress/",\
           "packageDependencies": [\
-            ["vitepress", "npm:1.0.0-beta.1"],\
-            ["@docsearch/css", "npm:3.3.5"],\
-            ["@docsearch/js", "npm:3.3.5"],\
-            ["@vitejs/plugin-vue", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.2.3"],\
+            ["vitepress", "npm:1.0.0-beta.2"],\
+            ["@docsearch/css", "npm:3.5.0"],\
+            ["@docsearch/js", "npm:3.5.0"],\
+            ["@vitejs/plugin-vue", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.2.3"],\
             ["@vue/devtools-api", "npm:6.5.0"],\
             ["@vueuse/core", "npm:10.1.2"],\
-            ["@vueuse/integrations", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:10.1.2"],\
+            ["@vueuse/integrations", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:10.1.2"],\
             ["body-scroll-lock", "npm:4.0.0-beta.0"],\
-            ["focus-trap", "npm:7.4.2"],\
+            ["focus-trap", "npm:7.4.3"],\
             ["mark.js", "npm:8.11.1"],\
             ["minisearch", "npm:6.1.0"],\
             ["shiki", "npm:0.14.2"],\
-            ["vite", "virtual:bc08a5b7a8527872031d01cd07568e67ff22701631b1ab610f8805f3816523cc6b55d2f978440fe08fc93c1ed448cd6de1afc7c78c1896d02d69be40e12ba025#npm:4.3.8"],\
+            ["vite", "virtual:c41d529329f43897839687bb0648ee9ac002d40920a95764f412f85c772332fef360c8c40cacd8425686227c5614a09064e05c2ff424c7439c1f606545d6b0a8#npm:4.3.9"],\
             ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "HARD"\
@@ -5043,7 +4987,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mermaid", null],\
             ["@types/vitepress", null],\
             ["mermaid", "npm:9.1.7"],\
-            ["vitepress", "npm:1.0.0-beta.1"]\
+            ["vitepress", "npm:1.0.0-beta.2"]\
           ],\
           "packagePeers": [\
             "@types/mermaid",\
@@ -5073,18 +5017,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vue", [\
-        ["npm:3.3.2", {\
-          "packageLocation": "./.yarn/cache/vue-npm-3.3.2-5b840a0cf7-fa4f52d56b.zip/node_modules/vue/",\
-          "packageDependencies": [\
-            ["vue", "npm:3.3.2"],\
-            ["@vue/compiler-dom", "npm:3.3.2"],\
-            ["@vue/compiler-sfc", "npm:3.3.2"],\
-            ["@vue/runtime-dom", "npm:3.3.2"],\
-            ["@vue/server-renderer", "virtual:5b840a0cf73c08af23ca96626fd366b0a1426d5fb1323c0970a74b6cdf7933f90cc36c99101bd983a24aab53cc0e8953d23d0681228cee2de5b0eb76ce2c4114#npm:3.3.2"],\
-            ["@vue/shared", "npm:3.3.2"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:3.3.4", {\
           "packageLocation": "./.yarn/cache/vue-npm-3.3.4-174fadbea4-58b6c62a66.zip/node_modules/vue/",\
           "packageDependencies": [\
