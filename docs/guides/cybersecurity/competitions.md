@@ -42,6 +42,7 @@ Reverse Engineering is the process of taking a compiled binary and turning it ba
 
 - [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
 - [Binary Ninja](https://binary.ninja/) - Binary Ninja is a multi-platform binary analysis tool. It has a nicer UI than Ghidra however is ot Open Source or free.
+- [Dog Bolt](https://dogbolt.org) - An online decompiler made by the developers of binary Ninja that shows the result of using 11 different decompilers in one tool.
 
 ### Web
 
@@ -56,7 +57,7 @@ Web challenges are normally about finding vulnerabilities in a website and explo
 Crypto challenges are normally about finding the key to decrypt a message.
 
 - [CyberChef](https://gchq.github.io/CyberChef/) - CyberChef is a web application that allows you to perform a range of different operations on data.
-- [dcode](https://www.dcode.fr/) - dcode is a web application with a focus on cryptography. It has a range of different tools for different types of crypto challenges.
+- [dcode](https://www.dcode.fr/) - dcode is a web application with a focus on cryptography. It has a range of different tools for different types of crypto challenges. Most useful from decode is probably the ciper identifier which attempts to guess what type of cipher something is.
 
 ### Forensics
 
@@ -82,6 +83,8 @@ Steganography is the process of hiding information in images.
 - [Stegsolve](https://github.com/Giotino/stegsolve/releases) - Stegsolve is a tool for analysing and visualising images.
 - [Steghide](http://steghide.sourceforge.net/) - Steghide is a tool for hiding information in images.
 - [Stegseek](https://github.com/RickdeJager/stegseek) - Worlds fastest steghide cracker, chewing through millions of passwords per second.
+- [AperiSolve](https://www.aperisolve.com/) - An online tool that runs: zsteg, steghide, outguess, exiftool, binwalk, foremost, and strings all in one application.
+
 
 ### Misc
 
