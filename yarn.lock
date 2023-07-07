@@ -4321,8 +4321,8 @@ __metadata:
   linkType: hard
 
 "vitepress-plugin-mermaid@npm:^2.0.10":
-  version: 2.0.11
-  resolution: "vitepress-plugin-mermaid@npm:2.0.11"
+  version: 2.0.13
+  resolution: "vitepress-plugin-mermaid@npm:2.0.13"
   dependencies:
     "@mermaid-js/mermaid-mindmap": ^9.3.0
   peerDependencies:
@@ -4331,7 +4331,7 @@ __metadata:
   dependenciesMeta:
     "@mermaid-js/mermaid-mindmap":
       optional: true
-  checksum: a17f2f5ac02fa7610ef5d94f22974a61826b883a7a868853406874320fd910df0e88622380515acf863815891742e7092b22f023327c69aec47481d577c752a7
+  checksum: 3dc071f1da3296d5d47f1ec08812864f0f2cd192d72d88dd7943dccec2100e98a44e05d343a28363c80bb78e93633b97486b882c8c77043008f9fe6e12d2d816
   languageName: node
   linkType: hard
 
