@@ -36,7 +36,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
             ["vitepress", "npm:1.0.0-rc.4"],\
-            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.13"],\
+            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14"],\
             ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "SOFT"\
@@ -4786,7 +4786,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
             ["vitepress", "npm:1.0.0-rc.4"],\
-            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.13"],\
+            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14"],\
             ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "SOFT"\
@@ -4963,17 +4963,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vitepress-plugin-mermaid", [\
-        ["npm:2.0.13", {\
-          "packageLocation": "./.yarn/cache/vitepress-plugin-mermaid-npm-2.0.13-028d4b7ebc-3dc071f1da.zip/node_modules/vitepress-plugin-mermaid/",\
+        ["npm:2.0.14", {\
+          "packageLocation": "./.yarn/cache/vitepress-plugin-mermaid-npm-2.0.14-4ce2ad4e1b-7722345784.zip/node_modules/vitepress-plugin-mermaid/",\
           "packageDependencies": [\
-            ["vitepress-plugin-mermaid", "npm:2.0.13"]\
+            ["vitepress-plugin-mermaid", "npm:2.0.14"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.13", {\
-          "packageLocation": "./.yarn/__virtual__/vitepress-plugin-mermaid-virtual-c9550b77d7/0/cache/vitepress-plugin-mermaid-npm-2.0.13-028d4b7ebc-3dc071f1da.zip/node_modules/vitepress-plugin-mermaid/",\
+        ["virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14", {\
+          "packageLocation": "./.yarn/__virtual__/vitepress-plugin-mermaid-virtual-93749ac2d6/0/cache/vitepress-plugin-mermaid-npm-2.0.14-4ce2ad4e1b-7722345784.zip/node_modules/vitepress-plugin-mermaid/",\
           "packageDependencies": [\
-            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.13"],\
+            ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
             ["@types/mermaid", null],\
             ["@types/vitepress", null],\
