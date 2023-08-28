@@ -906,7 +906,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:10.4.1, @vueuse/core@npm:^10.4.0":
+"@vueuse/core@npm:10.4.1, @vueuse/core@npm:^10.4.1":
   version: 10.4.1
   resolution: "@vueuse/core@npm:10.4.1"
   dependencies:
@@ -918,7 +918,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/integrations@npm:^10.4.0":
+"@vueuse/integrations@npm:^10.4.1":
   version: 10.4.1
   resolution: "@vueuse/integrations@npm:10.4.1"
   dependencies:
@@ -4310,14 +4310,14 @@ __metadata:
   linkType: hard
 
 "vitepress@npm:^1.0.0-alpha.61":
-  version: 1.0.0-rc.9
-  resolution: "vitepress@npm:1.0.0-rc.9"
+  version: 1.0.0-rc.10
+  resolution: "vitepress@npm:1.0.0-rc.10"
   dependencies:
     "@docsearch/css": ^3.5.2
     "@docsearch/js": ^3.5.2
     "@vue/devtools-api": ^6.5.0
-    "@vueuse/core": ^10.4.0
-    "@vueuse/integrations": ^10.4.0
+    "@vueuse/core": ^10.4.1
+    "@vueuse/integrations": ^10.4.1
     focus-trap: ^7.5.2
     mark.js: 8.11.1
     minisearch: ^6.1.0
@@ -4326,7 +4326,7 @@ __metadata:
     vue: ^3.3.4
   bin:
     vitepress: bin/vitepress.js
-  checksum: bd8f9e8cc4b16874b12f2cc4fe48e8d84ea2b5314d661acde90847e3058d4795d7732b3282960d283505258bb5f57884fa965780e795eb5596ffe271f822ab9f
+  checksum: 20b9d3742db8c7c1e8e2656280b94007bdac0fdf31c95860177b0a431f2916fe5aa565789800201adc11340c40839ec4cc47431d5ce4747877832e7973fe9cbc
   languageName: node
   linkType: hard
 
