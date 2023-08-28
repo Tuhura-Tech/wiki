@@ -35,7 +35,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-rc.8"],\
+            ["vitepress", "npm:1.0.0-rc.9"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14"],\
             ["vue", "npm:3.3.4"]\
           ],\
@@ -1178,10 +1178,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:10.4.1", {\
-          "packageLocation": "./.yarn/__virtual__/@vueuse-integrations-virtual-8604510cb0/0/cache/@vueuse-integrations-npm-10.4.1-b27b0e743b-512dc08e21.zip/node_modules/@vueuse/integrations/",\
+        ["virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:10.4.1", {\
+          "packageLocation": "./.yarn/__virtual__/@vueuse-integrations-virtual-d943b1b833/0/cache/@vueuse-integrations-npm-10.4.1-b27b0e743b-512dc08e21.zip/node_modules/@vueuse/integrations/",\
           "packageDependencies": [\
-            ["@vueuse/integrations", "virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:10.4.1"],\
+            ["@vueuse/integrations", "virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:10.4.1"],\
             ["@types/async-validator", null],\
             ["@types/axios", null],\
             ["@types/change-case", null],\
@@ -4754,7 +4754,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
             ["pinst", "npm:3.0.0"],\
-            ["vitepress", "npm:1.0.0-rc.8"],\
+            ["vitepress", "npm:1.0.0-rc.9"],\
             ["vitepress-plugin-mermaid", "virtual:5a0a75f3c5ca95ce1591d24fd4b64dd9673a29e11ffa4ea09b3e149f7b7c13ad6ea26dfb7f4306cad92c191da7a85a9f1ca8ede5ac7096aa15554318f9b6efc5#npm:2.0.14"],\
             ["vue", "npm:3.3.4"]\
           ],\
@@ -4869,10 +4869,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:4.4.9", {\
-          "packageLocation": "./.yarn/__virtual__/vite-virtual-f1d31aecca/0/cache/vite-npm-4.4.9-e845c1bbf8-c511024cea.zip/node_modules/vite/",\
+        ["virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:4.4.9", {\
+          "packageLocation": "./.yarn/__virtual__/vite-virtual-a4e6df0097/0/cache/vite-npm-4.4.9-e845c1bbf8-c511024cea.zip/node_modules/vite/",\
           "packageDependencies": [\
-            ["vite", "virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:4.4.9"],\
+            ["vite", "virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:4.4.9"],\
             ["@types/less", null],\
             ["@types/lightningcss", null],\
             ["@types/node", null],\
@@ -4910,20 +4910,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["vitepress", [\
-        ["npm:1.0.0-rc.8", {\
-          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-rc.8-42587606c5-51d0158d7a.zip/node_modules/vitepress/",\
+        ["npm:1.0.0-rc.9", {\
+          "packageLocation": "./.yarn/cache/vitepress-npm-1.0.0-rc.9-71f1ef5a9f-bd8f9e8cc4.zip/node_modules/vitepress/",\
           "packageDependencies": [\
-            ["vitepress", "npm:1.0.0-rc.8"],\
+            ["vitepress", "npm:1.0.0-rc.9"],\
             ["@docsearch/css", "npm:3.5.2"],\
             ["@docsearch/js", "npm:3.5.2"],\
             ["@vue/devtools-api", "npm:6.5.0"],\
             ["@vueuse/core", "npm:10.4.1"],\
-            ["@vueuse/integrations", "virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:10.4.1"],\
+            ["@vueuse/integrations", "virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:10.4.1"],\
             ["focus-trap", "npm:7.5.2"],\
             ["mark.js", "npm:8.11.1"],\
             ["minisearch", "npm:6.1.0"],\
             ["shiki", "npm:0.14.3"],\
-            ["vite", "virtual:42587606c5952c2a688101c97a30306ecaf1a858e5d1ff8042a02f5d06247228bd6611b4392e550ad1ed9238ebadd355eaf6a26b9354b0fb50cbf5485e54199d#npm:4.4.9"],\
+            ["vite", "virtual:71f1ef5a9fe8faae0e413425f4d6c0d6c775447158b01f5cb2c277c278d6f577063fce04f9a9ab9772747469f4f77fe280bf0d27c6f9ba361a0f351fd5b9ab7e#npm:4.4.9"],\
             ["vue", "npm:3.3.4"]\
           ],\
           "linkType": "HARD"\
@@ -4945,7 +4945,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/mermaid", null],\
             ["@types/vitepress", null],\
             ["mermaid", "npm:9.1.7"],\
-            ["vitepress", "npm:1.0.0-rc.8"]\
+            ["vitepress", "npm:1.0.0-rc.9"]\
           ],\
           "packagePeers": [\
             "@types/mermaid",\
