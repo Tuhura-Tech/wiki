@@ -4310,8 +4310,8 @@ __metadata:
   linkType: hard
 
 "vitepress@npm:^1.0.0-alpha.61":
-  version: 1.0.0-rc.8
-  resolution: "vitepress@npm:1.0.0-rc.8"
+  version: 1.0.0-rc.9
+  resolution: "vitepress@npm:1.0.0-rc.9"
   dependencies:
     "@docsearch/css": ^3.5.2
     "@docsearch/js": ^3.5.2
@@ -4326,7 +4326,7 @@ __metadata:
     vue: ^3.3.4
   bin:
     vitepress: bin/vitepress.js
-  checksum: 51d0158d7a81583f0035970665a5f629673bc1ba2e2b1cd09467369a9d0ed5e59056b06b40751a29cdfa01a555669c687b4db44a29c08a14f6df2082b7a86859
+  checksum: bd8f9e8cc4b16874b12f2cc4fe48e8d84ea2b5314d661acde90847e3058d4795d7732b3282960d283505258bb5f57884fa965780e795eb5596ffe271f822ab9f
   languageName: node
   linkType: hard
 
