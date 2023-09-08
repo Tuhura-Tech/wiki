@@ -30,7 +30,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@commitlint/config-conventional", "npm:17.7.0"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.17.5"],\
+            ["@types/node", "npm:18.17.15"],\
             ["commitlint", "npm:17.7.1"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
@@ -981,10 +981,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/node", [\
-        ["npm:18.17.5", {\
-          "packageLocation": "./.yarn/cache/@types-node-npm-18.17.5-e736eb2acc-b8c658a992.zip/node_modules/@types/node/",\
+        ["npm:18.17.15", {\
+          "packageLocation": "./.yarn/cache/@types-node-npm-18.17.15-eb331be5c4-eed11d4398.zip/node_modules/@types/node/",\
           "packageDependencies": [\
-            ["@types/node", "npm:18.17.5"]\
+            ["@types/node", "npm:18.17.15"]\
           ],\
           "linkType": "HARD"\
         }],\
@@ -4749,7 +4749,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tuhura-tech-wiki", "workspace:."],\
             ["@commitlint/config-conventional", "npm:17.7.0"],\
             ["@mermaid-js/mermaid-mindmap", "npm:9.3.0"],\
-            ["@types/node", "npm:18.17.5"],\
+            ["@types/node", "npm:18.17.15"],\
             ["commitlint", "npm:17.7.1"],\
             ["husky", "npm:8.0.3"],\
             ["mermaid", "npm:9.1.7"],\
