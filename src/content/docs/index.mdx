@@ -1,0 +1,46 @@
+---
+title: Tūhura Tech Wiki
+description: Free and public resources from Tūhura Tech for NZ Students.
+template: splash
+hero:
+  tagline: Supporting the next generation of students!
+  image:
+    file: ../../assets/logo.svg
+  actions:
+    - text: Example Guide
+      link: ./guides/cybersecurity/competitions
+      icon: right-arrow
+      variant: primary
+    - text: Read the Starlight docs
+      link: https://starlight.astro.build
+      icon: external
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+import AboutTuhura from "../../components/about-tuhura.astro";
+
+## Resorces
+
+<CardGrid stagger>
+  <Card title="NCEA Content" icon="open-book">
+    A collection of curated and supported resources by the Tūhura Tech and our
+    partner schools to support NCEA DigiTech.
+  </Card>
+  <Card title="Programming Guides" icon="add-document">
+    Guides on getting started in python, cybersecurity, 3D Printing and more.
+  </Card>
+  <Card title="Projects" icon="setting">
+    Cool projects and guides created by staff and students.
+  </Card>
+  <Card title="Tūhura Tech Resources" icon="open-book">
+    Resources for how we run our sessions.
+  </Card>
+</CardGrid>
+
+<AboutTuhura title="Brought to you by">
+Tūhura Tech is a Aotearoa based charity focused on technology education.
+Pull your content from anywhere and deploy everywhere, all powered by your favorite UI components and libraries.
+
+[About Tūhura Tech](https://tuhuratech.org.nz/)
+
+</AboutTuhura>
