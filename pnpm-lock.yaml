@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   '@astrojs/starlight':
-    specifier: ^0.7.3
-    version: 0.7.3(astro@2.10.15)
+    specifier: ^0.10.0
+    version: 0.10.0(astro@2.10.15)
   '@astrojs/starlight-tailwind':
     specifier: ^2.0.0
-    version: 2.0.0(@astrojs/starlight@0.7.3)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3)
+    version: 2.0.0(@astrojs/starlight@0.10.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3)
   '@astrojs/tailwind':
     specifier: ^5.0.0
     version: 5.0.0(astro@2.10.15)(tailwindcss@3.3.3)(ts-node@10.9.1)
@@ -118,30 +118,53 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/mdx@0.19.7(astro@2.10.15):
-    resolution: {integrity: sha512-mfEbBD7oi8yBHhcJucEjnrquREkJ3os+jioURP8BR2B8tOV2rV2j8trvmLUgfS+P/+HevGObxCTjcRYxn6T7eg==}
-    engines: {node: '>=16.12.0'}
+  /@astrojs/markdown-remark@3.2.0(astro@2.10.15):
+    resolution: {integrity: sha512-jigyLfefUZPKgVmmraCkVpdUuFH1R3SrpgQO13axsgwLDBgkggaQpNR5Ag4O9PDualeBtbdt30aYSfvnBKx9Hg==}
+    peerDependencies:
+      astro: ^3.1.0
     dependencies:
-      '@astrojs/markdown-remark': 2.2.1(astro@2.10.15)
-      '@astrojs/prism': 2.1.2
+      '@astrojs/prism': 3.0.0
+      astro: 2.10.15(@types/node@20.4.7)(sharp@0.32.5)
+      github-slugger: 2.0.0
+      import-meta-resolve: 3.0.0
+      mdast-util-definitions: 6.0.0
+      rehype-raw: 6.1.1
+      rehype-stringify: 9.0.4
+      remark-gfm: 3.0.1
+      remark-parse: 10.0.2
+      remark-rehype: 10.1.0
+      remark-smartypants: 2.0.0
+      shiki: 0.14.4
+      unified: 10.1.2
+      unist-util-visit: 4.1.2
+      vfile: 5.3.7
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@astrojs/mdx@1.1.0(astro@2.10.15):
+    resolution: {integrity: sha512-rmLZBw3CUCkp+5blBJloV2EqJGRaJTraJygWMfCvrLcCA3vzhwzACnVQKdUDlts8EEr6V6+HXYVqi46AVEfobg==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      astro: ^3.1.0
+    dependencies:
+      '@astrojs/markdown-remark': 3.2.0(astro@2.10.15)
       '@mdx-js/mdx': 2.3.0
       acorn: 8.10.0
+      astro: 2.10.15(@types/node@20.4.7)(sharp@0.32.5)
       es-module-lexer: 1.3.1
       estree-util-visit: 1.2.1
-      github-slugger: 1.5.0
+      github-slugger: 2.0.0
       gray-matter: 4.0.3
       hast-util-to-html: 8.0.4
       kleur: 4.1.5
       rehype-raw: 6.1.1
-      remark-frontmatter: 4.0.1
       remark-gfm: 3.0.1
       remark-smartypants: 2.0.0
-      shiki: 0.14.4
       source-map: 0.7.4
       unist-util-visit: 4.1.2
       vfile: 5.3.7
     transitivePeerDependencies:
-      - astro
       - supports-color
     dev: false
 
@@ -152,40 +175,47 @@ packages:
       prismjs: 1.29.0
     dev: false
 
-  /@astrojs/sitemap@1.4.0:
-    resolution: {integrity: sha512-uTK77kcg7iTiik+u7rTGG6vK4ZWTfYMaVnFndOVQrLzaE5xivmQgIbVLtlN+xRcME5n/m6vYQFJmogFR+elGCw==}
+  /@astrojs/prism@3.0.0:
+    resolution: {integrity: sha512-g61lZupWq1bYbcBnYZqdjndShr/J3l/oFobBKPA3+qMat146zce3nz2kdO4giGbhYDt4gYdhmoBz0vZJ4sIurQ==}
+    engines: {node: '>=18.14.1'}
     dependencies:
-      sitemap: 7.1.1
-      zod: 3.22.2
+      prismjs: 1.29.0
     dev: false
 
-  /@astrojs/starlight-tailwind@2.0.0(@astrojs/starlight@0.7.3)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3):
+  /@astrojs/sitemap@3.0.0:
+    resolution: {integrity: sha512-qm7npHuUW4q3OOmulqhJ1g69jEQu0Sdc6P8NbOzqIoosj/L+3v4i8dtKBnp6n1UQ4Sx8H8Vdi3Z/On7i9/ZJhw==}
+    dependencies:
+      sitemap: 7.1.1
+      zod: 3.21.1
+    dev: false
+
+  /@astrojs/starlight-tailwind@2.0.0(@astrojs/starlight@0.10.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3):
     resolution: {integrity: sha512-4nMAYpjygQAOHIEXqRCFqjxpqTiCt8vFVlfr+glrJL7JCFYaKod/KQQoY/ykPy1Ez/QTPp424vmNfDJXxZoBRw==}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       '@astrojs/tailwind': ^5.0.0
       tailwindcss: ^3.3.3
     dependencies:
-      '@astrojs/starlight': 0.7.3(astro@2.10.15)
+      '@astrojs/starlight': 0.10.0(astro@2.10.15)
       '@astrojs/tailwind': 5.0.0(astro@2.10.15)(tailwindcss@3.3.3)(ts-node@10.9.1)
       tailwindcss: 3.3.3(ts-node@10.9.1)
     dev: false
 
-  /@astrojs/starlight@0.7.3(astro@2.10.15):
-    resolution: {integrity: sha512-Er3MkdHkdxPhwk/JD34MKrz9q19ZSgXFNJacZRGDCaOVUwFiC/S6uAr4bOe29v2WKhJ4/uWVA2PUKOdxTotL9g==}
+  /@astrojs/starlight@0.10.0(astro@2.10.15):
+    resolution: {integrity: sha512-pYbtbGc2p3WoaFSERj/H55QSOKVZvOMPK457D2gwQkPHsNkFkuls2LpAsJgSSV/OCd7O+IWcB7vjV1KGVfExGA==}
     peerDependencies:
-      astro: ^2.5.0
+      astro: ^3.0.0
     dependencies:
-      '@astrojs/mdx': 0.19.7(astro@2.10.15)
-      '@astrojs/sitemap': 1.4.0
-      '@pagefind/default-ui': 1.0.1
+      '@astrojs/mdx': 1.1.0(astro@2.10.15)
+      '@astrojs/sitemap': 3.0.0
+      '@pagefind/default-ui': 1.0.2
       '@types/mdast': 3.0.12
       astro: 2.10.15(@types/node@20.4.7)(sharp@0.32.5)
       bcp-47: 2.1.0
       execa: 7.2.0
       hast-util-select: 5.0.5
       hastscript: 7.2.0
-      pagefind: 1.0.1
+      pagefind: 1.0.2
       rehype: 12.0.1
       remark-directive: 2.0.1
       unified: 10.1.2
@@ -1132,44 +1162,44 @@ packages:
       fastq: 1.15.0
     dev: false
 
-  /@pagefind/darwin-arm64@1.0.1:
-    resolution: {integrity: sha512-ueQK1OQkcvkz4KQSDDMCElMTFHRN/9AsA1Fo9ewL/I2jFjgqsGfEEr078loi2YrxYpjmhFcKxDxTHotjq8kIzA==}
+  /@pagefind/darwin-arm64@1.0.2:
+    resolution: {integrity: sha512-saHinnIbchShIeT7+fFe77k3cbtXxbLcK4m+MjZA8VM/lrLeTaS+UYUYCzpKmV4U+APeELnquL4fhDquFAcScQ==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/darwin-x64@1.0.1:
-    resolution: {integrity: sha512-6I3iRQ4K+RlX1YZ9JWgwLzknozrOBcC3GaQNBXggBXQEe46yIz88v+g/CWi4XjHkUzPiiLKvIiftT2jaFnl5DA==}
+  /@pagefind/darwin-x64@1.0.2:
+    resolution: {integrity: sha512-CAyPARt41lHPpHD8O7O2zv8MJa06iPa6nrGt+o9puY47OcNM6x8GxCAKPR1OTfEsiuwPovAdi7rvwJ35z3tnrA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/default-ui@1.0.1:
-    resolution: {integrity: sha512-FBlSmXbOqeTrMNGN2sOwlMJ9ellUqgqmdo2DWYWDAeMCbzdNmkIzll9ES2qlm/rGMQCurNvMJnNyJ/Lt/BZDzQ==}
+  /@pagefind/default-ui@1.0.2:
+    resolution: {integrity: sha512-KrzZi7hNQ+BoxREeA5TD502M8RSjJWhYRyGa70RVIIPgw1MVZbTKr4Kmk6YdmKNPlBmPWXtv9IHC+e3IPUcVSg==}
     dev: false
 
-  /@pagefind/linux-arm64@1.0.1:
-    resolution: {integrity: sha512-lCElTpCEkqpIYfVqrO4IW8+meu/1aJQChaC8XvB8jqBjsmeqhrz1J09tTbuHSq5Eav4GjW016i+vmbB+KE+BaA==}
+  /@pagefind/linux-arm64@1.0.2:
+    resolution: {integrity: sha512-bGpLKV2WLkLH/Qn/ibHJj7oTPvMcpJMwcjdPWk+tWqBl5xoBK1l4k45Gi70deCdIjKom5TcXuS8mgcXY8tSJ0A==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/linux-x64@1.0.1:
-    resolution: {integrity: sha512-3y95izKLTF1LcaOcO2i364qwzyJeIstFt97ouMn6O84eDxqTbzDVFKRSXN4tMAU9wv5ZA/uNuFUYxibiuZI82Q==}
+  /@pagefind/linux-x64@1.0.2:
+    resolution: {integrity: sha512-59beym/0riPCTjNeT91ksqlBToW0FFeFAHKxvM0nmvzEeNYurgoZY+8fJz9Xvz8icXhi2NxLirDgclAMsahWWQ==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: false
     optional: true
 
-  /@pagefind/windows-x64@1.0.1:
-    resolution: {integrity: sha512-vep7Zb8zfQj2fprRjL6cLmruc+18zrYQ0tWmaUAN3gX7lbsQY0NDBe9p1yS32XsAHOhDtmXu1LNHz+fXCcjcRA==}
+  /@pagefind/windows-x64@1.0.2:
+    resolution: {integrity: sha512-lwae3p7xOVihaTv6D8gJJLl05U4lDvkyMN9azlpjlWbfhBJXJnvD2CQTDwzZxK+u6ZDJUR1Qcz2oVeedyQpMjQ==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
@@ -1277,7 +1307,7 @@ packages:
   /@types/hast@3.0.0:
     resolution: {integrity: sha512-SoytUJRuf68HXYqcXicQIhCrLQjqeYU2anikr4G3p3Iz+OZO5QDQpDj++gv+RenHsnUBwNZ2dumBArF8VLSk2Q==}
     dependencies:
-      '@types/unist': 2.0.8
+      '@types/unist': 3.0.0
     dev: true
 
   /@types/json5@0.0.30:
@@ -1294,7 +1324,6 @@ packages:
     resolution: {integrity: sha512-YLeG8CujC9adtj/kuDzq1N4tCDYKoZ5l/bnjq8d74+t/3q/tHquJOJKUQXJrLCflOHpKjXgcI/a929gpmLOEng==}
     dependencies:
       '@types/unist': 3.0.0
-    dev: true
 
   /@types/mdx@2.0.7:
     resolution: {integrity: sha512-BG4tyr+4amr3WsSEmHn/fXPqaCba/AYZ7dsaQTiavihQunHSIxk+uAtqsjvicNpyHN6cm+B9RVrUOtW9VzIKHw==}
@@ -1336,7 +1365,7 @@ packages:
   /@types/sax@1.2.4:
     resolution: {integrity: sha512-pSAff4IAxJjfAXUG6tFkO7dsSbTmf8CtUpfhhZ5VhkRpC4628tJhh3+V6H1E+/Gs9piSzYKT5yzHO5M4GG9jkw==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.4.7
     dev: false
 
   /@types/unist@2.0.8:
@@ -1344,7 +1373,6 @@ packages:
 
   /@types/unist@3.0.0:
     resolution: {integrity: sha512-MFETx3tbTjE7Uk6vvnWINA/1iJ7LuMdO4fcq8UfF0pRbj01aGLduVvQcRyswuACJdpnHgg8E3rQLhaRdNEJS0w==}
-    dev: true
 
   /@types/yargs-parser@21.0.0:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
@@ -2409,12 +2437,6 @@ packages:
       reusify: 1.0.4
     dev: false
 
-  /fault@2.0.1:
-    resolution: {integrity: sha512-WtySTkS4OKev5JtpHXnib4Gxiurzh5NCGvWrFaZ34m6JehfTUhKZvn9njTfw48t6JumVQOmrKqpmGcdwxnhqBQ==}
-    dependencies:
-      format: 0.2.2
-    dev: false
-
   /fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
     engines: {node: '>=8'}
@@ -2463,11 +2485,6 @@ packages:
       combined-stream: 1.0.8
       mime-types: 2.1.35
     dev: true
-
-  /format@0.2.2:
-    resolution: {integrity: sha512-wzsgA6WOq+09wrU1tsJ09udeR/YZRaeArL9e1wPbFg3GG2yDnC2ldKpxs4xunpFF9DgqCqOIra3bc1HWrJ37Ww==}
-    engines: {node: '>=0.4.x'}
-    dev: false
 
   /fraction.js@4.3.6:
     resolution: {integrity: sha512-n2aZ9tNfYDwaHhvFTkhFErqOMIb8uyzSQ+vGJBjZyanAKZVbGUQ1sngfk9FdkBw7G26O7AgNjLcecLffD1c7eg==}
@@ -2901,6 +2918,10 @@ packages:
     resolution: {integrity: sha512-f8KcQ1D80V7RnqVm+/lirO9zkOxjGxhaTC1IPrBGd3MEfNgmNG67tSUO9gTi2F3Blr2Az6g1vocaxzkVnWl9MA==}
     dev: false
 
+  /import-meta-resolve@3.0.0:
+    resolution: {integrity: sha512-4IwhLhNNA8yy445rPjD/lWh++7hMDOml2eHtd58eG7h+qK3EryMuuRbsHGPikCoAgIkkDnckKfWSk2iDla/ejg==}
+    dev: false
+
   /indent-string@4.0.0:
     resolution: {integrity: sha512-EdDDZu4A2OyIK7Lr/2zG+w5jmbuk1DVBnEwREQvBzspBJkCEbRa8GxU1lghYcaGJCnRWibjDXlq779X1/y5xwg==}
     engines: {node: '>=8'}
@@ -3299,6 +3320,14 @@ packages:
       unist-util-visit: 4.1.2
     dev: false
 
+  /mdast-util-definitions@6.0.0:
+    resolution: {integrity: sha512-scTllyX6pnYNZH/AIp/0ePz6s4cZtARxImwoPJ7kS42n+MnVsI4XbnG6d4ibehRIldYMWM2LD7ImQblVhUejVQ==}
+    dependencies:
+      '@types/mdast': 4.0.0
+      '@types/unist': 3.0.0
+      unist-util-visit: 5.0.0
+    dev: false
+
   /mdast-util-directive@2.2.4:
     resolution: {integrity: sha512-sK3ojFP+jpj1n7Zo5ZKvoxP1MvLyzVG63+gm40Z/qI00avzdPCYxt7RBMgofwAva9gBjbDBWVRB/i+UD+fUCzQ==}
     dependencies:
@@ -3339,14 +3368,6 @@ packages:
       uvu: 0.5.6
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /mdast-util-frontmatter@1.0.1:
-    resolution: {integrity: sha512-JjA2OjxRqAa8wEG8hloD0uTU0kdn8kbtOWpPP94NBkfAlbxn4S8gCGf/9DwFtEeGPXrDcNXdiDjVaRdUFqYokw==}
-    dependencies:
-      '@types/mdast': 3.0.12
-      mdast-util-to-markdown: 1.5.0
-      micromark-extension-frontmatter: 1.1.1
     dev: false
 
   /mdast-util-gfm-autolink-literal@1.0.3:
@@ -3568,15 +3589,6 @@ packages:
       micromark-util-types: 1.1.0
       parse-entities: 4.0.1
       uvu: 0.5.6
-    dev: false
-
-  /micromark-extension-frontmatter@1.1.1:
-    resolution: {integrity: sha512-m2UH9a7n3W8VAH9JO9y01APpPKmNNNs71P0RbknEmYSaZU5Ghogv38BYO94AI5Xw6OYfxZRdHZZ2nYjs/Z+SZQ==}
-    dependencies:
-      fault: 2.0.1
-      micromark-util-character: 1.2.0
-      micromark-util-symbol: 1.1.0
-      micromark-util-types: 1.1.0
     dev: false
 
   /micromark-extension-gfm-autolink-literal@1.0.5:
@@ -4182,15 +4194,15 @@ packages:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
     engines: {node: '>=6'}
 
-  /pagefind@1.0.1:
-    resolution: {integrity: sha512-sGkBjKxz18hX7U1vKHphGqUlsqrCd9fKksuS9CAlO162TW8a4uUvHNJF+Dwnvjnvbi7J8KOSzuaCgwc+5wEOxQ==}
+  /pagefind@1.0.2:
+    resolution: {integrity: sha512-UxZgvmknPrH25qXZL7aK5fUOj1GrZxEQb2Mdd4l2m/PtdKJfrszxOR2EI1349bCYZ+OxiPn7wz2NCRNzb3QPpA==}
     hasBin: true
     optionalDependencies:
-      '@pagefind/darwin-arm64': 1.0.1
-      '@pagefind/darwin-x64': 1.0.1
-      '@pagefind/linux-arm64': 1.0.1
-      '@pagefind/linux-x64': 1.0.1
-      '@pagefind/windows-x64': 1.0.1
+      '@pagefind/darwin-arm64': 1.0.2
+      '@pagefind/darwin-x64': 1.0.2
+      '@pagefind/linux-arm64': 1.0.2
+      '@pagefind/linux-x64': 1.0.2
+      '@pagefind/windows-x64': 1.0.2
     dev: false
 
   /parent-module@1.0.1:
@@ -4607,15 +4619,6 @@ packages:
       unified: 10.1.2
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /remark-frontmatter@4.0.1:
-    resolution: {integrity: sha512-38fJrB0KnmD3E33a5jZC/5+gGAC2WKNiPw1/fdXJvijBlhA7RCsvJklrYJakS0HedninvaCYW8lQGf9C918GfA==}
-    dependencies:
-      '@types/mdast': 3.0.12
-      mdast-util-frontmatter: 1.0.1
-      micromark-extension-frontmatter: 1.1.1
-      unified: 10.1.2
     dev: false
 
   /remark-gfm@3.0.1:
@@ -5369,12 +5372,12 @@ packages:
     resolution: {integrity: sha512-u9njyyfEh43npf1M+yGKDGVPbY/JWEemg5nH05ncKPfi+kBbKBJoTdsogMu33uhytuLlv9y0O7GH7fEdwLdLQw==}
     dependencies:
       '@types/unist': 2.0.8
+    dev: false
 
   /unist-util-is@6.0.0:
     resolution: {integrity: sha512-2qCTHimwdxLfz+YzdGfkqNlH0tLi9xjTnHddPmJwtIG9MGsdbutfTc4P+haPD7l7Cjxf/WZj+we5qfVPvvxfYw==}
     dependencies:
       '@types/unist': 3.0.0
-    dev: true
 
   /unist-util-modify-children@3.1.1:
     resolution: {integrity: sha512-yXi4Lm+TG5VG+qvokP6tpnk+r1EPwyYL04JWDxLvgvPV40jANh7nm3udk65OOWquvbMDe+PL9+LmkxDpTv/7BA==}
@@ -5438,13 +5441,13 @@ packages:
     dependencies:
       '@types/unist': 2.0.8
       unist-util-is: 5.2.1
+    dev: false
 
   /unist-util-visit-parents@6.0.1:
     resolution: {integrity: sha512-L/PqWzfTP9lzzEa6CKs0k2nARxTdZduw3zyh8d2NVBnsyvHjSX4TWse388YrrQKbvI8w20fGjGlhgT96WwKykw==}
     dependencies:
       '@types/unist': 3.0.0
       unist-util-is: 6.0.0
-    dev: true
 
   /unist-util-visit@4.1.2:
     resolution: {integrity: sha512-MSd8OUGISqHdVvfY9TPhyK2VdUrPgxkUtWSuMHF6XAAFuL4LokseigBnZtPnJMu+FbynTkFNnFlyjxpVKujMRg==}
@@ -5452,6 +5455,7 @@ packages:
       '@types/unist': 2.0.8
       unist-util-is: 5.2.1
       unist-util-visit-parents: 5.1.3
+    dev: false
 
   /unist-util-visit@5.0.0:
     resolution: {integrity: sha512-MR04uvD+07cwl/yhVuVWAtw+3GOR/knlL55Nd/wAdblk27GCVt3lqpTivy/tkJcZoNPzTwS1Y+KMojlLDhoTzg==}
@@ -5459,7 +5463,6 @@ packages:
       '@types/unist': 3.0.0
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
-    dev: true
 
   /universalify@2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
@@ -5792,6 +5795,10 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
+    dev: false
+
+  /zod@3.21.1:
+    resolution: {integrity: sha512-+dTu2m6gmCbO9Ahm4ZBDapx2O6ZY9QSPXst2WXjcznPMwf2YNpn3RevLx4KkZp1OPW/ouFcoBtBzFz/LeY69oA==}
     dev: false
 
   /zod@3.22.2:
