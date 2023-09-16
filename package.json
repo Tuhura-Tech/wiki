@@ -22,7 +22,7 @@
     "@commitlint/config-conventional": "^17.7.0",
     "hast-util-from-html": "^1.0.2",
     "hast-util-to-string": "^2.0.0",
-    "hastscript": "^7.2.0",
+    "hastscript": "^8.0.0",
     "husky": "^8.0.3",
     "rehype": "^13.0.0",
     "start-server-and-test": "^2.0.0",
