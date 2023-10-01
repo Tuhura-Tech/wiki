@@ -25,22 +25,35 @@ export default defineConfig({
 			logo: {
 				light: './src/assets/logo-light.png',
 				dark: './src/assets/logo-dark.png',
+				replacesTitle: true,
 			},
 			social: {
 				github: 'https://github.com/Tuhura-Tech/Wiki',
 				discord: 'https://discord.gg/PNxh7cwKfQ',
 			},
 			editLink: {
-				baseUrl: 'https://github.com/Tuhura-Tech/Wiki/edit/main/docs/',
+				baseUrl: 'https://github.com/Tuhura-Tech/Wiki/blob/main/',
 			},
 			sidebar: [
 				{
 					label: 'Guides',
-					autogenerate: { directory: 'guides' },
+					items: [
+						{ label: "About our Guides", link: 'guides/about' },
+						{ label: "Javascript", autogenerate: { directory: 'guides/javascript' } },
+						// { label: "Python", autogenerate: { directory: 'guides/python' } },
+						{ label: "Git", autogenerate: { directory: 'guides/git' } },
+						{ label: "Cybersecurity", autogenerate: { directory: 'guides/cybersecurity' } },
+
+					]
 				},
 				{
 					label: 'NCEA Resources',
-					autogenerate: { directory: 'ncea' },
+					items: [
+						{ label: "About our Resources", link: 'guides/about' },
+						{ label: "NCEA Level 2", autogenerate: { directory: 'ncea/level-2' } },
+						{ label: "NCEA Level 3", autogenerate: { directory: 'ncea/level-3' } },
+
+					]
 				},
 				{
 					label: 'Projects',

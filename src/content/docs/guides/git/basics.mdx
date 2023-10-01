@@ -3,23 +3,37 @@ title: Basics
 description: This is a page in my Starlight-powered site
 ---
 
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
 ## Installing Git
 
-::: code-group
+<Tabs>
+  <TabItem label="Linux/Unix">
 
-```sh [Chocolatey]
-choco install git
-```
+**Debian/Ubuntu**
 
-```sh [Homebrew]
-brew install git
-```
-
-```sh [Debian]
+```sh
 sudo apt install git
 ```
 
-:::
+For other distros look at the git documentation found [here](https://git-scm.com/download/linux).
+
+  </TabItem>
+  <TabItem label="MacOS">
+  
+  ```sh 
+  brew install git
+  ```
+
+  </TabItem>
+  <TabItem label="Windows">
+  
+  ```sh
+  winget install --id Git.Git -e --source winget
+  ```
+  
+  </TabItem>
+</Tabs>
 
 ## Creating a git repository
 
@@ -43,7 +57,6 @@ Git has a concept called staging which means changes you want to save. To save a
 Once a change has been saved to staging we can commit ("save") that change to version control through the commit command. When saving a change we also need to add a message explaining what the change does. The command to commit changes is: `git commit -m "commit message"`. Good commit messages should explain what has been done, a good format is Conventional Commits which can be found [here](https://conventionalcommits.org).
 
 ## Git Remotes (GitHub/GitLab/ForgeJo)
-
 
 ## Reverting Changes
 
