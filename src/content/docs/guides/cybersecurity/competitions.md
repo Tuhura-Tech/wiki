@@ -1,13 +1,13 @@
 ---
 title: Competition Resources
-description: This is a page in my Starlight-powered site
+description: Gives a good source of resources for CTFs and the various NZ CTFs out there
 ---
 
 Cybersecurity competitions are a great way to learn and practice your skills in a safe and legal environment. These competitions are normally organized by universities, companies, and CTF teams and have a range of challenges suiting different skill levels and interests. Named CTFs (Capture the Flag), each of the challenges in the competition has a mock realistic scenario and a flag that you need to find. The flag is usually a string of characters that you need to submit to the competition's website to get points. The team with the most points at the end of the competition wins.
 
 ## CTFs (Jeopardy)
 
-The most common category of CTFs is Jeopardy as these have the most variety of challenges and are the easiest to get started with. Jeopardy CTFs are usually split into categories and each category has a range of challenges. The challenges are usually worth different amounts of points and the team with the most points at the end of the competition wins. The categories are usually:
+The most common category of CTFs is Jeopardy, as these have the most variety of challenges and are the easiest to get started with. Jeopardy CTFs are usually split into categories, and each category has a range of challenges. The challenges are usually worth different amounts of points, and the team with the most points at the end of the competition wins. The categories are usually:
 
 - Pwnable
 - Reverse Engineering
@@ -18,14 +18,14 @@ The most common category of CTFs is Jeopardy as these have the most variety of c
 
 ### Good CTFs
 
-- [Aotearoa CTF](https://aotearoactf.com/) - Aotearoa CTF is a New Zealand based CTF competition with a focus secondary and tertiary students. It is organised by us ([Tūhura Tech](https://tuhuratech.org.nz)) and is designed to be beginner friendly.
-- [NZCSC](https://cybersecuritychallenge.org.nz) - The New Zealand Cyber Security Challenge is organised by the University of Waikato and is designed to be beginner friendly. It has a online Round 0 qualification round and a two in person rounds along with some talks at the University of Waikato.
+- [Aotearoa CTF](https://aotearoactf.com/) - Aotearoa CTF is a New Zealand based CTF competition with a focus on secondary and tertiary students. It is organized by us, ([Tūhura Tech](https://tuhuratech.org.nz)) and is designed to be beginner-friendly.
+- [NZCSC](https://cybersecuritychallenge.org.nz) - The New Zealand Cyber Security Challenge is organized by the University of Waikato and is designed to be beginner-friendly. It has an online Round 0 qualification round and two in person rounds along with some talks at the University of Waikato.
 - [DUCTF](https://downunderctf.com)  - DownUnderCTF is a world-wide Capture The Flag (CTF) competition targeted at Australian secondary and tertiary students.
-- [PicoCTF](https://picoctf.com/) - This is an international CTF competition for high school students. It is a great way to get started in CTFs and learn the basics of cybersecurity. The challenges are very beginner friendly and they have a range of resources on their website.
+- [PicoCTF](https://picoctf.com/) - This is an international CTF competition for high school students. It is a great way to get started in CTFs and learn the basics of cybersecurity. The challenges are very beginner-friendly, and they have a range of resources on their website.
 
 ## CTFs (Attack/Defense)
 
-Attack/Defense CTFs are a bit more advanced and are usually only for teams with some experience in CTFs. In these CTFs, the teams are split into two groups, the attackers and the defenders. The attackers try to break into the defenders' servers and steal their flags while the defenders try to stop them. The team with the most flags at the end of the competition wins. These CTFs are normally in person however there are some online ones.
+Attack/Defense CTFs are a bit more advanced and are usually only for teams with some experience in CTFs. In these CTFs, the teams are split into two groups, the attackers and the defenders. The attackers try to break into the defenders' servers and steal their flags, while the defenders try to stop them. The team with the most flags at the end of the competition wins. These CTFs are normally in person, however there are some online ones.
 
 ## CTF Resources
 
@@ -44,7 +44,7 @@ Pwnable challenges are normally about finding vulnerabilities in a program and e
 Reverse Engineering is the process of taking a compiled binary and turning it back into source code.
 
 - [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
-- [Binary Ninja](https://binary.ninja/) - Binary Ninja is a multi-platform binary analysis tool. It has a nicer UI than Ghidra however is ot Open Source or free.
+- [Binary Ninja](https://binary.ninja/) - Binary Ninja is a multi-platform binary analysis tool. It has a nicer UI than Ghidra however is not Open Source or free.
 - [Dog Bolt](https://dogbolt.org) - An online decompiler made by the developers of binary Ninja that shows the result of using 11 different decompilers in one tool.
 
 ### Web
@@ -60,7 +60,7 @@ Web challenges are normally about finding vulnerabilities in a website and explo
 Crypto challenges are normally about finding the key to decrypt a message.
 
 - [CyberChef](https://gchq.github.io/CyberChef/) - CyberChef is a web application that allows you to perform a range of different operations on data.
-- [dcode](https://www.dcode.fr/) - dcode is a web application with a focus on cryptography. It has a range of different tools for different types of crypto challenges. Most useful from decode is probably the ciper identifier which attempts to guess what type of cipher something is.
+- [dcode](https://www.dcode.fr/) - dcode is a web application with a focus on cryptography. It has a range of different tools for different types of crypto challenges. Most useful from decode is probably the cipher identifier, which attempts to guess what type of cipher something is.
 
 ### Forensics
 
@@ -85,12 +85,10 @@ Steganography is the process of hiding information in images.
 
 - [Stegsolve](https://github.com/Giotino/stegsolve/releases) - Stegsolve is a tool for analysing and visualising images.
 - [Steghide](http://steghide.sourceforge.net/) - Steghide is a tool for hiding information in images.
-- [Stegseek](https://github.com/RickdeJager/stegseek) - Worlds fastest steghide cracker, chewing through millions of passwords per second.
+- [Stegseek](https://github.com/RickdeJager/stegseek) - World's fastest steghide cracker, chewing through millions of passwords per second.
 - [AperiSolve](https://www.aperisolve.com/) - An online tool that runs: zsteg, steghide, outguess, exiftool, binwalk, foremost, and strings all in one application.
 
-
 ### Misc
-
 
 - [CyberChef](https://gchq.github.io/CyberChef/) - CyberChef is a web application that allows you to perform a range of different operations on data.
 - [Audacity](https://www.audacityteam.org/) - Audacity is a free, open source, cross-platform audio software for multi-track recording and editing.

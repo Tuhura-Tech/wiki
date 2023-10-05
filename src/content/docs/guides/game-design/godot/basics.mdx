@@ -18,7 +18,7 @@ There are several options for developing with Godot. The recommended way is to d
 - Run the engine in a web browser with the [Godot Web Editor (v4.1.1)](https://editor.godotengine.org/releases/4.1.1.stable). This is the easiest way to get started, but it has [documented limitations](https://docs.godotengine.org/en/stable/getting_started/editor/web_editor.html#limitations) and is not recommended for large projects.
 - Download the android app from the [Google Play Store](https://play.google.com/store/apps/details?id=org.godotengine.editor.v4), while functional it is in early access and may not be stable. It is also difficult to use on phones, and tablets are still difficult without a keyboard and mouse.
 - (Recommended) Download the latest version from the [downloads page](https://godotengine.org/download/) for your platform to run locally. On running, you should see a window similar to this:
-![Godot project manager](./ProjectManager.png)
+![Godot project manager](../../../../../assets/godot/ProjectManager.png)
 
 :::note[C# programming]
 A version of the engine that uses C# as a programming language is also available. It is not recommended for beginners, but if you are familiar with C# it may be a better option for you. You can download it from the [downloads page](https://godotengine.org/download/) for your desktop platform. However, it is not available for use in the web editor or the android app.
@@ -29,7 +29,7 @@ A version of the engine that uses C# as a programming language is also available
 #### Making a new project
 
 Click the **New Project** button to create a new project, the following window will appear:
-![New project window](./NewProject.png)
+![New project window](../../../../../assets/godot/NewProject.png)
 
 **Project Name:**
 This is the name of your project, it can be anything you want. For this guide, we will use **Godot Is Awesome!**.
@@ -50,7 +50,7 @@ This is used to store version control information in the project folder. It is r
 ##### 2D or 3D?
 
 The next window that'll open is the meat of the game engine, it is where you make your actual game. At first, it can be a little daunting, all the buttons and docks, but it's simple to understand once you've used it a bit.
-![Empty Godot project](./EmptyEngine.png)
+![Empty Godot project](../../../../../assets/godot/EmptyEngine.png)
 For now, decide if your project will be 2D or 3D. You can change this later, but it's easier to start with the right one for your project.
 For this guide, we will use 2D to introduce all the key concepts.  
 
@@ -63,7 +63,7 @@ The four main screens of Godot are the 2D screen, the 3D screen, the Script scre
 ### Components of a game
 
 At the top left under **Create Root Node:** click the **2D Scene** button. This will create a new scene with a **Node2D** root node.
-![Empty scene with Node2D as scene route](./BaseProject.png)
+![Empty scene with Node2D as scene route](../../../../../assets/godot/BaseProject.png)
 
 This should be the core scene of your game, or the scene that you do the core of your development in.  
 At any time save your scene with **Scene > Save Scene** or save all scenes with **Scene > Save All Scenes**, we saved the scene as **main.tscn**.
@@ -79,17 +79,17 @@ It's worth taking a look at your options, but for now we'll start with **Charact
 **CharacterBody2D** is a node designed for objects that interact with physics that will be controlled by the player.
 You'll notice it has a warning icon next to it, go ahead and add both the **Sprite2D** and **CollisionShape2D** nodes as children to the **CharacterBody2D** node.  
 Now the **CollisionShape2D** node has a warning icon, this is because it needs a shape to define its collision. On the right side of the screen you'll see the Inspector tab, this is where you can edit the properties of the selected node. Select the CollisionShape2D and change the first property, the shape, to a **New CircleShape2D**.
-![Drop-down of shape property on CollisionShape2D node highlighting New CircleShape2D](./CircleShape.png)
+![Drop-down of shape property on CollisionShape2D node highlighting New CircleShape2D](../../../../../assets/godot/CircleShape.png)
 
 Similarly, on the **Sprite2D** node, you can change the texture property to a new texture. Save the little birdie image below to your device with **right-click > Save Image As...** and drag it into the FileSystem tab in the bottom left of the screen, alternatively you can make your own image and use that. Once it's in the FileSystem tab, you can drag it into the texture property of the Sprite2D node.
-![Cute pixel art circular sprite](./LilBirdie.png)
+![Cute pixel art circular sprite](../../../../../assets/godot/LilBirdie.png)
 
 :::note[Pixel art palette]
 If you want to make your own pixel art similar to this to expand your game later, use the [PICO-8 palette](https://lospec.com/palette-list/pico-8).
 :::
 
 Your scene should now look something like this:
-![Scene with tiny texture in the viewport](./UpdatedScene.png)
+![Scene with tiny texture in the viewport](../../../../../assets/godot/UpdatedScene.png)
 
 In the viewport is the largest area of the screen that shows the scene. You can move around the viewport with the middle mouse button and zoom in and out with the scroll wheel.
 Zooming into the small circle where the red and green lines meet, you might notice the pixelated texture is fuzzy. This is because the texture is being scaled up to fit the size of the sprite. To fix this, go to the Sprite2D node and change the property **CanvasItem > Texture > Filter** to **Nearest**. Only do this for pixel art textures.
@@ -108,7 +108,7 @@ You can convert the current CharacterBody2D node into a scene by right-clicking 
 Go ahead and open the player scene and add the Camera2D node as a child to the CharacterBody2D node. This will make the camera follow the player character. You can also turn on **Position Smoothing > Enable** in the Camera2D node's properties to make the camera movement smoother. Save the player scene. Above the viewport you can go back to the main scene by clicking the tab called the name of your main scene.
 
 Start your magnificent game by clicking the **Run Project** button in the top right of the screen or by pressing **F5**. You should see a window like this:
-![Godot warning no main scene has been selected](./WarningUndefinedMain.png)
+![Godot warning no main scene has been selected](../../../../../assets/godot/WarningUndefinedMain.png)
 Press **Select Current** if you are in your main scene. Now your gorgeous game should be running! Let's get some interaction in there.
 
 #### Scripts
@@ -119,7 +119,7 @@ As mentioned before, you can write scripts in C# as well, but it is not recommen
 ##### Making a new script
 
 To add a script to a node, select the node and **right-click > Attach Script** or press the **Attach a new or existing script to the selected node** button above the hierarchy. For now, add a script to the player node, it will open a new window that looks like:
-![Godot window for making a new script on a CharacterBody2D node](./NewScript.png)
+![Godot window for making a new script on a CharacterBody2D node](../../../../../assets/godot/NewScript.png)
 The defaults are fine, but let's go over what each field means.
 
 **Language:**
@@ -136,7 +136,7 @@ Built in scripts don't make a separate file for the scripts, they are stored wit
 This is the path to the script file. If you are not using a built-in script, it will be replaced by a "**Name:**" field. For the player, we will use the default path `res://player.gd`. It is a good idea to make a folder just for scripts or just for scenes to make organization easier, but for this small project this is easier.
 
 Click **Create** and you should automatically swtich to the script screen. It should have the script you just made loaded in and look like this:
-![Godot scripts screen with default CharacterBody2D template loaded on a GDScript called player.gd](./Script.png)
+![Godot scripts screen with default CharacterBody2D template loaded on a GDScript called player.gd](../../../../../assets/godot/Script.png)
 You can make the script take up the whole window with the full-screen icon in the top right, and if you have a console open, you can close it by pressing **Output** at the bottom of the screen.
 
 Now if you run the game with **F5** the player should fall down. 
@@ -149,10 +149,10 @@ If you haven't attached a Camera2D component to the player, it will just drop do
 
 For the sake of testing, let's add a platform the player can jump around on.  
 In the Scene dock on the main scene, add **StaticBody2D** as a child node to Node2D. Add **Sprite2D** and **CollisionShape2D** as child nodes to **StaticBody2D**. Give the sprite the pixel art below this paragraph, the same way you did the player. If you didn't set Node2D's property **CanvasItem > Texture > Filter** to **Nearest** then you'll need to set the sprite's Filter property to **Nearest**. Set the collision shape's shape to **RectangleShape2D**. If you switch from the Script screen to the 2D screen and select the collision shape, you can adjust the size with the eight orange dots, make the collider the same shape and size as the pixel art. Next, select the StaticBody2D node and press **W** or the **Move Mode** button at the top of the viewport, the second button from the left. Use the green arrow to move the node and its child nodes down, so it's below the player. Press **Q** or the **Select Mode** to return to a regular cursor.
-![Pixel art of a platform](./Platform.png)
+![Pixel art of a platform](../../../../../assets/godot/Platform.png)
 
 When running, your game should now look something like this:
-![A nearly blank game window with a platform pixel art sprite with a platform below it.](./NearEmptyGame.png)
+![A nearly blank game window with a platform pixel art sprite with a platform below it.](../../../../../assets/godot/NearEmptyGame.png)
 You can move around with arrow keys and jump with space, if you fall off your player will fall out of the screen.
 
 So you have more space to move around and test on, make the platform larger with the **Scale Mode** button at the top of the viewport, the third button from the left, or by pressing **S**. Select the StaticBody2D node and drag in the viewport to make the platform larger. Hold **Shift** while scaling to scale the node evenly. You may need to move the platform around more, use move mode again to move it. Return to a regular cursor with select mode after you have finished. You can make the player larger if you want to as well, if you do the gap between the player's sprite and collider will be larger, so you may need to adjust the size of the collider in the player scene to be the same size as the sprite.

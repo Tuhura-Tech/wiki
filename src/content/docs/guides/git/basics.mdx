@@ -1,6 +1,6 @@
 ---
 title: Basics
-description: This is a page in my Starlight-powered site
+description: Introduces the basics of using git.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
@@ -16,7 +16,7 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 sudo apt install git
 ```
 
-For other distros look at the git documentation found [here](https://git-scm.com/download/linux).
+For other distros, look at the git documentation found [here](https://git-scm.com/download/linux).
 
   </TabItem>
   <TabItem label="MacOS">
@@ -41,11 +41,11 @@ You can create a local git repo by running `git init` in the folder of your code
 
 ## Adding files
 
-With git you have control over what files you commit ("save") in version control and when, this can be done at any time with any files.
+With git, you have control over what files you commit ("save") in version control and when, this can be done at any time with any files.
 
 ### Staging
 
-Git has a concept called staging which means changes you want to save. To save a change you first need to add it to staging using `git add`. Some examples are shown below.
+Git has a concept called staging, which means changes you want to save. To save a change, you first need to add it to staging using `git add`. Some examples are shown below.
 
 - Add all files with changes to staging: `git add .`
 - Add one file with changes to staging: `git add file1`
@@ -54,9 +54,12 @@ Git has a concept called staging which means changes you want to save. To save a
 
 ### Committing
 
-Once a change has been saved to staging we can commit ("save") that change to version control through the commit command. When saving a change we also need to add a message explaining what the change does. The command to commit changes is: `git commit -m "commit message"`. Good commit messages should explain what has been done, a good format is Conventional Commits which can be found [here](https://conventionalcommits.org).
+Once a change has been saved to staging, we can commit ("save") that change to version control through the commit command. 
+When saving a change, we also need to add a message explaining what the change does. 
+The command to commit changes is: `git commit -m "commit message"`. 
+Good commit messages should explain what has been done, a good format is [Conventional Commits.](https://conventionalcommits.org).
 
-## Git Remotes (GitHub/GitLab/ForgeJo)
+## Git Remotes (GitHub/GitLab/Forgejo)
 
 ## Reverting Changes
 

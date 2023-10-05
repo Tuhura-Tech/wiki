@@ -1,6 +1,6 @@
 ---
 title: About
-description: About the guides in this wiki.
+description: About the level 2 NCEA guides in this wiki.
 
 sidebar:
   # Make this always the first
