@@ -1,11 +1,11 @@
 ---
 title: Setting Up
-description: This is how to setup a JavaScript enfironment.
+description: This is how to set up a JavaScript environment.
 ---
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
-There are many ways to set up your JavaScript environment with different advantages and disadvantages. This guide will help you get fully setup to start coding in JavaScript.
+There are many ways to set up your JavaScript environment, with different advantages and disadvantages. This guide will help you get fully setup to start coding in JavaScript.
 
 ## Local development
 
@@ -18,12 +18,12 @@ You can download this from the [Node.js website](https://nodejs.org/en/download)
 
 ### Installing Node.js
 
-There are multiple ways to install Node.js, but the easiest way is to download the latest version from the [Node website](https://nodejs.org/en/download). Once you have downloaded the installer you can run it and follow the instructions to install Node.js.
+There are multiple ways to install Node.js, but the easiest way is to download the latest version from the [Node website](https://nodejs.org/en/download). Once you have downloaded the installer, you can run it and follow the instructions to install Node.js.
 
-You can also install Node using a package manager for a more advanced setup. If you are using macOS you can use [Homebrew](https://brew.sh) to install Node. If you are using Linux you can use your package manager to install Node. If you are using Windows you can use [Chocolatey](https://chocolatey.org) to install Node.
+You can also install Node using a package manager for a more advanced setup. If you are using macOS, you can use [Homebrew](https://brew.sh) to install Node. If you are using Linux, you can use your package manager to install Node. If you are using Windows, you can use [Chocolatey](https://chocolatey.org) to install Node.
 
 :::note[How do I run commands on my computer?]
-To run commands on your computer you will need to open a terminal. On macOS and Linux you can open a terminal by pressing `⌘ + Space` and typing `Terminal`. On Windows you can open a command prompt terminal by pressing `⊞ + R`, and typing `cmd` or open Windows PowerShell by right-clicking the windows logo and selecting `Windows PowerShell`. You can then run the command by typing it into the terminal and pressing `Enter`. 
+To run commands on your computer, you will need to open a terminal. On macOS and Linux, you can open a terminal by pressing `⌘ + Space` and typing `Terminal`. On Windows, you can open a command prompt terminal by pressing `⊞ + R`, and typing `cmd` or open Windows PowerShell by right-clicking the Windows logo and selecting `Windows PowerShell`. You can then run the command by typing it into the terminal and pressing `Enter`. 
 :::
 
 <Tabs>
@@ -61,7 +61,7 @@ asdf global nodejs
 </TabItem>
 </Tabs>
 
-Once you have installed Node you can check that it has installed correctly by running the following commands:
+Once you have installed Node, you can check that it has installed correctly by running the following commands:
 
 ```sh
 Node --version
@@ -78,7 +78,7 @@ v18.16.1
 
 ### Setting up a project
 
-To set up a project you will need to create a new folder for your project. You can then open this folder in your code editor.
+To set up a project, you will need to create a new folder for your project. You can then open this folder in your code editor.
 In the directory of your project folder (either in the terminal app or VS Code terminal), you will need to create a `package.json` file.
 This is the virtual environment for your project. You can do this by running the following command:
 
@@ -86,7 +86,7 @@ This is the virtual environment for your project. You can do this by running the
 npm init -y
 ```
 The file provides the node package manager (npm) with various information to help identify the project and handles your requests via the terminal.
-If you want to, you can change the files' `description` and `author` to your projects description and your name!
+If you want to, you can change the files' `description` and `author` to your project's description and your name!
 You can then install libraries using the node package manager.
 
 ### Adding libraries
@@ -122,7 +122,7 @@ npm install --save-dev eslint-config-prettier eslint-plugin-prettier
 Once you have done this, you will see that you now have three files: `node_modules`, `package-lock.json` and `package.json`.
 If you are in a terminal, you can see your current files by running this command: `ls`.
 
-Next to have both the Prettier and ESLint libraries to run together and not cause problems, you will have to change a few things.
+Next, to have both the Prettier and ESLint libraries to run together and not cause problems, you will have to change a few things.
 
 1. In your terminal, run the command `npx eslint --init`
 2. This will ask you some questions, and you can decide on how you want to answer them, depending on your project.
@@ -191,7 +191,7 @@ npx tsc
 
 ### Running Your Project
 
-Once you have written in your index file and you are happy with it, you will need to run it. There's always a process to build or run the code that you have created.
+Once you have written in your index file, and you are happy with it, you will need to run it. There's always a process to build or run the code that you have created.
 The most common way to do this would be to go into your `package.json` file and insert into the `scripts` the `build` line like so:
 
 ```json

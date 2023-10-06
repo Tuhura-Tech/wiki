@@ -43,16 +43,22 @@ export default defineConfig({
 						// { label: "Python", autogenerate: { directory: 'guides/python' } },
 						{ label: "Git", autogenerate: { directory: 'guides/git' } },
 						{ label: "Cybersecurity", autogenerate: { directory: 'guides/cybersecurity' } },
-
+						{ 
+							label: "Game Design", 
+							items: [
+								{ label: "About", link: 'guides/game-design/about' },
+								{ label: "Godot", autogenerate: { directory: 'guides/game-design/godot' } },
+							]
+						},
 					]
 				},
+				
 				{
 					label: 'NCEA Resources',
 					items: [
-						{ label: "About our Resources", link: 'guides/about' },
+						{ label: "About our Resources", link: 'ncea/about' },
 						{ label: "NCEA Level 2", autogenerate: { directory: 'ncea/level-2' } },
 						{ label: "NCEA Level 3", autogenerate: { directory: 'ncea/level-3' } },
-
 					]
 				},
 				{
