@@ -1,7 +1,9 @@
 ---
 title: Setting Up
 description: This is how to set up a JavaScript environment.
+order: -1
 ---
+
 
 import { Tabs, TabItem } from "@astrojs/starlight/components";
 
@@ -189,10 +191,44 @@ You can then run the TypeScript compiler using the following command:
 npx tsc
 ```
 
-### Running Your Project
+## Running Your Project
 
-Once you have written in your index file, and you are happy with it, you will need to run it. There's always a process to build or run the code that you have created.
-The most common way to do this would be to go into your `package.json` file and insert into the `scripts` the `build` line like so:
+Once you have written in your index file, and you are happy with it, you will need to run it.
+
+If you want immediate feedback and have a small project, I would recommend doing one of these three options:
+
+<Tabs>
+
+<TabItem label="Live Server Plugin (Recommended)">
+
+Click on the extensions tab to the left on VS Code. Search up 'Live Server' and install the one which looks like this:
+
+![Live Server plugin](../../../../assets/javascript/LiveServer.png)
+
+You should now be able to see a little button down the right-hand corner of VS Code, which says **'Go Live'**.
+
+If you have a working project, you should be able to click this button and see your code on your default browser!
+
+</TabItem>
+<TabItem label="Local Server through Terminal">
+
+This is only if the plugin somehow doesn't work, or if you want to see how things work behind the scenes in the Live Server plugin.
+
+Make your own local server through your terminal [here.](https://github.com/processing/p5.js/wiki/Local-server#node-http-server)
+
+</TabItem>
+<TabItem label="HTML File View">
+
+This is only recommended if all else fails: as this functionality won't work in later projects.
+The way you do this would be to find your `index.html` file on your computer and double click it to open it up in your web browser.
+
+Your done!
+
+</TabItem>
+<TabItem label="Deploying to Production">
+
+This way is recommended for when you're ready to deploy your web application to a production environment.
+Go into your `package.json` file and insert into the `scripts` the `build` line like so:
 
 ```json
 {
@@ -206,6 +242,9 @@ Then you can run your project through this command:
 ```sh
 npm run build
 ```
+
+</TabItem>
+</Tabs>
 
 ## Useful resources
 

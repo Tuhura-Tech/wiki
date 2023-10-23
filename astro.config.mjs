@@ -1,7 +1,7 @@
-import { defineConfig } from 'astro/config';
+import mdx from "@astrojs/mdx";
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
-import mdx from "@astrojs/mdx";
+import { defineConfig } from 'astro/config';
 export const locales = {
   root: {
     label: 'English',
@@ -40,9 +40,15 @@ export default defineConfig({
         link: 'guides/about'
       }, {
         label: "Javascript",
-        autogenerate: {
-          directory: 'guides/javascript'
-        }
+        items: [{
+          label: "Setting Up",
+          link: 'guides/javascript/setting-up'
+        }, {
+          label: "Creative Coding",
+          autogenerate: {
+            directory: 'guides/javascript/creative-coding'
+          }
+        }]
       },
       // { label: "Python", autogenerate: { directory: 'guides/python' } },
       {
