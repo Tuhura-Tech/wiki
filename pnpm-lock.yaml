@@ -29,31 +29,31 @@ dependencies:
 
 devDependencies:
   '@commitlint/cli':
-    specifier: ^18.0.0
+    specifier: 18.0.0
     version: 18.0.0
   '@commitlint/config-conventional':
-    specifier: ^18.0.0
+    specifier: 18.0.0
     version: 18.0.0
   hast-util-from-html:
-    specifier: ^2.0.0
+    specifier: 2.0.1
     version: 2.0.1
   hast-util-to-string:
-    specifier: ^3.0.0
+    specifier: 3.0.0
     version: 3.0.0
   hastscript:
-    specifier: ^8.0.0
+    specifier: 8.0.0
     version: 8.0.0
   husky:
-    specifier: ^8.0.3
+    specifier: 8.0.3
     version: 8.0.3
   rehype:
-    specifier: ^13.0.0
+    specifier: 13.0.1
     version: 13.0.1
   start-server-and-test:
-    specifier: ^2.0.0
+    specifier: 2.0.0
     version: 2.0.0
   unist-util-visit:
-    specifier: ^5.0.0
+    specifier: 5.0.0
     version: 5.0.0
 
 packages:
