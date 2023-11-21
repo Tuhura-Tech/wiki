@@ -9,11 +9,11 @@ dependencies:
     specifier: ^1.1.2
     version: 1.1.2(astro@3.1.0)
   '@astrojs/starlight':
-    specifier: ^0.12.0
-    version: 0.12.0(astro@3.1.0)
+    specifier: ^0.13.0
+    version: 0.13.0(astro@3.1.0)
   '@astrojs/starlight-tailwind':
     specifier: ^2.0.0
-    version: 2.0.0(@astrojs/starlight@0.12.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3)
+    version: 2.0.0(@astrojs/starlight@0.13.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3)
   '@astrojs/tailwind':
     specifier: ^5.0.0
     version: 5.0.0(astro@3.1.0)(tailwindcss@3.3.3)
@@ -167,20 +167,20 @@ packages:
       zod: 3.21.1
     dev: false
 
-  /@astrojs/starlight-tailwind@2.0.0(@astrojs/starlight@0.12.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3):
+  /@astrojs/starlight-tailwind@2.0.0(@astrojs/starlight@0.13.0)(@astrojs/tailwind@5.0.0)(tailwindcss@3.3.3):
     resolution: {integrity: sha512-4nMAYpjygQAOHIEXqRCFqjxpqTiCt8vFVlfr+glrJL7JCFYaKod/KQQoY/ykPy1Ez/QTPp424vmNfDJXxZoBRw==}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       '@astrojs/tailwind': ^5.0.0
       tailwindcss: ^3.3.3
     dependencies:
-      '@astrojs/starlight': 0.12.0(astro@3.1.0)
+      '@astrojs/starlight': 0.13.0(astro@3.1.0)
       '@astrojs/tailwind': 5.0.0(astro@3.1.0)(tailwindcss@3.3.3)
       tailwindcss: 3.3.3
     dev: false
 
-  /@astrojs/starlight@0.12.0(astro@3.1.0):
-    resolution: {integrity: sha512-WPLpq82vbTznNfQjtdLBjKGuDsQE3tpPxFqosjxX+pSeMES/Cz5Dmzla78ej7xWIp7zjovPqkNytbC1EaeOMwA==}
+  /@astrojs/starlight@0.13.0(astro@3.1.0):
+    resolution: {integrity: sha512-3SVWGP9Qze3UkM5Wozpx+5v9dh75ZFPSHRqzeuXNtctn5nHjlzvOgIIQnuyyNhIEQMfml1lo83jL3Vsf7Qk7Iw==}
     peerDependencies:
       astro: ^3.2.0
     dependencies:
@@ -189,6 +189,7 @@ packages:
       '@pagefind/default-ui': 1.0.3
       '@types/mdast': 3.0.12
       astro: 3.1.0(@types/node@18.18.6)
+      astro-expressive-code: 0.29.0(astro@3.1.0)
       bcp-47: 2.1.0
       execa: 8.0.1
       hast-util-select: 5.0.5
@@ -623,6 +624,11 @@ packages:
       chalk: 4.1.2
     dev: true
 
+  /@ctrl/tinycolor@3.6.1:
+    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
+    engines: {node: '>=10'}
+    dev: false
+
   /@esbuild/android-arm64@0.18.20:
     resolution: {integrity: sha512-Nz4rJcchGDtENV0eMKUNa6L12zz2zBDXuhj/Vjh18zGqB44Bi7MBMSXjgunJgjRhCmKOjnPuZp4Mb6OKqtMHLQ==}
     engines: {node: '>=12'}
@@ -1019,6 +1025,38 @@ packages:
     dev: false
     optional: true
 
+  /@expressive-code/core@0.29.0:
+    resolution: {integrity: sha512-AGFPSKMEA3J6gdFOuuN+7AESmRESSMypC9twqe+hq2nYWXXtp95Nv6pK+qV3o7doYqEWgWBJ9Mivb19CK+HW0Q==}
+    dependencies:
+      '@ctrl/tinycolor': 3.6.1
+      hast-util-to-html: 8.0.4
+      hastscript: 7.2.0
+      postcss: 8.4.29
+      postcss-nested: 6.0.1(postcss@8.4.29)
+    dev: false
+
+  /@expressive-code/plugin-frames@0.29.0:
+    resolution: {integrity: sha512-4wgua53ah9nBDKjHyhW8bDNEsXWjm5WvqznARmahn58CwTqjOdn44stc/56x0haL98wHpZTyksgyuiOdPzJ5eg==}
+    dependencies:
+      '@expressive-code/core': 0.29.0
+      hastscript: 7.2.0
+    dev: false
+
+  /@expressive-code/plugin-shiki@0.29.0:
+    resolution: {integrity: sha512-+mS1rkW1E5yhUUMBxOQB8HJbFlf3lWen0Hm7mi14K0Q+PQru/G5PqKaa5Du9Ut+/bWSevTNc1up5UiF8fhS/9A==}
+    dependencies:
+      '@expressive-code/core': 0.29.0
+      shiki: 0.14.4
+    dev: false
+
+  /@expressive-code/plugin-text-markers@0.29.0:
+    resolution: {integrity: sha512-9TwA91Zcjw3lyiVvsuh5MfcP9QRcg4/GJ2tZgLnNAmsCwPzbFM6iP1ZZJfigeeSD8bBqhfxyws7rydI2lGEVFA==}
+    dependencies:
+      '@expressive-code/core': 0.29.0
+      hastscript: 7.2.0
+      unist-util-visit-parents: 5.1.3
+    dev: false
+
   /@hapi/hoek@9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
     dev: true
@@ -1404,6 +1442,15 @@ packages:
   /astring@1.8.6:
     resolution: {integrity: sha512-ISvCdHdlTDlH5IpxQJIex7BWBywFWgjJSVdwst+/iQCoEYnyOaQ95+X1JGshuBjGp6nxKUy1jMgE3zPqN7fQdg==}
     hasBin: true
+    dev: false
+
+  /astro-expressive-code@0.29.0(astro@3.1.0):
+    resolution: {integrity: sha512-14DINm8EJYrusewcJumO3IsmTeqQYESCYZ3tVn0Wxup8hehYqy4I7HzT3XNKufRIo883ikDmTljbpAVhj8ls+g==}
+    peerDependencies:
+      astro: ^3.0.0-beta
+    dependencies:
+      astro: 3.1.0(@types/node@18.18.6)
+      remark-expressive-code: 0.29.0
     dev: false
 
   /astro@3.1.0(@types/node@18.18.6):
@@ -2229,6 +2276,15 @@ packages:
   /expand-template@2.0.3:
     resolution: {integrity: sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==}
     engines: {node: '>=6'}
+    dev: false
+
+  /expressive-code@0.29.0:
+    resolution: {integrity: sha512-Gl27zUVizrzjp1sLPDMJwyVQ4mws7JRkxQOiFjCWiUv2jvugM0Jhjr56337docIk7oZaKbL1IPdCq1yDNfMm5A==}
+    dependencies:
+      '@expressive-code/core': 0.29.0
+      '@expressive-code/plugin-frames': 0.29.0
+      '@expressive-code/plugin-shiki': 0.29.0
+      '@expressive-code/plugin-text-markers': 0.29.0
     dev: false
 
   /extend-shallow@2.0.1:
@@ -4415,6 +4471,14 @@ packages:
       unified: 10.1.2
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /remark-expressive-code@0.29.0:
+    resolution: {integrity: sha512-T36DPLBalqFDwIcExs2WCgy0SSCf99RNtuCQunrHQT0NE4aKiD4k8X+tPWDeCmI6dy4lX+yJO1xgV3IG54pnnA==}
+    dependencies:
+      expressive-code: 0.29.0
+      hast-util-to-html: 8.0.4
+      unist-util-visit: 4.1.2
     dev: false
 
   /remark-gfm@3.0.1:
