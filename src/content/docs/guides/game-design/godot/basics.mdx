@@ -11,9 +11,7 @@ sidebar:
 This guide is up-to-date with Godot 4.1.1 stable official release but will most likely work with any 4.x release.
 :::
 
-## Introduction
-
-### Getting started
+## Getting started
 
 There are several options for developing with Godot. The recommended way is to download the latest version from the [downloads page](https://godotengine.org/download/) for Windows/macOS/Linux. It will be what we use for this guide.
 
@@ -26,9 +24,9 @@ There are several options for developing with Godot. The recommended way is to d
 A version of the engine that uses C# as a programming language is also available. It is not recommended for beginners, but if you are familiar with C# it may be a better option for you. You can download it from the [downloads page](https://godotengine.org/download/) for your desktop platform. However, it is not available for use in the web editor or the android app.
 :::
 
-### Creating a project
+## Creating a project
 
-#### Making a new project
+### Making a new project
 
 Click the **New Project** button to create a new project, the following window will appear:
 ![New project window](../../../../../assets/godot/basics/NewProject.png)
@@ -49,20 +47,20 @@ Compatibility supports desktop, mobile, and web platforms, it has the fewest fea
 **Version Control Metadata:**
 This is used to store version control information in the project folder. It is recommended to leave this on Git even if you are not using version control. It is also recommended to use version control for your projects, but it is not required. To use git version contol, after creating the project navigate to the project folder and [create a git repository](src\content\docs\guides\git\basics.md).
 
-##### 2D or 3D?
+#### 2D or 3D?
 
 The next window that'll open is the meat of the game engine, it is where you make your actual game. At first, it can be a little daunting, all the buttons and docks, but it's simple to understand once you've used it a bit.
 ![Empty Godot project](../../../../../assets/godot/basics/EmptyEngine.png)
 For now, decide if your project will be 2D or 3D. You can change this later, but it's easier to start with the right one for your project.
 For this guide, we will use 2D to introduce all the key concepts.  
 
-#### The interface
+### The interface
 
 The interface is made up of several docks. The most important ones are the **Scene** dock (top left), the **Inspector** dock (right), and the **FileSystem** dock (bottom left).  
 
 The four main screens of Godot are the 2D screen, the 3D screen, the Script screen, and the AssetLib screen. You can switch between them with the buttons at the top of the screen.
 
-### Components of a game
+## Components of a game
 
 At the top left under **Create Root Node:** click the **2D Scene** button. This will create a new scene with a **Node2D** root node.
 ![Empty scene with Node2D as scene route](../../../../../assets/godot/basics/BaseProject.png)
@@ -70,7 +68,7 @@ At the top left under **Create Root Node:** click the **2D Scene** button. This 
 This should be the core scene of your game, or the scene that you do the core of your development in.  
 At any time save your scene with **Scene > Save Scene** or save all scenes with **Scene > Save All Scenes**, we saved the scene as **main.tscn**.
 
-#### Nodes
+### Nodes
 
 Nodes are the building blocks of your game. They are the objects that make up your game. They can be anything from a sprite to a camera.  
 Nodes are organized in a tree structure, with the root node at the top and child nodes below it. Nodes can have any number of child nodes, but only one parent node.  
@@ -97,7 +95,7 @@ In the viewport is the largest area of the screen that shows the scene. You can 
 Zooming into the small circle where the red and green lines meet, you might notice the pixelated texture is fuzzy. This is because the texture is being scaled up to fit the size of the sprite. To fix this, go to the Sprite2D node and change the property **CanvasItem > Texture > Filter** to **Nearest**. Only do this for pixel art textures.
 In the future, if you do not want to change the Filter property for every Sprite2D node, you can change any parent node's Filter property to Nearest and all child nodes will inherit it if their Filter property is set to Inherit. For an all pixel art game you might as well set the root node's (**Node2D**) Filter property to Nearest.
 
-#### Scenes
+### Scenes
 
 Scenes are collections of nodes that make up a part of your game. They can be anything from a single node to a complex hierarchy of nodes. Scenes can be saved as files and reused in other scenes.
 
@@ -113,12 +111,12 @@ Start your magnificent game by clicking the **Run Project** button in the top ri
 ![Godot warning no main scene has been selected](../../../../../assets/godot/basics/WarningUndefinedMain.png)
 Press **Select Current** if you are in your main scene. Now your gorgeous game should be running! Let's get some interaction in there.
 
-#### Scripts
+### Scripts
 
 Scripts are what make your game do things. They are written in GDScript, a language similar to Python if you squint hard enough.
 As mentioned before, you can write scripts in C# as well, but it is not recommended for beginners. If you are familiar with C# you can use the [C# documentation](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/index.html) to help you write your scripts.
 
-##### Making a new script
+#### Making a new script
 
 To add a script to a node, select the node and **right-click > Attach Script** or press the **Attach a new or existing script to the selected node** button above the hierarchy. For now, add a script to the player node, it will open a new window that looks like:
 ![Godot window for making a new script on a CharacterBody2D node](../../../../../assets/godot/basics/NewScript.png)
@@ -147,7 +145,7 @@ Now if you run the game with **F5** the player should fall down.
 If you haven't attached a Camera2D component to the player, it will just drop down on one side of the screen. If you attached a Camera2D component but haven't enabled the property **Position Smoothing**, then the player will drop, but the camera will stay stuck to it like glue, and it will look like the player isn't moving at all. If you have an attached Camera2D component on the player and have enabled **Position Smoothing**, then the player will drop, and the camera will follow it until the player gets too fast for the camera. If you're fast enough, you can move the player left and right with the left and right arrow keys before the player drops off-screen.
 :::
 
-##### Adding a platform
+#### Adding a platform
 
 For the sake of testing, let's add a platform the player can jump around on.  
 In the Scene dock on the main scene, add **StaticBody2D** as a child node to Node2D. Add **Sprite2D** and **CollisionShape2D** as child nodes to **StaticBody2D**. Give the sprite the pixel art below this paragraph, the same way you did the player. If you didn't set Node2D's property **CanvasItem > Texture > Filter** to **Nearest** then you'll need to set the sprite's Filter property to **Nearest**. Set the collision shape's shape to **RectangleShape2D**. If you switch from the Script screen to the 2D screen and select the collision shape, you can adjust the size with the eight orange dots, make the collider the same shape and size as the pixel art. Next, select the StaticBody2D node and press **W** or the **Move Mode** button at the top of the viewport, the second button from the left. Use the green arrow to move the node and its child nodes down, so it's below the player. Press **Q** or the **Select Mode** to return to a regular cursor.
@@ -159,7 +157,7 @@ You can move around with arrow keys and jump with space, if you fall off your pl
 
 So you have more space to move around and test on, make the platform larger with the **Scale Mode** button at the top of the viewport, the third button from the left, or by pressing **S**. Select the StaticBody2D node and drag in the viewport to make the platform larger. Hold **Shift** while scaling to scale the node evenly. You may need to move the platform around more, use move mode again to move it. Return to a regular cursor with select mode after you have finished. You can make the player larger if you want to as well, if you do the gap between the player's sprite and collider will be larger, so you may need to adjust the size of the collider in the player scene to be the same size as the sprite.
 
-##### Modifying the default script
+#### Modifying the default script
 
 If you have never programmed before, it is recommended you start with a simple language like [Scratch](https://scratch.mit.edu/projects/editor/?tutorial=getStarted).
 If you are familiar with programming, but not GDScript, you can use the [GDScript documentation](https://docs.godotengine.org/en/stable/getting_started/scripting/gdscript/gdscript_basics.html) to help you write your scripts.
