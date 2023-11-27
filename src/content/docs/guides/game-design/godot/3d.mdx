@@ -169,8 +169,12 @@ Then, decrease the ray cast's target position's y to -3 or lower.
 Now, go to the script on your player and add an onready variable for the ray cast and the label.
 When you have `@onready var name = ` you can just drag the node from the scene tree into the script and it will automatically fill in the variable path and add $.
 
-Next add the action for your interact button, E or F are good buttons for basic world interaction, and name it something like 'interact'.  
-Finally, somewhere in your `_physics_process(delta)` function, probably after the jumping code, add this code:
+Next add the action for your interact button, E or F are good buttons for basic world interaction, and name it something like 'interact'.
+
+Finally, somewhere in your `_physics_process(delta)` function, probably after the jumping code, check if the input action just pressed was "interact".
+If it was, get the collider from the ray cast and check if it's not null, then check if it's in the "Button" group, and if it is set the label to visible.
+
+
 ```gdscript
 if Input.is_action_just_pressed("interact"):
 	var object = ray_cast.get_collider()
@@ -178,3 +182,24 @@ if Input.is_action_just_pressed("interact"):
 		if object.is_in_group("Button"):
 			label.visible = true
 ```
+
+Boom! Interaction. That might not have seemed very difficult, but knowing to use groups and ray casts is something that's difficult to just figure out of the blue.
+
+This is a game. What you have made is a game. It might not look like it, but that's just because you haven't made the art yet.
+If you made some high level 3D models of platforms, a button, a character, and added a skybox it would look like a real game. That's truly the only difference.
+
+## What next?
+
+Make a game! 
+
+### How?
+
+Lots of googling and frustration as you figure things out. The [Godot docs](https://docs.godotengine.org/en/stable/) are your best friend.
+
+### What?
+
+Plan out a small game. Don't plan out the next Skyrim, plan out a small game that you can make in a day, then a game you can make in a week, then a month, and eventually create your masterpiece or show a game company your game portfolio and help make someone else's masterpiece. [Here is a list of New Zealand game developers](https://www.gamedevmap.com/index.php?country=New%20Zealand)
+
+An even better option would be to join a game jam, which is a competition where you make a game in a short amount of time.
+They are wildly popular and are absolutely the best way to learn and dip your toes in new areas you haven't before.  
+Just keep in mind there's nothing stopping you from doing anything. Just because you haven't made a top-down game, modelled terrain, or made a 2.5D game doesn't mean you can't learn how to in the short span of a game jam.
