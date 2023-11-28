@@ -155,7 +155,13 @@ When running, your game should now look something like this:
 ![A nearly blank game window with a platform pixel art sprite with a platform below it.](../../../../../assets/godot/basics/NearEmptyGame.png)
 You can move around with arrow keys and jump with space, if you fall off your player will fall out of the screen.
 
-So you have more space to move around and test on, make the platform larger with the **Scale Mode** button at the top of the viewport, the third button from the left, or by pressing **S**. Select the StaticBody2D node and drag in the viewport to make the platform larger. Hold **Shift** while scaling to scale the node evenly. You may need to move the platform around more, use move mode again to move it. Return to a regular cursor with select mode after you have finished. You can make the player larger if you want to as well, if you do the gap between the player's sprite and collider will be larger, so you may need to adjust the size of the collider in the player scene to be the same size as the sprite.
+So you have more space to move around and test on, make the platform larger with the **Scale Mode** button at the top of the viewport, the third button from the left, or by pressing **S**.
+Select the StaticBody2D node and drag in the viewport to make the platform larger. Hold **Shift** while scaling to scale the node evenly.
+You may need to move the platform around more, use move mode again to move it.
+Return to a regular cursor with select mode after you have finished.
+You can make the player larger if you want to as well, if you do the gap between the player's sprite and collider will be larger, so you may need to adjust the size of the collider in the player scene to be the same size as the sprite.
+
+It is recommended you make this platform a separate scene as well, so you can reuse it in other scenes or copy paste it and when you change one you don't have to change them all.
 
 #### Modifying the default script
 
@@ -209,8 +215,56 @@ Some unclear things about GDScript that are good to know:
 - Multiply a variable by `delta` in the `_physics_process` function to make it framerate independent. This is useful for making sure your game runs at the same speed on different devices. For example, if you want to move a node 100 pixels per second, you would multiply the velocity by `delta`, which is the time between the previous frame and this one measured in seconds: `velocity.x += 100 * delta`. This is to make it so that when enough frames have passed so that 1 second has passed, it would've been `100 * 1` but spread out across tens of frames to make the motion smooth instead of increasing the velocity by 100 pixels every frame, which is absurdly fast and may be faster or slower on different monitors or devices.
 - `move_and_slide()` uses the velocity of the node to calculate where the node should move to on this frame, which is why you don't need to give it any parameters and run it after you have calculated the velocity.
 
+### Signals
+
+Signals are the fourth building block of Godot. They are used to communicate when something happens between nodes.
+
+Let's add a deathbox to the scene.
+
+Start by adding an **Area2D** node as a child to **Node2D**.  
+Add a **CollisionShape2D** node as a child to **Area2D**.
+
+Make the **CollisionShape2D** a **New RectangleShape2D** and make it larger. Much larger. Specifically, make it very, very wide and only slightly tall. If you want to make it larger on every corner select a corner orange dot and press Alt.
+
+Select the **Area2D** and press Alt and move it below the platform.  
+Select **Area2D** and above the inspector you'll see the **Inspector** tab, next to it will be the **Node** tab.
+
+In the node tab double `body_entered(body: Node2D)`, and then double click your player.
+This will create a function that will be called when the player enters the area.
+
+At the top of your script below the SPEED and JUMP_VELOCITY constants, add `var respawn_location = Vector2(0, 0)`. This will be the world location your player will return to when they touch the deathbox.
+
+In `func _on_area_2d_body_entered(body):` remove `pass` and add:
+
+```gdscript
+    if body is CharacterBody2D:
+		global_position = respawn_position
+```
+
+This checks that the thing that entered the area is the player, and if it is, it sets the world position of the player to the respawn position.
+
+We can add checkpoints almost the exact same way!
+Copy paste your platform so you have another platform to jump to if you haven't already.
+
+On that platform add a new **Area2D** node as a child to **Node2D**. Go back through the previous steps but the only difference here is that you should rename the reciever method so it doesn't activate the same method.  
+Here's what the connect a signal to a method window should look like before pressing **Connect** or double clicking your player:
+![Godot Connect a Signal to a Method dialogue box with the reciever method changed to _on_checkpoint_entered](../../../../../assets/godot/basics/Signal.png)
+In the new method the only thing that needs to change is `global_position = respawn_position` to `respawn_position = global_position`.
+
+Now when you enter this checkpoint area the respawn position will be set to the checkpoint's position, and when you fall into the deathbox the player will respawn at the checkpoint.
+
+## Next steps
+
 For a good introduction to writing your own scripts to control nodes, see the [Godot documentation](https://docs.godotengine.org/en/stable/getting_started/scripting/gdscript/gdscript_basics.html). At any time, you can also use the **Search Help** button in the top right of the Script screen to look up any function or variable.
 
-If you have followed this entire guide, you know enough terminology and technique to make almost any 2D game! You will definitely need to look things up and reference the documentation, no one stops using google, but the more you create, the more you will develop muscle memory and gain understanding. 3D games aren't much more difficult, just have a different way of doing things.
+If you have followed this entire guide, you know enough terminology and technique to make almost any 2D game!
+You will definitely need to look things up and reference the documentation, no one stops using google, but the more you create, the more you will develop muscle memory and gain understanding.
+3D games aren't much more difficult, [read the guide on making a 3D game](../3d).
 
-Try copy-pasting the platform, so there are many to jump between. Then try adding a parallax background (hint: Godot has a premade parallax background node). Then try giving the player a double-jump. Finally, give the player coyote time (hint: use Godot's timer node in the player scene). If you can do those things by looking up the documentation and using multiple short tutorials, then you have developed the skills to make anything you want in Godot.
+To test your skills, try adding some simple things almost all 2D platformers will have:
+1. Copy-pasting the platform scene, so there are many to jump between.
+2. Giving the player a double-jump.
+3. Try adding a parallax background (hint: Godot has a premade parallax background node), you will need your own art.
+4. Finally, give the player coyote time (hint: use Godot's timer node in the player scene) If you don't know what coyote time is in 2D platformers, look it up, it makes the game feel much better.
+
+If you can do those things by looking up the documentation and using tutorials, then you have developed the skills to make anything you want in Godot.
