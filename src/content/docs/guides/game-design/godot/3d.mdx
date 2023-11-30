@@ -41,28 +41,17 @@ If you do not have a middle mouse button to press, go to Editor > Editor Setting
 
 First, you're going to want to set up a platform for the player to stand on.
 
-Simply add a StaticBody3D as a child of Node3D.
-
-Then, add MeshInstance3D and CollisionShape3D as a child of StaticBody2D.
-
-In the inspector on the right, set MeshInstance3D's 'Mesh' property to New PlaneMesh.
-Set the CollisionShape3D's 'Shape' property to New BoxShape3D.
-
-Select CollisionShape3D and use the orange dots to shape the BoxShape3D to the same shape and size as the plane.
-
-Now, as a child of Node3D, add CharacterBody3D.
-
-Add as a child of CharacterBody3D a Camera3D and CollisionShape3D.
-
-Set the collision shape to capsule.
-
-Select the CharacterBody3D and move it up in the viewport until it's on top of the plane.
-
-Move the camera up so it's where the 'head' should be on the character.
-
-Give the CharacterBody3D a script and leave it as the default template script.
-
-One final step, add a DirectionalLight3D as a child of Node3D and rotate it to point down, this can be anywhere in the scene.
+1. Add a StaticBody3D as a child of Node3D.
+2. Add MeshInstance3D and CollisionShape3D as a child of StaticBody2D.
+3. In the inspector on the right, set MeshInstance3D's 'Mesh' property to New PlaneMesh. Set the CollisionShape3D's 'Shape' property to New BoxShape3D.
+4. Select CollisionShape3D and use the orange dots to shape the BoxShape3D to the same shape and size as the plane.
+5. As a child of Node3D, add CharacterBody3D.
+6. Add as a child of CharacterBody3D add Camera3D and CollisionShape3D.
+7. Set the collision shape to capsule.
+8. Select the CharacterBody3D and move it up in the viewport until it's on top of the plane.
+9. Move the camera up so it's where the 'head' should be on the character.
+10. Give the CharacterBody3D a script and leave it as the default template script.
+11. One final step, add a DirectionalLight3D as a child of Node3D and rotate it to point down, this can be anywhere in the scene.
 
 Phew! That was some setup, your scene should look something like this:
 ![Scene with player](../../../../../assets/godot/3D/InitialScene.png)
