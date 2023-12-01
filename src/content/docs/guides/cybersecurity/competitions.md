@@ -38,7 +38,6 @@ Pwnable challenges are normally about finding vulnerabilities in a program and e
 - [Ghidra](https://ghidra-sre.org/) - Ghidra is a software reverse engineering (SRE) framework created and maintained by the National Security Agency (NSA).
 - [Pwntools](https://docs.pwntools.com/en/stable/) - Pwntools is a CTF framework and exploit development library for python.
 
-
 ### Reverse Engineering
 
 Reverse Engineering is the process of taking a compiled binary and turning it back into source code.
