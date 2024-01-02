@@ -1,6 +1,7 @@
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
+import starlightLinksValidator from 'starlight-links-validator'
 export const locales = {
   root: {
     label: 'English',
@@ -34,7 +35,6 @@ export default defineConfig({
     },
     sidebar: [{
       label: 'Guides',
-      collapsed: true,
       items: [{
         label: "About our Guides",
         link: 'guides/about'
@@ -125,7 +125,8 @@ export default defineConfig({
           href: '/images/favicon.ico',
           sizes: '32x32'
         }
-      }]
+      }],
+    plugins: [starlightLinksValidator()],
   }), tailwind({
     // Disable the default base styles:
     applyBaseStyles: false
