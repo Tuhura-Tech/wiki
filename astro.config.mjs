@@ -1,4 +1,3 @@
-import mdx from "@astrojs/mdx";
 import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
@@ -35,34 +34,40 @@ export default defineConfig({
     },
     sidebar: [{
       label: 'Guides',
+      collapsed: true,
       items: [{
         label: "About our Guides",
         link: 'guides/about'
       }, {
         label: "Javascript",
+        collapsed: true,
         items: [{
           label: "Setting Up",
           link: 'guides/javascript/setting-up'
         }, {
           label: "Creative Coding",
+          collapsed: true,
           autogenerate: {
             directory: 'guides/javascript/creative-coding'
           }
         }]
       },
-      // { label: "Python", autogenerate: { directory: 'guides/python' } },
+      { label: "Python", collapsed: true, autogenerate: { directory: 'guides/python' } },
       {
         label: "Git",
+        collapsed: true,
         autogenerate: {
           directory: 'guides/git'
         }
       }, {
         label: "Cybersecurity",
+        collapsed: true,
         autogenerate: {
           directory: 'guides/cybersecurity'
         }
       }, {
         label: "Game Design",
+        collapsed: true,
         items: [{
           label: "About",
           link: 'guides/game-design/about'
@@ -71,7 +76,14 @@ export default defineConfig({
           autogenerate: {
             directory: 'guides/game-design/godot'
           }
-        }]
+        }],
+      },
+      {
+        label: "SQL",
+        collapsed: true,
+        autogenerate: {
+          directory: 'guides/sql'
+        }
       }]
     }, {
       label: 'NCEA Resources',
@@ -80,11 +92,13 @@ export default defineConfig({
         link: 'ncea/about'
       }, {
         label: "NCEA Level 2",
+        collapsed: true,
         autogenerate: {
           directory: 'ncea/level-2'
         }
       }, {
         label: "NCEA Level 3",
+        collapsed: true,
         autogenerate: {
           directory: 'ncea/level-3'
         }
@@ -103,23 +117,23 @@ export default defineConfig({
     locales,
     favicon: '/images/favicon.svg',
     head: [
-    // Add ICO favicon fallback for Safari.
-    {
-      tag: 'link',
-      attrs: {
-        rel: 'icon',
-        href: '/images/favicon.ico',
-        sizes: '32x32'
-      }
-    }]
+      // Add ICO favicon fallback for Safari.
+      {
+        tag: 'link',
+        attrs: {
+          rel: 'icon',
+          href: '/images/favicon.ico',
+          sizes: '32x32'
+        }
+      }]
   }), tailwind({
     // Disable the default base styles:
     applyBaseStyles: false
-  }), ],
-  // Process images with sharp: https://docs.astro.build/en/guides/assets/#using-sharp
+  }),],
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
     }
   }
+
 });
