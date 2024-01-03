@@ -9,7 +9,7 @@ At the core of our application is our database which stores all the data (posts 
 
 ## Creating our Database
 
-Creation and management of our database will be done in SQL which allows us to easily recreate and change our database whenever we want. The [SQL tutorial](../../../../sql/sql.mdx) can offer a good deep dive into the syntax.
+Creation and management of our database will be done in SQL which allows us to easily recreate and change our database whenever we want. The [SQL tutorial](/guides/sql/) can offer a good deep dive into the syntax.
 
 ### What do we need?
 
@@ -19,13 +19,13 @@ With our simple blog we will need two tables, one for posts and one for comments
 
 Our posts table needs to include the post id, the date it was created, the title and the body of the post. The id will be the primary key and will be auto incremented. The created date will be set to the current time when the post is created. The title and body will be text fields that cannot be null.
 
-```
+
 | id | created             | title  | body         |
 |----|---------------------|--------|--------------|
 | 1  | 2024-01-02 01:59:47 | Post 1 | great post   |
 | 2  | 2024-01-02 01:59:47 | Post 2 | amazing post |
 | 3  | 2024-01-02 01:59:47 | Post 3 | awesome post |
-```
+
 
 To create our table we can use the following SQL:
 
@@ -42,13 +42,13 @@ CREATE TABLE post (
 
 The comments table will be similar to the posts table but will also include the post id that it belongs to. The id will be the primary key and will be auto incremented. The created date will be set to the current time when the comment is created. The body will be a text field that cannot be null. The post id will be an integer that cannot be null and will be a foreign key to the post table.
 
-```
+
 | id | created             | body            | post_id |
 |----|---------------------|-----------------|---------|
 | 1  | 2024-01-02 01:59:47 | great comment   | 1       |
 | 2  | 2024-01-02 01:59:47 | amazing comment | 1       |
 | 3  | 2024-01-02 01:59:47 | awesome comment | 2       |
-```
+
 
 To create our table we can use the following SQL:
 
