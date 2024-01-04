@@ -4,3 +4,136 @@ description: Setting up a Python Environment
 sidebar:
     order: 3
 ---
+
+As projects grow the need to use dependencies, quality of the code and more becomes more important. This section will cover how to set up a project to use dependencies, linting and formatting.
+
+:::note
+This is an opinionated guide on how to set up a project. There are many ways to do this and this is just one of them.
+:::
+
+## Environment Management
+
+With your environment you will often need 3rd party dependencies and tools to help you with your project. It's important these dependencies are kept isolated from other projects so that they don't interfere with each other, it also makes it easy for others to use your project.
+
+### PDM
+
+https://pdm-project.org/latest/
+
+### Other options
+
+- [Poetry](https://python-poetry.org/)
+- [Pipenv](https://pipenv.pypa.io/en/latest/)
+
+## Linting/Formatting
+
+To maintain the quality of code and help catch bugs before they happen it's important to use linting and formatting tools. These tools will help you keep your code consistent and help you catch bugs before they happen.
+
+### MyPy
+
+[MyPy](https://mypy.readthedocs.io/en/stable/) is a static type checker for Python, this means it will catch bugs that happen when using different types. It can catch when you accidentally use an int instead of a str and other issues.
+
+#### Install MyPy
+
+```bash
+pdm add --style mypy
+```
+
+#### Configure MyPy
+
+To configure MyPy you can use add the settings into your `pyproject.toml` file. It is recommended to use strict mode to catch as many issues as possible.
+
+
+```toml
+// pyproject.toml
+
+[tool.mypy]
+strict = true
+```
+
+#### Running MyPy
+
+To run MyPy you can use the following command.
+
+```bash
+pdm run mypy .
+```
+
+You can also add a script to your `pyproject.toml` file to make it easier to run.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++typecheck = { cmd = ["mypy", "."] }
+```
+
+```bash
+pdm run typecheck
+```
+
+### Ruff
+
+[Ruff](https://docs.astral.sh/ruff) is an all in one linting and formatting tool. It is able to check for common bugs and make sure code is formatted correctly.
+
+#### Installing Ruff
+
+```bash
+pdm add --style ruff
+```
+
+#### Configuring Ruff
+
+Like MyPy you can configure Ruff in your `pyproject.toml` file. It has [different rules](https://docs.astral.sh/ruff/rules/) that can be selected with an opinionated default below.
+
+```toml
+// pyproject.toml
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    #docstring
+    "D",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+```
+
+#### Running Ruff
+
+Ruff can operate in two modes, check and fix. Check will check the code and report any issues, fix will try to fix the issues it can.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Lint">
+    ```bash
+    pdm run ruff check .
+    ```
+  </TabItem>
+  <TabItem label="Format">
+    ```bash
+    pdm run ruff fix .
+    ```
+  </TabItem>
+</Tabs>
+
+You can also add scripts to your `pyproject.toml` file to make it easier to run.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++lint = { cmd = ["ruff", "check", ".", "--fix"] }
++format = { cmd = ["ruff", "format", "."] }
+```

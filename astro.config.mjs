@@ -104,11 +104,6 @@ export default defineConfig({
         }
       }]
     }, {
-      label: 'Projects',
-      autogenerate: {
-        directory: 'projects'
-      }
-    }, {
       label: "Tuhura Tech Resources",
       autogenerate: {
         directory: 'tuhura-tech'
