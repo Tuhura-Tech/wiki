@@ -17,7 +17,73 @@ With your environment you will often need 3rd party dependencies and tools to he
 
 ### PDM
 
-https://pdm-project.org/latest/
+[PDM](https://pdm-project.org/latest/) is one of several tools available to help manage your project and it works with all the required standards while being easy to use.
+
+#### Using PDM
+
+With [PDM installed](https://pdm-project.org/latest/) you can create a new project with the following command.
+
+```bash
+pdm init
+```
+
+This will create a `pyproject.toml` file that will contain all the information about your project. It will also create a `pdm.lock` file that will contain all the dependencies and their versions.
+
+#### Adding Dependencies
+
+To add a dependency you can use the following command.
+
+```bash
+pdm add <package>
+```
+
+Or you could add it to a group (for tooling and such).
+
+```bash
+pdm add --<group name> <package>
+```
+
+#### PDM Structure
+
+Unlike having a single file for your code PDM has all your code in a `src/` folder with your project folder inside of that (in this case `example/`). This is to help with importing your code and to keep your project folder clean.
+
+import FileTree from '../../../../components/file-tree.astro';
+
+<FileTree>
+
+- src/
+  - example/
+    - \_\_init\_\_.py
+    - \_\_main\_\_.py
+    - example.py
+- pyproject.toml
+- pdm.lock
+
+</FileTree>
+
+#### Running code with PDM
+
+As code sits inside of a `src/` folder paths to run files will need to include that eg.
+
+```bash
+pdm run python src/example/__main__.py
+```
+
+```bash
+pdm run flask --app src/example run
+```
+
+You can also use [scripts](https://pdm-project.org/latest/usage/scripts/) to make it easier to run your code.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++start = { cmd = ["python", "src/example/__main__.py"] }
+```
+
+```bash
+pdm run start
+```
 
 ### Other options
 
