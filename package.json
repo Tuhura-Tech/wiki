@@ -19,8 +19,8 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
-    "@commitlint/cli": "18.4.3",
-    "@commitlint/config-conventional": "18.4.3",
+    "@commitlint/cli": "18.4.4",
+    "@commitlint/config-conventional": "18.4.4",
     "hast-util-from-html": "2.0.1",
     "hast-util-to-string": "3.0.0",
     "hastscript": "8.0.0",
