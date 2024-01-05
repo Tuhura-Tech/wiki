@@ -50,15 +50,16 @@ Unlike having a single file for your code PDM has all your code in a `src/` fold
 import FileTree from '../../../../components/file-tree.astro';
 
 <FileTree>
-
-- src/
-  - example/
-    - \_\_init\_\_.py
-    - \_\_main\_\_.py
-    - example.py
 - pyproject.toml
-- pdm.lock
-
+- src/
+  - mypkg/
+    - __init__.py
+    - app.py
+    - view.py
+- tests/
+  - test_app.py
+  - test_view.py
+    ...
 </FileTree>
 
 #### Running code with PDM

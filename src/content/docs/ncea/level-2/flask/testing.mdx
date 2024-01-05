@@ -19,11 +19,11 @@ No type of testing can guarantee that your code is bug free. It is important to 
 
 ## Unit tests
 
-In Python the [pytest](https://pytest.org) framework is commonly used for unit testing. This framework allows you to write tests as functions and run them from the command line. To run the tests you can use the `pytest` command. This will run all tests in the current directory and subdirectories. You can also specify a specific file or directory to run tests from. This guide also contains an [introduction to testing](/guides/python/testing).
+In Python the [pytest](https://pytest.org) framework is commonly used for unit testing. This framework allows you to write tests as functions and run them from the command line. To run the tests you can use the `pytest` command. This will run all tests in the current directory and subdirectories. You can also specify a specific file or directory to run tests from. The [Pytest docs](https://docs.pytest.org/en/7.4.x/index.html) contain a good getting started guide.
 
 ### Setup
 
-As our tests should run seperate from whatever is happening wiht our application they will need their own data which means that the tests can always be run.
+As our tests should run seperate from whatever is happening with our application they will need their own data which means that the tests can always be run.
 
 ```sql
 // tests/data.sql
