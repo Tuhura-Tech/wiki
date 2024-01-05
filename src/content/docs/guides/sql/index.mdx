@@ -1,0 +1,86 @@
+---
+title: Introduction
+description: What is SQL
+sidebar:
+    order: 1
+---
+
+Structured Query Language or SQL is the standard language for interacting with relational databases. It is used to create, read, update, and delete data from a database. SQL is a declarative language, meaning that you tell the database what you want to do, and it figures out how to do it.
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 30  |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+
+Using SQL, we are able to define the schema (structure) of the table and then interact with it.
+
+Databases are similar to spreadsheets in that they are made up of tables. Each table has a name and a schema. The schema defines the columns of the table and the type of data that each column can contain. For example, a table for users might have the following schema:
+
+| Column     | Type    |
+| ---------- | ------- |
+| first_name | varchar |
+| last_name  | varchar |
+| age        | int     |
+
+The `first_name` and `last_name` columns are of type `varchar` which means they can contain any string. The `age` column is of type `int` which means it can contain any integer. A full list of data types can be found at [W3Schools](https://www.w3schools.com/sql/sql_datatypes.asp).
+
+## Basics
+
+SQL is made up of statements. Each statement is made up of keywords and clauses. Keywords are reserved words that have special meaning in SQL. Clauses are the parameters that you pass to the keywords. For example, the following statement selects all columns from the `users` table:
+
+```sql
+SELECT * FROM users;
+```
+
+Will return:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 30  |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+
+The `SELECT` keyword tells the database that we want to select data from the database. The `*` is a wildcard that tells the database that we want to select all columns. The `FROM` keyword tells the database which table we want to select data from. In this case, we are selecting data from the `users` table.
+
+## Clauses
+
+Clauses are the parameters that you pass to the keywords. For example, the `WHERE` clause is used to filter data. The following statement selects all columns from the `users` table where the `age` column is equal to `30`:
+
+```sql
+SELECT * FROM users WHERE age = 30;
+```
+
+Will return:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 30  |
+
+The `WHERE` clause tells the database that we want to filter the data. The `age = 30` clause tells the database that we want to filter the data where the `age` column is equal to `30`.
+
+## Operators
+
+Operators are used to compare values. The following operators are supported by most databases:
+
+| Operator | Description |
+| -------- | ----------- |
+| =        | Equal       |
+| \<\>       | Not Equal   |
+| >        | Greater Than |
+| \<        | Less Than   |
+| >=       | Greater Than or Equal |
+| \<=       | Less Than or Equal |
+
+This means we can use the following operators in our `WHERE` clause:
+
+```sql
+SELECT * FROM users WHERE age >= 30;
+```
+
+Will return:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| Bob        | Smith     | 35  |
+| John       | Doe       | 30  |

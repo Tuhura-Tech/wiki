@@ -1,0 +1,199 @@
+---
+title: Blog Functionality
+description: Core functionality for the blog
+sidebar:
+    order: 7
+---
+
+To make life easier all blog related routes will sit inside their own file (blueprint) and then be registered with the app. This makes it easier to seperate code by functionality rather than having one large file with all routes.
+
+### Create a Blueprint
+
+Creating a blueprint is as simple as creating a new file and adding the following code.
+
+```python
+// flaskapp/blog.py
+"""Blog routes."""
+from flask import Blueprint, redirect, render_template, request, url_for
+from werkzeug.exceptions import abort
+
+from flaskapp.db import get_db
+
+bp = Blueprint("blog", __name__)
+```
+
+With our blueprint created we can now register it with the app. The `index` route in our blueprint is also going to be the main page of our website so we will set a url rule to link it to `/`.
+
+```diff lang=python
+// flaskapp/__init__.py
+def create_app():
+    app = ...
+    # existing code omitted
+
++    from . import blog
++
++    app.register_blueprint(blog.bp)
++    app.add_url_rule('/', endpoint='index')
+
+    return app
+```
+
+## Routes
+
+For our blog multiple different routes are needed, each serving one of the already created templates. The routes will also need to interact with the database to get the required data to then fill the template.
+
+### Index route
+
+Our main page needs to show a preview of all posts and the amount of comments on each post.
+
+```python
+@bp.route("/")
+def index():
+    """Main view page."""
+    db = get_db()
+    posts = db.execute(
+        "SELECT post.id, post.title, SUBSTR(post.body, 1, 400) AS body, post.created, "
+        "count(comment.id) AS comment_amount FROM post LEFT JOIN comment ON "
+        "comment.post_id=post.id group by post.id ORDER BY post.created DESC",
+    ).fetchall()
+    return render_template("blog/index.html", posts=posts)
+```
+
+1. To only show a preview of the post we use the `SUBSTR` function to only get the first 400 characters of the post body.
+
+2. To get the amount of comments on each post we use a `LEFT JOIN` to join the `comment` table to the `post` table. This will return all posts even if they have no comments. We then use the `count` function to count the amount of comments on each post. the `LEFT JOIN` command adds the contents of the `comment` table into our query.
+
+3. So that all posts are in the correct order we use the `ORDER BY` command to order the posts by their creation date.
+
+### Display post
+
+With our index page displaying a preview of all posts we now need to create a page to display the full post and all comments on that post. To keep things organised we will seperate the code to get the post and the code to get the comments into seperate functions. This page will also handle adding comments to the post.
+
+```python
+def get_post(id):
+    """Get a blog post.
+
+    Args:
+        id (int): the id of the post to get.
+
+    Returns:
+        the post if found otherwise redirects the user to a 404.
+    """
+    post = (
+        get_db()
+        .execute(
+            "SELECT id, title, body, created FROM post WHERE id = ?",
+            (id,),
+        )
+        .fetchone()
+    )
+
+    if post is None:
+        abort(404, f"Post id {id} doesn't exist.")
+
+    return post
+
+
+def get_comments(id):
+    """Gets all comments on a post.
+
+    Args:
+        id (int): the id of the post to get.
+
+    Returns:
+        A list of all comments if found.
+    """
+    post = (
+        get_db()
+        .execute(
+            "SELECT id, body, created FROM comment WHERE post_id = ?",
+            (id,),
+        )
+        .fetchall()
+    )
+
+    return post
+
+
+@bp.route("/<int:id>/post", methods=("GET", "POST"))
+def post(id):
+    """Post page with comments and the ability to add comments."""
+    error = None
+    if request.method == "POST":
+        body = request.form["body"]
+
+        if len(body) < 10:
+            error = "Comment is too short"
+
+        if error is None:
+            db = get_db()
+            db.execute(
+                "INSERT INTO comment (body, post_id) VALUES (?, ?)",
+                (
+                    body,
+                    id,
+                ),
+            )
+            db.commit()
+            return redirect(f"/{id}/post")
+    post = get_post(id)
+    comments = get_comments(id)
+    return render_template(
+        "blog/post.html",
+        post=post,
+        comments=comments,
+        error=error,
+    )
+```
+
+1. The route of `/<int:id>/post` means that the route will be `/1/post` for example. The `int` part of the route means that the id will be converted to an integer before being passed to the function.
+
+2. As this page has both `GET` and `POST` methods we need to check which method is being used. If the method is `POST` then we know that the user is trying to add a comment to the post. We then get the comment from the form and check that it is at least 10 characters long. If the comment is valid we then add it to the database and redirect the user back to the post page.
+
+### Creating posts
+
+Similar to creating comments creating posts functions the same way, when you initially load the page it will be a `GET` request and when you submit the form it will be a `POST` request. Validation is done to make sure that the title is not empty.
+
+```python
+@bp.route("/create", methods=("GET", "POST"))
+def create():
+    """Create post page."""
+    error = None
+    if request.method == "POST":
+        title = request.form["title"]
+        body = request.form["body"]
+
+        if not title:
+            error = "Title is required."
+
+        if error is None:
+            db = get_db()
+            db.execute(
+                "INSERT INTO post (title, body) VALUES (?, ?)",
+                (title, body),
+            )
+            db.commit()
+            return redirect(url_for("blog.index"))
+
+    return render_template("blog/create.html", error=error)
+```
+
+### Searching posts
+
+Searching posts is done by using the `LIKE` command in SQL. This command allows you to search for a string within a string. The `%` character is used as a wildcard so that the search will return any post that contains the search query. Any results are then passed to the template to be displayed.
+
+```python
+@bp.route("/search")
+def search():
+    """Search page."""
+    query = request.args.get("query")
+    db = get_db()
+    results = db.execute(
+        (
+            "SELECT id, title, SUBSTR(body, 1, 400) AS body, created FROM post "
+            "WHERE title LIKE ? OR body LIKE ?"
+        ),
+        (f"%{query}%", f"%{query}%"),
+    ).fetchall()
+    return render_template("blog/search.html", posts=results, query=query)
+```

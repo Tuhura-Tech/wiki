@@ -11,19 +11,22 @@ This project is built on-top of the [Starlight](https://starlight.astro.build/) 
 
 Inside of the project, you'll see the following folders and files:
 
-```NA
-.
-├── public/
-├── src/
-│   ├── assets/
-│   ├── content/
-│   │   ├── docs/
-│   │   └── config.ts
-│   └── env.d.ts
-├── astro.config.mjs
-├── package.json
-└── tsconfig.json
-```
+import FileTree from '../../../components/file-tree.astro';
+
+<FileTree>
+
+- public/
+- src/
+  - assets/
+    - content/
+      - docs/
+      - config.ts
+  - env.d.ts
+- astro.config.mjs
+- package.json
+- tsconfig.json
+
+</FileTree>
 
 Starlight looks for `.md` or `.mdx` files in the `src/content/docs/` directory. Each file is exposed as a route based on its file name.
 

@@ -1,0 +1,103 @@
+---
+title: Basics
+description: What is SQL
+sidebar:
+    order: 2
+---
+
+## Basic Syntax
+
+SQL statements are made up of clauses, which are made up of keywords and expressions. Clauses are separated by semicolons. By convention, keywords are written in uppercase, and expressions are written in lowercase.
+
+
+## Modifying Data
+
+The `SELECT` clause is used to read data from a database. It is made up of two parts: the `SELECT` keyword and the `FROM` keyword. The `SELECT` keyword is used to specify which columns to read. The `FROM` keyword is used to specify which table to read from.
+
+
+```sql
+SELECT * FROM users;
+```
+
+Will return:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 30  |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+
+The above statement is made up of two clauses: `SELECT * FROM users` and `;`. The first clause is a `SELECT` statement, which is used to read data from a database. The second clause is a semicolon, which is used to terminate the statement.
+
+The `*` is a wildcard, which means "all columns". The `users` is the name of the table to read from. You can also specify which columns to read:
+
+```sql
+SELECT first_name, last_name FROM users;
+```
+
+The above statement will return:
+
+| first_name | last_name |
+| ---------- | --------- |
+| John       | Doe       |
+| Jane       | Doe       |
+| Bob        | Smith     |
+| Betty      | Smith     |
+
+### Inserting Data
+We can insert a new user with the following statement:
+
+```sql
+INSERT INTO users (first_name, last_name, age) VALUES ('Betty', 'Smith', 32);
+```
+
+The above statement is made up of two clauses: `INSERT INTO users (first_name, last_name, age)` and `VALUES ('Betty', 'Smith', 32)`. The first clause is an `INSERT` statement, which is used to insert data into a database. The second clause is a `VALUES` clause, which is used to specify the values to insert.
+
+The table will now be updated to be:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 30  |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+| Betty      | Smith     | 32  |
+
+### Updating Data
+
+We can update a user's age with the following statement:
+
+```sql
+UPDATE users SET age = 31 WHERE first_name = 'John' AND last_name = 'Doe';
+```
+
+The above statement is made up of two clauses: `UPDATE users SET age = 31` and `WHERE first_name = 'John' AND last_name = 'Doe'`. The first clause is an `UPDATE` statement, which is used to update data in a database. The second clause is a `WHERE` clause, which is used to specify which rows to update.
+
+The table will now be updated to be:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| John       | Doe       | 31  |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+| Betty      | Smith     | 32  |
+
+### Deleting Data
+
+We can delete a user with the following statement:
+
+```sql
+DELETE FROM users WHERE first_name = 'John' AND last_name = 'Doe';
+```
+
+The above statement is made up of two clauses: `DELETE FROM users` and `WHERE first_name = 'John' AND last_name = 'Doe'`. The first clause is a `DELETE` statement, which is used to delete data from a database. The second clause is a `WHERE` clause, which is used to specify which rows to delete.
+
+The table will now be updated to be:
+
+| first_name | last_name | age |
+| ---------- | --------- | --- |
+| Jane       | Doe       | 28  |
+| Bob        | Smith     | 35  |
+| Betty      | Smith     | 32  |
+
+
+

@@ -1,0 +1,206 @@
+---
+title: Setting Up
+description: Setting up a Python Environment
+sidebar:
+    order: 3
+---
+
+As projects grow the need to use dependencies, quality of the code and more becomes more important. This section will cover how to set up a project to use dependencies, linting and formatting.
+
+:::note
+This is an opinionated guide on how to set up a project. There are many ways to do this and this is just one of them.
+:::
+
+## Environment Management
+
+With your environment you will often need 3rd party dependencies and tools to help you with your project. It's important these dependencies are kept isolated from other projects so that they don't interfere with each other, it also makes it easy for others to use your project.
+
+### PDM
+
+[PDM](https://pdm-project.org/latest/) is one of several tools available to help manage your project and it works with all the required standards while being easy to use.
+
+#### Using PDM
+
+With [PDM installed](https://pdm-project.org/latest/) you can create a new project with the following command.
+
+```bash
+pdm init
+```
+
+This will create a `pyproject.toml` file that will contain all the information about your project. It will also create a `pdm.lock` file that will contain all the dependencies and their versions.
+
+#### Adding Dependencies
+
+To add a dependency you can use the following command.
+
+```bash
+pdm add <package>
+```
+
+Or you could add it to a group (for tooling and such).
+
+```bash
+pdm add --<group name> <package>
+```
+
+#### PDM Structure
+
+Unlike having a single file for your code PDM has all your code in a `src/` folder with your project folder inside of that (in this case `example/`). This is to help with importing your code and to keep your project folder clean.
+
+import FileTree from '../../../../components/file-tree.astro';
+
+<FileTree>
+- pyproject.toml
+- src/
+  - mypkg/
+    - __init__.py
+    - app.py
+    - view.py
+- tests/
+  - test_app.py
+  - test_view.py
+    ...
+</FileTree>
+
+#### Running code with PDM
+
+As code sits inside of a `src/` folder paths to run files will need to include that eg.
+
+```bash
+pdm run python src/example/__main__.py
+```
+
+```bash
+pdm run flask --app src/example run
+```
+
+You can also use [scripts](https://pdm-project.org/latest/usage/scripts/) to make it easier to run your code.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++start = { cmd = ["python", "src/example/__main__.py"] }
+```
+
+```bash
+pdm run start
+```
+
+### Other options
+
+- [Poetry](https://python-poetry.org/)
+- [Pipenv](https://pipenv.pypa.io/en/latest/)
+
+## Linting/Formatting
+
+To maintain the quality of code and help catch bugs before they happen it's important to use linting and formatting tools. These tools will help you keep your code consistent and help you catch bugs before they happen.
+
+### MyPy
+
+[MyPy](https://mypy.readthedocs.io/en/stable/) is a static type checker for Python, this means it will catch bugs that happen when using different types. It can catch when you accidentally use an int instead of a str and other issues.
+
+#### Install MyPy
+
+```bash
+pdm add --style mypy
+```
+
+#### Configure MyPy
+
+To configure MyPy you can use add the settings into your `pyproject.toml` file. It is recommended to use strict mode to catch as many issues as possible.
+
+
+```toml
+// pyproject.toml
+
+[tool.mypy]
+strict = true
+```
+
+#### Running MyPy
+
+To run MyPy you can use the following command.
+
+```bash
+pdm run mypy .
+```
+
+You can also add a script to your `pyproject.toml` file to make it easier to run.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++typecheck = { cmd = ["mypy", "."] }
+```
+
+```bash
+pdm run typecheck
+```
+
+### Ruff
+
+[Ruff](https://docs.astral.sh/ruff) is an all in one linting and formatting tool. It is able to check for common bugs and make sure code is formatted correctly.
+
+#### Installing Ruff
+
+```bash
+pdm add --style ruff
+```
+
+#### Configuring Ruff
+
+Like MyPy you can configure Ruff in your `pyproject.toml` file. It has [different rules](https://docs.astral.sh/ruff/rules/) that can be selected with an opinionated default below.
+
+```toml
+// pyproject.toml
+
+[tool.ruff.lint]
+fixable = ["ALL"]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    #docstring
+    "D",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+```
+
+#### Running Ruff
+
+Ruff can operate in two modes, check and fix. Check will check the code and report any issues, fix will try to fix the issues it can.
+
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Lint">
+    ```bash
+    pdm run ruff check .
+    ```
+  </TabItem>
+  <TabItem label="Format">
+    ```bash
+    pdm run ruff fix .
+    ```
+  </TabItem>
+</Tabs>
+
+You can also add scripts to your `pyproject.toml` file to make it easier to run.
+
+```diff lang=toml
+// pyproject.toml
+[tool.pdm.scripts]
++lint = { cmd = ["ruff", "check", ".", "--fix"] }
++format = { cmd = ["ruff", "format", "."] }
+```
