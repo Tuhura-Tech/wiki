@@ -27,6 +27,7 @@ export default defineConfig({
       replacesTitle: true
     },
     social: {
+      mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
       github: 'https://github.com/Tuhura-Tech/Wiki',
       discord: 'https://discord.gg/PNxh7cwKfQ'
     },
