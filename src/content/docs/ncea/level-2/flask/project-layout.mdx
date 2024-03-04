@@ -25,7 +25,7 @@ def hello():
 Using a single file doesn't scale to larger websites and becomes confusing and difficult to navigate. For this reason projects are split into multiple files to organise the code by function. We will have a main app folder called `flaskapp` which will contain our app, database and our html pages, we will also have a folder to house our automated tests.
 
 
-import FileTree from '../../../../../components/file-tree.astro';
+import { FileTree } from '@astrojs/starlight/components';
 
 <FileTree>
 

@@ -47,7 +47,7 @@ pdm add --<group name> <package>
 
 Unlike having a single file for your code PDM has all your code in a `src/` folder with your project folder inside of that (in this case `example/`). This is to help with importing your code and to keep your project folder clean.
 
-import FileTree from '../../../../components/file-tree.astro';
+import { FileTree } from '@astrojs/starlight/components';
 
 <FileTree>
 - pyproject.toml
