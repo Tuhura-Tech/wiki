@@ -164,7 +164,7 @@ You should rename your **CharacterBody2D** to "Player".
 You can convert the current **CharacterBody2D** node into a scene by right-clicking it and selecting **Save Branch as Scene**.  
 Save it as **player.tscn**, it should have this by default if you named your **CharacterBody2D** as Player.
 
-> Rename **CharacterBody2D** to **Player** and save it as a seperate scene saved as **player.tscn**.
+> Rename **CharacterBody2D** to **Player** and save it as a separate scene saved as **player.tscn**.
 
 You'll notice that it removed all of the child nodes from the **Main** scene you made at the beginning.
 If you click the new **Open in Editor** icon that appeared on your player, it'll open up the new player scene.
@@ -323,7 +323,7 @@ If you put this in `_physics_process` it will check this every frame. When the g
 
 > Add an indented line (A line that is spaced to the right by pressing **Tab** before it) setting the player's global position to the position it should reset at. `global_position = reset_position`
 
-In all likelyhood, if you run the game and jump to your previously interminable fall, now you should reset to the beginning.
+In all likelihood, if you run the game and jump to your previously interminable fall, now you should reset to the beginning.
 
 If you didn't, check the positions, check the if statement.  
 If you're not moving at all it's most likely because you haven't indented your `global_position = reset_position`.
@@ -341,7 +341,7 @@ An **Area2D** has some good built-in signals that communicate when a **body** li
 
 > Move the **Area2D** to somewhere further along your obstacle course, then give the **CollisionShape2D** a rectangle shape and make it take a bit of the platform.
 
-![A small 4-platform obstacle course with the palyer starting on the left and the checkpoint on the right](../../../../../assets/godot/basics/SimpleObstacleCourse.png)
+![A small 4-platform obstacle course with the player starting on the left and the checkpoint on the right](../../../../../assets/godot/basics/SimpleObstacleCourse.png)
 It should look something similar to this.
 
 Click on your **Area2D** in the scene tree and on the right of the screen go to the **Node** tab.
@@ -349,14 +349,14 @@ Click on your **Area2D** in the scene tree and on the right of the screen go to 
 Once here, double click the **body_entered(body:Node2D)** signal.
 It is imperative you select the **body_entered** and not the **area_entered** one, otherwise it will not detect the player.
 
-![Godot Connect a Signal to a Method dialogue box with the reciever method changed to _on_checkpoint_entered](../../../../../assets/godot/basics/Signal.png)
-Once you get to this screen, change the **Reciever Method** to **_on_checkpoint_entered** just to make things clear.
+![Godot Connect a Signal to a Method dialogue box with the receiver method changed to _on_checkpoint_entered](../../../../../assets/godot/basics/Signal.png)
+Once you get to this screen, change the **Receiver Method** to **_on_checkpoint_entered** just to make things clear.
 
 Make sure you have the player selected from the list of nodes, then click **Connect**.
 
 I want you to stop and think if you haven't already seen the next couple lines. We have a variable that sets where the player resets to. This function, or rather this code where `pass` is right now runs when the player enters the checkpoint. What should you put here?
 
-This `line is intersperced` with `code snippets` so that the real answer is less `visually distinctive and people who want to` give it a go can actually try thinking `of the line they need`. The `line needed is reset_position = global_position` but people need a good chance to try and `form some brain connections naturally`.
+This `line is interspersed` with `code snippets` so that the real answer is less `visually distinctive and people who want to` give it a go can actually try thinking `of the line they need`. The `line needed is reset_position = global_position` but people need a good chance to try and `form some brain connections naturally`.
 
 ## Next steps
 
