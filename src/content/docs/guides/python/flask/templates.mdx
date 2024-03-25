@@ -1,0 +1,330 @@
+---
+title: Using Flask Templates
+description: A simple website built using flask
+sidebar:
+   order: 3
+---
+
+Writing HTML in Python code is not a good practice. It is hard to maintain, understand and becomes really difficult with larger pages. Flask provides a way to write HTML in separate files and then use them in the Python code. These files are called templates which are built using [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/).
+
+## Creating a Template
+
+Create a new folder called `templates` in the project directory. Inside this folder, create a new file called `index.html`. Add the following code to the file:
+
+```html
+// templates/index.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ title }}</title>
+    </head>
+
+    <body>
+        <h1>{{ heading }}</h1>
+        <p>{{ content }}</p>
+    </body>
+</html>
+```
+
+:::note
+What is this??? `{{ title }}`, `{{ heading }}`, `{{ content }}` are called placeholders. These are replaced with actual values when the template is rendered.
+:::
+
+## Rendering a Template
+
+To render a template, we need to use the `render_template` function from the `flask` module. This function takes the name of the template file and the values to be replaced in the placeholders.
+
+```diff lang="python"
+// main.py
+- from flask import Flask
++ from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+-    return "<h1>Welcome to the home page!</h1>"
++    return render_template('index.html', title='Home', heading='Welcome to the website', content='This is a simple website built using Flask')
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+## Complex Templates
+
+Templates can be as complex as you want with lots of different functionality.
+
+### Base Template
+
+Base templates can be used so you don't have to repeat the same code in every template. Create a new file called `base.html` in the `templates` folder.
+
+```html
+// templates/base.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
+```
+
+We will then need to update our `index.html` file to extend the `base.html` file.
+
+```diff lang="html"
+// templates/index.html
+-<!DOCTYPE html>
+-<html lang="en">
++{% extends 'base.html' %}
+-    <head>
+-        <title>{{ title }}</title>
++{% block title %}{{ title }}{% endblock %}
+-    </head>
+
+-    <body>
+-        <h1>{{ heading }}</h1>
+-        <p>{{ content }}</p>
++{% block content %}
++    <h1>{{ heading }}</h1>
++    <p>{{ content }}</p>
++{% endblock %}
+-    </body>
+</html>
+```
+
+This would give a `index.html` that now looks like this:
+
+```html
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the website</h1>
+    <p>This is a simple website built using Flask</p>
+{% endblock %}
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+### Includes
+
+Includes can be used to include a file in another file. Create a new file called `header.html` in the `templates` folder.
+
+```html
+// templates/header.html
+<header>
+    <h1>Website</h1>
+</header>
+```
+
+We will then need to update our `base.html` file to include the `header.html` file.
+
+```diff lang="html"
+// templates/base.html
+    <body>
++       {% include 'header.html' %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Website</h1>
+        </header>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+:::tip
+You can also use `extends` and `include` together to create a complex template structure.
+:::
+
+#### Passing Variables to Includes
+
+If you want to pass variables to the included file, you can do so by passing the variables as arguments to the `include` function. We can modify our `header.html` file to accept a `title` variable.
+
+```diff lang="html"
+// templates/header.html
+<header>
+-    <h1>Website</h1>
++    <h1>{{ title }}</h1>
+</header>
+```
+
+We will then need to update our `base.html` file to include the `header.html` file with the `title` variable.
+
+```diff lang="html"
+// templates/base.html
+    <body>
+-       {% include 'header.html' %}
++       {% include 'header.html' with title='Website' %}
+        {% block content %}{% endblock %}
+    </body>
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Website</h1>
+        </header>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+
+We will then need to update our `base.html` file to include the `header.html` file.
+
+```diff lang="html"
+// templates/base.html
+    <body>
+
+### Loops
+
+If we have a list of items that we want to display, we can use a loop to iterate over the list and display each item. Create a new file called `list.html` in the `templates` folder.
+
+```html
+// templates/list.html
+{% extends 'base.html' %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+    <h1>List of items</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+```
+
+We will then need to update our `main.py` file to render the `list.html` file.
+
+```python
+// main.py
+@app.route('/list')
+def list():
+    items = ['Item 1', 'Item 2', 'Item 3']
+    return render_template('index.html', title='List', heading='List of items', content='This is a list of items', items=items)
+```
+
+When we run the server and visit the list page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>List</title>
+    </head>
+
+    <body>
+        <h1>List of items</h1>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </body>
+</html>
+```
+
+:::note
+This can also be combined with `includes` to have an entire html section as a separate file.
+:::
+
+### Conditionals
+
+If we want to display content based on a condition, we can use conditionals. Create a new file called `conditional.html` in the `templates` folder.
+
+```html
+// templates/conditional.html
+{% extends 'base.html' %}
+
+{% block title %}Conditional{% endblock %}
+
+{% block content %}
+    <h1>Conditional content</h1>
+    {% if condition %}
+        <p>Condition is true</p>
+    {% else %}
+        <p>Condition is false</p>
+    {% endif %}
+{% endblock %}
+```
+
+We will then need to update our `main.py` file to render the `conditional.html` file.
+
+```python
+// main.py
+@app.route('/conditional')
+def conditional():
+    condition = True
+    return render_template('conditional.html', title='Conditional', heading='Conditional content', content='This is a conditional content', condition=condition)
+```
+
+When we run the server and visit the conditional page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Conditional</title>
+    </head>
+
+    <body>
+        <h1>Conditional content</h1>
+        <p>Condition is true</p>
+    </body>
+</html>
+```

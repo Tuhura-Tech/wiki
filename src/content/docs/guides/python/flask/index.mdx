@@ -1,0 +1,90 @@
+---
+title: Flask Introduction
+description: A simple website built using flask
+sidebar:
+   order: 1
+---
+
+## What is Flask?
+
+Flask is a Python framework for building web applications. It is lightweight and modular, and is a great tool for building simple websites. In this guide, we will build a simple website using Flask.
+
+## Knowledge Required
+
+Basic familiarity with Python, HTML/CSS and SQL will be needed to build this website and resources can be found here:
+
+- [Python](/guides/python/)
+- [HTML/CSS](/guides/web/)
+- [SQL](/guides/sql/)
+
+## Getting Started
+
+### Installing flask
+
+To install Flask, you can use pip, which is the package manager for Python. Run the following command in your terminal:
+
+```bash
+pip install Flask
+```
+
+### Basic Flask App
+
+```py
+// main.py
+from flask import Flask
+
+# Create a Flask app
+app = Flask(__name__)
+
+# Define a route
+@app.route('/')
+def index():
+   # Return text to show on the webpage.
+   return 'Hello, World!'
+
+# Run the app
+if __name__ == "__main__":
+    app.run()
+```
+
+To run the Flask app, save the code in a file called `main.py` and run the following command in your terminal:
+
+```bash
+python main.py
+```
+
+This will start a development server on your local machine, and you can access the website by visiting `http://127.0.0.1:5000` in your browser. You should see the text "Hello, World!" displayed on the webpage.
+
+#### So how does this work?
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Import the `Flask` class from the `flask` module.
+
+   ```py
+   from flask import Flask;
+   ```
+
+   This imports the Flask class from the Flask module, which is used to create a Flask application.
+
+2. Create the Flask app.
+
+   ```py
+   app = Flask(__name__)
+   ```
+
+   This creates a new Flask application instance. The `__name__` argument is a special Python variable that is set to the name of the current module. This is used by Flask to determine the root path of the application.
+
+3. Define a route.
+
+   ```py
+   @app.route('/')
+   def index():
+       return 'Hello, World!'
+   ```
+
+   Flask uses things called decorators to map functions to different webpages (routes). In this case, we are mapping the `index` function to the root URL `/`. When a user visits the root URL, the `index` function is called, and it returns the text "Hello, World!". For more complex applications, you can return HTML templates or JSON data.
+
+</Steps>
