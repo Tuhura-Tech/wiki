@@ -4,3 +4,92 @@ description: A simple website built using flask
 sidebar:
    order: 4
 ---
+
+So far all of this work replicates what can already be done with a simple HTML file. However, the real power of Flask comes from its ability to interact with data.
+
+In this section, we will create a simple website that allows users to update data. We will use a simple list of dictionaries to store the data. This is not a scalable solution, but it is a good starting point.
+
+```python
+// main.py
+from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+data = [
+    {"name": "Alice", "age": 25},
+    {"name": "Bob", "age": 30},
+    {"name": "Charlie", "age": 35},
+]
+
+@app.route("/")
+def index():
+    return render_template("index.html", data=data)
+
+@app.route("/update", methods=["POST"])
+def update():
+    name = request.form["name"]
+    age = request.form["age"]
+    data.append({"name": name, "age": age})
+    return render_template("index.html", data=data)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+```
+
+```html
+// templates/index.html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Updating data</title>
+    </head>
+
+    <body>
+        <h1>Updating data</h1>
+
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item["name"] }}</td>
+                    <td>{{ item["age"] }}</td>
+                </tr>
+            {% endfor %}
+        </table
+
+        <form action="/update" method="post">
+            <input type="text" name="name" placeholder="Name">
+            <input type="text" name="age" placeholder="Age">
+            <input type="submit" value="Update">
+        </form>
+    </body>
+</html>
+```
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Create a list of dictionaries to store the data.
+
+   These dictionaries will have two keys: `name` and `age`.
+   While the data is hard-coded in this example, it could be loaded from a database or an API.
+
+2. Create a route to display the data.
+
+   The route will render an HTML template that displays the data in a table.
+   The template uses a for loop to iterate over the list of dictionaries and display the data in rows.
+
+3. Create a route to update the data.
+
+    The route will receive the updated data from a form submission which happens from an HTTP POST Request.
+    It will update the corresponding dictionary in the list and then render the HTML template to display the updated data.
+
+    :::note
+    Make sure to add the `methods=["POST"]` argument to the route decorator to allow POST requests.
+    :::
+
+</Steps>
