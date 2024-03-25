@@ -21,8 +21,8 @@ dependencies:
     specifier: ^0.33.1
     version: 0.33.2
   starlight-links-validator:
-    specifier: ^0.5.1
-    version: 0.5.1(@astrojs/starlight@0.21.2)(astro@4.5.0)
+    specifier: ^0.6.0
+    version: 0.6.0(@astrojs/starlight@0.21.2)(astro@4.5.0)
   tailwindcss:
     specifier: ^3.4.0
     version: 3.4.1
@@ -2539,6 +2539,11 @@ packages:
     resolution: {integrity: sha512-EcKzdTHVe8wFVOGEYXiW9WmJXPjqi1T+234YpJr98RiFYKHV3cdy1+3mkTE+KHTHxFFLH51SfaGOoUdW+v7ViQ==}
     dev: false
 
+  /is-absolute-url@4.0.1:
+    resolution: {integrity: sha512-/51/TKE88Lmm7Gc4/8btclNXWS+g50wXhYJq8HWIBAGUBnoAdRu1aXeh364t/O7wXDAcTJDP8PNuNKWUDWie+A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
   /is-alphabetical@2.0.1:
     resolution: {integrity: sha512-FWyyY60MeTNyeSRpkM2Iry0G9hpr7/9kD40mD/cGQEuilcZYS4okz8SN2Q6rLCJ8gbCt6fN+rC+6tMGS99LaxQ==}
     dev: false
@@ -4306,8 +4311,8 @@ packages:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
     dev: false
 
-  /starlight-links-validator@0.5.1(@astrojs/starlight@0.21.2)(astro@4.5.0):
-    resolution: {integrity: sha512-6iNl/bTTFN65T3fx1oMdspZltlYyonmrnno4dWjMzJuFHO79ZGKyzrtuMD59kiM9Y85eSy3MOpU1wuPoY28fMg==}
+  /starlight-links-validator@0.6.0(@astrojs/starlight@0.21.2)(astro@4.5.0):
+    resolution: {integrity: sha512-YXzKKZHM79ccBTO61l2WSmgdCG3406gldpVM6J2LhqZ5CeXsOgj6lho2xMLkc/p5nWcNSuYI2qNzsNUrLTmR5w==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
@@ -4318,6 +4323,7 @@ packages:
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
+      is-absolute-url: 4.0.1
       kleur: 4.1.5
       mdast-util-to-string: 4.0.0
       unist-util-visit: 5.0.0
