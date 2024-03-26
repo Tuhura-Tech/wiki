@@ -35,21 +35,71 @@ Create a new folder called `flaskapp` and add a `__init__.py` file to it. This f
 // flaskapp/__init__.py
 from flask import Flask
 
-def create_app():
+def create_app(test_config=None) -> Flask:
     app = Flask(__name__)
     app.config.from_mapping(
         SECRET_KEY="dev",
         DATABASE=os.path.join(app.instance_path, "flaskapp.sqlite"),
     )
 
+    if test_config is None:
+        # load the instance config, if it exists, when not testing
+        app.config.from_pyfile("config.py", silent=True)
+    else:
+        # load the test config if passed in
+        app.config.from_mapping(test_config)
+
     # ensure the instance folder exists
     with contextlib.suppress(OSError):
         os.makedirs(app.instance_path)
 
+    @app.route("/ping")
+    def ping() -> str:
+        return "pong!"
+
     return app
 ```
 
-Flask will automatically call the `create_app` function when the app is run.
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. The `create_app` function creates a new Flask app
+
+   This function is automatically called by Flask when the app is run.
+   It accepts an optional `test_config` parameter which can be used to pass in configuration values.
+
+2. Config is set
+
+   The app is configured with a `SECRET_KEY` and a `DATABASE` path.
+   The `SECRET_KEY` is used by Flask and extensions to keep data safe.
+    The `DATABASE` is the path where the SQLite database file will be stored.
+
+3. A method to load external configuration
+
+   The `config.py` file in the instance folder can be used to set configuration values.
+   This is useful for setting values that should not be in version control.
+
+4. The `instance` folder is created
+
+   The `instance` folder is created if it does not exist.
+   This folder is used to store files that should not be in version control.
+   `with contextlib.suppress(OSError):` is used to suppress the error if the folder already exists. This is similar to a `try` and `except` block.
+
+5. A ping route is added
+
+    A simple route is added to check if the app is running.
+    When the `/ping` route is accessed, the app will return `pong!`.
+
+</Steps>
+
+## Running the app
+
+To run our app we can run:
+
+```bash
+flask run --app flaskapp
+```
 
 ## Adding the blog blueprint
 
@@ -80,14 +130,6 @@ Update the `__init__.py` file to register the blueprint.
 +   app.register_blueprint(blog)
 
     return app
-```
-
-## Running the app
-
-To run our app we can run:
-
-```bash
-flask run --app flaskapp
 ```
 
 ## Setting up the db
