@@ -4,3 +4,126 @@ description: A simple website built using flask
 sidebar:
    order: 8
 ---
+
+While blueprints are good for organising the code things will start to get messy as the app grows. We can use python modules to create a more organised structure.
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- flaskapp/
+  - static/
+    - style.css
+  - templates/
+    - index.html
+    - base.html
+  - `__init__.py`
+  - blog.py
+  - db.py
+
+</FileTree>
+
+:::tip
+Most Python projects use this structure to organise their code and should be used as for all your projects.
+:::
+
+## Creating the app
+
+Create a new folder called `flaskapp` and add a `__init__.py` file to it. This file will be the entry point for the app.
+
+```python
+// flaskapp/__init__.py
+from flask import Flask
+
+def create_app():
+    app = Flask(__name__)
+    app.config.from_mapping(
+        SECRET_KEY="dev",
+        DATABASE=os.path.join(app.instance_path, "flaskapp.sqlite"),
+    )
+
+    # ensure the instance folder exists
+    with contextlib.suppress(OSError):
+        os.makedirs(app.instance_path)
+
+    return app
+```
+
+Flask will automatically call the `create_app` function when the app is run.
+
+## Adding the blog blueprint
+
+Create a new file called `blog.py` and add the following code to it.
+
+```python
+// flaskapp/blog.py
+from flask import Blueprint
+
+blog = Blueprint('blog', __name__)
+
+@blog.route('/')
+def index():
+    return 'Hello from the blog'
+```
+
+This blueprint will be used to handle all the blog related routes.
+
+## Registering the blueprint
+
+Update the `__init__.py` file to register the blueprint.
+
+```diff lang="python"
+// flaskapp/__init__.py
+    app = Flask(__name__)
+
++   from .blog import blog
++   app.register_blueprint(blog)
+
+    return app
+```
+
+## Running the app
+
+To run our app we can run:
+
+```bash
+flask run --app flaskapp
+```
+
+## Setting up the db
+
+Create a new file called `db.py` and add the following code to it.
+
+```python
+// flaskapp/db.py
+import sqlite3
+from flask import current_app, g, Flask
+
+def get_db():
+    if 'db' not in g:
+        g.db = sqlite3.connect(current_app.config["DATABASE"])
+        g.db.row_factory = sqlite3.Row
+    return g.db
+
+def close_db(e=None):
+   db = g.pop("db")
+
+   if db is not None:
+       db.close()
+
+def init_app(app: Flask):
+   app.teardown_appcontext(close_db)
+```
+
+In the `__init__.py` file, import the `db` module and call the `init_app` function.
+
+```diff lang="python"
+// flaskapp/__init__.py
+    app = Flask(__name__)
+
++    from .db import init_app
++    init_app(app)
+
+    from .blog import blog
+    app.register_blueprint(blog)
+```
