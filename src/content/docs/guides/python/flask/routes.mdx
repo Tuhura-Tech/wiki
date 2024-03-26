@@ -85,3 +85,22 @@ Now when you visit the home page, about page, or contact page, you will see the 
 - Home page (`/`) - `<h1>Welcome to the home page!</h1>`
 - About page (`/about`) - `<h1>About us</h1><p>This is the about page.</p>`
 - Contact page (`/contact`) - `<h1>Contact us</h1><p>Contact us at:</p>`
+
+
+## Variable routes
+
+In Flask, we can also define routes that accept variables. This allows us to create dynamic routes that can accept user input.
+
+To define a variable route, we use `<variable_name>` in the route pattern. The variable name is passed as an argument to the route function.
+
+Let's create a route that accepts a username and displays a personalized greeting:
+
+```python
+// main.py
+
+@app.route("/user/<str:name>")
+def user(name: str):
+    return f"Hello, {name}!"
+```
+
+Now when you visit `/user/john`, you will see the message `Hello, john!`.
