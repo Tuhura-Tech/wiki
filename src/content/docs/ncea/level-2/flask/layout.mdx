@@ -4,3 +4,36 @@ description: A simple website built using flask
 sidebar:
     order: 2
 ---
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- flaskapp/
+  - static/
+    - style.css
+  - templates/
+    - blog/
+      - create.html
+      - index.html
+      - post.html
+      - search.html
+    - components/
+      - comment.html
+      - footer.html
+      - navbar.hyml
+      - post.html
+    - base.html
+  - `__init__.py`
+  - blog.py
+  - db.py
+  - schema.sql
+- tests/
+  - `__init__.py`
+  - conftest.py
+  - data.sql
+  - test_blog.py
+  - test_factory.py
+  - test_db.py
+
+</FileTree>

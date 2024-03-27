@@ -34,6 +34,8 @@ Create a new folder called `flaskapp` and add a `__init__.py` file to it. This f
 ```python
 // flaskapp/__init__.py
 from flask import Flask
+import contextlib
+import os
 
 def create_app(test_config=None) -> Flask:
     app = Flask(__name__)
@@ -73,7 +75,11 @@ import { Steps } from '@astrojs/starlight/components';
 
    The app is configured with a `SECRET_KEY` and a `DATABASE` path.
    The `SECRET_KEY` is used by Flask and extensions to keep data safe.
-    The `DATABASE` is the path where the SQLite database file will be stored.
+   The `DATABASE` is the path where the SQLite database file will be stored.
+
+   :::caution
+   If this were ever going to be run in production or as a normal application the secret key should be very secure and not just `DEV`.
+   :::
 
 3. A method to load external configuration
 
@@ -124,12 +130,16 @@ Update the `__init__.py` file to register the blueprint.
 
 ```diff lang="python"
 // flaskapp/__init__.py
-    app = Flask(__name__)
+    # ensure the instance folder exists
+    with contextlib.suppress(OSError):
+        os.makedirs(app.instance_path)
 
 +   from .blog import blog
 +   app.register_blueprint(blog)
 
-    return app
+    @app.route("/ping")
+    def ping() -> str:
+        return "pong!"
 ```
 
 ## Setting up the db
@@ -161,7 +171,9 @@ In the `__init__.py` file, import the `db` module and call the `init_app` functi
 
 ```diff lang="python"
 // flaskapp/__init__.py
-    app = Flask(__name__)
+    # ensure the instance folder exists
+    with contextlib.suppress(OSError):
+        os.makedirs(app.instance_path)
 
 +    from .db import init_app
 +    init_app(app)
@@ -169,3 +181,49 @@ In the `__init__.py` file, import the `db` module and call the `init_app` functi
     from .blog import blog
     app.register_blueprint(blog)
 ```
+
+## Database Setup
+
+While we have the database setup we need to create the tables. We can do this by creating a new file called `schema.sql` in the `instance` folder.
+
+```sql
+DROP TABLE IF EXISTS post;
+CREATE TABLE post (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    body TEXT NOT NULL
+);
+```
+
+
+
+```diff lang="python"
+// flaskapp/__init__.py
++def init_db():
++    """Create and fill the db."""
++    db = get_db()
++
++    with current_app.open_resource("schema.sql") as f:
++        db.executescript(f.read().decode("utf8"))
+
+
++@click.command("init-db")
++def init_db_command():
++    """Clear the existing data and create new tables."""
++    init_db()
++    click.echo("Initialized the database.")
+
+def init_app(app):
+    """Add teardown and cli on app creation."""
+    app.teardown_appcontext(close_db)
++    app.cli.add_command(init_db_command)
+```
+
+As we have now integrated our database into our app we can now initialise it. To do this we can run the following command:
+
+```bash
+$ flask --app flaskapp init-db
+Initialized the database.
+```
+
+You should now be able to see a flaskapp.sqlite file in the instance folder in your project which is your newly created database.

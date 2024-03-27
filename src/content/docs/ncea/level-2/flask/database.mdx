@@ -4,3 +4,108 @@ description: A simple website built using flask
 sidebar:
     order: 3
 ---
+
+
+```sql
+// tests/data.sql
+INSERT INTO post (id, title, body)
+VALUES (
+        1,
+        'POST 1',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam faucibus purus in massa tempor nec feugiat nisl. Diam quis enim lobortis scelerisque fermentum dui. Maecenas sed enim ut sem viverra. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Dignissim sodales ut eu sem integer vitae justo eget magna. Nisi est sit amet facilisis. Aenean euismod elementum nisi quis eleifend. Urna condimentum mattis pellentesque id nibh tortor id aliquet lectus. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Convallis tellus id interdum velit laoreet id donec ultrices. Sed enim ut sem viverra aliquet eget. Mattis enim ut tellus elementum sagittis vitae et leo. In metus vulputate eu scelerisque felis imperdiet. Amet facilisis magna etiam tempor orci.'
+    ),
+    (
+        2,
+        'POST 2',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam faucibus purus in massa tempor nec feugiat nisl. Diam quis enim lobortis scelerisque fermentum dui. Maecenas sed enim ut sem viverra. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Dignissim sodales ut eu sem integer vitae justo eget magna. Nisi est sit amet facilisis. Aenean euismod elementum nisi quis eleifend. Urna condimentum mattis pellentesque id nibh tortor id aliquet lectus. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Convallis tellus id interdum velit laoreet id donec ultrices. Sed enim ut sem viverra aliquet eget. Mattis enim ut tellus elementum sagittis vitae et leo. In metus vulputate eu scelerisque felis imperdiet. Amet facilisis magna etiam tempor orci.'
+    ),
+    (
+        3,
+        'POST 3',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam faucibus purus in massa tempor nec feugiat nisl. Diam quis enim lobortis scelerisque fermentum dui. Maecenas sed enim ut sem viverra. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Dignissim sodales ut eu sem integer vitae justo eget magna. Nisi est sit amet facilisis. Aenean euismod elementum nisi quis eleifend. Urna condimentum mattis pellentesque id nibh tortor id aliquet lectus. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Convallis tellus id interdum velit laoreet id donec ultrices. Sed enim ut sem viverra aliquet eget. Mattis enim ut tellus elementum sagittis vitae et leo. In metus vulputate eu scelerisque felis imperdiet. Amet facilisis magna etiam tempor orci.'
+    ),
+    (
+        4,
+        'POST 4',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam faucibus purus in massa tempor nec feugiat nisl. Diam quis enim lobortis scelerisque fermentum dui. Maecenas sed enim ut sem viverra. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Dignissim sodales ut eu sem integer vitae justo eget magna. Nisi est sit amet facilisis. Aenean euismod elementum nisi quis eleifend. Urna condimentum mattis pellentesque id nibh tortor id aliquet lectus. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Convallis tellus id interdum velit laoreet id donec ultrices. Sed enim ut sem viverra aliquet eget. Mattis enim ut tellus elementum sagittis vitae et leo. In metus vulputate eu scelerisque felis imperdiet. Amet facilisis magna etiam tempor orci.'
+    ),
+    (
+        5,
+        'POST 5',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Aliquam faucibus purus in massa tempor nec feugiat nisl. Diam quis enim lobortis scelerisque fermentum dui. Maecenas sed enim ut sem viverra. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Dignissim sodales ut eu sem integer vitae justo eget magna. Nisi est sit amet facilisis. Aenean euismod elementum nisi quis eleifend. Urna condimentum mattis pellentesque id nibh tortor id aliquet lectus. Urna porttitor rhoncus dolor purus non enim praesent elementum facilisis. Convallis tellus id interdum velit laoreet id donec ultrices. Sed enim ut sem viverra aliquet eget. Mattis enim ut tellus elementum sagittis vitae et leo. In metus vulputate eu scelerisque felis imperdiet. Amet facilisis magna etiam tempor orci.'
+    );
+INSERT INTO comment (body, post_id)
+VALUES ('comment 1', 1),
+    ('comment 2', 1),
+    ('comment 3', 1),
+    ('comment 4', 1);
+```
+
+```python
+//tests/conftest.py
+"""Config and setup for tests."""
+import os
+import tempfile
+
+import pytest
+from flaskapp import create_app
+from flaskapp.db import get_db, init_db
+
+with open(os.path.join(os.path.dirname(__file__), "data.sql"), "rb") as f:
+    _data_sql = f.read().decode("utf8")
+
+
+@pytest.fixture()
+def app():
+    """App initialisation."""
+    db_fd, db_path = tempfile.mkstemp()
+
+    app = create_app(
+        {
+            "TESTING": True,
+            "DATABASE": db_path,
+        },
+    )
+
+    with app.app_context():
+        init_db()
+        get_db().executescript(_data_sql)
+
+    yield app
+
+    os.close(db_fd)
+    os.unlink(db_path)
+
+
+@pytest.fixture()
+def client(app):
+    """App test client."""
+    return app.test_client()
+
+
+@pytest.fixture()
+def runner(app):
+    """App cli runner."""
+    return app.test_cli_runner()
+```
+
+```python
+// tests/test_db.py
+"""Test db functions."""
+import sqlite3
+
+import pytest
+from flaskapp.db import get_db
+
+
+def test_get_close_db(app):
+    """Test db can be closed."""
+    with app.app_context():
+        db = get_db()
+        assert db is get_db()
+
+    with pytest.raises(sqlite3.ProgrammingError) as e:
+        db.execute("SELECT 1")
+
+    assert "closed" in str(e.value)
+```
