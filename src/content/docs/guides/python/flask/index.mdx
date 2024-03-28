@@ -48,8 +48,15 @@ To run the Flask app, save the code in a file called `app.py` and run the follow
 
 ```bash
 $ flask run
-  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:5000
+Press CTRL+C to quit
 ```
+
+:::tip
+We can run Flask in debug mode to automatically reload the server when changes are made to the code. To run the app in debug mode, use the command `flask run --debug`.
+:::
 
 This will start a development server on your local machine, and you can access the website by visiting [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser. You should see the text "Hello, World!" displayed on the webpage.
 
