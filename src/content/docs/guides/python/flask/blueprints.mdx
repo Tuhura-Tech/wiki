@@ -5,13 +5,13 @@ sidebar:
    order: 7
 ---
 
-Following [PEP 20](https://peps.python.org/pep-0020/) which states that "Simple is better than complex", we will be simplifying our code by using blueprints. Blueprints are a way to organize a group of related views and other code. They are registered with the application and can be used to create a modular application.
+Following [PEP 20](https://peps.python.org/pep-0020/) which states that "Simple is better than complex", we will be simplifying our code by using [blueprints](https://flask.palletsprojects.com/en/3.0.x/blueprints/). Blueprints are a way to organize a group of related views and other code. They are registered with the application and can be used to create a modular application.
 
 import { FileTree } from '@astrojs/starlight/components';
 
 <FileTree>
 
-- main.py
+- app.py
 
 </FileTree>
 
@@ -19,7 +19,7 @@ This gets turned into a tree structure like this:
 
 <FileTree>
 
-- main.py
+- app.py
 - blog.py
 - auth.py
 - ...
@@ -44,7 +44,7 @@ def post(id: int):
     return f'Post {id}'
 ```
 
-We then need to register the blueprint with the application in `main.py`.
+We then need to register the blueprint with the application in `app.py`.
 
 ```python
 from flask import Flask
