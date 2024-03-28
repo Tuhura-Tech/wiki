@@ -7,7 +7,9 @@ sidebar:
 
 ## What is Flask?
 
-Flask is a Python framework for building web applications. It is lightweight and modular, and is a great tool for building simple websites. In this guide, we will build a simple website using Flask.
+> The Python micro framework for building web applications.
+
+[Flask](https://flask.palletsprojects.com/en/3.0.x/) is a Python framework for building web applications. It is lightweight and modular, and is a great tool for building simple websites. In this guide, we will build a simple website using Flask.
 
 ## Knowledge Required
 
@@ -21,7 +23,7 @@ Basic familiarity with Python, HTML/CSS and SQL will be needed to build this web
 
 ### Installing flask
 
-To install Flask, you can use pip, which is the package manager for Python. Run the following command in your terminal:
+To install Flask, you can use [pip](https://pip.pypa.io/en/stable/getting-started/), which is the package manager for Python. Run the following command in your terminal:
 
 ```bash
 pip install Flask
@@ -29,31 +31,27 @@ pip install Flask
 
 ### Basic Flask App
 
+Flask applications are relatively simple to create. Here is a basic Flask app that displays "Hello, World!" on the webpage:
+
 ```py
-// main.py
+// app.py
 from flask import Flask
 
-# Create a Flask app
 app = Flask(__name__)
 
-# Define a route
-@app.route('/')
-def index():
-   # Return text to show on the webpage.
-   return 'Hello, World!'
-
-# Run the app
-if __name__ == "__main__":
-    app.run()
+@app.route("/")
+def hello():
+    return "Hello, World!"
 ```
 
-To run the Flask app, save the code in a file called `main.py` and run the following command in your terminal:
+To run the Flask app, save the code in a file called `app.py` and run the following command in your terminal:
 
 ```bash
-python main.py
+$ flask run
+  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
 ```
 
-This will start a development server on your local machine, and you can access the website by visiting `http://127.0.0.1:5000` in your browser. You should see the text "Hello, World!" displayed on the webpage.
+This will start a development server on your local machine, and you can access the website by visiting [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser. You should see the text "Hello, World!" displayed on the webpage.
 
 #### So how does this work?
 
@@ -81,10 +79,17 @@ import { Steps } from '@astrojs/starlight/components';
 
    ```py
    @app.route('/')
-   def index():
+   ```
+
+   Flask uses things called decorators `@app.route('/')` to map functions to different webpages (routes). In this case, we are mapping the `index` function to the root URL `/`. 
+   
+4. Define the `index` function.
+
+   ```py
+   def hello():
        return 'Hello, World!'
    ```
 
-   Flask uses things called decorators to map functions to different webpages (routes). In this case, we are mapping the `index` function to the root URL `/`. When a user visits the root URL, the `index` function is called, and it returns the text "Hello, World!". For more complex applications, you can return HTML templates or JSON data.
+   When a user visits the root URL, the `hello` function is called, and it returns the text `Hello, World!`. For more complex applications, you can return HTML or JSON data.
 
 </Steps>
