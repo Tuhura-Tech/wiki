@@ -10,10 +10,10 @@ dependencies:
     version: 0.21.2(astro@4.5.10)
   '@astrojs/starlight-tailwind':
     specifier: ^2.0.1
-    version: 2.0.1(@astrojs/starlight@0.21.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.2)
+    version: 2.0.1(@astrojs/starlight@0.21.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3)
   '@astrojs/tailwind':
     specifier: ^5.1.0
-    version: 5.1.0(astro@4.5.10)(tailwindcss@3.4.2)
+    version: 5.1.0(astro@4.5.10)(tailwindcss@3.4.3)
   astro:
     specifier: ^4.0.8
     version: 4.5.10
@@ -25,7 +25,7 @@ dependencies:
     version: 0.6.0(@astrojs/starlight@0.21.2)(astro@4.5.10)
   tailwindcss:
     specifier: ^3.4.0
-    version: 3.4.2
+    version: 3.4.3
 
 devDependencies:
   hast-util-from-html:
@@ -157,7 +157,7 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/starlight-tailwind@2.0.1(@astrojs/starlight@0.21.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.2):
+  /@astrojs/starlight-tailwind@2.0.1(@astrojs/starlight@0.21.2)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3):
     resolution: {integrity: sha512-niMgFcR7NHcsBVy8UAN3F2gqhmoN5v83st5Hu4YzvUL+6SNwjQmIipXppXdN9+iVneRjPr6PLGzDfI+wnjSBWQ==}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
@@ -165,8 +165,8 @@ packages:
       tailwindcss: ^3.3.3
     dependencies:
       '@astrojs/starlight': 0.21.2(astro@4.5.10)
-      '@astrojs/tailwind': 5.1.0(astro@4.5.10)(tailwindcss@3.4.2)
-      tailwindcss: 3.4.2
+      '@astrojs/tailwind': 5.1.0(astro@4.5.10)(tailwindcss@3.4.3)
+      tailwindcss: 3.4.3
     dev: false
 
   /@astrojs/starlight@0.21.2(astro@4.5.10):
@@ -199,7 +199,7 @@ packages:
       - supports-color
     dev: false
 
-  /@astrojs/tailwind@5.1.0(astro@4.5.10)(tailwindcss@3.4.2):
+  /@astrojs/tailwind@5.1.0(astro@4.5.10)(tailwindcss@3.4.3):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
@@ -209,7 +209,7 @@ packages:
       autoprefixer: 10.4.16(postcss@8.4.32)
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
-      tailwindcss: 3.4.2
+      tailwindcss: 3.4.3
     transitivePeerDependencies:
       - ts-node
     dev: false
@@ -4698,8 +4698,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: false
 
-  /tailwindcss@3.4.2:
-    resolution: {integrity: sha512-1kIzVecynNKMhhX8mPTOwTkkVHupUTMbEvk4n1ByxdM8sQTJ8fE41Y4TdORG6GmiVXHhfZ/++0hiIFJFwfadsA==}
+  /tailwindcss@3.4.3:
+    resolution: {integrity: sha512-U7sxQk/n397Bmx4JHbJx/iSOOv5G+II3f1kpLpY2QeUv5DcPdcTsYLlusZfq1NthHS1c1cZoyFmmkex1rzke0A==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
