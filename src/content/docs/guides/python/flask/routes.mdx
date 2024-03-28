@@ -28,7 +28,6 @@ Let's create a simple website with the following routes:
 To add a new route we need a decorator and a function that returns the content for that route. It is best practice to name the function the same as the route.
 
 ```python
-// main.py
 from flask import Flask
 
 app = Flask(__name__)
@@ -43,7 +42,7 @@ def about():
 
 @app.route("/contact")
 def contact():
-    return "Contact us at:
+    return "Contact us at: contact@example.com"
 
 if __name__ == "__main__":
     app.run()
@@ -56,7 +55,6 @@ While we have just been returning simple strings in our routes, we can also retu
 Let's update our routes to return HTML content:
 
 ```diff lang="python"
-// main.py
 from flask import Flask
 
 app = Flask(__name__)
@@ -74,7 +72,7 @@ def about():
 @app.route("/contact")
 def contact():
 -    return "Contact us at:
-+    return "<h1>Contact us</h1><p>Contact us at:</p>"
++    return "<h1>Contact us</h1><p>Contact us at: <a href="mailto:contact@example.com">contact@example.com</a></p>"
 
 if __name__ == "__main__":
     app.run()
@@ -82,9 +80,9 @@ if __name__ == "__main__":
 
 Now when you visit the home page, about page, or contact page, you will see the HTML content returned by the routes.
 
-- Home page (`/`) - `<h1>Welcome to the home page!</h1>`
-- About page (`/about`) - `<h1>About us</h1><p>This is the about page.</p>`
-- Contact page (`/contact`) - `<h1>Contact us</h1><p>Contact us at:</p>`
+- Home page [127.0.0.1:5000/](127.0.0.1:5000/) - `<h1>Welcome to the home page!</h1>`
+- About page [127.0.0.1:5000/about](127.0.0.1:5000/about) - `<h1>About us</h1><p>This is the about page.</p>`
+- Contact page [127.0.0.1:5000/contect](127.0.0.1:5000/contact) - `<h1>Contact us</h1><p>Contact us at: <a href='mailto:contact@example.com'>contact@example.com</a></p>`
 
 
 ## Variable routes
@@ -93,14 +91,30 @@ In Flask, we can also define routes that accept variables. This allows us to cre
 
 To define a variable route, we use `<variable_name>` in the route pattern. The variable name is passed as an argument to the route function.
 
+:::note
+You should make sure the variable type matches the type you expect. For example, if you expect an integer, you should use `<int:variable_name>`. You should also indicate that in the function parameter.
+:::
+
+### String Routes
+
 Let's create a route that accepts a username and displays a personalized greeting:
 
 ```python
-// main.py
-
 @app.route("/user/<str:name>")
 def user(name: str):
     return f"Hello, {name}!"
 ```
 
 Now when you visit `/user/john`, you will see the message `Hello, john!`.
+
+### Integer Routes
+
+We can also accept integers as variables:
+
+```python
+@app.route("/square/<int:num>")
+def square(num: int):
+    return f"The square of {num} is {num*num}."
+```
+
+Now when you visit `/square/5`, you will see the message `The square of 5 is 25.`.
