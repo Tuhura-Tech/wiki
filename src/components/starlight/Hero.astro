@@ -104,12 +104,14 @@ const { title, tagline, actions } = hero!;
     :global([data-has-hero] .main-pane) {
       --cell-size: 3.5rem;
       background:
-        radial-gradient(var(--sl-color-green-low), transparent 40%) no-repeat -170vw -55vh /
-          250vw 250vh,
-        radial-gradient(closest-side, var(--sl-color-green-low), transparent)
-          no-repeat calc(100% + var(--cell-size) * 6)
-          calc(var(--cell-size) * -7) / calc(var(--cell-size) * 12)
-          calc(var(--cell-size) * 19);
+        /* radial-gradient(var(--sl-color-green-low), transparent 40%) no-repeat -170vw -55vh /
+          250vw 250vh, */ radial-gradient(
+          closest-side,
+          var(--sl-color-green-low),
+          transparent
+        )
+        no-repeat calc(100% + var(--cell-size) * 6) calc(var(--cell-size) * -7) /
+        calc(var(--cell-size) * 12) calc(var(--cell-size) * 19);
     }
 
     .hero {
