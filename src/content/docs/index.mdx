@@ -1,45 +1,57 @@
 ---
 title: Tūhura Tech Wiki
 description: Free and public resources from Tūhura Tech for NZ Students.
-template: splash
+editUrl: false
+tableOfContents: false
+lastUpdated: false
+next: false
 hero:
-  tagline: Supporting the next generation of students!
-  image:
-    file: ../../assets/logo.svg
+  title: Tūhura Tech Wiki
+  tagline: |
+    <div class="roller">
+      <span id="pre_text">Supporting the next generation of</span>
+      <span id="changing_text">RANGATAHI.</span>
+    </div>
   actions:
-    - text: Our guides
-      link: ./guides/about
-      icon: right-arrow
-      variant: primary
-    - text: Our Website
+    - text: About Us
       link: https://tuhuratech.org.nz
       icon: external
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
-import AboutTuhura from "../../components/about-tuhura.astro";
+import { CardGrid } from "@astrojs/starlight/components";
+import Card from '/src/components/Landing/Card.astro'
+import ListCard from '/src/components/Landing/ListCard.astro'
+import SplitCard from '/src/components/Landing/SplitCard.astro'
+import ScriptWorkaround from "/src/components/ScriptWorkaround.astro";
 
-## Resorces
+<CardGrid>
+  {/* <Card title="What will you build with Astro?" icon="laptop">
+    Explore [Astro starter themes](https://astro.build/themes/) for blogs, portfolios, docs, landing pages, SaaS, marketing, ecommerce sites, and more!
+  </Card>
 
-<CardGrid stagger>
-  <Card title="NCEA Content" icon="open-book">
-    A collection of curated and supported resources by the Tūhura Tech and our
-    partner schools to support NCEA DigiTech.
-  </Card>
-  <Card title="Programming Guides" icon="add-document">
-    Guides on getting started in python, cybersecurity, 3D Printing and more.
-  </Card>
-  <Card title="Projects" icon="setting">
-    Cool projects and guides created by staff and students.
-  </Card>
-  <Card title="Tūhura Tech Resources" icon="open-book">
-    Resources for how we run our sessions.
+  <Card title="Take a guided tour" icon="star">
+    Complete our introductory [Build a Blog Tutorial](/en/tutorial/0-introduction/) to learn the basics and create your first Astro site.
+  </Card> */}
+
+  <ListCard title="Learn" icon="open-book">
+    - [Python](/guides/python)
+    - [Javascript](/guides/javascript)
+    - [Game Development](/guides/game-design)
+    - [CyberSecurity](/guides/cybersecurity)
+  </ListCard>
+
+  <ListCard title="NCEA Resources" icon="puzzle">
+    - [NCEA Level 2 Flask](/ncea/lvl-2/flask)
+    - [NCEA Level 3 Flask](/ncea/lvl-3/flask)
+  </ListCard>
+
+  <SplitCard title="Open Source, Industry Standards, For You" icon="rocket">
+    All of our resources are free and open source. We aim to provide the best resources for students in Aotearoa. They are licenced under a [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) ensuring they are free for all and never behind a paywall.
+  </SplitCard>
+
+  <Card title="Contribute" icon="star">
+    Anyone can contribute to the resources whether you are a student, teacher or industry professional. We are always looking for new resources to add to the wiki. If you would like to contribute please visit our [Contributing Guide](/tuhura-tech/contributing).
   </Card>
 </CardGrid>
 
-<AboutTuhura title="Brought to you by">
-Tūhura Tech is a Aotearoa based charity focused on technology education.
-
-[About Tūhura Tech](https://tuhuratech.org.nz/)
-
-</AboutTuhura>
+<ScriptWorkaround />

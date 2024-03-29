@@ -1,6 +1,8 @@
 ---
 title: SQL Injection
 description: Simple introduction to injecting SQL into a website
+sidebar:
+   order: 3
 ---
 
 SQL injection is one of the most common web vulnerabilities.

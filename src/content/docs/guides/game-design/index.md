@@ -3,7 +3,6 @@ title: Intro
 description: Brief overview of game design
 
 sidebar:
-  # Make this always the first
   order: 1
 ---
 

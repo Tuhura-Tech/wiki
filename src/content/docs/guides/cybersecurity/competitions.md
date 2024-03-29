@@ -1,6 +1,8 @@
 ---
 title: Competition Resources
 description: Gives a good source of resources for CTFs and the various NZ CTFs out there
+sidebar:
+   order: 2
 ---
 
 Cybersecurity competitions are a great way to learn and practice your skills in a safe and legal environment. These competitions are normally organized by universities, companies, and CTF teams and have a range of challenges suiting different skill levels and interests. Named CTFs (Capture the Flag), each of the challenges in the competition has a mock realistic scenario and a flag that you need to find. The flag is usually a string of characters that you need to submit to the competition's website to get points. The team with the most points at the end of the competition wins.
@@ -18,9 +20,8 @@ The most common category of CTFs is Jeopardy, as these have the most variety of 
 
 ### Good CTFs
 
-- [Aotearoa CTF](https://aotearoactf.com/) - Aotearoa CTF is a New Zealand based CTF competition with a focus on secondary and tertiary students. It is organized by us, ([Tūhura Tech](https://tuhuratech.org.nz)) and is designed to be beginner-friendly.
+- [DUCTF](https://downunderctf.com)  - DownUnderCTF is a world-wide Capture The Flag (CTF) competition targeted at Australian and Aotearoa secondary and tertiary students.
 - [NZCSC](https://cybersecuritychallenge.org.nz) - The New Zealand Cyber Security Challenge is organized by the University of Waikato and is designed to be beginner-friendly. It has an online Round 0 qualification round and two in person rounds along with some talks at the University of Waikato.
-- [DUCTF](https://downunderctf.com)  - DownUnderCTF is a world-wide Capture The Flag (CTF) competition targeted at Australian secondary and tertiary students.
 - [PicoCTF](https://picoctf.com/) - This is an international CTF competition for high school students. It is a great way to get started in CTFs and learn the basics of cybersecurity. The challenges are very beginner-friendly, and they have a range of resources on their website.
 
 ## CTFs (Attack/Defense)
