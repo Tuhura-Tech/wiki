@@ -29,6 +29,26 @@
   --sl-color-black: #ffffff;
 }
 
+/* Display name of social links */
+.social-icons a {
+  position: relative;
+}
+.social-icons a:hover .sr-only,
+.social-icons a:focus .sr-only {
+  all: unset;
+  position: absolute;
+  inset-inline-start: 50%;
+  bottom: 0;
+  transform: translateX(-50%) translateY(100%);
+  background: var(--sl-color-black);
+  color: var(--sl-color-white);
+  padding: 0.25rem;
+  line-height: 1;
+  border-radius: 0.25rem;
+  box-shadow: var(--sl-shadow-md);
+  font-size: var(--sl-text-xs);
+}
+
 /* Changing text on the landing page */
 #changing_text {
   color: #6aa469;
