@@ -61,6 +61,7 @@ python database.py
 Now that we have our database set up, we can start using it in our Flask application. We will be using the `sqlite3` module to interact with the database.
 
 ```python
+// app.py
 import sqlite3
 from flask import g, Flask
 
@@ -115,6 +116,8 @@ To use SQLAlchemy, you need to install the `flask_sqlalchemy` package:
 pip install flask_sqlalchemy
 ```
 
+### Configuring SQLAlchemy
+
 You can then use the `SQLAlchemy` class to create a new database connection:
 
 ```python
@@ -126,4 +129,97 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
 
 db = SQLAlchemy(app)
+```
+
+### Defining a model
+
+You can then define a model for the `posts` table using the `db.Model` class:
+
+```python
+class Post(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   title = db.Column(db.String(100), nullable=False)
+   content = db.Column(db.Text, nullable=False)
+```
+
+
+### Querying the database
+
+You can then use the `query` method to query the database:
+
+```python
+@app.route("/")
+def index():
+   posts = Post.query.all()
+   return posts
+```
+
+
+### Inputting data into the database
+
+You can then use the `add` method to add data to the database:
+
+```python
+@app.route("/add_post")
+def add_post():
+   post = Post(title="Hello World", content="This is my first post")
+   db.session.add(post)
+   db.session.commit()
+   return "Post added"
+```
+
+### Extending SQLAlchemy
+
+While the above example is a simple example of using SQLAlchemy, it can be extended to include more advanced features such as relationships, migrations, and more.
+
+#### Relationships
+
+When we have multiple tables in our database, we can define relationships between them using SQLAlchemy. For example, we can define a `User` model and a `Post` model and define a relationship between them:
+
+```python
+class User(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   username = db.Column(db.String(100), nullable=False)
+   posts = db.relationship("Post", backref="user", lazy=True)
+
+class Post(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   title = db.Column(db.String(100), nullable=False)
+   content = db.Column(db.Text, nullable=False)
+```
+
+We can then query the database to get all the posts for a user:
+
+```python
+@app.route("/user/<int:user_id>")
+def user_posts(user_id):
+   user = User.query.get(user_id)
+   posts = user.posts
+   return posts
+```
+
+#### Updating and Deleting Data
+
+We can also update and delete data from the database using SQLAlchemy. For example, we can update a post with a specific id:
+
+```python
+post = Post.query.get(1)
+post.title = "New Title"
+db.session.commit()
+```
+
+We can also delete a post with a specific id:
+
+```python
+post = Post.query.get(1)
+db.session.delete(post)
+db.session.commit()
+```
+
+#### Using SQLAlchemy to setup the database
+
+We can also use SQLAlchemy to create the database and tables for us. We can use the `create_all` method to create the tables:
+
+```python
+db.create_all()
 ```
