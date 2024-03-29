@@ -104,3 +104,26 @@ import { Steps } from '@astrojs/starlight/components';
    We use the `execute` method to execute an SQL query and the `fetchall` method to fetch all the results.
 
 </Steps>
+
+## Using SQLAlchemy
+
+While using the `sqlite3` module directly is fine for small projects, it can be cumbersome for larger projects. SQLAlchemy is a popular ORM (Object-Relational Mapping) library that makes it easy to interact with databases.
+
+To use SQLAlchemy, you need to install the `flask_sqlalchemy` package:
+
+```bash
+pip install flask_sqlalchemy
+```
+
+You can then use the `SQLAlchemy` class to create a new database connection:
+
+```python
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///blog.db"
+
+db = SQLAlchemy(app)
+```
