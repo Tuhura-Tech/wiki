@@ -2,6 +2,8 @@ import starlight from '@astrojs/starlight';
 import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 import starlightLinksValidator from 'starlight-links-validator'
+import remarkMath from 'remark-math';
+import rehypeMathjax from 'rehype-mathjax';
 export const locales = {
   root: {
     label: 'English',
@@ -127,6 +129,10 @@ export default defineConfig({
     // Disable the default base styles:
     applyBaseStyles: false
   }),],
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathjax],
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
