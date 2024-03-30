@@ -1,6 +1,8 @@
 import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
 import starlightLinksValidator from 'starlight-links-validator'
+import remarkMath from 'remark-math';
+import rehypeMathjax from 'rehype-mathjax';
 
 export default defineConfig({
   site: 'https://wiki.tuhuratech.org.nz/',
@@ -112,6 +114,10 @@ export default defineConfig({
       Hero: './src/components/starlight/Hero.astro',
     },
   })],
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathjax],
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
