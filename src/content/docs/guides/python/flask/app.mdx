@@ -104,8 +104,13 @@ import { Steps } from '@astrojs/starlight/components';
 To run our app we can run:
 
 ```bash
-flask run --app flaskapp
+flask --app flaskapp run
 ```
+
+:::tip
+We can also run the app in debug mode by adding `--debug` to the end.
+:::
+
 
 ## Adding the blog blueprint
 
@@ -152,19 +157,22 @@ import sqlite3
 from flask import current_app, g, Flask
 
 def get_db():
+    """Get a new database connection. If one already exists, use that one."""
     if 'db' not in g:
         g.db = sqlite3.connect(current_app.config["DATABASE"])
         g.db.row_factory = sqlite3.Row
     return g.db
 
 def close_db(e=None):
-   db = g.pop("db")
+    """Close the database connection if it exists."""
+    db = g.pop("db")
 
-   if db is not None:
-       db.close()
+    if db is not None:
+        db.close()
 
 def init_app(app: Flask):
-   app.teardown_appcontext(close_db)
+    """Register the close_db function with the Flask app."""
+    app.teardown_appcontext(close_db)
 ```
 
 In the `__init__.py` file, import the `db` module and call the `init_app` function.
@@ -184,9 +192,10 @@ In the `__init__.py` file, import the `db` module and call the `init_app` functi
 
 ## Database Setup
 
-While we have the database setup we need to create the tables. We can do this by creating a new file called `schema.sql` in the `instance` folder.
+While we have the database setup we need to create the tables. We can do this by creating a new file called `schema.sql`.
 
 ```sql
+// flaskapp/schema.sql
 DROP TABLE IF EXISTS post;
 CREATE TABLE post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
