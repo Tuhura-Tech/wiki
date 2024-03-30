@@ -103,14 +103,8 @@ const { title, tagline, actions } = hero!;
   @media (min-width: 78rem) {
     :global([data-has-hero] .main-pane) {
       --cell-size: 3rem;
-      background:
-        /* radial-gradient(var(--sl-color-green-low), transparent 40%) no-repeat -170vw -55vh /
-          250vw 250vh, */ radial-gradient(
-          closest-side,
-          var(--sl-color-green-low),
-          transparent
-        )
-        no-repeat calc(100% + var(--cell-size) * 6) calc(var(--cell-size) * -7) /
+      background: radial-gradient(closest-side, #6aa469, transparent) no-repeat
+        calc(100% + var(--cell-size) * 6) calc(var(--cell-size) * -7) /
         calc(var(--cell-size) * 12) calc(var(--cell-size) * 19);
     }
 
@@ -126,10 +120,6 @@ const { title, tagline, actions } = hero!;
       width: 100%;
       text-align: start;
       align-self: center;
-    }
-    .hero-content > * {
-      /* Limit the content width so it doesn’t overlap with facepile elements. */
-      /* max-width: calc(100% - 29rem); */
     }
 
     .actions {
