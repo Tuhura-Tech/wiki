@@ -20,73 +20,73 @@ export default defineConfig({
     },
     social: {
       mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
-      github: 'https://github.com/Tuhura-Tech/Wiki',
-      discord: 'https://discord.gg/PNxh7cwKfQ'
+      discord: 'https://discord.gg/PNxh7cwKfQ',
+      github: 'https://github.com/Tuhura-Tech/Wiki'
     },
     customCss: [
       // Relative path to your custom CSS file
       './src/styles/custom.css',
     ],
-    sidebar: [{
-      label: "Javascript",
-      items: [{
-        label: "Setting Up",
-        link: 'javascript/setting-up'
+    sidebar: [
+      {
+        label: "Python", items: [{
+          label: "Setting Up",
+          link: 'python'
+        }, {
+          label: "Setting Up",
+          link: 'python/setting-up'
+        }, {
+          label: "Flask",
+          autogenerate: {
+            directory: 'python/flask'
+          }
+        }]
       }, {
-        label: "Creative Coding",
-        autogenerate: {
-          directory: 'javascript/creative-coding'
-        }
-      }]
-    },
-    {
-      label: "Python", items: [{
-        label: "Setting Up",
-        link: 'python'
-      }, {
-        label: "Setting Up",
-        link: 'python/setting-up'
-      }, {
-        label: "Flask",
-        autogenerate: {
-          directory: 'python/flask'
-        }
-      }]
-    },
-    {
-      label: "Git",
-      autogenerate: {
-        directory: 'git'
-      }
-    }, {
-      label: "Cybersecurity",
+        label: "Game Design",
+        items: [{
+          label: "About",
+          link: 'game-design/about'
+        }, {
+          label: "Godot",
+          autogenerate: {
+            directory: 'game-design/godot'
+          }
+        }],
+      },
+      {
+        label: "Cybersecurity",
 
-      autogenerate: {
-        directory: 'cybersecurity'
-      }
-    }, {
-      label: "Game Design",
-      items: [{
-        label: "About",
-        link: 'game-design/about'
-      }, {
-        label: "Godot",
         autogenerate: {
-          directory: 'game-design/godot'
+          directory: 'cybersecurity'
+        }
+      },
+      {
+        label: "SQL",
+        autogenerate: {
+          directory: 'sql'
+        }
+      }, {
+        label: "Javascript",
+        items: [{
+          label: "Setting Up",
+          link: 'javascript/setting-up'
+        }, {
+          label: "Creative Coding",
+          autogenerate: {
+            directory: 'javascript/creative-coding'
+          }
+        }]
+      }, {
+        label: "Git",
+        autogenerate: {
+          directory: 'git'
+        }
+      }, {
+        label: "Tūhura Tech Resources",
+        autogenerate: {
+          directory: 'tuhura-tech'
         }
       }],
-    },
-    {
-      label: "SQL",
-      autogenerate: {
-        directory: 'sql'
-      }
-    }, {
-      label: "Tūhura Tech Resources",
-      autogenerate: {
-        directory: 'tuhura-tech'
-      }
-    }],
     locales: {
       root: {
         label: 'English',
