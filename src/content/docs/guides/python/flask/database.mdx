@@ -235,7 +235,7 @@ db.session.commit()
 
 #### Using SQLAlchemy to setup the database
 
-We can also use SQLAlchemy to create the database and tables for us. We can use the `create_all` method to create the tables:
+We can also use SQLAlchemy to create the database and tables for us. We can use the `create_all` method to create the tables. If the tables already exist, this method will not do anything.
 
 ```python
 with app.app_context():
