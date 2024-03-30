@@ -150,8 +150,14 @@ You can then use the `query` method to query the database:
 ```python
 @app.route("/")
 def index():
-   posts = Post.query.all()
-   return posts
+    posts = Post.query.all()
+    return [{"title": post.title, "content": post.content} for post in posts]
+```
+
+This would be equivalent to the following SQL query:
+
+```sql
+SELECT * FROM posts
 ```
 
 
@@ -162,10 +168,21 @@ You can then use the `add` method to add data to the database:
 ```python
 @app.route("/add_post")
 def add_post():
-   post = Post(title="Hello World", content="This is my first post")
-   db.session.add(post)
-   db.session.commit()
-   return "Post added"
+    post = Post(title="Hello World", content="This is my first post")
+    db.session.add(post)
+    db.session.commit()
+    return "Post added"
+```
+
+Instead of having to write raw SQL queries, you can use SQLAlchemy to interact with the database in a more object-oriented way. Using raw SQL queries we would have to convert it out of the dictionary format and into a string format to be able to insert it into the database. With SQLAlchemy, we can just pass the object directly to the `add` method.
+
+```python
+@app.route("/add_post")
+def add_post():
+    post = {title:"Hello World", content:"This is my first post"}
+    db.execute("INSERT INTO posts (title, content) VALUES (?, ?)", (post["title"], post["content"]))
+    db.commit()
+    return "Post added"
 ```
 
 ### Extending SQLAlchemy
@@ -221,5 +238,6 @@ db.session.commit()
 We can also use SQLAlchemy to create the database and tables for us. We can use the `create_all` method to create the tables:
 
 ```python
-db.create_all()
+with app.app_context():
+    db.create_all()
 ```
