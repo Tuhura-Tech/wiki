@@ -1,0 +1,71 @@
+---
+title: Python Basics
+description: Learning about the basics of Python
+sidebar:
+    order: 3
+---
+
+We're going to start off with a couple very basic things you can do in python.
+
+## Printing
+
+Printing lets you output something like a word or some numbers and even more. The `print()` function will display the given value on screen.
+
+```python
+print("Hello, World!")
+```
+
+## Comments
+
+Comments allow you to type something out without Python thinking you're writing code. Usually you'll use comments to explain what certain methods or lines of code do. Python has 2 ways to do comments.
+
+```python
+# This is an inline comment, everything after the # on the same line will be commented out.
+# Usually you'll use these to describe what a line of code is doing.
+
+"""
+This is a block comment that can go across multiple lines. It must be surrounded by 3 quotation marks on each side.
+Usually you'll use these for describing what a method is doing.
+"""
+```
+
+## Data Types
+
+Python has many different ways to represent different forms of data. If you wanted to create a sentence, you would use a `str`, or string, data type. Numbers can be separated into `int`, or integer, for whole numbers, and `float` for numbers with decimals. Another data type is called a `bool` or a boolean. This type is a simple `True` or `False`. There are many more types than this, but these are a few of the basics ones.
+
+```python
+# str type
+hello = "Hello, World!"
+
+# int type
+x = 10
+
+# float type
+y = 1.56
+
+# bool type
+isGreen = True
+```
+
+## Variables
+
+Variables allow you to store values for later use. This can be helpful when you want to use the same value multiple times, and can make the code more readable.
+
+Creating and updating variables uses the same syntax so make sure you aren't accidentally creating a new variable instead of updating a current one, or vice versa.
+
+This is how you create and update variables:
+```python
+xPosition = 10.5
+
+isFlipped = False
+
+name = "Alice"
+```
+
+You can then use these later in the code. For example, if you wanted print the `name` variable:
+```python
+name = "Alice"
+
+print(name)
+```
+This program will display the word `Alice`.
