@@ -26,96 +26,61 @@ export default defineConfig({
       './src/styles/custom.css',
     ],
     sidebar: [{
-      label: 'Guides',
+      label: "Javascript",
       items: [{
-        label: "About our Guides",
-        link: 'guides/about'
+        label: "Setting Up",
+        link: 'javascript/setting-up'
       }, {
-        label: "Javascript",
-        items: [{
-          label: "Setting Up",
-          link: 'guides/javascript/setting-up'
-        }, {
-          label: "Creative Coding",
-          autogenerate: {
-            directory: 'guides/javascript/creative-coding'
-          }
-        }]
-      },
-      {
-        label: "Python", items: [{
-          label: "Setting Up",
-          link: 'guides/python'
-        }, {
-          label: "Setting Up",
-          link: 'guides/python/setting-up'
-        }, {
-          label: "Flask",
-          autogenerate: {
-            directory: 'guides/python/flask'
-          }
-        }]
-      },
-      {
-        label: "Git",
+        label: "Creative Coding",
         autogenerate: {
-          directory: 'guides/git'
-        }
-      }, {
-        label: "Cybersecurity",
-
-        autogenerate: {
-          directory: 'guides/cybersecurity'
-        }
-      }, {
-        label: "Game Design",
-        items: [{
-          label: "About",
-          link: 'guides/game-design/about'
-        }, {
-          label: "Godot",
-          autogenerate: {
-            directory: 'guides/game-design/godot'
-          }
-        }],
-      },
-      {
-        label: "SQL",
-        autogenerate: {
-          directory: 'guides/sql'
+          directory: 'javascript/creative-coding'
         }
       }]
-    }, {
-      label: 'NCEA Resources',
-      items: [{
-        label: "About our Resources",
-        link: 'ncea/about'
+    },
+    {
+      label: "Python", items: [{
+        label: "Setting Up",
+        link: 'python'
       }, {
-        label: "NCEA Level 2",
-        items: [{
-          label: "About",
-          link: 'ncea/level-2'
-        }, {
-          label: "Flask",
-          autogenerate: {
-            directory: 'ncea/level-2/flask'
-          }
-        }]
+        label: "Setting Up",
+        link: 'python/setting-up'
       }, {
-        label: "NCEA Level 3",
-        items: [{
-          label: "About",
-          link: 'ncea/level-3'
-        }, {
-          label: "Flask",
-
-          autogenerate: {
-            directory: 'ncea/level-3/flask'
-          }
-        }]
+        label: "Flask",
+        autogenerate: {
+          directory: 'python/flask'
+        }
       }]
+    },
+    {
+      label: "Git",
+      autogenerate: {
+        directory: 'git'
+      }
     }, {
-      label: "Tuhura Tech Resources",
+      label: "Cybersecurity",
+
+      autogenerate: {
+        directory: 'cybersecurity'
+      }
+    }, {
+      label: "Game Design",
+      items: [{
+        label: "About",
+        link: 'game-design/about'
+      }, {
+        label: "Godot",
+        autogenerate: {
+          directory: 'game-design/godot'
+        }
+      }],
+    },
+    {
+      label: "SQL",
+      autogenerate: {
+        directory: 'sql'
+      }
+    }, {
+      label: "Tūhura Tech Resources",
       autogenerate: {
         directory: 'tuhura-tech'
       }
