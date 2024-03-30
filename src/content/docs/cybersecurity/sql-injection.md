@@ -95,11 +95,11 @@ Go to the Juice Shop login page, and open your browser's developer tools. Most b
 Go to the network tab in the developer tools, and try to login with some random word as the email and password, it doesn't matter.
 
 Here is what the login request looks like in Firefox-based browser LibreWolf:
-![Juice Shop login request](../../../../assets/sql-injection/LoginHeader.png)
+![Juice Shop login request](/assets/sql-injection/LoginHeader.png)
 Here we can see the real request is being made to `http://localhost:3000/rest/user/login` and not `http://localhost:3000/#/login`.
 
-If we go to the Request tab on Firefox-based broswers and toggle Raw, or the Payload tab on Chromium-based browsers and press view source, we can see the important data:
-![Juice Shop login request payload where the email is Tūhura and the password is Tech!](../../../../assets/sql-injection/LoginPayload.png)
+If we go to the Request tab on Firefox-based browsers and toggle Raw, or the Payload tab on Chromium-based browsers and press view source, we can see the important data:
+![Juice Shop login request payload where the email is Tūhura and the password is Tech!](/assets/sql-injection/LoginPayload.png)
 Here we can see the data is being sent as `{"email":"<email>","password":"<password>"}`.
 
 Sqlmap only needs the names of the data and an example of valid input, and it seperates values with `&`, so `--data` should be `email=test@example.com&password=test`.
@@ -150,14 +150,14 @@ This isn't very useful, we already knew to try `' OR 1=1--`. So let's try it on 
 Open up your local version of Juice Shop in a new tab, and then search something. It might not show in the network tab if you use the same tab.
 
 Here's what the search request looks like in LibreWolf:
-![Juice Shop search request](../../../../assets/sql-injection/SearchHeader.png)
+![Juice Shop search request](/assets/sql-injection/SearchHeader.png)
 
 This time it's a GET request, which makes this whole process so much easier.
 
 First just check out what's at `http://localhost:3000/rest/products/search?q=test` in your browser. It's just a JSON array of products with the word test in them.
 
 Here's what it looks like in LibreWolf:
-![Juice Shop search request](../../../../assets/sql-injection/SearchJSON.png)
+![Juice Shop search request](/assets/sql-injection/SearchJSON.png)
 
 All in all, this isn't very useful. We could have just searched "" and gotten this all on the regular page.
 
