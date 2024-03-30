@@ -1,17 +1,11 @@
 ---
-title: Customising presentation of the data
-description: A simple website built using flask
+title: Static Files
+description: Static files
 sidebar:
-    order: 5
-    badge:
-        text: 🚧
-        variant: caution
+    order: 6
 ---
 
-This page is under construction. Please check back later.
-
-> customising presentation of the data
-
+Our pages have already been styled using Bootstrap however to make greater modifications we will need to add our own CSS. This can also be extended into serving images or JavaScript using the same method.
 
 By default Flask will treat any files in the `static/` directory as static files which allows us to serve them directly. We can create a `static/` directory in our project root and add a `style.css` file to it.
 
@@ -74,27 +68,3 @@ h6 {
 ```
 
 With our reference of `url_for("static", filename="style.css")` in our `base.html` it will now autmatically load this CSS across our site.
-
-
-```diff lang="python"
-// flaskapp/blog.py
-@bp.route("/")
-def index():
-    """Main view page."""
-    db = get_db()
--    posts = db.execute(
--        "SELECT post.id, post.title, post.body, post.created, "
--        "count(comment.id) AS comment_amount FROM post LEFT JOIN comment ON "
--        "comment.post_id=post.id group by post.id",
--    ).fetchall()
-+    posts = db.execute(
-+        "SELECT post.id, post.title, SUBSTR(post.body, 1, 400) AS body, post.created, "
-+        "count(comment.id) AS comment_amount FROM post LEFT JOIN comment ON "
-+        "comment.post_id=post.id group by post.id ORDER BY post.created DESC",
-+    ).fetchall()
-    return render_template("blog/index.html", posts=posts)
-```
-
-- SUBSTR(post.body, 1, 400) AS body
-
-- ORDER BY post.created DESC

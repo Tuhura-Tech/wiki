@@ -1,0 +1,62 @@
+---
+title: Project Layout
+description: A simple website built using flask
+sidebar:
+    order: 2
+---
+
+This follows the basic structure that most Flask projects follow. It can work with different layouts (eg. one file) but this is not recommended. Follow [Python Setup](/guides/python/setting-up) guide to get your project ready with everything installed. You will also need to install flask follow the dependency instructions.
+
+## Project Structure
+
+A basic flask project could be a simple file with everything in one place:
+
+```py
+// main.py
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+```
+
+Using a single file doesn't scale to larger websites and becomes confusing and difficult to navigate. For this reason projects are split into multiple files to organise the code by function. We will have a main app folder called `flaskapp` which will contain our app, database and our html pages, we will also have a folder to house our automated tests.
+
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- flaskapp/
+  - static/
+    - style.css
+  - templates/
+    - blog/
+      - create.html
+      - index.html
+      - post.html
+      - search.html
+    - components/
+      - comment.html
+      - footer.html
+      - navbar.hyml
+      - post.html
+    - base.html
+  - `__init__.py`
+  - blog.py
+  - db.py
+  - schema.sql
+- tests/
+  - `__init__.py`
+  - conftest.py
+  - data.sql
+  - test_blog.py
+  - test_factory.py
+  - test_db.py
+
+</FileTree>
+
+:::note
+This can look intimidating with the number of files at first and they don't need to all exist to start. As you build the project you will add more files and folders as you need them and eventually reach this state.

@@ -1,0 +1,286 @@
+---
+title: Templates
+description: Jinja templates
+sidebar:
+    order: 5
+---
+
+At the base of our application is the HTML pages that are visible to our users. These pages are created using [Jinja](https://jinja.palletsprojects.com/en/2.11.x/) templates. Jinja is a templating language that allows us to create dynamic HTML pages. This means that we can create pages that change based on the data that we pass to them. The overall style is inspired from the [Bootstrap Blog Example](https://getbootstrap.com/docs/5.0/examples/blog/#) and heavily modified.
+
+## Base template
+
+The base template is the template that all other templates extend. It contains the basic HTML structure of our pages. It also contains the CSS and JavaScript that is used on all pages. To make styling easier we use [Bootstrap](https://getbootstrap.com/). Bootstrap is a CSS framework that provides us with a set of CSS classes that we can use to style our pages and is what all the class tags are.
+
+```html
+// flaskapp/templates/base.html
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+```
+
+1. This page contains a few things that are important to note. The first is the `{% block title %}{% endblock %}`. This is a block that we can use to set the title of the page. We can set the title of the page by adding a block to our template that extends the base template.
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+```
+
+2. The second thing to note is the `{% block content %}{% endblock %}`. This is a block that we can use to set the content of the page. We can set the content of the page by adding a block to our template that extends the base template.
+
+```html
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Home</h1>
+{% endblock %}
+```
+
+3. Bootstrap is added in through a CDN. This means that we don't have to download the files and add them to our project. We can just add a link to the files that are hosted on a server somewhere else. This is a great way to add libraries to our project without having to download them. It also means that we don't have to worry about updating the libraries when new versions are released.
+
+4. The last thing to note is the `{{ url_for('static', filename='style.css') }}`. This allows us to provide our own CSS files. We can add our own CSS files to the `static` folder and then link to them in our templates. This allows us to override the Bootstrap styles and add our own styles to our pages.
+
+### Navbar
+
+At the top of our site we need a way to navigate between pages. We can do this by adding a navbar to our base template. The navbar will contain links to the home page, the create page and the search page.
+
+```html
+// flaskapp/templates/components/navbar.html
+<header class="border-bottom lh-1 py-3">
+    <div class="container">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1"> </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo text-body-emphasis text-decoration-none" href="/">Our Blog</a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a class="link-secondary" href="/create" aria-label="Create">
+                    Create Post
+                </a>
+                <a class="link-secondary" href="/search" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
+                        stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
+                        viewBox="0 0 24 24">
+                        <title>Search</title>
+                        <circle cx="10.5" cy="10.5" r="7.5" />
+                        <path d="M21 21l-5.2-5.2" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+```
+
+As we want this included on every page we can add it to our base template.
+
+```diff lang=html
+// flaskapp/template/base.html
+<body>
++    {% include 'components/navbar.html' %}
+    <main class="container">
+```
+
+:::tip
+As you build a site it may be easy to put everything into the same `base.html` template to make it easy to reuse. However, this can lead to a lot of duplication and can make it hard to maintain your code. It is better to break your templates up into smaller components that you can reuse. This will make it easier to maintain your code and will make it easier to add new features to your site.
+:::
+
+### Footer
+
+At the bottom of our site we need a way to navigate back to the top of the page. We can do this by adding a footer to our base template. The footer will contain a link to the top of the page and a link to the Tūhura Tech website.
+
+```html
+// flaskapp/templates/components/footer.html
+<footer class="py-5 text-center text-body-secondary bg-body-tertiary footer mt-auto">
+    <div class="container">
+        <p>Built by <a href="https://tuhuratech.org.nz">Tūhura Tech</a>.</p>
+        <p class="mb-0">
+            <a href="#">Back to top</a>
+        </p>
+    </div>
+</footer>
+```
+
+As we want this included on every page we can add it to our base template.
+
+```diff lang=html
+// flaskapp/template/base.html
+    </main>
+
++    {% include 'components/footer.html' %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+```
+
+## Home page
+
+Our Home page that will first be seen by our users will contain a preview of all of the posts that have been created. We can create a template for this page that extends the base template and use a post template to display each post.
+
+```html
+// flaskapp/templates/blog/index.html
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Posts{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div class="row g-5">
+    <div>
+        {% for post in posts %}
+        {% include 'components/post.html' %}
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+```
+
+### Post Component
+
+As we will want to show the same preview on different pages, eg. the home page and the search page, we can create a component that we can reuse on different pages.
+
+```html
+// flaskapp/templates/components/post.html
+<article class="blog-post">
+    <h2 class="display-5 link-body-emphasis mb-1"><a href='{{ post["id"] }}/post'
+            style="text-decoration: inherit; color: inherit;">{{ post["title"] }}</a></h2>
+    <p class="blog-post-meta">{{ post["created"] }} - {{ post["comment_amount"] }} comments</p>
+    <p>{{ post["body"] }}...</p>
+    <p class=""><a href='{{ post["id"] }}/post' class="text-body-emphasis fw-bold">Continue reading...</a></p>
+</article>
+```
+
+## Post page
+
+As our home page only displays a preview of each post we need a way for our users to view the full post. We can do this by creating a post page that will display the full post. We will also include a form that will allow our users to add comments to the post.
+
+```html
+// flaskapp/templates/blog/post.html
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}{{ post["title"] }}{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<section class="post">
+    <h2 class="display-5 link-body-emphasis mb-1">{{ post["title"] }}</h2>
+    <p class="blog-post-meta">{{ post["created"] }}</p>
+    <p>{{ post["body"] }}</p>
+</section>
+<hr>
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+<form method="post">
+    <div class="input-group mb-3">
+        <textarea class="form-control" aria-label="With textarea" name="body"></textarea>
+        <button type="submit" class="btn">Submit</button>
+    </div>
+</form>
+
+<section class="comments">
+    <div class="row">
+        {% for comment in comments %}
+        {% include 'components/comment.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
+```
+
+### Comment Component
+
+As all comments should follow the same structure we can create a component that we can reuse on different pages for displaying comments.
+
+```html
+// flaskapp/templates/components/comment.html
+<article class="comment">
+    <p class="comment-created">{{ comment["created"] }}</p>
+    <p>{{ comment["body"] }}...</p>
+</article>
+```
+
+## Create Page
+
+To allow our users to create new posts we need to create a page that allows them to do this. This page will mostly be a form that can send data to our server to create a new post.
+
+```html
+// flaskapp/templates/blog/create.html
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}New Post{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+{% if error %}
+<p class=error><strong>Error:</strong> {{ error }}</p>
+{% endif %}
+<form method="post">
+  <label for="title">Title</label>
+  <input name="title" id="title" value="{{ request.form['title'] }}" required>
+  <label for="body">Body</label>
+  <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+  <input type="submit" value="Save">
+</form>
+{% endblock %}
+```
+
+## Search Page
+
+The search page functions as a simple form with a search input. When the user submits the form the page will have all the results loaded beneath the form.
+
+```html
+// flaskapp/templates/blog/search.html
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Search{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row g-5 m-auto">
+        <form>
+            <div class="input-group mb-3">
+                <input name="query" id="query" placeholder="{{ query }}" class="form-control" required>
+                <button type="submit" class="btn">Search</button>
+            </div>
+        </form>
+    </div>
+    <div class="row g-5">
+        <div class="">
+            {% for post in posts %}
+            {% include 'components/post.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+```
