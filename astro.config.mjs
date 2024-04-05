@@ -87,7 +87,15 @@ export default defineConfig({
         autogenerate: {
           directory: 'guides/sql'
         }
-      }]
+      },
+      {
+        label: "Web",
+        collapsed: true,
+        autogenerate: {
+          directory: 'guides/web'
+        }
+      }
+    ]
     }, {
       label: 'NCEA Resources',
       items: [{
