@@ -119,7 +119,7 @@ A lot of this is very similar. You can just make one **TabBar** and its children
 
 You must rename the **TabBar** nodes to change the title of the tabs.
 
-#### Anti-Aliasing
+#### Video: Anti-Aliasing
 
 Godot has some good documentation for both [2D](https://docs.godotengine.org/en/stable/tutorials/2d/2d_antialiasing.html) and [3D](https://docs.godotengine.org/en/stable/tutorials/3d/3d_antialiasing.html) anti-aliasing. They have some good diagrams showing what it's like with and without anti-aliasing.
 
@@ -143,17 +143,38 @@ Now, in your script get all four option nodes in your script. A good way to do t
 
 Next, connect the `item_selected(index: int)` and the `toggled(toggled_on: bool` signals from all four option nodes.
 
-Finally, use the `ProjectSettings.set_setting(name: String, value: Variant)` function to change the setting's value. `name` should be the path to the variable you copied earlier, and `value` should be the value passed by the signal. 
+Finally, use the **RenderingServer** to change the display. `RenderingServer` has the four functions we need, which you can lookup with the **Search Help** button or see below. It requires the viewport RID which you can get with `get_viewport().get_viewport_rid()`.
 
-The final hickup will be with screen space anti-aliasing since it's techically an array even though it just has **Disabled** and **FXAA** as options. For this you can just use an `if` and `else` statement.
+The final hickup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(from: bool)` to make `true` into 1 and `false` into 0.
 
+All in all, your script should look something like:
 ```gdscript
+extends HBoxContainer
+
+@onready var msaa_2d = $MSAA2D
+@onready var msaa_3d = $MSAA3D
+@onready var fxaa = $FXAA
+@onready var taa = $TAA
+
+
+func _on_msaa_2d_item_selected(index):
+	RenderingServer.viewport_set_msaa_2d(get_viewport().get_viewport_rid(), index)
+
+
+func _on_msaa_3d_item_selected(index):
+	RenderingServer.viewport_set_msaa_3d(get_viewport().get_viewport_rid(), index)
+
 func _on_fxaa_toggled(toggled_on):
-	if toggled_on:
-		ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 1)
-	else:
-		ProjectSettings.set_setting("rendering/anti_aliasing/quality/msaa_2d", 0)
+	RenderingServer.viewport_set_screen_space_aa(get_viewport().get_viewport_rid(), int(toggled_on))
+
+
+func _on_taa_toggled(toggled_on):
+	RenderingServer.viewport_set_use_taa(get_viewport().get_viewport_rid(), toggled_on)
 ```
+
+##### Audio: Master volume
+
+
 
 ## Bullet heaven
 
@@ -167,3 +188,12 @@ The genre initially got popular from the Unity game Vampire Survivors.
 Although one of the most well-known Godot games, Brotato, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a bullet heaven.
 
 For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside of the screen and then slowly advance towards the player. Finally, a health and score system.
+
+## Rhythm
+
+
+## 3D Racer
+
+## First Person Shooter
+
+## Tower Defense
