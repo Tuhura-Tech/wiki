@@ -1,0 +1,200 @@
+---
+title: Genres
+description: This page for Godot is dedicated to making specific types of games. Just the basics of everything, it teaches a wide variety so not a first person shooter and a third person shooter.
+sidebar:
+    order: 3
+---
+
+This page is for creating specific types of games in Godot. This guide will assume you have gone through the basics page and understand the core concepts.
+
+We won't go through a lot of the simple things like where to find buttons, how to setup a project, etc.
+
+Also, all nodes will be renamed appropriately in all screenshots, they will not be the original names of the nodes. We recommend you rename your nodes as well.
+
+## Universal features
+
+To skip explaining this throughout every genre, there are some unchanging features nearly every single game has.
+
+Primarily these will be flexible and done in different ways for the game, and some artful games totally forgo some, or any, of these staples of the medium.
+
+But this isn't about how there always has to be a character controller of some variety. Character controllers come in all shapes and sizes.
+
+This is about things like the main menu, settings, mapping inputs, and things of the sort. These are very rarely done differently, aside from the layout and aesthetics.
+
+### Main menu
+
+Main menus are nigh universal traits. They are usually the same formula copied and slightly twisted to fit aesthetic.
+
+#### Setting up
+
+Make a new scene and make the root node a **Control** node, listed as **User Interface**.
+
+![Create root node section of Godot with User Interface highlighted](../../../../../assets/godot/genres/UserInterfaceRootNode.png)
+
+For this we'll need the node tree:
+- **Control** - Root node
+	- **ColorRect** - The background
+	- **RichTextLabel** - The title
+	- **VBoxContainer** - Holds the buttons
+		- **Button** - Start button
+		- **Button** - Settings button
+		- **Button** - Quit button
+
+
+#### Anchors
+
+Tons of people have differently sized screens; not everyone has a 16:9 aspect ratio monitor. For this reason we need anchors, it's similar to designing a responsive website.
+
+Select your **ColorRect** first. On the right of your toolbar at the top of the viewport, there should be the option to set the anchor preset.
+![Scene with "Your beautiful game" as title, a start, settings, and menu button below it, and with the anchor presets menu open](../../../../../assets/godot/genres/AnchorPresets.png)
+
+The background **ColorRect** should be set to **Full Rect** so it covers the default background and resized to cover the entire background no matter the aspect ratio. Feel free to change the **ColorRect**'s color.
+
+The **RichTextLabel** should be connect to the part of the screen they'll move with when the screen is resized. In the anchor preset menu select the closest one to where you want it to be, then move the nodes to be roughly where you want them to be.
+
+Test out moving them around by selecting your **Control** node and resizing it with the orange dots.
+
+In the inspector of **RichTextLabel** set the text to the title of your game. Next, go to **Control > Theme Overrides > Colors > Default Color** and turn it on. Your text may have been white on the white background and not visible before, this will change it to the black color. You can change the value of the default color. Finally, in **Control > Theme Overrides > Font Sizes > Normal Font Size** turn it on and make the text larger.
+
+Do the same things for your three buttons. You can select all three buttons with shift/ctrl + click and do them all at once. The text will need to be set separately.
+
+The **VBoxContainer** node stacks all of its children nodes in a **V**ertical **Box**.
+
+Make it wide and tall enough to contain the buttons, anchor and size it properly. Your buttons should be there.
+
+User interfaces in games are a bit finicky due to the fact that not all screens are built equal. Some people have ultra-wide monitors, some people play games on old CRT screens. Who knows, maybe someone will play your game in their brain one day. Making your game accessible is paramount.
+
+#### Interaction
+
+It's good practice to separate functions into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you was thinking, and just generally be easier. It's for this reason we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a seperate `.gd` file.
+
+Give your start button a script, toggle built-in, and make it. Delete everything other than `extends Button`. Connect the start button's `pressed()` signal to its own script and set the function's body to `get_tree().change_scene_to_file("res://scenes/main_menu.tscn")`. Replace `res://scenes/main_menu.tscn` with the path to the first level, the main scene, or whatever scene you would normally open to play your game. If you're starting with just a main menu you can set this later. Make sure to press play or **F5** and set the current scene as the scene it loads up when you play the game.
+
+:::note[Faster loading]
+It's a good idea to use `get_tree().change_scene_to_packed()` instead. The only difference is you need a global variable along the lines of `var main_scene = preload("res://scenes/main_menu.tscn")`. Of course with the main menu scene switched out for your game's starting scene. Then give that as a variable in the method in your function body with `get_tree().change_scene_to_packed(main_scene)`.
+
+This causes Godot to load the scene into memory before you press the button, instead of loading the scene after you press the button. It's faster and more responsive for your player.
+:::
+
+Your quit button is just as easy. Make a script, connect the signal. This time in the function body give it `get_tree().quit()`.
+
+The settings button requires a settings menu.
+
+### Settings
+
+If you just made your main menu with the above guide, click the eye icon on your button container and the title label.
+
+#### Setting up
+
+As a child of your **Control** node, add **TabContainer**. We will provide examples for changing video, audio, and controls. But you will have to think of and provide settings for the gameplay since it's all about your unique game.
+
+Make sure to anchor your **TabContainer** to **Full Rect** so it takes up the whole screen.
+
+Add this as a child of the root node:
+- **TabContainer** - Contains the tabs
+	- **TabBar** - Video tab
+		- **VBoxContainer** - Lists the options vertically
+			- **HBoxContainer** - Holds the label and the option for the setting
+				- **Label** - Tells the name of the setting
+				- **VSeparator** - Vertical separator between the label and the option
+				- **OptionButton** - Lets the user decide between 2D MSAA
+				- **OptionButton** - Lets the user decide between 3D MSAA
+				- **CheckBox** - Lets the user to decide if to use screen space FXAA
+				- **Checkbox** - Lets the user decide if to use TAA
+	- **TabBar** - Audio tab
+		- **VBoxContainer** - Lists the options vertically
+			- **HBoxContainer** - Holds the label and the option for the setting
+				- **Label** - Tells the name of the setting
+				- **VSeparator** - Vertical separator between the label and the option
+				- **HSlider** - Lets the user change the volume
+	- **TabBar** - Gameplay tab
+	- **TabBar** - Controls tab
+		- **VBoxContainer** - Lists the options vertically
+			- **HBoxContainer** - Holds the label and the option for the setting
+				- **Label** - Tells the name of the setting
+				- **VSeparator** - Vertical separator between the label and the option
+				- **Button** - Lets the user change the related button
+
+A lot of this is very similar. You can just make one **TabBar** and its children, then copy paste it onto the **TabContainer** three times. If you do this make sure to change the related **TabBar** names and the option nodes.
+
+You must rename the **TabBar** nodes to change the title of the tabs.
+
+#### Video: Anti-Aliasing
+
+Godot has some good documentation for both [2D](https://docs.godotengine.org/en/stable/tutorials/2d/2d_antialiasing.html) and [3D](https://docs.godotengine.org/en/stable/tutorials/3d/3d_antialiasing.html) anti-aliasing. They have some good diagrams showing what it's like with and without anti-aliasing.
+
+There are many ways of combating this effect, Godot has a few built-in. Sometimes you may not want to fight the effect at all and just have it to give a retro-style.
+
+We'll let the player choose between the built-in Godot ones.
+
+##### Making the option
+
+Go to the inspector for each MSAA nodes and add elements to the **Items** array property. Give it the options Disabled, 2x, 4x, and 8x. Of course you can remove the irrelevant 2D or 3D node if you know what your game is going to be.
+
+If you plan to have the default settings be more than just all disabled, you can change the **Selected** property for the **OptionButton**s, and the **Button Pressed** property for the **CheckBox**s to match your default.
+
+Add a script to the **VBoxContainer** on the video tab and call it something like `setting_anti_aliasing.gd` in a scripts folder.
+
+Navigate to **Project > Project Settings... > Rendering > Anti Aliasing**. This is where you can see all the options. You might recall you made two **CheckBox**s, but this screen has only one and three **OptionButton**s. Well if you select **Screen Space AA** you can see there are only **Disabled** and **FXAA**.
+
+From here you can right click and copy the path to the setting, this is what we'll use to set the setting.
+
+Now, in your script get all four option nodes in your script. A good way to do this is to click and drag your node onto the script, and before you let go on an empty line press **Ctrl**. This will make the entire variable for you, instead of just dragging in `$"path/to/variable"`. You can even use **Ctrl** or **Shift** to select all four nodes at once, then drag, press control, and release to get all four variables at once.
+
+Next, connect the `item_selected(index: int)` and the `toggled(toggled_on: bool` signals from all four option nodes.
+
+Finally, use the **RenderingServer** to change the display. `RenderingServer` has the four functions we need, which you can lookup with the **Search Help** button or see below. It requires the viewport RID which you can get with `get_viewport().get_viewport_rid()`.
+
+The final hickup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(from: bool)` to make `true` into 1 and `false` into 0.
+
+All in all, your script should look something like:
+```gdscript
+extends HBoxContainer
+
+@onready var msaa_2d = $MSAA2D
+@onready var msaa_3d = $MSAA3D
+@onready var fxaa = $FXAA
+@onready var taa = $TAA
+
+
+func _on_msaa_2d_item_selected(index):
+	RenderingServer.viewport_set_msaa_2d(get_viewport().get_viewport_rid(), index)
+
+
+func _on_msaa_3d_item_selected(index):
+	RenderingServer.viewport_set_msaa_3d(get_viewport().get_viewport_rid(), index)
+
+func _on_fxaa_toggled(toggled_on):
+	RenderingServer.viewport_set_screen_space_aa(get_viewport().get_viewport_rid(), int(toggled_on))
+
+
+func _on_taa_toggled(toggled_on):
+	RenderingServer.viewport_set_use_taa(get_viewport().get_viewport_rid(), toggled_on)
+```
+
+##### Audio: Master volume
+
+
+
+## Bullet heaven
+
+Bullet heaven games are the opposite of the ever-popular bullet hell genre.
+
+The player slowly accumulates a variety of abilities that activate automatically and fire an absurd amount of bullets at an equally absurd amount of enemies that slowly advance towards the player.
+
+Bullet heaven games are usually from a top-down perspective.
+
+The genre initially got popular from the Unity game Vampire Survivors.  
+Although one of the most well-known Godot games, Brotato, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a bullet heaven.
+
+For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside of the screen and then slowly advance towards the player. Finally, a health and score system.
+
+## Rhythm
+
+
+
+## 3D Racer
+
+## First Person Shooter
+
+## Tower Defense
