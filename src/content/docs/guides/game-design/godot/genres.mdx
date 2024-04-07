@@ -1,13 +1,13 @@
 ---
 title: Genres
-description: This page for Godot is dedicated to making specific types of games. Just the basics of everything, it teaches a wide variety so not a first person shooter and a third person shooter.
+description: This page for Godot is dedicated to making specific types of games. Just the basics of everything, it teaches a wide variety, so not a first-person shooter *and* a third-person shooter.
 sidebar:
     order: 3
 ---
 
 This page is for creating specific types of games in Godot. This guide will assume you have gone through the basics page and understand the core concepts.
 
-We won't go through a lot of the simple things like where to find buttons, how to setup a project, etc.
+We won't go through a lot of the simple things like where to find buttons, how to set up a project, etc.
 
 Also, all nodes will be renamed appropriately in all screenshots, they will not be the original names of the nodes. We recommend you rename your nodes as well.
 
@@ -23,7 +23,7 @@ This is about things like the main menu, settings, mapping inputs, and things of
 
 ### Main menu
 
-Main menus are nigh universal traits. They are usually the same formula copied and slightly twisted to fit aesthetic.
+Main menus are nigh universal traits. They are usually the same formula copied and slightly twisted to fit the aesthetic.
 
 #### Setting up
 
@@ -31,7 +31,7 @@ Make a new scene and make the root node a **Control** node, listed as **User Int
 
 ![Create root node section of Godot with User Interface highlighted](../../../../../assets/godot/genres/UserInterfaceRootNode.png)
 
-For this we'll need the node tree:
+For this, we'll need the node tree:
 - **Control** - Root node
 	- **ColorRect** - The background
 	- **RichTextLabel** - The title
@@ -50,11 +50,11 @@ Select your **ColorRect** first. On the right of your toolbar at the top of the 
 
 The background **ColorRect** should be set to **Full Rect** so it covers the default background and resized to cover the entire background no matter the aspect ratio. Feel free to change the **ColorRect**'s color.
 
-The **RichTextLabel** should be connect to the part of the screen they'll move with when the screen is resized. In the anchor preset menu select the closest one to where you want it to be, then move the nodes to be roughly where you want them to be.
+The **RichTextLabel** should be connected to the part of the screen they'll move with when the screen is resized. In the anchor preset menu, select the closest one to where you want it to be, then move the nodes to be roughly where you want them to be.
 
 Test out moving them around by selecting your **Control** node and resizing it with the orange dots.
 
-In the inspector of **RichTextLabel** set the text to the title of your game. Next, go to **Control > Theme Overrides > Colors > Default Color** and turn it on. Your text may have been white on the white background and not visible before, this will change it to the black color. You can change the value of the default color. Finally, in **Control > Theme Overrides > Font Sizes > Normal Font Size** turn it on and make the text larger.
+In the inspector of **RichTextLabel**, set the text to the title of your game. Next, go to **Control > Theme Overrides > Colors > Default Color** and turn it on. Your text may have been white on the white background and not visible before, this will change it to the black color. You can change the value of the default color. Finally, in **Control > Theme Overrides > Font Sizes > Normal Font Size**, turn it on and make the text larger.
 
 Do the same things for your three buttons. You can select all three buttons with shift/ctrl + click and do them all at once. The text will need to be set separately.
 
@@ -66,7 +66,7 @@ User interfaces in games are a bit finicky due to the fact that not all screens 
 
 #### Interaction
 
-It's good practice to separate functions into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you was thinking, and just generally be easier. It's for these reasons we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder and we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a seperate `.gd` file.
+It's good practice to separate functions into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you were thinking, and just generally be easier. It's for these reasons, we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder and we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a separate `.gd` file.
 
 Give your start button a script, toggle built-in, and make it. Delete everything other than `extends Button`. Connect the start button's `pressed()` signal to its own script and set the function's body to `get_tree().change_scene_to_file("res://scenes/main_menu.tscn")`. Replace `res://scenes/main_menu.tscn` with the path to the first level, the main scene, or whatever scene you would normally open to play your game. If you're starting with just a main menu you can set this later. Make sure to press play or **F5** and set the current scene as the scene it loads up when you play the game.
 
@@ -99,7 +99,7 @@ Add this as a child of the root node:
 				- **VSeparator** - Vertical separator between the label and the option
 				- **OptionButton** - Lets the user decide between 2D MSAA
 				- **OptionButton** - Lets the user decide between 3D MSAA
-				- **CheckBox** - Lets the user to decide if to use screen space FXAA
+				- **CheckBox** - Lets the user decide if to use screen space FXAA
 				- **Checkbox** - Lets the user decide if to use TAA
 	- **TabBar** - Audio tab
 		- **VBoxContainer** - Lists the options vertically
@@ -115,7 +115,7 @@ Add this as a child of the root node:
 				- **VSeparator** - Vertical separator between the label and the option
 				- **Button** - Lets the user change the related button
 
-A lot of this is very similar. You can just make one **TabBar** and its children, then copy paste it onto the **TabContainer** three times. If you do this make sure to change the related **TabBar** names and the option nodes.
+A lot of this is very similar. You can just make one **TabBar** and its children, then copy-paste it onto the **TabContainer** three times. If you do this, make sure to change the related **TabBar** names and the option nodes.
 
 You must rename the **TabBar** nodes to change the title of the tabs.
 
@@ -129,7 +129,7 @@ We'll let the player choose between the built-in Godot ones.
 
 ##### Making the option
 
-Go to the inspector for each MSAA nodes and add elements to the **Items** array property. Give it the options Disabled, 2x, 4x, and 8x. Of course you can remove the irrelevant 2D or 3D node if you know what your game is going to be.
+Go to the inspector for each MSAA nodes and add elements to the **Items** array property. Give it the options Disabled, 2x, 4x, and 8x. Of course, you can remove the irrelevant 2D or 3D node if you know what your game is going to be.
 
 If you plan to have the default settings be more than just all disabled, you can change the **Selected** property for the **OptionButton**s, and the **Button Pressed** property for the **CheckBox**s to match your default.
 
@@ -137,13 +137,13 @@ Add a script to the **HBoxContainer** on the video tab and call it something lik
 
 Navigate to **Project > Project Settings... > Rendering > Anti Aliasing**. This is where you can see all the options. You might recall you made two **CheckBox**s, but this screen has only one and three **OptionButton**s. Well if you select **Screen Space AA** you can see there are only **Disabled** and **FXAA**.
 
-From here you can right click and copy the path to the setting, this is what we'll use to set the setting.
+From here you can right-click and copy the path to the setting, this is what we'll use to set the setting.
 
 Connect the `item_selected(index: int)` and the `toggled(toggled_on: bool` signals from all four option nodes.
 
-Finally, use the **RenderingServer** to change the display. `RenderingServer` has the four functions we need, which you can lookup with the **Search Help** button or see below. It requires the viewport RID which you can get with `get_viewport().get_viewport_rid()`.
+Finally, use the **RenderingServer** to change the display. `RenderingServer` has the four functions we need, which you can look up with the **Search Help** button or see below. It requires the viewport RID which you can get with `get_viewport().get_viewport_rid()`.
 
-The final hickup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(from: bool)` to make `true` into 1 and `false` into 0.
+The final hiccup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(from: bool)` to make `true` into 1 and `false` into 0.
 
 All in all, your script should look something like:
 
@@ -169,25 +169,25 @@ func _on_taa_toggled(toggled_on):
 
 #### Audio: Master volume
 
-Audio in godot goes through buses. When adding an **AudioStreamPlayer** or the 2D/3D equivalent it's going through the custom bus set for it, then to the master bus. If no custom bus is set, it just goes through the master bus.
+Audio in Godot goes through buses. When adding an **AudioStreamPlayer** or the 2D/3D equivalent, it's going through the custom bus set for it, then to the master bus. If no custom bus is set, it just goes through the master bus.
 
 At the bottom of Godot you can switch to the **Audio** dock, this is what it looks like by default:
 ![Default audio dock in Godot](../../../../../assets/godot/genres/Audio.png)
 
-When adding audio you can make custom busses and route the audio through them, then change their volume with new sliders like the one we're about to make for the master bus.
+When adding audio you can make custom buses and route the audio through them, then change their volume with new sliders like the one we're about to make for the master bus.
 
 This one is simple, after changing your label to say something like "Master", start with a single script on the **HSlider**.
 
 Connect its own `drag_ended` signal to itself.
 
-In the Inspector set the **Min Value** to 0, **Max Value** to 1, and step to 0.1. Also set **Layout > Custom Minimum Size**'s x value to something like 300px so the slider is wide.
+In the Inspector set the **Min Value** to 0, **Max Value** to 1, and step to 0.1. Also set **Layout > Custom Minimum Size**'s x value to something like 300px, so the slider is wide.
 
-Then, in your `_on_value_changed` function add the line `AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))`.
+Then, in your `_on_value_changed` function, add the line `AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))`.
 
 That's it.
 
-:::note[Decibles and linear_to_db]
-The reason you need to use `linear_to_db(value)` is because the decible (db) measurement of volume is not linear. The built-in `linear_to_db` function takes a number from 0 to 1 and converts it to decibles.
+:::note[Decibels and linear_to_db]
+The reason you need to use `linear_to_db(value)` is because the decibel (db) measurement of volume is not linear. The built-in `linear_to_db` function takes a number from 0 to 1 and converts it to decibels.
 
 The rest of the code is just getting the right properties to set.
 :::
@@ -227,7 +227,7 @@ Connect the **Button**'s `pressed` signal to itself.
 
 It's a relatively simple script, just using `Input`, `InputMap`, `InputEvent` and their related functions to change things.
 
-This will remove all the events related to the action and make the next pressed button the event for the action. It's cutting out mouse events because moving your mouse or left clicking isn't very likely to be something you want to change, but feel free to modify the `event is InputEventMouse` to something like `event is InputEventMouseMotion` to allow mouse buttons to be bound.
+This will remove all the events related to the action and make the next pressed button the event for the action. It's cutting out mouse events because moving your mouse or left-clicking isn't very likely to be something you want to change, but feel free to modify the `not event is InputEventMouse` to something like `not event is InputEventMouseMotion` to allow mouse buttons to be bound.
 
 ## Bullet heaven
 
@@ -241,6 +241,25 @@ The genre initially got popular from the Unity game Vampire Survivors.
 Although one of the most well-known Godot games, Brotato, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a bullet heaven.
 
 For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside of the screen and then slowly advance towards the player. Finally, a health and score system.
+
+### Top-Down 2D Character Controller
+
+As seen in the [basics guide](../basics), the built-in Godot **CharacterBody2D** template is a side-on character controller.
+
+Bullet heaven games are typically top-down, so let's make a top-down 2D character controller.
+
+#### Setup
+
+You don't need to make a 2D scene to host the player in since the player doesn't need a floor to stand on, you can just start by making the root node a **CharacterBody2D**. 
+
+Make the following scene:
+- **CharacterBody2D**
+	+ **CollisionShape2D** - Set shape to **New RectangleShape2D**
+	+ **Sprite2D** - Set texture to **New PlaceholderTexture2D**
+	+ **Camera2D**
+
+Make the player's collider and sprite about an eighth the size of the 
+
 
 ## Rhythm
 
