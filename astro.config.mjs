@@ -30,7 +30,7 @@ export default defineConfig({
     sidebar: [
       {
         label: "Python", items: [{
-          label: "Python",
+          label: "Python Basics",
           link: 'python'
         }, {
           label: "Setting Up",
