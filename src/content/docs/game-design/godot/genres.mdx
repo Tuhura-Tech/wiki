@@ -391,21 +391,24 @@ Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need
 
 To move towards the player, we're going to need to find the player.
 
-Go to your player scene and add the root node to the `player` group by going to the node tab next to the inspector, going to groups, and adding `player.`
+In your singleton add an onready variable that holds the player.
 
-Then, in your singleton add an onready variable that holds the player. In a ready function on your autoload script find the player node with get_tree().get_first_node_in_group("player").
+In your player's script add the built-in `_ready()` function and set the Singelton's player_node variable to the player itself.
 
-The script should look something like this:
+The singleton script should look something like this:
 
 ```gdscript
 extends Node
 
 var player_health: int = 100
 @onready var player_node: Player
+```
 
+The player script's ready function should look similar to:
 
+```gdscript
 func _ready():
-	player_node = get_tree().get_first_node_in_group("player")
+	Singleton.player_node = self
 ```
 
 :::note[Static typing]
@@ -482,11 +485,44 @@ If you're eagle-eyed you might have also spotted the `get_last_slide_collision` 
 Use the provided code-block in the `get_slide_collision` description and modify it so that instead of the print statement in the for-loop, add this:
 
 ```gdscript
-if collision is Player:
+if collision.get_collider() is Player:
 	Singleton.player_health -= DAMAGE
+	queue_free()
 ```
 
-In theory, this should work. Of course, we don't have anything to tell us how much health the player has so let's quickly make a health bar.
+For this simple game we're just going to run `queue_free()` so the player does damage and then disappears so the next enemy can deal damage. If we didn't do this it would deal damage every single frame the player is touching the enemy and it would deal insane amounts of damage very quickly. If you want, you can use a **Timer** node, set it to one shot, replace `queue_free()` with starting the timer, and then check if the timer is stopped as part of the `if collision.get_collider() is Player:` if statement. This would stop the enemy from doing insane damage and limit it to once whenever timer's value was set at.
+
+In theory, what we have now though should work. Of course, we don't have anything to tell us how much health the player has so let's quickly make death and a health bar.
+
+### Health and Death
+
+#### Health Bar
+
+Let's start with a simple health bar.
+
+In your player scene add a **ProgressBar** as a child of the root node. Position it above the player and make it wider so you can see the bar's progress.
+
+Set the **Value** property of the **ProgressBar** to 100, this is your health bar.
+
+Get the health bar in your player's script by opening the player's script, dragging the node to the top of the script where you want the variable, and before you release the left mouse button hold control. This will make the entire onready variable for you.
+
+At the beginning of `_physics_process(delta)` add a line that sets the **ProgressBar**'s value property to the same value as your singleton's player health value. This is assuming your maximum health is 100. If it's something else you need to change the **Max Value** property on your health bar.
+
+#### Restarting Game
+
+Next comes the death.
+
+Make a new constant for your player's max health. This is just so we can reset the health to this value. It's good practice to not have random numbers laying around your scripts and instead use constants with descriptive names.
+
+Add in the `_physics_process(delta)` function to your singleton.
+
+Give it a simple if statement checking if the player's health is below or equal to 0.
+
+Inside that, set your player's health to the max health constant you made before. Then run `get_tree().reload_current_scene()`. It's important you do it in that order, reloading the scene could stop the script from running in other circumstances and not reset the player's health. It shouldn't in this case since this is an autoload script and won't be reset, but it's still best practice to reload or change scenes after doing all other reset or changing operations.
+
+Since we set the `player_node` variable during the player's `_ready()` function, we don't need to set it again. It's going to change the variable when the node is made and enters the scene tree.
+
+Booyah, the player can now die!
 
 ## Rhythm
 
