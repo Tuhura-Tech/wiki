@@ -1,0 +1,371 @@
+---
+title: Using Flask Templates
+description: A simple website built using flask
+sidebar:
+   order: 3
+---
+
+Writing HTML in Python code is not a good practice. It is hard to maintain, understand and becomes really difficult with larger pages. Flask provides a way to write HTML in separate files and then use them in the Python code. These files are called [templates](https://flask.palletsprojects.com/en/3.0.x/templating/) which are built using [Jinja2](https://jinja.palletsprojects.com/en/3.0.x/).
+
+## Jinja2 Templates
+
+Templates are special HTML files that contain placeholders for dynamic content. These placeholders are replaced with actual values when the template is rendered. Templates are used to separate the presentation logic from the business logic.
+
+Flask stores all of its templates in a folder called `templates`. This folder should be created in the same directory as the `app.py` file.
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- app.py
+- templates/
+  - index.html
+
+</FileTree>
+
+### Creating a Template
+
+```html
+// templates/index.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ title }}</title>
+    </head>
+
+    <body>
+        <h1>{{ heading }}</h1>
+        <p>{{ content }}</p>
+    </body>
+</html>
+```
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. The template is based on an HTML file so requires the standard HTML structure.
+
+2. Each part that would contain content is instead replaced by a placeholder enclosed in double curly braces `{{ }}`. These placeholders are replaced with actual values when the template is rendered.
+
+</Steps>
+
+### Rendering a Template
+
+To render a template, we need to use the `render_template` function from the `flask` module. This function takes the name of the template file and the values to be replaced in the placeholders.
+
+```diff lang="python"
+// app.py
+- from flask import Flask
++ from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+-    return "<h1>Welcome to the home page!</h1>"
++    return render_template('index.html', title='Home', heading='Welcome to the website', content='This is a simple website built using Flask')
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+## Complex Templates
+
+Templates can be as complex as you want with lots of different functionality.
+
+### Base Template
+
+Base templates can be used so you don't have to repeat the same code in every template. Create a new file called `base.html` in the `templates` folder.
+
+```html
+// templates/base.html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+
+    <body>
+        {% block content %}{% endblock %}
+    </body>
+</html>
+```
+
+<Steps>
+
+1. The `base.html` file contains the basic structure of an HTML file.
+
+2. The `title` and `content` sections are enclosed in `{% block %}` tags. These are placeholders that can be overridden in the child templates.
+
+   Instead of putting content from a variable inside of these tags they will instead be filled with a block of content from the child template.
+   Instead of using `{{ variable_name }}` we use `{% block block_name %}{% endblock %}` which indicates it is a block instead of a variable.
+
+3. As these are blocks, they can be overridden in the child templates by using the same block name.
+
+   They are overridden by using the `{% block %}` tag with the same name as the block in the parent template.
+
+</Steps>
+
+We will then need to update our `index.html` file to extend the `base.html` file.
+
+```diff lang="html"
+// templates/index.html
+-<!DOCTYPE html>
+-<html lang="en">
++{% extends 'base.html' %}
+-    <head>
+-        <title>{{ title }}</title>
++{% block title %}{{ title }}{% endblock %}
+-    </head>
+
+-    <body>
+-        <h1>{{ heading }}</h1>
+-        <p>{{ content }}</p>
++{% block content %}
++    <h1>{{ heading }}</h1>
++    <p>{{ content }}</p>
++{% endblock %}
+-    </body>
+</html>
+```
+
+This would give a `index.html` that now looks like this:
+
+```html
+// templates/index.html
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the website</h1>
+    <p>This is a simple website built using Flask</p>
+{% endblock %}
+```
+
+<Steps>
+
+1. Using `{% extends 'base.html' %}` we indicate that the `index.html` file extends the `base.html` file. This means that the content of the `index.html` file will be inserted into the `base.html` file.
+
+2. We then use `{% block title %}Home{% endblock %}` to override the `title` block in the `base.html` file.
+
+3. We then use `{% block content %}...{% endblock %}` to override the `content` block in the `base.html` file.
+
+</Steps>
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+### Includes
+
+Includes can be used to include a file in another file. Create a new file called `header.html` in the `templates` folder.
+
+```html
+// templates/header.html
+<header>
+    <h1>Home</h1>
+</header>
+```
+
+We will then need to update our `base.html` file to include the `header.html` file.
+
+```diff lang="html"
+// templates/base.html
+    <body>
++       {% include 'header.html' %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Home</h1>
+        </header>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+:::tip
+You can also use `extends` and `include` together to create a complex template structure.
+:::
+
+#### Passing Variables to Templates
+
+If you want to pass variables to the included file, you can do so by passing the variables as arguments to the `include` function. We can modify our `header.html` file to accept a `title` variable.
+
+```diff lang="html"
+// templates/header.html
+<header>
+-    <h1>Home</h1>
++    <h1>{{ title }}</h1>
+</header>
+```
+
+We will then need to update our `base.html` file to include the `header.html` file with the `title` variable.
+
+```diff lang="html"
+// templates/base.html
+    <body>
+-       {% include 'header.html' %}
++       {% include 'header.html' with title={{ title }} %}
+        {% block content %}{% endblock %}
+    </body>
+```
+
+When we run the server and visit the home page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Home</title>
+    </head>
+
+    <body>
+        <header>
+            <h1>Home</h1>
+        </header>
+        <h1>Welcome to the website</h1>
+        <p>This is a simple website built using Flask</p>
+    </body>
+</html>
+```
+
+### Loops
+
+If we have a list of items that we want to display, we can use a loop to iterate over the list and display each item. Create a new file called `list.html` in the `templates` folder.
+
+```html
+// templates/list.html
+{% extends 'base.html' %}
+
+{% block title %}List{% endblock %}
+
+{% block content %}
+    <h1>List of items</h1>
+    <ul>
+        {% for item in items %}
+            <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+```
+
+We will then need to update our `app.py` file to render the `list.html` file.
+
+```python
+// app.py
+@app.route('/list')
+def list():
+    items = ['Item 1', 'Item 2', 'Item 3']
+    return render_template('index.html', title='List', heading='List of items', content='This is a list of items', items=items)
+```
+
+When we run the server and visit the list page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>List</title>
+    </head>
+
+    <body>
+        <h1>List of items</h1>
+        <ul>
+            <li>Item 1</li>
+            <li>Item 2</li>
+            <li>Item 3</li>
+        </ul>
+    </body>
+</html>
+```
+
+:::tip
+This can also be combined with `includes` to have use an html section for each instance of the data.
+:::
+
+### Conditionals
+
+If we want to display content based on a condition, we can use conditionals. Create a new file called `conditional.html` in the `templates` folder.
+
+```html
+// templates/conditional.html
+{% extends 'base.html' %}
+
+{% block title %}Conditional{% endblock %}
+
+{% block content %}
+    <h1>Conditional content</h1>
+    {% if condition %}
+        <p>Condition is true</p>
+    {% else %}
+        <p>Condition is false</p>
+    {% endif %}
+{% endblock %}
+```
+
+We will then need to update our `app.py` file to render the `conditional.html` file.
+
+```python
+// app.py
+@app.route('/conditional')
+def conditional():
+    condition = True
+    return render_template('conditional.html', title='Conditional', heading='Conditional content', content='This is a conditional content', condition=condition)
+```
+
+When we run the server and visit the conditional page, we will see the content from the template file.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Conditional</title>
+    </head>
+
+    <body>
+        <h1>Conditional content</h1>
+        <p>Condition is true</p>
+    </body>
+</html>
+```

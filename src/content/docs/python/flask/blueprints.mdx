@@ -1,0 +1,70 @@
+---
+title: Simplifying with Blueprints
+description: A simple website built using flask
+sidebar:
+   order: 7
+---
+
+Following [PEP 20](https://peps.python.org/pep-0020/) which states that "Simple is better than complex", we will be simplifying our code by using [blueprints](https://flask.palletsprojects.com/en/3.0.x/blueprints/). Blueprints are a way to organize a group of related views and other code. They are registered with the application and can be used to create a modular application.
+
+import { FileTree } from '@astrojs/starlight/components';
+
+<FileTree>
+
+- app.py
+
+</FileTree>
+
+This gets turned into a tree structure like this:
+
+<FileTree>
+
+- app.py
+- blog.py
+- ...
+
+</FileTree>
+
+## Creating a Blueprint
+
+To create a blueprint, we need to create a new file called `blog.py`. We will then create a blueprint object and define the routes for the blog.
+
+```python
+from flask import Blueprint
+
+bp = Blueprint('blog', __name__)
+
+@bp.route('/')
+def index():
+    return 'Blog Index'
+
+@bp.route('/post/<int:id>')
+def post(id: int):
+    return f'Post {id}'
+```
+
+:::tip
+You can set the path that the blueprint will be registered at by passing the `url_prefix` argument to the `Blueprint` constructor.
+
+```python
+bp = Blueprint('blog', __name__, url_prefix='/blog')
+```
+
+This will register the blueprint at `/blog` instead of `/`.
+:::
+
+We then need to register the blueprint with the application in `app.py`.
+
+```python
+from flask import Flask
+
+app = Flask(__name__)
+
+from blog import bp as blog_bp
+app.register_blueprint(blog_bp)
+```
+
+- Visit [http://127.0.0.1:5000/](http://127.0.0.1:5000/) to see `Blog Index`
+- Visit [http://127.0.0.1:5000/post/1](http://127.0.0.1:5000/post/1) to see `Post 1`
+
+
