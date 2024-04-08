@@ -1,0 +1,107 @@
+---
+title: Paintbrush - Beginner
+description: This is how to create a simple paintbrush effect in p5.js.
+sidebar:
+    order: 2
+---
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+:::note[Note]
+This lesson assumes you have done the [start here](/javascript/creative-coding/start-here/) page.
+:::
+
+## Using shapes
+
+Modify the two functions in your `sketch.js` file to this code here, and feel free to change around any of the code to your liking! Make sure to read the comments which explain what each line does.
+
+```js
+function setup() {
+    createCanvas(window.innerWidth, window.innerHeight);
+    background('grey'); // any RGB value can go in here!
+    // Search up 'color picker' on Google to find specific colours.
+}
+
+function draw() {
+    noStroke(); // Taking away the default border
+    fill('white'); // Filling the following shapes with a colour of your choice
+    // Drawing a rectangle specifying the x-coordinate, y-coordinate, width and height
+    rect(50, 50, 300, 100);
+
+    fill('black'); // Changing the colour again
+    // a text function in p5.js which lets you write on the canvas.
+    textSize(32);
+    text('My painting area!!', 60, 110);
+}
+```
+
+## Using a Custom Function
+
+Firstly, let's create a custom function which paints 20 circles around a certain point, for a unique paintbrush effect.
+Here is what I've coded, but you are encouraged to change any of the variables and add/delete lines of code to see what happens.
+
+> Remember: there's always undo button if you ever mess up.
+
+```js
+/**
+ * The 'paintbrush' function takes two parameters, 'x' and 'y', representing the center of the brush.
+ * @param x The x coordinate
+ * @param y The y coordinate
+ */
+function paintbrush(x, y) {
+    noFill(); // This line sets the brush to have no fill color for the shapes.
+
+    stroke(random(0, 255), random(0, 255), random(0, 255), random(0, 255));
+    // Here, the 'random(0, 255)' generates a random number between 0 and 255 for each component (R, G, B, A) of the color.
+
+    // This 'for' loop will repeat the following lines of code 20 times.
+    for (let i = 0; i < 20; i++) {
+        
+        // The circle function:
+        // Its 'x' position is random within a 20-pixel range centered on 'x'.
+        // Its 'y' position is random within a 20-pixel range centered on 'y'.
+        // The circle's size is random between 10 and 50 pixels.
+        circle(random(x - 10, x + 10), random(y - 10, y + 10), random(10, 50));
+    }
+}
+```
+
+As you can see, inside this function I have used other functions like `random()`, `stroke()` or `circle`, which are functions we don't have to make as they've already been made by the libraries we are using!
+
+:::note[What is a for loop?]
+The for loop repeatedly executes the line of code 20 times, controlling the iteration through an making a variable called `i`, checking if it's less than 20, and increasing `i` by 1 each loop.
+:::
+
+## Using Prebuilt Functions
+Inside the p5.js library, there are prebuilt functions! Here are two valuable functions which you can play around with:
+
+<Tabs>
+<TabItem label="mousePressed">
+
+This function only executes when your mouse is pressed, so we only need to write this:
+```js
+function mousePressed(){
+    paintbrush(mouseX, mouseY);
+}
+```
+
+</TabItem>
+<TabItem label="mouseDragged">
+
+Likewise, this function only executes when your mouse is dragging, so we only need to write this:
+```js
+function mouseDragged(){
+    paintbrush(mouseX, mouseY);
+}
+```
+</TabItem>
+</Tabs>
+
+## Your Ultra Paintbrush
+
+If you have finished all three of those functions, try and see if you can make a paintbrush which only changes to certain colours. Then, make another paintbrush which uses another shape instead of `circle`. 
+Finally, try and create a paintbrush which combines all three of the different paintbrushes, depending on what type of key you press (hint: search up 'keyPressed in p5.js').
+
+If you want to continue with your paintbrush journey, visit the [p5.js website](https://p5js.org/reference/#/p5/).
+
+Well done! You have now created a canvas with your own custom paintbrush using a JavaScript library called p5js.
