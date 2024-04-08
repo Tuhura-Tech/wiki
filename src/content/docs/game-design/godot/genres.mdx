@@ -29,7 +29,7 @@ Main menus are nigh universal traits. They are usually the same formula copied a
 
 Make a new scene and make the root node a **Control** node, listed as **User Interface**.
 
-![Create root node section of Godot with User Interface highlighted](../../../../../assets/godot/genres/UserInterfaceRootNode.png)
+![Create root node section of Godot with User Interface highlighted](/src/assets/godot/genres/UserInterfaceRootNode.png)
 
 For this, we'll need the node tree:
 - **Control** - Root node
@@ -46,7 +46,7 @@ For this, we'll need the node tree:
 Tons of people have differently sized screens; not everyone has a 16:9 aspect ratio monitor. For this reason we need anchors, it's similar to designing a responsive website.
 
 Select your **ColorRect** first. On the right of your toolbar at the top of the viewport, there should be the option to set the anchor preset.
-![Scene with "Your beautiful game" as title, a start, settings, and menu button below it, and with the anchor presets menu open](../../../../../assets/godot/genres/AnchorPresets.png)
+![Scene with "Your beautiful game" as title, a start, settings, and menu button below it, and with the anchor presets menu open](/src/assets/godot/genres/AnchorPresets.png)
 
 The background **ColorRect** should be set to **Full Rect** so it covers the default background and resized to cover the entire background no matter the aspect ratio. Feel free to change the **ColorRect**'s color.
 
@@ -172,7 +172,7 @@ func _on_taa_toggled(toggled_on):
 Audio in Godot goes through buses. When adding an **AudioStreamPlayer** or the 2D/3D equivalent, it's going through the custom bus set for it, then to the master bus. If no custom bus is set, it just goes through the master bus.
 
 At the bottom of Godot you can switch to the **Audio** dock, this is what it looks like by default:
-![Default audio dock in Godot](../../../../../assets/godot/genres/Audio.png)
+![Default audio dock in Godot](/src/assets/godot/genres/Audio.png)
 
 When adding audio you can make custom buses and route the audio through them, then change their volume with new sliders like the one we're about to make for the master bus.
 
@@ -243,7 +243,9 @@ However, this means if you store your player's health in a singleton, it'll need
 
 To make a singleton, make a new script in the **FileSystem** dock, in your scripts folder.
 
-Go to **Project > Project Settings... > Autoload** and click the folder icon. Add your new script to the autoload
+Go to **Project > Project Settings... > Autoload** and click the folder icon. Add your new script to the autoload.
+
+Name it something like **Global** or **Singleton**, so that you always know you can get the globally accessed variables by using `Singleton.player_health`. All you need to do to make the variable accessible, in that way, is add the variable to the `singleton.gd` or whatever file you made autoload.
 
 ## Bullet Heaven
 
@@ -316,7 +318,7 @@ This is a shorthand for writing Input.get_action_strength("positive_action") - I
 
 The action strength is calculated by how far down an action is pressed. Typical keyboards will not have action strength being sent. It's useful for joysticks, Hall Effect keyboards, and a few other niche use-cases. There is no four-directional `get_axis` so we'll have to use `get_axis` for the x and y axis.
 
-Change the `direction` variable to `x_direction`, and replace the UI actions like the template suggests with your own left and right actions.
+Change the `direction` variable to `x_direction`, and replace the UI actions, like the template suggests, with your own left and right actions.
 Make a second `y_direction` variable with your up and down actions.
 
 Change the default if-else statement to use `x_direction` instead of `direction`, and then copy paste it so that there's also one for `y_direction`.
