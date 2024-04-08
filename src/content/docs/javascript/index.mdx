@@ -1,0 +1,259 @@
+---
+title: Setting Up
+description: This is how to set up a JavaScript environment.
+sidebar:
+   order: 1
+---
+
+
+import { Tabs, TabItem } from "@astrojs/starlight/components";
+
+There are many ways to set up your JavaScript environment, with different advantages and disadvantages. This guide will help you get fully setup to start coding in JavaScript.
+
+## Local development
+
+This is the most flexible option as you can use any IDE you want and does not rely on an internet connection. This should be done on your personal computer and not on a school computer.
+To use this option you will need to install a code editor, you can use any editor you would like, but we recommend [Visual Studio Code](https://code.visualstudio.com/).
+
+
+It is highly recommended that you install Node.js and npm. Node.js is an environment which can run JavaScript for different projects you can build, projects like a website! And `npm` is the package manager for the JavaScript library. A library is something which helps you code complicated programs by using other peoples' code.
+You can download this from the [Node.js website](https://nodejs.org/en/download).
+
+### Installing Node.js
+
+There are multiple ways to install Node.js, but the easiest way is to download the latest version from the [Node website](https://nodejs.org/en/download). Once you have downloaded the installer, you can run it and follow the instructions to install Node.js.
+
+You can also install Node using a package manager for a more advanced setup. If you are using macOS, you can use [Homebrew](https://brew.sh) to install Node. If you are using Linux, you can use your package manager to install Node. If you are using Windows, you can use [Chocolatey](https://chocolatey.org) to install Node.
+
+:::note[How do I run commands on my computer?]
+To run commands on your computer, you will need to open a terminal. On macOS and Linux, you can open a terminal by pressing `⌘ + Space` and typing `Terminal`. On Windows, you can open a command prompt terminal by pressing `⊞ + R`, and typing `cmd` or open Windows PowerShell by right-clicking the Windows logo and selecting `Windows PowerShell`. You can then run the command by typing it into the terminal and pressing `Enter`. 
+:::
+
+<Tabs>
+
+<TabItem label="Chocolatey">
+
+```sh
+choco install nodejs.install
+```
+
+</TabItem>
+<TabItem label="Homebrew">
+
+```sh
+brew install node
+```
+
+</TabItem>
+<TabItem label="Linux">
+
+```sh
+sudo apt update
+sudo apt install nodejs
+```
+
+</TabItem>
+<TabItem label="asdf">
+
+```sh
+asdf plugin-add nodejs
+asdf install nodejs latest
+asdf global nodejs
+```
+
+</TabItem>
+</Tabs>
+
+Once you have installed Node, you can check that it has installed correctly by running the following commands:
+
+```sh
+Node --version
+npm --version
+```
+
+
+You should get an output *similar* to the following:
+
+```sh
+v18.16.1
+9.8.0
+```
+
+### Setting up a project
+
+To set up a project, you will need to create a new folder for your project. You can then open this folder in your code editor.
+In the directory of your project folder (either in the terminal app or VS Code terminal), you will need to create a `package.json` file.
+This is the virtual environment for your project. You can do this by running the following command:
+
+```sh
+npm init -y
+```
+The file provides the node package manager (npm) with various information to help identify the project and handles your requests via the terminal.
+If you want to, you can change the files' `description` and `author` to your project's description and your name!
+You can then install libraries using the node package manager.
+
+### Adding libraries
+
+You can add libraries to your project by running the following command:
+
+```sh
+npm install <library>
+```
+
+## Next steps
+
+### Using Node Package Manager (npm)
+
+### Useful libraries
+
+There are several libraries that are useful when programming in JavaScript and can help with either style/formatting, type checking or the general structure of your code.
+
+#### Style and formatting
+
+These libraries help with formatting and style of your code, they can be used to automatically format your code to a standard style and can also be used to check your code for style errors. They should be added to your style dependencies using the below commands.
+
+- [Prettier](https://prettier.io/docs/en/)
+- [ESLint](https://eslint.org/docs/latest/)
+
+You can add them by running the following commands separately:
+
+```sh
+npm install eslint --save-dev
+npm install --save-dev eslint-config-prettier eslint-plugin-prettier
+```
+
+Once you have done this, you will see that you now have three files: `node_modules`, `package-lock.json` and `package.json`.
+If you are in a terminal, you can see your current files by running this command: `ls`.
+
+Next, to have both the Prettier and ESLint libraries to run together and not cause problems, you will have to change a few things.
+
+1. In your terminal, run the command `npx eslint --init`
+2. This will ask you some questions, and you can decide on how you want to answer them, depending on your project.
+    - These answers would typically be the default:
+    - How would you like to use ESLint? `> To check syntax and find problems`
+    - What type of modules does your project use? `> JavaScript modules (import/export)`
+    - Which framework does your project use? `> None of these`
+    - Does your project use TypeScript? `> No`
+    - Where does your code run? Type `a` on keyboard to select both Node and browser.
+    - What format do you want your config file to be in? `> JavaScript`
+
+This will then create an .eslintrc.js file in your project. Inside this file, edit it inside your code editor by inserting this code:
+```javascript
+module.exports = {
+  // ... other ESLint configurations ...
+  extends: "prettier",
+  plugins: "prettier",
+  rules: {
+    "prettier/prettier": "error",
+  },
+};
+```
+
+Nearly done! Now, you will need to create your `index.js` file (inside your code editor), which will be your main file with all your own code.
+
+Then you will need to actually *use* your formatting libraries that you have installed. Because when you run Prettier/ESLint on a directory or a specific set of files, it formats the existing files at that point in time.
+
+##### Using Prettier Formatter
+
+Prettier is a JavaScript formatter that will automatically format your code to a standard style. You can run Prettier by running the following command:
+
+```sh
+npx prettier --write .
+```
+
+The `.` represents your current folder that you are in, so this command applies Prettier to all your project files.
+
+##### Using ESLint
+
+ESLint is a JavaScript linter that will check your code for style errors. You can run ESLint by running the following command:
+
+```sh
+npx eslint --fix .
+```
+
+##### Type checking - Optional
+
+As most popular code editors, such as Visual Studio Code, have built-in type checking support (known as TypeScript) and can show errors as you write code, you wouldn't have to download anything.
+
+If you do want to add a library for type checking, the most popular one to check out would be TypeScript.
+
+- [TypeScript](https://www.typescriptlang.org/docs/)
+- Learn more at [w3schools](https://www.w3schools.com/typescript/typescript_intro.php)
+
+You can add this by running the following command:
+
+```sh
+npm install typescript --save-dev
+```
+
+You can then run the TypeScript compiler using the following command:
+
+```sh
+npx tsc
+```
+
+## Running Your Project
+
+Once you have written in your index file, and you are happy with it, you will need to run it.
+
+If you want immediate feedback and have a small project, I would recommend doing one of these three options:
+
+<Tabs>
+
+<TabItem label="Live Server Plugin (Recommended)">
+
+Click on the extensions tab to the left on VS Code. Search up 'Live Server' and install the one which looks like this:
+
+![Live Server plugin](/assets/javascript/LiveServer.png)
+
+You should now be able to see a little button down the right-hand corner of VS Code, which says **'Go Live'**.
+
+If you have a working project, you should be able to click this button and see your code on your default browser!
+
+</TabItem>
+<TabItem label="Local Server through Terminal">
+
+This is only if the plugin somehow doesn't work, or if you want to see how things work behind the scenes in the Live Server plugin.
+
+Make your own local server through your terminal [here.](https://github.com/processing/p5.js/wiki/Local-server#node-http-server)
+
+</TabItem>
+<TabItem label="HTML File View">
+
+This is only recommended if all else fails: as this functionality won't work in later projects.
+The way you do this would be to find your `index.html` file on your computer and double click it to open it up in your web browser.
+
+Your done!
+
+</TabItem>
+<TabItem label="Deploying to Production">
+
+This way is recommended for when you're ready to deploy your web application to a production environment.
+Go into your `package.json` file and insert into the `scripts` the `build` line like so:
+
+```json
+{
+  "scripts": {
+    "build": "node index.js"
+  }
+}
+```
+
+Then you can run your project through this command:
+```sh
+npm run build
+```
+
+</TabItem>
+</Tabs>
+
+## Useful resources
+
+- [JavaScript documentation](https://devdocs.io/javascript/)
+- [Node.js website](https://nodejs.org/en/download)
+- [Homebrew](https://brew.sh)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Prettier](https://prettier.io/docs/en/)
+- [ESLint](https://eslint.org/docs/latest/)
+- [TypeScript](https://www.typescriptlang.org/docs/)
+- [w3schools](https://www.w3schools.com/typescript/typescript_intro.php)

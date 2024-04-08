@@ -1,116 +1,103 @@
 import starlight from '@astrojs/starlight';
-import tailwind from '@astrojs/tailwind';
 import { defineConfig } from 'astro/config';
 import starlightLinksValidator from 'starlight-links-validator'
-export const locales = {
-  root: {
-    label: 'English',
-    lang: 'en' // lang is required for root locales
-  },
+import remarkMath from 'remark-math';
+import rehypeMathjax from 'rehype-mathjax';
 
-  mi: {
-    label: 'Māori',
-    lang: 'mi'
-  }
-};
-const site = 'https://wiki.tuhuratech.org.nz/';
-
-
-// https://astro.build/config
 export default defineConfig({
-  site,
+  site: 'https://wiki.tuhuratech.org.nz/',
   integrations: [starlight({
     title: 'Wiki',
+    description: 'A collection of guides and resources for learning technology targeted towards rangatahi and kura in Aotearoa',
     logo: {
       light: './src/assets/logo-light.png',
       dark: './src/assets/logo-dark.png',
       replacesTitle: true
     },
-    social: {
-      mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
-      github: 'https://github.com/Tuhura-Tech/Wiki',
-      discord: 'https://discord.gg/PNxh7cwKfQ'
-    },
+    lastUpdated: true,
     editLink: {
       baseUrl: 'https://github.com/Tuhura-Tech/Wiki/blob/main/'
     },
-    sidebar: [{
-      label: 'Guides',
-      items: [{
-        label: "About our Guides",
-        link: 'guides/about'
-      }, {
-        label: "Javascript",
-        collapsed: true,
-        items: [{
+    social: {
+      mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
+      discord: 'https://discord.gg/PNxh7cwKfQ',
+      github: 'https://github.com/Tuhura-Tech/Wiki'
+    },
+    customCss: [
+      // Relative path to your custom CSS file
+      './src/styles/custom.css',
+    ],
+    sidebar: [
+      {
+        label: "Python", items: [{
           label: "Setting Up",
-          link: 'guides/javascript/setting-up'
+          link: 'python'
         }, {
-          label: "Creative Coding",
-          collapsed: true,
+          label: "Setting Up",
+          link: 'python/setting-up'
+        }, {
+          label: "Flask",
           autogenerate: {
-            directory: 'guides/javascript/creative-coding'
+            directory: 'python/flask'
           }
         }]
-      },
-      { label: "Python", collapsed: true, autogenerate: { directory: 'guides/python' } },
-      {
-        label: "Git",
-        collapsed: true,
-        autogenerate: {
-          directory: 'guides/git'
-        }
-      }, {
-        label: "Cybersecurity",
-        collapsed: true,
-        autogenerate: {
-          directory: 'guides/cybersecurity'
-        }
       }, {
         label: "Game Design",
-        collapsed: true,
         items: [{
           label: "About",
-          link: 'guides/game-design/about'
+          link: 'game-design/about'
         }, {
           label: "Godot",
           autogenerate: {
-            directory: 'guides/game-design/godot'
+            directory: 'game-design/godot'
           }
         }],
       },
       {
+        label: "Cybersecurity",
+
+        autogenerate: {
+          directory: 'cybersecurity'
+        }
+      },
+      {
         label: "SQL",
-        collapsed: true,
         autogenerate: {
-          directory: 'guides/sql'
-        }
-      }]
-    }, {
-      label: 'NCEA Resources',
-      items: [{
-        label: "About our Resources",
-        link: 'ncea/about'
-      }, {
-        label: "NCEA Level 2",
-        collapsed: true,
-        autogenerate: {
-          directory: 'ncea/level-2'
+          directory: 'sql'
         }
       }, {
-        label: "NCEA Level 3",
-        collapsed: true,
+        label: "Javascript",
+        items: [{
+          label: "Setting Up",
+          link: 'javascript/setting-up'
+        }, {
+          label: "Creative Coding",
+          autogenerate: {
+            directory: 'javascript/creative-coding'
+          }
+        }]
+      }, {
+        label: "Git",
         autogenerate: {
-          directory: 'ncea/level-3'
+          directory: 'git'
         }
-      }]
-    }, {
-      label: "Tuhura Tech Resources",
-      autogenerate: {
-        directory: 'tuhura-tech'
+      }, {
+        label: "Tūhura Tech Resources",
+        autogenerate: {
+          directory: 'tuhura-tech'
+        }
+      }],
+    locales: {
+      root: {
+        label: 'English',
+        lang: 'en' // lang is required for root locales
+      },
+
+      mi: {
+        label: 'Māori',
+        lang: 'mi'
       }
-    }],
-    locales,
+    },
     favicon: '/images/favicon.svg',
     head: [
       // Add ICO favicon fallback for Safari.
@@ -123,14 +110,17 @@ export default defineConfig({
         }
       }],
     plugins: [starlightLinksValidator()],
-  }), tailwind({
-    // Disable the default base styles:
-    applyBaseStyles: false
-  }),],
+    components: {
+      Hero: './src/components/starlight/Hero.astro',
+    },
+  })],
+  markdown: {
+    remarkPlugins: [remarkMath],
+    rehypePlugins: [rehypeMathjax],
+  },
   image: {
     service: {
       entrypoint: 'astro/assets/services/sharp'
     }
   }
-
 });
