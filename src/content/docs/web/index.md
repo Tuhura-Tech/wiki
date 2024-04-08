@@ -4,6 +4,7 @@ description: This is how to set up a JavaScript environment.
 sidebar:
   # Make this always the first
   order: 1
+<<<<<<< HEAD
 
 ---
 
@@ -256,3 +257,18 @@ for more in depth information about CSS please visit W3schools.
 |class|Gives an element a unique identifier|`class="..."`|
 
 > For a more extensive list of HTML syntax please check out W3schools.
+=======
+---
+
+## This is basic HTML
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+    </body>
+</html>
+```
+>>>>>>> 96d9786fb78953d521dee11f3114cb95e3452d0a
