@@ -77,25 +77,11 @@ export default defineConfig({
           }
         }]
       }, {
-<<<<<<< HEAD
-        label: "Web",
-        collapsed: true,
-        autogenerate: {
-          directory: 'guides/web'
-        }
-      }, {
         label: "Git",
         autogenerate: {
           directory: 'git'
         }
       }, {
-=======
-        label: "Git",
-        autogenerate: {
-          directory: 'git'
-        }
-      }, {
->>>>>>> 96d9786fb78953d521dee11f3114cb95e3452d0a
         label: "Tūhura Tech Resources",
         autogenerate: {
           directory: 'tuhura-tech'
