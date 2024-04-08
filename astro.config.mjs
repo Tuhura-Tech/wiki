@@ -112,7 +112,6 @@ export default defineConfig({
     plugins: [starlightLinksValidator()],
     components: {
       Hero: './src/components/starlight/Hero.astro',
-      TableOfContents: './src/components/starlight/TableOfContents.astro',
     },
   })],
   markdown: {

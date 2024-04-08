@@ -29,28 +29,6 @@ const { title, tagline, actions } = hero!;
     margin: -1.5rem calc(-1 * var(--sl-content-pad-x));
   }
 
-  .grid-bg {
-    z-index: -1;
-    position: absolute;
-    content: "";
-    inset: 0;
-    background-image: linear-gradient(
-        to right,
-        var(--sl-color-white) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, var(--sl-color-white) 1px, transparent 1px);
-    background-position: right -1px;
-    background-size: 23px 23px;
-    -webkit-mask-image: radial-gradient(
-      circle at 100% 0%,
-      white,
-      transparent 65%
-    );
-    mask-image: radial-gradient(circle at 100% 0%, white, transparent 65%);
-    opacity: 0.05;
-  }
-
   .stack {
     display: flex;
     flex-direction: column;
@@ -101,13 +79,6 @@ const { title, tagline, actions } = hero!;
   }
 
   @media (min-width: 78rem) {
-    :global([data-has-hero] .main-pane) {
-      --cell-size: 3rem;
-      background: radial-gradient(closest-side, #6aa469, transparent) no-repeat
-        calc(100% + var(--cell-size) * 6) calc(var(--cell-size) * -7) /
-        calc(var(--cell-size) * 12) calc(var(--cell-size) * 19);
-    }
-
     .hero {
       display: grid;
     }
