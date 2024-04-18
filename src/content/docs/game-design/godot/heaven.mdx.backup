@@ -418,7 +418,5 @@ In your function connected to the `timeout` signal, make a new variable set to a
 
 Get your player as an `@onready` variable by dragging it into the script and holding control before letting go.
 
-Back in the function, set that variable's `direction`, or equivalent, value to `player.velocity.normalized()`. Do the same with the projectile's and your player's `global_position`.
-
-Then, add it as a child of your main scene root node.
+Back in the function, set that variable's `direction`, or equivalent, value to `player.velocity.normalized()`, assuming your player's **CharacterBody2D** is the parent of this **Timer**. Do the same with the projectile's and your player's `global_position`.
 
