@@ -46,7 +46,7 @@ Give the player the default script, we'll modify it.
 
 Since we're editing the player scene instead of the main scene the actual game is going to run in, when you want to run your game use **F6** instead of **F5**, or the **Run Current Scene** button instead of the **Run Project** button.
 
-#### Changing the script
+#### Changing the Script
 
 Before anything else give this script the class name **Player**. The enemies will also be **CharacterBody2D** so later when we make checks if we check a body against **CharacterBody2D** it'll return true for players and enemies, when we might only want enemies or the player.  
 To give the script the class name, below `extends CharacterBody2D`, add `class_name Player`.
@@ -274,7 +274,7 @@ Add in the `_physics_process(delta)` function to your singleton.
 
 Give it a simple if statement, checking if the player's health is below or equal to 0.
 
-Inside that, set your player's health to the max health constant you made before. Then run `get_tree().reload_current_scene()`. It's important you do it in that order, reloading the scene could stop the script from running in other circumstances and not reset the player's health. It shouldn't in this case since this is an autoload script and won't be reset, but it's still best practice to reload or change scenes after doing all other reset or changing operations.
+Inside that, set your player's health to the max health constant you made before. Then run `get_tree().reload_current_scene()`. It's important you do it in that order, reloading the scene could stop the script from running in other circumstances and not reset the player's health. It shouldn't in this case since this is an autoload script and won't be reset, but it's still best practice to reload or change scenes after doing all other reset or changing operations in case your scene has anything to change in the singleton itself.
 
 Since we set the `player_node` variable during the player's `_ready()` function, we don't need to set it again. It's going to change the variable when the node is made and enters the scene tree.
 
@@ -312,7 +312,7 @@ To fix this go to **Project > Project Settings... > General** (tab) **> Display*
 
 This will make it so you see the exact same window and aspect ratio as everyone else. It also means that people with different aspect ratio monitors will get ugly and awful black bars to fit it into their monitor.
 
-If you're really confident in your programming skills, try using the `size_changed` signal on `get_tree().root` to move the points of the **Path2D when the window is resized.
+If you're really confident in your programming skills, try using the `size_changed` signal on `get_tree().root` to move the points of the **Path2D** when the window is resized.
 :::
 
 #### Script
@@ -367,7 +367,7 @@ Replace `get_tree().root.add_child(new_enemy)` with `main_node.add_child(new_ene
 
 ### Weapon Projectiles
 
-#### Making a simple bullet
+#### Making a Simple Bullet
 
 We need a scene to spawn in, quickly setup this in a new scene:
 
@@ -379,9 +379,21 @@ Give it a script and connect the **Area2D**'s own `on_body_entered` signal to it
 
 Make a new global variable inside your bullet script called something like `direction` or `fire_direction`.
 
-Make a new global constant as well, for the `SPEED` of the bullet. Your player moves at speed 300 by default, so try something around 400-700.
+Make a new global constant as well, for the `SPEED` of the bullet. Your player moves at speed 300 by default, so try something around 500-700.
 
-In a `_physics_process(delta)` function, add `direction * speed` to `position`.
+In a `_physics_process(delta)` function, add `direction * speed * delta` to `position`. We multiply by `delta` because we're manually moving the position instead of using **CharacterBody2D**'s `move_and_slide()` function which does that for you. `delta` is the time between the last physics frame and this one.
+
+:::note[Fast moving bullets]
+If you increase your bullet's speed by a lot it might move over the enemy in the span of a frame. This means it won't detect its collision.
+
+Continuous Collision Detection (CCD) is used to counteract this. With **RigidBody2D** you can enable CCD. To do this, make the root node of your bullet a **RigidBody2D**. Enable **Continuous CD** in **RigidBody2D > Solver** in the inspector.
+
+You'll have to use **RigidBody2D**'s available methods and signals to form this, which won't be as simple. Also, it won't be as fast.
+
+If you want fast bullets a better way would be to add a **RayCast2D** to your player and just see if anything is colliding in its path when firing. Use multiple ray casts for making bullet width. This doesn't come with having any feedback that the player fired a bullet to kill the enemy. If you can make a kill animation or some sort of way to tell the player they fired, it's the best way to make fast firing bullets.
+
+This is also how hit-scan works in all FPS games, if you are aware of the concept.
+:::
 
 In your function connected to the `on_body_entered` signal, enter:
 
@@ -392,7 +404,7 @@ if body is Enemy:
 
 All in all, these will move the projectile every frame in an unspecified direction, and then when it runs into an enemy it'll delete it.
 
-#### Spawning the bullet
+#### Spawning the Bullet
 
 We don't want to spawn a bullet every frame or physics frame, so we can't use `_process` or `_physics_process` to spawn in a bullet.
 
@@ -420,5 +432,57 @@ Get your player as an `@onready` variable by dragging it into the script and hol
 
 Back in the function, set that variable's `direction`, or equivalent, value to `player.velocity.normalized()`. Do the same with the projectile's and your player's `global_position`.
 
-Then, add it as a child of your main scene root node.
+Then, add it as a child of your main scene's root node.
 
+#### Automatic Aiming
+
+Play your game!
+
+If you've played a bullet heaven game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
+
+This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the bullet heaven style.
+
+Normally, weapons automatically fire at the closest enemy.
+
+There are a couple ways we could do this.
+
+First, we could put the enemy body in a group called something like "enemy". Then, we'd use a for loop and loop through all the enemies in 		`get_tree().get_nodes_in_group()` and compare them all to find the closest one.
+
+However, that'll get very slow when you have a lot of enemies. Since you have to go through potentially hundreds of enemies everytime you spawn a bullet, which will be happening pretty often if rapid-fire weapons are introduced.
+
+The best way around this is to limit your calculations to a smaller area. This also provides the benefit of not firing at a random enemy a long distance away for no reason.
+
+Add an **Area2D** node with a collider, and make it a circle that's a bit wider than the camera.
+
+Get a reference to that **Area2D** in your projectile spawner. Before instantiating the projectile add:
+
+```gdscript
+var closest_enemy: Enemy
+	for body in fire_radius.get_overlapping_bodies():
+		if body is Enemy:
+			if is_instance_valid(closest_enemy):
+				if player.global_position.distance_squared_to(body.global_position) < player.global_position.distance_squared_to(closest_enemy.global_position):
+					closest_enemy = body
+			else:
+				closest_enemy = body
+	if not is_instance_valid(closest_enemy):
+		return
+```
+
+Let's break this down.
+
+We have a `closest_enemy` variable which will be an object of type `Enemy`, this assumes you have named your enemy class `Enemy`.
+
+We use that and loop through all of the overlapping bodies in our **Area2D**, this assumes the name of your **Area2D** variable is `fire_radius`. If the body that we're looping over is not an enemy, don't do anything with it. It might be a wall and we don't want to target walls.
+
+We need to find the closest enemy. We can't check if the currently looped enemy is closer than `closest_enemy` if `closest_enemy` isn't set to any enemy at all. So if `closest_enemy` isn't a valid instance we just set it to that currently looped enemy. If we only have a single overlapping enemy this is where the loop would end.
+
+On the next loop, if there are multiple enemies in the area we next need to check if that second looped enemy is closer to the player than `closest_enemy` or not. If it is, it becomes the new `closest_enemy`. We use `distance_squared_to` instead of `distance_to` because it's a lot faster.
+
+Finally, check if we found an enemy at all. If not, `return` and stop the rest of the function that spawns a bullet.
+
+Next, after this block of code and after you instantiate the bullet, you need to replace `new_projectile.direction = player.velocity.normalized()` with `new_projectile.direction = player.global_position.direction_to(closest_enemy.global_position)`. This will finally set the direction to the enemy. `direction_to` returns a normalized vector already, so we don't need to use `normalized` on it.
+
+Play your magical game after modifying the names of variables to your specific script. If all is well, this will work.
+
+## Weapon select
