@@ -485,4 +485,72 @@ Next, after this block of code and after you instantiate the bullet, you need to
 
 Play your magical game after modifying the names of variables to your specific script. If all is well, this will work.
 
-## Weapon select
+## Multiple weapons
+
+Having many weapons means you'll have a lot of objects you want to change all at once without it being a constant tedious process.
+
+You might end up having over a hundred types of weapons. Even if you only have 2, it's easier to make changes once more than twice. Plus, it lets us demonstrate high level programming concepts like abstraction. Showing off is always fun.
+
+Also, we're going to need something to see if the player has met the requirements for a weapon.
+
+This could be anything from seeing if the player has picked up a weapon, to if they spent money gained from slaying enemies on it.
+
+We'll just be using a simple score counter to see how many enemies the player has defeated.
+
+### Score counter
+
+This one is going to be quick, because it's simple.
+
+In your singleton, add a `score` variable and start it at 0.
+
+Add the built-in `_exit_tree` function to your enemy and in it add one to the singleton's score variable.
+
+As a child of your camera in your player scene, add a **CanvasLayer** node with a **Label** child. Anchor the **Label** to the top of the screen.
+
+Give the **Label** a quick built-in script:
+
+```gdscript
+extends Label
+
+
+func _process(_delta):
+	text = "Score: " + str(Singleton.score)
+```
+
+This is awfully inefficient since it really doesn't need to check every frame. But, it'll work for now.
+
+:::note[Making it efficient]
+This one is really easy and recommended.
+
+Making it efficient is pretty simple, just not as quick and easy.
+
+Make a function in the singleton that increased score by the passed parameter. Whenever you need to increase score, use that instead. In the function increase the score but then also emit a signal.
+
+In the ready function of the score display label connect that signal to a function that updates the text of the label.
+
+Instead of checking once every frame this only updates whenever it's needed, much better.
+
+The reason this isn't just the guide instead, is for contrast. In the future you should keep as much out of the `_process` and `_physics_process` functions as physically possible.
+:::
+
+## Polish
+
+This section is going to be completely hands-off from this guide. There are just some more features which would be good to have but would be gratuitous to include a whole section on.
+
+You have literally all of the tools you need to figure everything else out. You've been taught most best practices, although it may be a good idea to read [the Godot best practices docs](https://docs.godotengine.org/en/latest/tutorials/best_practices/index.html) after while making a game of your own design.
+
+### Enemy health
+
+The enemies should have health so that things like piercing shots can do less damage but hit more enemies. It provides a good tradeoff that requires a least a modicum of thought and adds dynamics and interplay with your systems. Make it so one weapon is not better than the other, but they provide two halves of a whole.
+
+Give them a health bar while you're at it, similar to the player. But only show it after they have been hurt so it doesn't clutter up the screen.
+
+### Animations
+
+You *could* do fancy 2D animations and play each of the different animations with an **AnimatedSprite2D**. But, that requires making 2D animations, which takes a long time. Or using someone else's animations, like from an asset pack, for example, which makes your game less personal to you.
+
+What you should do to add more '*game feel*' is use an **AnimationPlayer**. You'll quickly learn to love this node.
+
+When you fire a bullet, make the player shake a little. Or, add a sprite that aims at the nearest enemy at all times and does a little recoil animation. If you've done enemy health and the enemy doesn't die you can do a hurt animation that is just the enemy kockback from a bullet and settle back into place. Or, you could use a **GradientTexture1D** or **GradientTexture2D** to create simple flashing red animations for when they get hurt. Or make the knockback and the flashing red, then add play some sprites with **GPUParticles2D** for truly stunning game feel.
+
+There are so, so many oppertunities here. You don't need fancy hand-drawn art to make a video game look pretty. There are tons and tons of games out there that use awesome shaders, particles, and tons of other math-intensive ways of making the game look dope!
