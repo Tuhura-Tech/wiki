@@ -166,7 +166,7 @@ func _ready():
 ```
 
 :::note[Static typing]
-Statically typing means that you are making sure that a variable stays as the type you want it to be. For example, if you don't want an integer (a whole number, without decimal places) to ever have decimal places, statially type the variable with `: int` after the name and before setting the value.
+Statically typing means that you are making sure that a variable stays as the type you want it to be. For example, if you don't want an integer (a whole number, without decimal places) to ever have decimal places, statically type the variable with `: int` after the name and before setting the value.
 
 This is very, very useful for debugging later on, and making sure you don't make a mistake.
 
@@ -415,14 +415,14 @@ In the **Inspector**, set the wait time to be how long you want between shots. T
 :::note[SRP]
 Now, we *could* just connect the `timeout` signal to our player script. But as previously mentioned, it's a good idea to split your project up into as many files as possible for every different use.
 
-The single responsibility principle (SRP) is mentioned several times across godot's [best practices docs](https://docs.godotengine.org/en/stable/tutorials/best_practices/introduction_best_practices.html).
+The single responsibility principle (SRP) is mentioned several times across Godot's [best practices docs](https://docs.godotengine.org/en/stable/tutorials/best_practices/introduction_best_practices.html).
 
 In essence, keeps scripts/functions/nodes to just one use. In this case, the **Timer** node is purely for spawning and shooting off projectiles.
 :::
 
 Add a script to the projectile spawner **Timer** node and connect its own `timeout` signal to itself.
 
-This is very similar to spawning in enemies. Make a new global variable in the script for the main node, in the `_ready` function set that node to `get_node("/root/Main") or your equivalent.
+This is very similar to spawning in enemies. Make a new global variable in the script for the main node, in the `_ready` function set that node to `get_node("/root/Main")` or your equivalent.
 
 Then, from the **FileSystem** dock, find and drag your bullet scene into your script, and before you release the mouse hold control.
 
@@ -448,7 +448,7 @@ There are a couple ways we could do this.
 
 First, we could put the enemy body in a group called something like "enemy". Then, we'd use a for loop and loop through all the enemies in 		`get_tree().get_nodes_in_group()` and compare them all to find the closest one.
 
-However, that'll get very slow when you have a lot of enemies. Since you have to go through potentially hundreds of enemies everytime you spawn a bullet, which will be happening pretty often if rapid-fire weapons are introduced.
+However, that'll get very slow when you have a lot of enemies. Since you have to go through potentially hundreds of enemies every time you spawn a bullet, which will be happening pretty often if rapid-fire weapons are introduced.
 
 The best way around this is to limit your calculations to a smaller area. This also provides the benefit of not firing at a random enemy a long distance away for no reason.
 
@@ -473,7 +473,7 @@ Let's break this down.
 
 We have a `closest_enemy` variable which will be an object of type `Enemy`, this assumes you have named your enemy class `Enemy`.
 
-We use that and loop through all of the overlapping bodies in our **Area2D**, this assumes the name of your **Area2D** variable is `fire_radius`. If the body that we're looping over is not an enemy, don't do anything with it. It might be a wall and we don't want to target walls.
+We use that and loop through all the overlapping bodies in our **Area2D**, this assumes the name of your **Area2D** variable is `fire_radius`. If the body that we're looping over is not an enemy, don't do anything with it. It might be a wall and we don't want to target walls.
 
 We need to find the closest enemy. We can't check if the currently looped enemy is closer than `closest_enemy` if `closest_enemy` isn't set to any enemy at all. So if `closest_enemy` isn't a valid instance we just set it to that currently looped enemy. If we only have a single overlapping enemy this is where the loop would end.
 
@@ -481,7 +481,7 @@ On the next loop, if there are multiple enemies in the area we next need to chec
 
 Finally, check if we found an enemy at all. If not, `return` and stop the rest of the function that spawns a bullet.
 
-Next, after this block of code and after you instantiate the bullet, you need to replace `new_projectile.direction = player.velocity.normalized()` with `new_projectile.direction = player.global_position.direction_to(closest_enemy.global_position)`. This will finally set the direction to the enemy. `direction_to` returns a normalized vector already, so we don't need to use `normalized` on it.
+Next, after this block of code, and after you instantiate the bullet, you need to replace `new_projectile.direction = player.velocity.normalized()` with `new_projectile.direction = player.global_position.direction_to(closest_enemy.global_position)`. This will finally set the direction to the enemy. `direction_to` returns a normalized vector already, so we don't need to use `normalized` on it.
 
 Play your magical game after modifying the names of variables to your specific script. If all is well, this will work.
 
@@ -503,7 +503,7 @@ This one is going to be quick, because it's simple.
 
 In your singleton, add a `score` variable and start it at 0.
 
-Add the built-in `_exit_tree` function to your enemy and in it add one to the singleton's score variable.
+Add the built-in `_exit_tree` function to your enemy, and in it add one to the singleton's score variable.
 
 As a child of your camera in your player scene, add a **CanvasLayer** node with a **Label** child. Anchor the **Label** to the top of the screen.
 
@@ -556,7 +556,7 @@ For this guide we'll have a speed bullet and a piercing bullet. One will move fa
 
 #### Inherited Scenes
 
-In the **FileSystem** dock, find your bullet scene, right-click it and select **New Inherited Scene**. The new scene in your editor should look identical, but all child node names will be yellow. This just means any changes to the original scene will copy over to these ones.
+In the **FileSystem** dock, find your bullet scene, right-click it and select **New Inherited Scene**. The new scene in your editor should look identical, but all child node names will be yellow. This just means any changes to the original scene will copy over to these.
 
 In the future if we want to update all bullets, for example by giving them an **AnimatedSprite2D** instead of just a **Sprite2D**, then we would only need to change the bullet scene instead of every scene.
 
@@ -576,9 +576,9 @@ First, we'll need to change how the original bullet script works to be ready for
 
 If you haven't already, give the original bullet script a class name of something like `Bullet`.
 
-Your function that's connected to the `body_entered` signal of **Area2D** starts by checking if the body that entered is an enemy. Every bullet is going to be doing that, so we don't want to rewrite that everytime when we overwrite the function.
+Your function that's connected to the `body_entered` signal of **Area2D** starts by checking if the body that entered is an enemy. Every bullet is going to be doing that, so we don't want to rewrite that every time when we overwrite the function.
 
-Instead, we should just make a barebones function that will be the default if the extending class doesn't overwrite it:
+Instead, we should just make a bare-bones function that will be the default if the extending class doesn't overwrite it:
 
 ```gdscript
 func _on_body_entered(body):
@@ -611,11 +611,11 @@ Since it's a speed bullet, in the **Inspector** dock, increase the speed on the 
 
 ##### Piercing Bullet
 
-Do all of the same for piercing bullet, but remove the final `queue_free()`, change the class name to **PiercingBullet** and decrease the speed.
+Do all the same for piercing bullet, but remove the final `queue_free()`, change the class name to **PiercingBullet** and decrease the speed.
 
 #### Choosing Which to Spawn
 
-In your projectile spawner script, repalce `var new_projectile: Bullet = SPEED_BULLET.instantiate()` (or equivalent) with:
+In your projectile spawner script, add the two new bullet scenes as global variables. Then, replace `var new_projectile: Bullet = BULLET.instantiate()` (or equivalent) with:
 
 ```gdscript
 var new_projectile: Bullet
@@ -635,11 +635,11 @@ You should come up with some system of your own, perhaps a shop, that decides wh
 
 This section is going to be completely hands-off from this guide. There are just some more features which would be good to have but would be gratuitous to include a whole section on.
 
-You have literally all of the tools you need to figure everything else out. You've been taught most best practices, although it may be a good idea to read [the Godot best practices docs](https://docs.godotengine.org/en/latest/tutorials/best_practices/index.html) eventually.
+You have literally all the tools you need to figure everything else out. You've been taught most best practices, although it may be a good idea to read [the Godot best practices docs](https://docs.godotengine.org/en/latest/tutorials/best_practices/index.html) eventually.
 
 ### Enemy health
 
-The enemies should have health so that things like piercing shots can do less damage but hit more enemies. It provides a good tradeoff that requires a least a modicum of thought and adds dynamics and interplay with your systems. Make it so one weapon is not better than the other, but they provide two halves of a whole.
+The enemies should have health so that things like piercing shots can do less damage but hit more enemies. It provides a good tradeoff that requires at least a modicum of thought and adds dynamics and interplay with your systems. Make it so that one weapon is not better than the other, but they provide two halves of a whole.
 
 Give them a health bar while you're at it, similar to the player. But only show it after they have been hurt so it doesn't clutter up the screen.
 
@@ -651,24 +651,24 @@ What you should do to add more '*game feel*' is use an **AnimationPlayer**. You'
 
 When you fire a bullet, make the player shake a little. Or, add a sprite that aims at the nearest enemy at all times and does a little recoil animation. If you've done enemy health and the enemy doesn't die you can do a hurt animation that is just the enemy kockback from a bullet and settle back into place. Or, you could use a **GradientTexture1D** or **GradientTexture2D** to create simple flashing red animations for when they get hurt. Or make the knockback and the flashing red, then add play some sprites with **GPUParticles2D** for truly stunning game feel.
 
-There are so, so many oppertunities here. You don't need fancy hand-drawn art to make a video game look pretty. There are tons and tons of games out there that use awesome shaders, particles, and tons of other math-intensive ways of making the game look dope!
+There are so, so many opportunities here. You don't need fancy hand-drawn art to make a video game look pretty. There are tons and tons of games out there that use awesome shaders, particles, and tons of other math-intensive ways of making the game look dope!
 
 ### Enemy types
 
-Adding more enemy types would add more challenge to the game. Perhaps you could have a timer to see how long the player has lasted, the longer it goes the harder the enemies get.
+Adding more enemy types would add more challenge to the game. Perhaps you could have a timer to see how long the player has lasted. The longer it goes, the harder the enemies get.
 
 Add in ranged enemies that dodge bullets if the player is too far away from them.
 
 Add in small little enemies that come up and nibble the player's heels.
 
-There are so many oppertunities for creating different tyeps of enemies that add unique and different challenges. Force the player to choose between adapting or dying.
+There are so many opportunities for creating different types of enemies that add unique and different challenges. Force the player to choose between adapting or dying.
 
-Using inheritance you can even do some cool fancy stuff. For example you can have a base enemy class, then melee and ranged enemy base classes, and then make your actual enemies inherit from either the meelee or ranged classes,
+Using inheritance you can even do some cool fancy stuff. For example, you can have a base enemy class, then mêlée and ranged enemy base classes, and then make your actual enemies inherit from either the mêlée or ranged classes,
 
 ### Money
 
-Adding a shop system would add so much to the game. You'd need a lot more types of things to buy, but it would let users customize to ther playstyle.
+Adding a shop system would add so much to the game. You'd need a lot more types of things to buy, but it would let users customize to their play style.
 
 If you've got different types of enemies they can each have their own money value as well.
 
-It's a good idea to try out other games and see how they do this one. 
+It's a good idea to try out other games and see how they do this one.
