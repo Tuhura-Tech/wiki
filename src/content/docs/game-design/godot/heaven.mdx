@@ -131,7 +131,7 @@ Set the **CharacterBody2D**'s **Motion Mode** property to **Floating** like you 
 
 Instantiate your enemy scene in your main scene and move the instantiated enemy away from the player. Run your game with **F5**/**Run Project** and set the main scene as the main scene of the project if you haven't already. Now you have a point in which you can tell if your player is actually moving or not. The enemy does nothing without a script, so let's give it one.
 
-Finally, this enemy is going to need a way to reduce the player's health. However, the player has no health variable yet. In your singleton, which you can find how to make one above in the **Universal Features** section, add a new `player_health` variable and set it to 100.
+Finally, this enemy is going to need a way to reduce the player's health. However, the player has no health variable yet. In your singleton, which you can find how to make one on the **Universal Features** page, add a new `player_health` variable and set it to 100.
 
 ### Script
 
@@ -533,11 +533,109 @@ Instead of checking once every frame this only updates whenever it's needed, muc
 The reason this isn't just the guide instead, is for contrast. In the future you should keep as much out of the `_process` and `_physics_process` functions as physically possible.
 :::
 
+### Bullet Types
+
+Now that we've made something we can check if the player has met the requirements to get a new bullet type, we can talk about making the different bullet types.
+
+Inheritance is a core foundational programming concept. We'll be using it to make two, or potentially more, bullet types.
+
+:::note[What is inheritance]
+
+Inheritance is like taking the blueprint of one object and using it as the blueprint for another object, but with the new object's additions. If you change the original object's blueprint it also changes the blueprint for the new object. But, if you change the new object it doesn't change the original blueprint, just adds onto the blueprint for itself.
+
+You've already been using inheritance. Your player and enemy classes have been using the **CharacterBody2D** class as its original blueprint. The function you've been using, `move_and_slide`, comes from the **CharacterBody2D** class.
+
+And **CharacterBody2D** extends **PhysicsBody2D**, which extends **CollisionObject2D**, and so on. Here's the full line of inheritance that leads to `move_and_slide` as shown in **Search Help**:
+
+![move_and_slide() inheritance path](/src/assets/godot/genres/MoveAndSlideInheritance.png)
+:::
+
+We'll be using it by extending the bullet class and to make inherited scenes.
+
+For this guide we'll have a speed bullet and a piercing bullet. One will move fast, the other will move slower but go through enemies and destroy multiple.
+
+#### Inherited Scenes
+
+In the **FileSystem** dock, find your bullet scene, right-click it and select **New Inherited Scene**. The new scene in your editor should look identical, but all child node names will be yellow. This just means any changes to the original scene will copy over to these ones.
+
+In the future if we want to update all bullets, for example by giving them an **AnimatedSprite2D** instead of just a **Sprite2D**, then we would only need to change the bullet scene instead of every scene.
+
+Save this scene as something like `speed_bullet.tscn`.
+
+Make another inherited scene based on the original bullet scene. Save this new scene as something like `piercing_bullet.tscn`.
+
+Both types of bullet will inherit from the base bullet scene/class.
+
+On the root **Area2D** node you will need to disconnect the current script and add new ones.
+
+#### Extending Bullet
+
+First, we'll need to change how the original bullet script works to be ready for inheritance.
+
+##### Original Bullet Class
+
+If you haven't already, give the original bullet script a class name of something like `Bullet`.
+
+Your function that's connected to the `body_entered` signal of **Area2D** starts by checking if the body that entered is an enemy. Every bullet is going to be doing that, so we don't want to rewrite that everytime when we overwrite the function.
+
+Instead, we should just make a barebones function that will be the default if the extending class doesn't overwrite it:
+
+```gdscript
+func _on_body_entered(body):
+	if body is Enemy:
+		enemy_entered(body)
+
+
+func enemy_entered(enemy: Enemy) -> void:
+	enemy.queue_free()
+```
+
+Also, while we're here change the `SPEED` constant to `@export var speed`. `@export` means it shows up in the inspector, and we change it from CONSTANT_CASE to snake_case because it's no longer a constant. You'll also have to change it in `_physics_process`. This just lets us change the speed of each bullet without having to overwrite more things in the script.
+
+##### Speed Bullet
+
+In your speed bullet scene replace the script with a new script and give it this:
+
+```gdscript
+class_name SpeedBullet extends Bullet
+
+
+func enemy_entered(enemy: Enemy) -> void:
+	enemy.queue_free()
+	queue_free()
+```
+
+It's a very small script, and you might be wondering how it'll move and do all the other things a bullet needs to do. Well, all of that is already in the **Bullet** class that you've written previously. Now, we're just adding onto that and replacing `enemy_entered` with new contents.
+
+Since it's a speed bullet, in the **Inspector** dock, increase the speed on the **Area2D** node. Well, now it's a **SpeedBullet** node, and you're changing the **Bullet** node variable.
+
+##### Piercing Bullet
+
+Do all of the same for piercing bullet, but remove the final `queue_free()`, change the class name to **PiercingBullet** and decrease the speed.
+
+#### Choosing Which to Spawn
+
+In your projectile spawner script, repalce `var new_projectile: Bullet = SPEED_BULLET.instantiate()` (or equivalent) with:
+
+```gdscript
+var new_projectile: Bullet
+if Singleton.score < 10:
+	new_projectile = BULLET.instantiate()
+elif Input.is_action_pressed("ui_accept"):
+	new_projectile = SPEED_BULLET.instantiate()
+else:
+	new_projectile = PIERCING_BULLET.instantiate()
+```
+
+This is just a temporary check to see if the player has unlocked the upgraded bullets. If the player has got less than 10 score it's just the base bullet. If it's above 10 then they can use either the speed or piercing bullet by holding down spacebar or not.
+
+You should come up with some system of your own, perhaps a shop, that decides which bullet is being used currently.
+
 ## Polish
 
 This section is going to be completely hands-off from this guide. There are just some more features which would be good to have but would be gratuitous to include a whole section on.
 
-You have literally all of the tools you need to figure everything else out. You've been taught most best practices, although it may be a good idea to read [the Godot best practices docs](https://docs.godotengine.org/en/latest/tutorials/best_practices/index.html) after while making a game of your own design.
+You have literally all of the tools you need to figure everything else out. You've been taught most best practices, although it may be a good idea to read [the Godot best practices docs](https://docs.godotengine.org/en/latest/tutorials/best_practices/index.html) eventually.
 
 ### Enemy health
 
@@ -554,3 +652,23 @@ What you should do to add more '*game feel*' is use an **AnimationPlayer**. You'
 When you fire a bullet, make the player shake a little. Or, add a sprite that aims at the nearest enemy at all times and does a little recoil animation. If you've done enemy health and the enemy doesn't die you can do a hurt animation that is just the enemy kockback from a bullet and settle back into place. Or, you could use a **GradientTexture1D** or **GradientTexture2D** to create simple flashing red animations for when they get hurt. Or make the knockback and the flashing red, then add play some sprites with **GPUParticles2D** for truly stunning game feel.
 
 There are so, so many oppertunities here. You don't need fancy hand-drawn art to make a video game look pretty. There are tons and tons of games out there that use awesome shaders, particles, and tons of other math-intensive ways of making the game look dope!
+
+### Enemy types
+
+Adding more enemy types would add more challenge to the game. Perhaps you could have a timer to see how long the player has lasted, the longer it goes the harder the enemies get.
+
+Add in ranged enemies that dodge bullets if the player is too far away from them.
+
+Add in small little enemies that come up and nibble the player's heels.
+
+There are so many oppertunities for creating different tyeps of enemies that add unique and different challenges. Force the player to choose between adapting or dying.
+
+Using inheritance you can even do some cool fancy stuff. For example you can have a base enemy class, then melee and ranged enemy base classes, and then make your actual enemies inherit from either the meelee or ranged classes,
+
+### Money
+
+Adding a shop system would add so much to the game. You'd need a lot more types of things to buy, but it would let users customize to ther playstyle.
+
+If you've got different types of enemies they can each have their own money value as well.
+
+It's a good idea to try out other games and see how they do this one. 
