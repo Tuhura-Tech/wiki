@@ -33,6 +33,9 @@ export default defineConfig({
           label: "Python Basics",
           link: 'python'
         }, {
+          label: "Conditionals and Loops",
+          link: "python/conditionals-loops"
+        }, {
           label: "Setting Up",
           link: 'python/setting-up'
         }, {
