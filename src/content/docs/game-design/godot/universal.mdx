@@ -9,7 +9,7 @@ sidebar:
 
 Games have some nearly universal features.
 
-These features will be flexible and done in different ways for the game, and some artful games totally forgo some, or any, of these staples of the medium.
+These features will be flexible and done in different ways for the game. Some artful games totally forgo some, or any, of these staples of the medium.
 
 But this isn't about how there always has to be a character controller of some variety. Character controllers come in all shapes and sizes.
 
@@ -47,23 +47,22 @@ The root **Control** node, the menu container **Control** node, and the backgrou
 
 The **RichTextLabel** should be connected to the part of the screen they'll move with when the screen is resized. In the anchor preset menu, select the closest one to where you want it to be, then move the nodes to be roughly where you want them to be.
 
-Test out moving them around by selecting the root **Control** node and resizing it with the orange dots.
+Set the text of the **RichTextLabel** to the name of your wonderful game. Change the text color to black in the inspector under **Control > Theme Overrides > Colors**. Make the node larger until you can see the text. You can resize the text in **Control > Theme Overrides > Font Sizes**. If you want to center your text enable BBCode at the top of the inspector and wrap all text with `[center]Your title here[/center]`.
 
-In the inspector of **RichTextLabel**, set the text to the title of your game.
-
-Next, go to **Control > Theme Overrides > Colors > Default Color** and turn it on. Your text may have been white on the white background and not visible before, this will change it to the black color. You can change the value of the default color. Finally, in **Control > Theme Overrides > Font Sizes > Normal Font Size**, turn it on and make the text larger.
-
-Do the same things for your three buttons. You can select all three buttons with shift/ctrl + click and do them all at once. The text will need to be set separately. They won't be visible until you resize the **VBoxContainer**.
+Give your buttons text and make the font size larger. You can change the font size on all three of them at once by selecting all three nodes with shift/ctrl + click. They won't be visible until you resize the **VBoxContainer**.
 
 The **VBoxContainer** node stacks all of its children nodes in a **V**ertical **Box**.
 
 Make it wide and tall enough to contain the buttons, anchor and size it properly. Your buttons should be there.
 
+Test out moving them around by selecting the root **Control** node and resizing it with the orange dots. Everything should scale properly. If your game is being designed for desktop platforms you only really need to test out aspect ratios between 1:1 and 2:1 to cover most bases.  
+Also, you don't need to test it at any smaller size of node because Godot will just lower the resolution instead of changing the actual node size. In (slightly) simpler terms, there will be fewer pixels to display your gorgeous game, but your nodes (buttons, title, etc.) will not escape the screen as they do when you make the **Control** node smaller.
+
 User interfaces in games are a bit finicky due to the fact that not all screens are built equal. Some people have ultra-wide monitors, some people play games on old CRT screens. Who knows, maybe someone will play your game by projecting it into their brain one day. Making your game accessible is paramount.
 
 ### Interaction
 
-It's good practice to separate functions into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you were thinking, and just generally be easier. It's for these reasons, we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder and because we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a separate `.gd` file.
+It's good practice to separate different uses into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you were thinking, and just generally be easier. It's for these reasons, we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder and because we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a separate `.gd` file.
 
 Give your start button a script, toggle built-in, and make it. Delete everything other than `extends Button`. Connect the start button's `pressed()` signal to its own script and set the function's body to `get_tree().change_scene_to_file("res://scenes/main_menu.tscn")`. Replace `res://scenes/main_menu.tscn` with the path to the first level, the main scene, or whatever scene you would normally open to play your game. If you're starting with just a main menu you can set this later. Make sure to press play or **F5** and set the current scene as the scene it loads up when you play the game.
 

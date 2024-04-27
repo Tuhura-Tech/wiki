@@ -1,24 +1,20 @@
 ---
-title: Survivors-like
-description: This page shows how to make a simple 2D game in Godot in the genre of survivors-like
+title: Bullet Heaven
+description: This page shows how to make a simple 2D game in Godot in the genre of bullet heaven
 sidebar:
     order: 4
 ---
 
 **This guide assumes you've gone through the basics guide.**
 
-Survivors-like games are games that are similar to the massivley popular *Vampire **Survivors***.
-
-Another popular name for the genre is Bullet Heaven. Bullet heaven games are the opposite of the ever-popular bullet hell genre. 
-
-If you are aware of the much more popular bullet hell genre but not of the bullet heaven/survivors-like genre then think of it like this: bullet hell games are you avoiding an insane amount of projectiles from a limited amount of enemies or a singular boss enemy. Survivors-like games, on the other hand, are where you have an oncoming horde of enemies but this time you're the one unleashing volley-after volley-of projectiles.
+Bullet heaven games are the opposite of the ever-popular bullet hell genre.
 
 The player slowly accumulates a variety of abilities that activate automatically and fire an absurd amount of bullets at an equally absurd amount of enemies that slowly advance towards the player.
 
-Survivors-like games are usually from a top-down perspective.
+Bullet heaven games are usually from a top-down perspective.
 
-The genre initially got popular from the Unity game *Vampire Survivors*.  
-Although one of the most well-known Godot games, *Brotato*, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a survivors-like.
+The genre initially got popular from the Unity game Vampire Survivors.  
+Although one of the most well-known Godot games, Brotato, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a bullet heaven.
 
 For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside the screen and then slowly advance towards the player. Along the way, we'll also need a health and score system.
 
@@ -26,7 +22,7 @@ For this we will make a simple 2D top-down character controller. A selection of 
 
 As seen in the [basics guide](../basics), the built-in Godot **CharacterBody2D** template is a side-on character controller.
 
-Survivors-like games are typically top-down, so let's make a top-down 2D character controller.
+Bullet heaven games are typically top-down, so let's make a top-down 2D character controller.
 
 ### Setting Up
 
@@ -115,7 +111,7 @@ If you've done all correctly, it should look like your player is moving. Make su
 
 ## Enemies
 
-Enemies in survivors-like are usually very simple. The difficulty comes from just how many of them there are and having to duck and dodge through the hoards while your weapons go to work.
+Enemies in bullet heaven game's enemies are usually very simple. The difficulty comes from just how many of them there are and having to duck and dodge through the hoards while your weapons go to work.
 
 Typically, there are a few types. But since most of the variation comes from just switching up how much health they have, how big their hitbox is, and other minor things, you can make new inherited scenes later after we build our basic enemy.
 
@@ -143,7 +139,7 @@ Get rid of everything below the line `func _physics_process(delta):` and above `
 
 Give this script the class name `Enemy` with `class_name Enemy` below `extends CharacterBody2D`.
 
-Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need to be slower than the player in survivors-like games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere, and you can't do anything to get away from it until your weapons finally take it down.
+Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need to be slower than the player in bullet hell games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere, and you can't do anything to get away from it until your weapons finally take it down.
 
 #### Moving Towards the Player
 
@@ -442,9 +438,9 @@ Then, add it as a child of your main scene's root node.
 
 Play your game!
 
-If you've played a survivors-like game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
+If you've played a bullet heaven game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
 
-This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the survivors-like style.
+This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the bullet heaven style.
 
 Normally, weapons automatically fire at the closest enemy.
 
@@ -646,14 +642,6 @@ You have literally all the tools you need to figure everything else out. You've 
 The enemies should have health so that things like piercing shots can do less damage but hit more enemies. It provides a good tradeoff that requires at least a modicum of thought and adds dynamics and interplay with your systems. Make it so that one weapon is not better than the other, but they provide two halves of a whole.
 
 Give them a health bar while you're at it, similar to the player. But only show it after they have been hurt so it doesn't clutter up the screen.
-
-### Making it a True Survivors-like
-
-Right now, the player is only firing one type of projectile at a time. Your first goal should be getting several kinds of projectiles firing all at the same time.
-
-Make them all unique by using a gradient texture instead of a placeholder texture to change their color.
-
-Then, make them move in weird and wacky ways. Perhaps make projectiles that spawn from from the edge of the screen. Or large, slow-moving ones that push enemies from a single direction to let piercing projectiles pierce through stacked up hoards for insane DPS (damage per second).
 
 ### Animations
 
