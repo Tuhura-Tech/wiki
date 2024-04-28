@@ -49,30 +49,38 @@ The **RichTextLabel** should be connected to the part of the screen they'll move
 
 Set the text of the **RichTextLabel** to the name of your wonderful game. Change the text color to black in the inspector under **Control > Theme Overrides > Colors**. Make the node larger until you can see the text. You can resize the text in **Control > Theme Overrides > Font Sizes**. If you want to center your text enable BBCode at the top of the inspector and wrap all text with `[center]Your title here[/center]`.
 
-Give your buttons text and make the font size larger. You can change the font size on all three of them at once by selecting all three nodes with shift/ctrl + click. They won't be visible until you resize the **VBoxContainer**.
+Give your buttons text and make the font size larger. You can change the font size on all three of them at once by selecting all three nodes with shift/ctrl/cmd + click. They won't be visible until you resize the **VBoxContainer**.
 
 The **VBoxContainer** node stacks all of its children nodes in a **V**ertical **Box**.
 
 Make it wide and tall enough to contain the buttons, anchor and size it properly. Your buttons should be there.
 
-Test out moving them around by selecting the root **Control** node and resizing it with the orange dots. Everything should scale properly. If your game is being designed for desktop platforms you only really need to test out aspect ratios between 1:1 and 2:1 to cover most bases.  
+Test out moving them around by selecting the root **Control** node and resizing it with the orange dots. Everything should scale properly. If your game is being designed for desktop platforms you only really need to test out aspect ratios between 1:1 and 2:1 to cover most bases. You should test the opposite 1:1 to 1:2 for mobile.  
 Also, you don't need to test it at any smaller size of node because Godot will just lower the resolution instead of changing the actual node size. In (slightly) simpler terms, there will be fewer pixels to display your gorgeous game, but your nodes (buttons, title, etc.) will not escape the screen as they do when you make the **Control** node smaller.
 
 User interfaces in games are a bit finicky due to the fact that not all screens are built equal. Some people have ultra-wide monitors, some people play games on old CRT screens. Who knows, maybe someone will play your game by projecting it into their brain one day. Making your game accessible is paramount.
 
 ### Interaction
 
-It's good practice to separate different uses into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you were thinking, and just generally be easier. It's for these reasons, we'll use a short and separate script for each of the buttons. And just so we don't clutter up your scripts folder and because we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a separate `.gd` file.
+It's good practice to separate different uses into as many files as you can. This is helpful for keeping tidy, working with people using Git, help remind future-you what now-you were thinking, and just generally be easier. It's for these reasons, we'll use a short and separate script for each of the buttons.
 
-Give your start button a script, toggle built-in, and make it. Delete everything other than `extends Button`. Connect the start button's `pressed()` signal to its own script and set the function's body to `get_tree().change_scene_to_file("res://scenes/main_menu.tscn")`. Replace `res://scenes/main_menu.tscn` with the path to the first level, the main scene, or whatever scene you would normally open to play your game. If you're starting with just a main menu you can set this later. Make sure to press play or **F5** and set the current scene as the scene it loads up when you play the game.
+Also, just so we don't clutter up your scripts folder and we'll never touch these again, we'll use built-in scripts which are stored in the `.tscn` file for your scene instead of a separate `.gd` file.
+
+Give your start button a script, toggle built-in, and make it. Delete everything other than `extends Button`. Connect the start button's `pressed()` signal to its own script and set the function's body to `get_tree().change_scene_to_file("res://scenes/main_menu.tscn")`. Replace `res://scenes/main_menu.tscn` with the path to the first level, the main scene, or whatever scene you would normally open to play your game. If you're starting with just a main menu you can set this later.
+
+If you're starting with a main menu and no game, start the game with **F5** and set the current scene as the main scene to run. Otherwise, if you are adding this to a project, go to **Project > Project Settings... > General** tab **> Application** category **> Run** and set **Main Scene** to your main menu.
 
 :::note[Faster loading]
-It's a good idea to use `get_tree().change_scene_to_packed()` instead. The only difference is you need a global variable along the lines of `var main_scene = preload("res://scenes/main_menu.tscn")`. Of course with the main menu scene switched out for your game's starting scene. Then give that as a variable in the method in your function body with `get_tree().change_scene_to_packed(main_scene)`.
+It's a good idea to use `get_tree().change_scene_to_packed()` instead.
+
+You'll need a global variable along the lines of `const MAIN_MENU = preload("res://main_menu.tscn")`. Of course with the main menu scene switched out for your game's starting scene. Then give that as a variable in the method in your function body with `get_tree().change_scene_to_packed(main_scene)`.
 
 This causes Godot to load the scene into memory before you press the button, instead of loading the scene after you press the button. It's faster and more responsive for your player.
+
+You have to be careful with `preload`. If you preload scene A in scene B, but also preload scene B in scene A your project will appear corrupted. You can fix this by just removing the preload and restarting the editor but it's always a hassle and frequently scary.
 :::
 
-Your quit button is just as easy. Make a script, connect the signal. This time in the function body give it `get_tree().quit()`.
+Your quit button is just as easy. Make a built-in script, connect the signal. This time in the function body give it `get_tree().quit()`.
 
 The settings button requires a settings menu.
 
@@ -130,7 +138,7 @@ Otherwise, skip making it modular.
 This way is going to assume you have the same settings setup shown in the previous section. But, this time we're also going to assume that the **Control** node container for settings is split off into its own scene so that you can instantiate the settings menu in both a pause menu and main menu way, or any other place you may need it.  
 If you didn't have it in a scene but wanted it in both places, you'd have to make all changes to your settings twice. Which you will inevitably forget to do, leading to two different settings menus. Plus it'd just be a hassle.
 
-This means, however, we can't just connect the button straight to a node that can turn each menu visible/invisible since it's inside a scene. We'll have to daisy-chain signals.
+This means we can't just connect the button straight to a node that can turn each menu visible/invisible since it's inside a scene. We'll have to daisy-chain signals.
 
 Create a script on your settings **Control** node container, it's probably a good idea to not make this built-in. You can if you wanted to but it has the possibility of creating a mess if you accidentally disconnect it from another scene when this one is instanced in it. If a built-in script gets disconnected your only recourse is hoping you committed recently with git or rebuildig the script. Part of why we only use built-in scripts for very, very small scripts that do basic tasks and won't be reused.
 
@@ -153,13 +161,13 @@ If you're adding this to a pause menu, structure the pause menu similar to the m
 
 #### Part of the main menu
 
-Give the root node for your main menu a script. Since this script won't be able to be used for any other scene or node since it's connecting just it's children and it's a very niche use-case that you probably won't copy, make the script a built-in script.
+Give the root node for your main menu a script. Since this script won't be able to be used for any other scene or node since it's connecting just its children and it's a very niche use-case that you probably won't copy, make the script a built-in script.
 
 Connect the `pressed()` signal from the **Button** that'll close your settings (or the `close_settings` signal from the **Control** node if you made it modular), and the `pressed()` signal from the **Button** that opens your settings from the main menu to this new script.
 
-Use ctrl to select both of the **Control** container nodes for your main menu and your settings menu. Then click and drag them into the script, but before you release the mouse hold down ctrl. This is a quick and easy way to make variables for nodes in a script. It also works for preloading files in a script!
+Use ctrl/cmd to select both of the **Control** container nodes for your main menu and your settings menu. Then click and drag them into the script, but before you release the mouse hold down ctrl/cmd. This is a quick and easy way to make variables for nodes in a script. It also works for preloading files in a script!
 
-When the settings-open button is pressed, make menu invisible and settings visible by changing their `visible` property.
+When the settings-open button is pressed, make menu invisible and settings visible by changing their `visible` property. You'll need to get their nodes as a global variable in the script by dragging them into the script and before you let go of the left mouse button hold ctrl/cmd.
 
 Do the opposite when close settings is pressed.
 
@@ -167,7 +175,7 @@ Do the opposite when close settings is pressed.
 
 Godot has some good documentation for both [2D](https://docs.godotengine.org/en/stable/tutorials/2d/2d_antialiasing.html) and [3D](https://docs.godotengine.org/en/stable/tutorials/3d/3d_antialiasing.html) anti-aliasing. They have some good diagrams showing what it's like with and without anti-aliasing.
 
-There are many ways of combating this effect, Godot has a few built-in. Sometimes you may not want to fight the effect at all and just have it to give a retro-style.
+There are many ways of creating this effect, Godot has a few built-in. Sometimes you may not want to fight aliasing at all and give the game a retro-style.
 
 We'll let the player choose between the built-in Godot ones.
 
@@ -175,11 +183,11 @@ We'll let the player choose between the built-in Godot ones.
 
 Go to the inspector for each MSAA nodes and add elements to the **Items** array property. Give it the options Disabled, 2x, 4x, and 8x. Of course, you can remove the irrelevant 2D or 3D node if you know what your game is going to be.
 
-If you plan to have the default settings be more than just all disabled, you can change the **Selected** property for the **OptionButton**s, and the **Button Pressed** property for the **CheckBox**s to match your default.
+If you want the default settings to be something other than disabled, you can change the **Selected** property for the **OptionButton**s, and the **Button Pressed** property for the **CheckBox**es to match your default.
 
 Add a script to the **HBoxContainer** on the video tab and call it something like `setting_anti_aliasing.gd` in a scripts folder.
 
-Navigate to **Project > Project Settings... > Rendering > Anti Aliasing**. This is where you can see all the options. You might recall you made two **CheckBox**s, but this screen has only one and three **OptionButton**s. Well if you select **Screen Space AA** you can see there are only **Disabled** and **FXAA**.
+Navigate to **Project > Project Settings... > Rendering > Anti Aliasing**. This is where you can see all the options. You might recall you made two **CheckBox**es, but this screen has only one and three **OptionButton**s. Well, if you select **Screen Space AA** you can see there are only **Disabled** and **FXAA**.
 
 From here you can right-click and copy the path to the setting, this is what we'll use to set the setting.
 
@@ -187,7 +195,7 @@ Connect the `item_selected(index: int)` and the `toggled(toggled_on: bool` signa
 
 Finally, use the **RenderingServer** to change the display. `RenderingServer` has the four functions we need, which you can look up with the **Search Help** button or see below. It requires the viewport RID which you can get with `get_viewport().get_viewport_rid()`.
 
-The final hiccup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(from: bool)` to make `true` into 1 and `false` into 0.
+The final hiccup will be with screen space anti-aliasing since it's technically an array instead of a boolean, even though it just has **Disabled** and **FXAA** as options. For this you can just type-cast the `bool` to `int` using `int(your_bool_here)` to make `true` into 1 and `false` into 0.
 
 All in all, your script should look something like:
 
@@ -222,11 +230,11 @@ When adding audio you can make custom buses and route the audio through them, th
 
 This one is simple, after changing your label to say something like "Master", start with a single script on the **HSlider**.
 
-Connect its own `drag_ended` signal to itself.
+Connect its own `value_changed(value: float)` signal to itself.
 
-In the Inspector set the **Min Value** to 0, **Max Value** to 1, and step to 0.1. Also set **Layout > Custom Minimum Size**'s x value to something like 300px, so the slider is wide.
+In the Inspector set the **Min Value** to 0, **Max Value** to 1, and step to 0.1. Also, set **Layout > Custom Minimum Size**'s x value to something like 300px, so the slider is wide.
 
-Then, in your `_on_value_changed` function, add the line `AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))`.
+Then, in your function connected to the `value_changed` signal, add the line `AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear_to_db(value))`.
 
 That's it.
 
@@ -267,7 +275,7 @@ func set_button(button: InputEvent) -> void:
 	InputMap.action_add_event("your_action", button)
 ```
 
-Connect the **Button**'s `pressed` signal to itself.
+Connect the **Button**'s `pressed` signal to the `_on_pressed` function.
 
 It's a relatively simple script, just using `Input`, `InputMap`, `InputEvent` and their related functions to change things.
 
@@ -275,7 +283,7 @@ This will remove all the events related to the action and make the next pressed 
 
 ## Singleton
 
-Almost every game needs a singleton of some variety. The Godot docs have a [good guide](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html) on how to make a singleton and what one is.
+Almost every game needs a singleton of some variety. The Godot docs have a [good guide on how to make a singleton and what one is](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html).
 
 ### What is a Singleton?
 
@@ -289,11 +297,11 @@ However, this means if you store your player's health in a singleton, it'll need
 
 ### Making a Singleton
 
-To make a singleton, make a new script in the **FileSystem** dock, in your scripts folder.
+To make a singleton, make a new script in the **FileSystem** dock, in your scripts folder. The script needs to extend from **Node**.
 
 Go to **Project > Project Settings... > Autoload** and click the folder icon. Add your new script to the autoload.
 
-Name it something like **Global** or **Singleton**, so that you always know you can get the globally accessed variables by using `Singleton.player_health`. All you need to do to make the variable accessible, in that way, is add the variable to the `singleton.gd` or whatever file you made autoload.
+Name it something like *Singleton* or *Global*, so that you always know you can get the globally accessed variables by using `Singleton.player_health` or `Global.player_health`. To make any variable accessible in that way, all you have to do is add the variable to your `singleton.gd` file, or whatever file is your singleton.
 
 
 

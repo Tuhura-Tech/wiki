@@ -1,20 +1,24 @@
 ---
-title: Bullet Heaven
-description: This page shows how to make a simple 2D game in Godot in the genre of bullet heaven
+title: Survivors-like
+description: This page shows how to make a simple 2D game in Godot in the genre of survivors-like
 sidebar:
     order: 4
 ---
 
 **This guide assumes you've gone through the basics guide.**
 
-Bullet heaven games are the opposite of the ever-popular bullet hell genre.
+Survivors-like games are games that are similar to the massivley popular *Vampire **Survivors***.
+
+Another popular name for the genre is Bullet Heaven. Bullet heaven games are the opposite of the ever-popular bullet hell genre. 
+
+If you are aware of the much more popular bullet hell genre but not of the bullet heaven/survivors-like genre then think of it like this: bullet hell games are you avoiding an insane amount of projectiles from a limited amount of enemies or a singular boss enemy. Survivors-like games, on the other hand, are where you have an oncoming horde of enemies but this time you're the one unleashing volley after volley of projectiles.
 
 The player slowly accumulates a variety of abilities that activate automatically and fire an absurd amount of bullets at an equally absurd amount of enemies that slowly advance towards the player.
 
-Bullet heaven games are usually from a top-down perspective.
+Survivors-like games are usually from a top-down perspective.
 
-The genre initially got popular from the Unity game Vampire Survivors.  
-Although one of the most well-known Godot games, Brotato, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a bullet heaven.
+The genre initially got popular from the Unity game *Vampire Survivors*.  
+Although one of the most well-known Godot games, *Brotato*, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a survivors-like.
 
 For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside the screen and then slowly advance towards the player. Along the way, we'll also need a health and score system.
 
@@ -22,7 +26,7 @@ For this we will make a simple 2D top-down character controller. A selection of 
 
 As seen in the [basics guide](../basics), the built-in Godot **CharacterBody2D** template is a side-on character controller.
 
-Bullet heaven games are typically top-down, so let's make a top-down 2D character controller.
+Survivors-like games are typically top-down, so let's make a top-down 2D character controller.
 
 ### Setting Up
 
@@ -42,14 +46,14 @@ Enable the camera's **Position Smoothing** property so it's clear if the player 
 
 Add up, down, left, and right to the **Input Map**.
 
-Give the player the default script, we'll modify it.
+Give the player the default **CharacterBody2D** script, we'll modify it.
 
 Since we're editing the player scene instead of the main scene the actual game is going to run in, when you want to run your game use **F6** instead of **F5**, or the **Run Current Scene** button instead of the **Run Project** button.
 
 #### Changing the Script
 
 Before anything else give this script the class name **Player**. The enemies will also be **CharacterBody2D** so later when we make checks if we check a body against **CharacterBody2D** it'll return true for players and enemies, when we might only want enemies or the player.  
-To give the script the class name, below `extends CharacterBody2D`, add `class_name Player`.
+To give the script the class name, before `extends CharacterBody2D`, add `class_name Player`.
 
 Then, delete the `gravity` variable from the top of the script and then the section changing the y velocity based on gravity and jumping. There is no traditional gravity or jumping in top-down games.
 
@@ -68,7 +72,7 @@ else:
 move_and_slide()
 ```
 
-The `Input.get_axis` function is essentially a shorthand for getting the action strength of each action and taking it away from one another. So it says in the documentation if we hold ctrl and click on `get_axis`:
+The `Input.get_axis` function is essentially a shorthand for getting the action strength of each action and taking it away from one another. So it says in the documentation if we hold ctrl/cmd and click on `get_axis`:
 
 ```
 float get_axis(negative_action: StringName, positive_action: StringName) const
@@ -111,13 +115,15 @@ If you've done all correctly, it should look like your player is moving. Make su
 
 ## Enemies
 
-Enemies in bullet heaven game's enemies are usually very simple. The difficulty comes from just how many of them there are and having to duck and dodge through the hoards while your weapons go to work.
+Enemies in survivors-like games are usually very simple. The difficulty comes from just how many of them there are and having to duck and dodge through the hoards while your weapons go to work.
 
 Typically, there are a few types. But since most of the variation comes from just switching up how much health they have, how big their hitbox is, and other minor things, you can make new inherited scenes later after we build our basic enemy.
 
+### Quick Main Scene
+
 Since we need to test out the enemy scene in conjunction with the player scene, make a `main.tscn` scene with a **Node2D** root node.
 
-If you pressed used **F5**/**Run Project** instead of **F6**/**Run Current Scene** for your player and set your main scene to be the player scene, go to **Project > Project Settings... > Run** and change the main scene to your new scene.
+If you pressed **F5**/**Run Project** instead of **F6**/**Run Current Scene** for your player and set your main scene to be the player scene, go to **Project > Project Settings... > Run** and change the main scene to your new scene.
 
 Use the chain-looking button next to the **Add Child Node** button in the **Scene** dock to instantiate your player scene as a child of your **Node2D** root node.
 
@@ -125,21 +131,25 @@ Use the chain-looking button next to the **Add Child Node** button in the **Scen
 
 Make a new scene with the root node **CharacterBody2D** and call it something like `enemy.tscn`.
 
-Give the **CharacterBody2D** the usual **CollisionShape2D** and **Sprite2D** children with the usual **RectangleShape2D** and **PlaceholderTexture2D** shape and texture. Size them to be about the same size as the player, but slightly smaller so we can fit more in and somewhat visually distinct them from the player.
+- **CharacterBody2D**
+	+ **CollisionShape2D** - Set shape to **New RectangleShape2D**
+	+ **Sprite2D** - Set texture to **New PlaceholderTexture2D**
+
+Size them to be slightly smaller than the player, so we can fit more in and somewhat visually distinct them from the player.
 
 Set the **CharacterBody2D**'s **Motion Mode** property to **Floating** like you did with the player.
 
-Instantiate your enemy scene in your main scene and move the instantiated enemy away from the player. Run your game with **F5**/**Run Project** and set the main scene as the main scene of the project if you haven't already. Now you have a point in which you can tell if your player is actually moving or not. The enemy does nothing without a script, so let's give it one.
+Instantiate your enemy scene in your main scene and move the instantiated enemy away from the player. Run your game with **F5**/**Run Project** and set the main scene as the main scene of the project if you haven't already.
 
 Finally, this enemy is going to need a way to reduce the player's health. However, the player has no health variable yet. In your singleton, which you can find how to make one on the **Universal Features** page, add a new `player_health` variable and set it to 100.
 
 ### Script
 
-Get rid of everything below the line `func _physics_process(delta):` and above `move_and_slide()`, but not those lines, and delete the `gravity` and `JUMP_VELOCITY` variables.
+Get rid of everything below the line `func _physics_process(delta):` and above `move_and_slide()`, but not those lines, and delete `gravity` and `JUMP_VELOCITY`.
 
-Give this script the class name `Enemy` with `class_name Enemy` below `extends CharacterBody2D`.
+Give this script the class name `Enemy` with `class_name Enemy` before `extends CharacterBody2D`.
 
-Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need to be slower than the player in bullet hell games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere, and you can't do anything to get away from it until your weapons finally take it down.
+Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need to be slower than the player in survivors-like games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere and you can't do anything to get away from it until your weapons finally take it down.
 
 #### Moving Towards the Player
 
@@ -147,7 +157,7 @@ To move towards the player, we're going to need to find the player.
 
 In your singleton, add an onready variable that holds the player.
 
-In your player's script, add the built-in `_ready()` function and set the Singleton's player_node variable to the player itself.
+In your player's script, add the built-in `_enter_tree()` function and set the Singleton's player_node variable to the player itself.
 
 The singleton script should look something like this:
 
@@ -161,7 +171,7 @@ var player_health: int = 100
 The player script's ready function should look similar to:
 
 ```gdscript
-func _ready():
+func _enter_tree():
 	Singleton.player_node = self
 ```
 
@@ -170,9 +180,9 @@ Statically typing means that you are making sure that a variable stays as the ty
 
 This is very, very useful for debugging later on, and making sure you don't make a mistake.
 
-The reason we can statically type with `: Player` on the `player_node` variable is because we set the class name of the player script to be `Player`. In this case, it'll help ensure we don't accidentally set any other nodes to also be in the "player" group and also help Godot's code editor autocomplete any variables, functions, or signals we might have in the player script.
+The reason we can statically type with `: Player` on the `player_node` variable is because we set the class name of the player script to be `Player`. In this case, it'll help ensure we don't accidentally set any other nodes to be the singleton's player node. It also helps Godot's code editor autocomplete any variables, functions, or signals we might have in the player script.
 
-Other common use-cases are the basic types like `bool` (boolean, true or false), `float` (floating-point number, number with possible decimal places), `String` (text, defined with "quotes around it, like this"), or to set variables, like the `player_node` variable, with complex types like **CharacterBody2D** to have access to code-completion in the Godot editor.
+Other common use-cases are the primitive types like `bool` (boolean, true or false), `float` (floating-point number, number with possible decimal places), `String` (text, defined with "quotes around it, like this"), or to set variables, like the `player_node` variable, with complex types like **CharacterBody2D** to have access to code-completion in the Godot editor.
 :::
 
 Now, to finally edit the enemy script itself.
@@ -187,7 +197,7 @@ Breakdown of this line:
 
 First, with `Singleton.player_node.global_position` we get the player's global position, which is a Vector2 since it's the x and y position.
 
-Next, we use `global_position.direction_to()` to get the direction to the player from the `global_position` of the enemy. It gets this direction in a Vector2, in which both x and y add up to 1. We call this a normalized vector, since it's used for simple directions instead of anything like magnitude or position or anything else.
+Next, we use `global_position.direction_to()` to get the direction to the player from the `global_position` of the enemy. It gets this direction in a Vector2, in which both x and y add up to 1. We call this a normalized vector, since it's used for simple directions instead of anything like magnitude, position, or anything else. Normalized vectors always sum up to 1.
 
 Then, we multiply that normalized vector with `SPEED` so now the vector that adds up to 1 in the direction of the player, will multiply up to 1 times the value of speed to also indicate how fast the player should move.
 
@@ -232,7 +242,7 @@ bool is_on_wall_only ( ) const
 bool move_and_slide ( )
 ```
 
-Here we can see there's the `get_slide_collision` and `get_slide_collision_count` methods. If we look at the description of `get_slide_collision` there's an explanation and a block of code showing us how to use both methods in conjunction to go through all the collided objects.
+Here we can see there's the `get_slide_collision` and `get_slide_collision_count` methods. Look at the description of `get_slide_collision` there's an explanation and a block of code showing you how to use both methods in conjunction to go through all the collided objects.
 
 If you're eagle-eyed, you might have also spotted the `get_last_slide_collision` method. We don't want to use this because it only returns the last collision made, not all the collisions made. With how many enemies the game has it's not going to be unlikely that the enemy will hit the player and then slide into another enemy in the same frame. Just checking the last slide collision won't work, so we'll use the other two-slide collision methods to check every collision made.
 
@@ -260,15 +270,15 @@ In your player scene, add a **ProgressBar** as a child of the root node. Positio
 
 Set the **Value** property of the **ProgressBar** to 100, this is your health bar.
 
-Get the health bar in your player's script by opening the player's script, dragging the node to the top of the script where you want the variable, and before you release the left mouse button hold control. This will make the entire onready variable for you.
+Get the health bar in your player's script by opening the player's script, dragging the node to the top of the script where you want the variable, and before you release the left mouse button hold ctrl/cmd. This will make the entire onready variable for you.
 
-At the beginning of `_physics_process(delta)` add a line that sets the **ProgressBar**'s value property to the same value as your singleton's player health value. This is assuming your maximum health is 100. If it's something else you need to change the **Max Value** property on your health bar.
+At the beginning of `_physics_process` add a line that sets the **ProgressBar**'s value property to the same value as your singleton's player health value. This is assuming your maximum health is 100. If it's something else you need to change the **Max Value** property on your health bar.
 
-### Restarting Game
+### Restarting the Game
 
 Next comes the death.
 
-Make a new constant for your player's max health. This is just so we can reset the health to this value. It's good practice to not have random numbers lying around your scripts, and instead use constants with descriptive names.
+In your singleton, make a new constant for your player's max health. This is just so we can reset the health to this value. It's good practice to not have random numbers lying around your scripts, and instead use constants with descriptive names.
 
 Add in the `_physics_process(delta)` function to your singleton.
 
@@ -276,7 +286,7 @@ Give it a simple if statement, checking if the player's health is below or equal
 
 Inside that, set your player's health to the max health constant you made before. Then run `get_tree().reload_current_scene()`. It's important you do it in that order, reloading the scene could stop the script from running in other circumstances and not reset the player's health. It shouldn't in this case since this is an autoload script and won't be reset, but it's still best practice to reload or change scenes after doing all other reset or changing operations in case your scene has anything to change in the singleton itself.
 
-Since we set the `player_node` variable during the player's `_ready()` function, we don't need to set it again. It's going to change the variable when the node is made and enters the scene tree.
+Since we set the `player_node` variable during the player's `_ready()` function, we don't need to set it again. The player will automatically update the `player_node` variable when the player becomes ready again.
 
 Booyah, the player can now die!
 
@@ -293,7 +303,7 @@ This will be when the `@onready` variables and the `_ready` function finally run
 
 ### Enemies
 
-The way we spawn enemies is ultimately up to you. You could spawn them at random points around the map but not on the player, you could make a bunch of spawners that continuously spew enemies, perhaps make it a goal to close all the spawners.
+The way we spawn enemies is ultimately up to you. You could spawn them at random points around the map but not on the player, you could make a bunch of spawners that continuously spew enemies, perhaps make it a goal for the player to close all the spawners.
 
 For now, we're just going to spawn enemies around the player, but just outside their camera.
 
@@ -303,7 +313,7 @@ The Godot docs have [a perfect example of doing this](https://docs.godotengine.o
 
 Select **Path2D** and use the green tool in the toolbar's **Path2D** tools, **Add Point**. This tool is used to add points to the path. Also, toggle on the **Use Smart Snap** and **Use Grid Snap** options in the toolbar.
 
-In clockwise order, use the **Add Point** tool and select all four corners of the camera's pink boundary to create a path. After doing the final corner, use the final **Path2D** tool that comes before **Options**, **Close Curve**, to connect the path back to the beginning.
+In clockwise order, use the **Add Point** tool and select just outside all four corners of the camera's pink boundary to create a path. After doing the final corner, use the final **Path2D** tool that comes before **Options**, **Close Curve**, to connect the path back to the beginning. You'll want to have the points be outside of the camera, otherwise the enemies will spawn half-way on screen.
 
 :::danger[Resizing Screen]
 The Godot docs don't mention this at the time of making this **Path2D** way, but this doesn't scale with the screen. If you even maximize the window that Godot makes for the game, it won't scale.
@@ -321,7 +331,7 @@ Add a script to your **Path2D**.
 
 Turn **Autostart** on for the **Timer** and set its wait time to something like 5 seconds., then connect its `timeout()` signal to the mob spawner (your **Path2D**).
 
-Get both the spawn location (**PathFollow2D**) and the spawn timer as variables by dragging the nodes into the script and holding ctrl before releasing click. Do the same thing with the enemy scene in your **FileSystem** dock.
+Get both the spawn location (**PathFollow2D**) and the spawn timer as variables by dragging the nodes into the script and holding ctrl/cmd before releasing click. Do the same thing with the enemy scene in your **FileSystem** dock.
 
 At the top of your global variables in the script, add the line:
 
@@ -342,7 +352,7 @@ get_tree().root.add_child(new_enemy)
 spawn_timer.wait_time *= respawn_delta
 ```
 
-This script assumes you renamed your **NodeFollow2D** to **SpawnLocation** and your **Timer** to **SpawnTimer** before generating the variables for them by dragging them in. You can also just rename the variables to `spawn_location` and `spawn_timer.`
+This script assumes you renamed your **NodeFollow2D** to **SpawnLocation** and your **Timer** to **SpawnTimer** before generating the variables for them by dragging them in. You can also just rename the variables to `spawn_location` and `spawn_timer`.
 
 This script has an issue. I doubt you'll be able to find it without playing the game for a few runs. But otherwise, this should work! Try playing your magical game a few times.
 
@@ -384,13 +394,13 @@ Make a new global constant as well, for the `SPEED` of the bullet. Your player m
 In a `_physics_process(delta)` function, add `direction * speed * delta` to `position`. We multiply by `delta` because we're manually moving the position instead of using **CharacterBody2D**'s `move_and_slide()` function which does that for you. `delta` is the time between the last physics frame and this one.
 
 :::note[Fast moving bullets]
-If you increase your bullet's speed by a lot it might move over the enemy in the span of a frame. This means it won't detect its collision.
+If you increase your bullet's speed by a lot, it might move over the enemy in the span of a frame. This means it won't detect its collision.
 
 Continuous Collision Detection (CCD) is used to counteract this. With **RigidBody2D** you can enable CCD. To do this, make the root node of your bullet a **RigidBody2D**. Enable **Continuous CD** in **RigidBody2D > Solver** in the inspector.
 
 You'll have to use **RigidBody2D**'s available methods and signals to form this, which won't be as simple. Also, it won't be as fast.
 
-If you want fast bullets a better way would be to add a **RayCast2D** to your player and just see if anything is colliding in its path when firing. Use multiple ray casts for making bullet width. This doesn't come with having any feedback that the player fired a bullet to kill the enemy. If you can make a kill animation or some sort of way to tell the player they fired, it's the best way to make fast firing bullets.
+If you want fast bullets, a better way would be to add a **RayCast2D** to your player and just see if anything is colliding in its path when firing. Use multiple ray casts for making bullet width. This doesn't come with having any feedback that the player fired a bullet to kill the enemy. If you can make a kill animation or some sort of way to tell the player they fired, it's the best way to make fast firing bullets.
 
 This is also how hit-scan works in all FPS games, if you are aware of the concept.
 :::
@@ -417,18 +427,20 @@ Now, we *could* just connect the `timeout` signal to our player script. But as p
 
 The single responsibility principle (SRP) is mentioned several times across Godot's [best practices docs](https://docs.godotengine.org/en/stable/tutorials/best_practices/introduction_best_practices.html).
 
-In essence, keeps scripts/functions/nodes to just one use. In this case, the **Timer** node is purely for spawning and shooting off projectiles.
+In essence, keep scripts/functions/nodes to just one use. In this case, the **Timer** node is purely for spawning and shooting off projectiles.
 :::
 
 Add a script to the projectile spawner **Timer** node and connect its own `timeout` signal to itself.
 
-This is very similar to spawning in enemies. Make a new global variable in the script for the main node, in the `_ready` function set that node to `get_node("/root/Main")` or your equivalent.
+This is very similar to spawning in enemies. Make a new global variable in the script for the main node, in the `_ready` function set that node to your singleton's `main_node`.
 
-Then, from the **FileSystem** dock, find and drag your bullet scene into your script, and before you release the mouse hold control.
+From the **FileSystem** dock, find and drag your bullet scene into your script, and before you release the mouse, hold ctrl/cmd.
+
+Instructions for the rest are going to be very general, try to remember how they were implemented.
 
 In your function connected to the `timeout` signal, make a new variable set to an instance of the scene.
 
-Get your player as an `@onready` variable by dragging it into the script and holding control before letting go.
+Get your player as a global variable for the script.
 
 Back in the function, set that variable's `direction`, or equivalent, value to `player.velocity.normalized()`. Do the same with the projectile's and your player's `global_position`.
 
@@ -438,9 +450,9 @@ Then, add it as a child of your main scene's root node.
 
 Play your game!
 
-If you've played a bullet heaven game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
+If you've played a survivors-like game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
 
-This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the bullet heaven style.
+This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the survivors-like style.
 
 Normally, weapons automatically fire at the closest enemy.
 
@@ -483,7 +495,7 @@ Finally, check if we found an enemy at all. If not, `return` and stop the rest o
 
 Next, after this block of code, and after you instantiate the bullet, you need to replace `new_projectile.direction = player.velocity.normalized()` with `new_projectile.direction = player.global_position.direction_to(closest_enemy.global_position)`. This will finally set the direction to the enemy. `direction_to` returns a normalized vector already, so we don't need to use `normalized` on it.
 
-Play your magical game after modifying the names of variables to your specific script. If all is well, this will work.
+Play your mystical game after modifying the names of variables to your specific script. If all is well, this will work.
 
 ## Multiple weapons
 
@@ -642,6 +654,14 @@ You have literally all the tools you need to figure everything else out. You've 
 The enemies should have health so that things like piercing shots can do less damage but hit more enemies. It provides a good tradeoff that requires at least a modicum of thought and adds dynamics and interplay with your systems. Make it so that one weapon is not better than the other, but they provide two halves of a whole.
 
 Give them a health bar while you're at it, similar to the player. But only show it after they have been hurt so it doesn't clutter up the screen.
+
+### Making it a True Survivors-like
+
+Right now, the player is only firing one type of projectile at a time. Your first goal should be getting several kinds of projectiles firing all at the same time.
+
+Make them all unique by using a gradient texture instead of a placeholder texture to change their color.
+
+Then, make them move in weird and wacky ways. Perhaps make projectiles that spawn from from the edge of the screen. Or large, slow-moving ones that push enemies from a single direction to let piercing projectiles pierce through stacked up hoards for insane DPS (damage per second).
 
 ### Animations
 
