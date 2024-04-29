@@ -21,7 +21,7 @@ There are several options for developing with Godot. The recommended way is to d
 - Many Linux distros will have Godot in their native app store, such as the Pop!_Shop, AUR, or Snapcraft. **Please note these are sometimes unofficial** and may be different or unsafe. More often than not it's better to run the executable from the normal Godot downloads page.
 
 For most platforms outside of the web editor, you should face an interface that looks similar to this upon opening the program:
-![Godot project manager](/assets/godot/basics/ProjectManager.png)
+![Godot project manager](/src/assets/godot/basics/ProjectManager.png)
 
 :::note[C# programming]
 A version of the engine that uses C# as a programming language is also available, called the .NET version. It is not recommended for beginners, but if you are familiar with C# it may be a better option for you. You can download it from the [downloads page](https://godotengine.org/download/) for your desktop platform. However, it is not available for use in the special use cases. This guide will also be using GDScript and you will have to look up the C# version yourself.
@@ -32,7 +32,7 @@ A version of the engine that uses C# as a programming language is also available
 ### Making a new project
 
 Click the **New Project** button to create a new project, the following window will appear:
-![New project window](/assets/godot/basics/NewProject.png)
+![New project window](/src/assets/godot/basics/NewProject.png)
 
 - **Project Name:**
 This is the name of your project, it can be anything you want. For this guide, we will use **Godot Is Awesome!**.
@@ -53,7 +53,7 @@ This is used to store version control information in the project folder. It is r
 #### Workspace
 
 The next window that'll open is the meat of the game engine, it is where you make your actual game. At first, it can be a little daunting, all the buttons and docks, but it's simple to understand once you've used it a bit.
-![Empty Godot project](/assets/godot/basics/EmptyEngine.png)
+![Empty Godot project](/src/assets/godot/basics/EmptyEngine.png)
 For this guide, we will use 2D to introduce all the key concepts.
 But, if you're already familiar with game development and want to start with 3D, we have a [3d guide](/game-design/godot/3d) as well. If you choose this you may miss out on core aspects like signals.
 
@@ -81,7 +81,7 @@ Signals communicate to scripts when something happens to a node.
 To start out with you need to make a basic scene, we'll return to scenes later but for now one big scene will work just fine.
 
 At the top left under **Create Root Node:** click the **2D Scene** button. This will create a new scene with a **Node2D** root node.
-![Empty scene with Node2D as scene route](/assets/godot/basics/BaseProject.png)
+![Empty scene with Node2D as scene route](/src/assets/godot/basics/BaseProject.png)
 
 This should be the core scene of your game, or the scene that you do the core of your development in.  
 At any time save your scene with **Scene > Save Scene** or save all scenes with **Scene > Save All Scenes**, we saved the scene as **main.tscn**.
@@ -114,7 +114,7 @@ We also need to have the camera center on the player so add a **Camera2D** node 
 > Add **Sprite2D**, **CollisionShape2D**, and **Camera2D** as children of **CharacterBody2D**.
 
 To make sure a node is a child of another node check that your **scene tree** looks like this:
-![Godot scene tree with characterbody2d as child of root node, and sprite2d, collisionshape2d, and camera2d as children of characterbody2d](/assets/godot/basics/ChildNodes.png)
+![Godot scene tree with characterbody2d as child of root node, and sprite2d, collisionshape2d, and camera2d as children of characterbody2d](/src/assets/godot/basics/ChildNodes.png)
 This is what having **CharacterBody2D** as a child of **Node2D**, and **Sprite2D**, **CollisionShape2D**, and **Camera2D** as a child of **CharacterBody2D**.
 
 #### Modifying the node's properties
@@ -124,7 +124,7 @@ On the **Sprite2D** node, you can change the texture property to a new texture.
 On the right side of the screen you'll see the **Inspector** dock, this is where you can edit the properties of the selected node.
 
 If you want to use an image and don't have your own, save the little birdie image below to your device with **right-click > Save Image As...** and drag it into the **FileSystem** tab in the bottom left of the screen, alternatively you can make your own image and use that. Once it's in the **FileSystem** dock, you can drag it into the **Texture** property of the **Sprite2D** node.
-![Cute pixel art circular sprite](/assets/godot/basics/LilBirdie.png)
+![Cute pixel art circular sprite](/src/assets/godot/basics/LilBirdie.png)
 :::note[Pixel art palette]
 If you want to make your own pixel art similar to this to expand your game later, use the [PICO-8 palette](https://lospec.com/palette-list/pico-8).
 :::
@@ -137,10 +137,10 @@ If you do use a **New PlaceholderTexture2D** you should change the **CollisionSh
 The **CollisionShape2D** node has a warning icon, this is because it needs a shape to define its collision.
 
 > Select the CollisionShape2D and change the **Shape** property, to a **New CircleShape2D** if you used the bird and **New RectangleShape2D** if you used a placeholder.
-![Drop-down of shape property on CollisionShape2D node highlighting New CircleShape2D](/assets/godot/basics/CircleShape.png)
+![Drop-down of shape property on CollisionShape2D node highlighting New CircleShape2D](/src/assets/godot/basics/CircleShape.png)
 
 Your scene should now look something like this:
-![Scene with tiny texture in the viewport](/assets/godot/basics/UpdatedScene.png)
+![Scene with tiny texture in the viewport](/src/assets/godot/basics/UpdatedScene.png)
 
 The 'viewport' is the largest area of the screen that shows the scene. You can move around the viewport with the middle mouse button and zoom in and out by scrolling.
 
@@ -172,7 +172,7 @@ If you click the new **Open in Editor** icon that appeared on your player, it'll
 Go back to the main scene by using the tabs at the top of the screen, we'll make platforms first.
 
 > Make a **StaticBody2D** with **Sprite2D** and **CollisionShape2D** as children, then give them **PlaceholderTexture2D** and **RectangleShape2D** as texture and shape, respectively.
-![What the scene tree should look like now](/assets/godot/basics/PlatformTree.png)
+![What the scene tree should look like now](/src/assets/godot/basics/PlatformTree.png)
 
 > Rename **StaticBody2D** to **Platform** and save it in its own scene.
 
@@ -184,7 +184,7 @@ All work you do in this scene will apply to every copy of this scene.
 Currently there is one copy of this **platform.tscn** scene in your **Main.tscn** scene, we call that an instance of the **platform.tscn** scene.
 
 > Zoom into the **CollisionShape2D** and **Sprite2D** and click on each of them, pull the orange handles to make them about this large compared to the feint blue box and how zoomed out my viewport is.
-![At 42% zoom the sprite and collider takes up about a third of the width of the viewport and is pretty thin](/assets/godot/basics/PlatformSize.png)
+![At 42% zoom the sprite and collider takes up about a third of the width of the viewport and is pretty thin](/src/assets/godot/basics/PlatformSize.png)
 
 :::caution[Best practice]
 Make sure the body, the sprite, and the collider are all at the position 0, 0 in your scene unless you have good reason.
@@ -198,10 +198,10 @@ Go back to the Main scene.
 > Go to your player scene and do the same thing, make it smaller than your platform.
 
 Start your magnificent game by clicking the **Run Project** button in the top right of the screen or by pressing **F5**. You should see a window like this:
-![Godot warning no main scene has been selected](/assets/godot/basics/WarningUndefinedMain.png)
+![Godot warning no main scene has been selected](/src/assets/godot/basics/WarningUndefinedMain.png)
 Press **Select Current** if you are in your main scene. Now your gorgeous game should be running!
 Here's what my version of this game looks like so far:
-![Empty scene with a magenta rectangle on top of a pixelated red circle](/assets/godot/basics/StaticGame.png)
+![Empty scene with a magenta rectangle on top of a pixelated red circle](/src/assets/godot/basics/StaticGame.png)
 
 > Close the game and go back to your Main scene, move your platform below your player.
 
@@ -215,7 +215,7 @@ As mentioned before, you can write scripts in C# as well, but it is not recommen
 #### Making a new script
 
 To add a script to a node, select the node and **right-click > Attach Script** or press the **Attach a new or existing script to the selected node** button above the node tree. For now, add a script to the player node, it will open a new window that looks like:
-![Godot window for making a new script on a CharacterBody2D node](/assets/godot/basics/NewScript.png)
+![Godot window for making a new script on a CharacterBody2D node](/src/assets/godot/basics/NewScript.png)
 The defaults are fine, but let's go over what each field means.
 
 - **Language:**
@@ -230,7 +230,7 @@ Built in scripts don't make a separate file for the scripts, they are stored wit
 This is the path to the script file. If you are not using a built-in script, it will be replaced by a "**Name:**" field. For the player, we will use the default path `res://player.gd`. It is a good idea to make a folder just for scripts or just for scenes to make organization easier, but for this small project this is easier.
 
 Click **Create** and you should automatically switch to the script screen. It should have the script you just made loaded in and look like this:
-![Godot scripts screen with default CharacterBody2D template loaded on a GDScript called player.gd](/assets/godot/basics/Script.png)
+![Godot scripts screen with default CharacterBody2D template loaded on a GDScript called player.gd](/src/assets/godot/basics/Script.png)
 You can make the script take up the whole window with the full-screen icon in the top right, and if you have a console open, you can close it by pressing **Output** at the bottom of the screen, and zoom in and out with **Ctrl + +/-**.
 
 Now if you run the game with **F5** the player should fall down. 
@@ -329,7 +329,7 @@ If you didn't, check the positions, check the if statement.
 If you're not moving at all it's most likely because you haven't indented your `global_position = reset_position`.
 
 You can see the simple 3 lines of code that got this working:
-![The default script with the previously outlined lines of code added](/assets/godot/basics/DeathboxCode.png)
+![The default script with the previously outlined lines of code added](/src/assets/godot/basics/DeathboxCode.png)
 
 ### Signals - Making checkpoints
 
@@ -341,7 +341,7 @@ An **Area2D** has some good built-in signals that communicate when a **body** li
 
 > Move the **Area2D** to somewhere further along your obstacle course, then give the **CollisionShape2D** a rectangle shape and make it take a bit of the platform.
 
-![A small 4-platform obstacle course with the player starting on the left and the checkpoint on the right](/assets/godot/basics/SimpleObstacleCourse.png)
+![A small 4-platform obstacle course with the player starting on the left and the checkpoint on the right](/src/assets/godot/basics/SimpleObstacleCourse.png)
 It should look something similar to this.
 
 Click on your **Area2D** in the scene tree and on the right of the screen go to the **Node** tab.
@@ -349,7 +349,7 @@ Click on your **Area2D** in the scene tree and on the right of the screen go to 
 Once here, double click the **body_entered(body:Node2D)** signal.
 It is imperative you select the **body_entered** and not the **area_entered** one, otherwise it will not detect the player.
 
-![Godot Connect a Signal to a Method dialogue box with the receiver method changed to _on_checkpoint_entered](/assets/godot/basics/Signal.png)
+![Godot Connect a Signal to a Method dialogue box with the receiver method changed to _on_checkpoint_entered](/src/assets/godot/basics/Signal.png)
 Once you get to this screen, change the **Receiver Method** to **_on_checkpoint_entered** just to make things clear.
 
 Make sure you have the player selected from the list of nodes, then click **Connect**.
