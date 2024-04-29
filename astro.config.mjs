@@ -36,6 +36,9 @@ export default defineConfig({
           label: "Conditionals and Loops",
           link: "python/conditionals-loops"
         }, {
+          label: "Lists, Tuples, Dictionaries, and Sets",
+          link: "python/lists-tuples-dicts"
+        }, {
           label: "Setting Up",
           link: 'python/setting-up'
         }, {
