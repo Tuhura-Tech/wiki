@@ -45,7 +45,8 @@ export default defineConfig({
           label: "Flask",
           autogenerate: {
             directory: 'python/flask'
-          }
+          },
+          collapsed: true
         }]
       }, {
         label: "Game Design",
@@ -56,7 +57,8 @@ export default defineConfig({
           label: "Godot",
           autogenerate: {
             directory: 'game-design/godot'
-          }
+          },
+          collapsed: true
         }],
       },
       {
@@ -80,7 +82,8 @@ export default defineConfig({
           label: "Creative Coding",
           autogenerate: {
             directory: 'javascript/creative-coding'
-          }
+          },
+          collapsed: true
         }]
       }, {
         label: "Git",
