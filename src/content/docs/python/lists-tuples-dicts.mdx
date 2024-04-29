@@ -1,5 +1,5 @@
 ---
-title: Lists, Tuples, and Dictionaries
+title: Lists, Tuples, Dictionaries, and Sets
 description: Learning about different collection types
 sidebar:
     order: 3
@@ -104,7 +104,7 @@ for i in range(len(num_tuple)):
 ```
 ```python
 
-num_tuple = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+num_tuple = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
 even_total = 0
 
@@ -170,5 +170,36 @@ for key in book:
 # This will print each value in the dictionary
 for key in book:
     print(book[key])
+
+```
+
+## Sets
+
+Sets are unordered, so to access items you need to know what item you want to access. You cannot have duplicate items in a set, but you can add and remove items. Sets use {} like dictionaries, but they don’t use key-value pairs.
+
+```python
+
+str_set = {"tomato", "cherry", "strawberry"}
+
+# This will get the item called "cherry" from the set
+cherry = "cherry" in str_set
+
+# This will remove the given item from the set, and return it.
+removed_value = str_set.discard("tomato")
+
+# This will add the item called "apple" to the set
+str_set.add("apple")
+
+```
+
+Looping through sets works the same as the other collection types.
+
+```python
+
+str_set = {"tomato", "cherry", "strawberry", "apple"}
+
+# This will print each item in the set. Because it is unordered it might print in a different order each time.
+for item in str_set:
+    print(item)
 
 ```
