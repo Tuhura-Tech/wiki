@@ -40,6 +40,10 @@ str_list.append("apple")
 
 You can also loop through lists. There are 2 main ways of doing so: using a `for` loop with `range`, or using a `for` loop with the list itself.
 
+:::note
+`len()` is a very useful method. It allows you to get the length of, or the number of items in, a collection. You can also use it on other things such as `str` to get the number of characters in the string.
+:::
+
 ```python
 
 num_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -127,8 +131,8 @@ Dictionaries, or Dicts, use something called key-value pairs to store data. A ke
 book = {
     "title" : "The Hunger Games",
     "author" : "Suzanne Collins",
-    "first printing" : 2008,
-    "second printing" : 2008
+    "first_printing" : 2008,
+    "second_printing" : 2008
 }
 
 ```
@@ -140,8 +144,8 @@ Accessing dictionaries is different to lists and tuples. You don't access the it
 book = {
     "title" : "The Hunger Games",
     "author" : "Suzanne Collins",
-    "first printing" : 2008,
-    "second printing" : 2008
+    "first_printing" : 2008,
+    "second_printing" : 2008
 }
 
 # This will give the value associated with the key "title". In this case it is "The Hunger Games"
@@ -159,8 +163,8 @@ Looping through dictionaries is also a bit different. `for` loops will give the 
 book = {
     "title" : "The Hunger Games",
     "author" : "Suzanne Collins",
-    "first printing" : 2008,
-    "second printing" : 2008
+    "first_printing" : 2008,
+    "second_printing" : 2008
 }
 
 # This will print each of the keys in the dictionary
