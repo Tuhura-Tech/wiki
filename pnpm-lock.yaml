@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@astrojs/starlight':
         specifier: ^0.21.0
-        version: 0.21.4(astro@4.5.16)
+        version: 0.21.4(astro@4.5.16(@types/node@17.0.45))
       '@astrojs/starlight-tailwind':
         specifier: ^2.0.1
-        version: 2.0.1(@astrojs/starlight@0.21.4)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3)
+        version: 2.0.2(@astrojs/starlight@0.21.4(astro@4.5.16(@types/node@17.0.45)))(@astrojs/tailwind@5.1.0(astro@4.5.16(@types/node@17.0.45))(tailwindcss@3.4.3))(tailwindcss@3.4.3)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.5.16)(tailwindcss@3.4.3)
+        version: 5.1.0(astro@4.5.16(@types/node@17.0.45))(tailwindcss@3.4.3)
       astro:
         specifier: ^4.0.8
-        version: 4.5.16
+        version: 4.5.16(@types/node@17.0.45)
       rehype-mathjax:
         specifier: ^6.0.0
         version: 6.0.0
@@ -31,7 +31,7 @@ importers:
         version: 0.33.3
       starlight-links-validator:
         specifier: ^0.8.0
-        version: 0.8.0(@astrojs/starlight@0.21.4)(astro@4.5.16)
+        version: 0.8.0(@astrojs/starlight@0.21.4(astro@4.5.16(@types/node@17.0.45)))(astro@4.5.16(@types/node@17.0.45))
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.3
@@ -87,8 +87,8 @@ packages:
   '@astrojs/sitemap@3.1.2':
     resolution: {integrity: sha512-FxOJldIl5ltZ5CNjocQxHkAO9orwHBjqtaU28o4smobp9vowS0nbGp+I9CrPxkzWdl1crSDm9vjL9tnvG1DSug==}
 
-  '@astrojs/starlight-tailwind@2.0.1':
-    resolution: {integrity: sha512-niMgFcR7NHcsBVy8UAN3F2gqhmoN5v83st5Hu4YzvUL+6SNwjQmIipXppXdN9+iVneRjPr6PLGzDfI+wnjSBWQ==}
+  '@astrojs/starlight-tailwind@2.0.2':
+    resolution: {integrity: sha512-XJccwk6VLeQZuGQwoiLZLNAPCn2fQobtl10Ra2c2yDLjdYEActcqy0eidZbouAwGlbS9I0iJogeGjHQJ2Casjg==}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       '@astrojs/tailwind': ^5.0.0
@@ -2832,12 +2832,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@2.2.4(astro@4.5.16)':
+  '@astrojs/mdx@2.2.4(astro@4.5.16(@types/node@17.0.45))':
     dependencies:
       '@astrojs/markdown-remark': 5.0.0
       '@mdx-js/mdx': 3.0.1
       acorn: 8.11.3
-      astro: 4.5.16
+      astro: 4.5.16(@types/node@17.0.45)
       es-module-lexer: 1.5.0
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -2862,21 +2862,21 @@ snapshots:
       sitemap: 7.1.1
       zod: 3.22.4
 
-  '@astrojs/starlight-tailwind@2.0.1(@astrojs/starlight@0.21.4)(@astrojs/tailwind@5.1.0)(tailwindcss@3.4.3)':
+  '@astrojs/starlight-tailwind@2.0.2(@astrojs/starlight@0.21.4(astro@4.5.16(@types/node@17.0.45)))(@astrojs/tailwind@5.1.0(astro@4.5.16(@types/node@17.0.45))(tailwindcss@3.4.3))(tailwindcss@3.4.3)':
     dependencies:
-      '@astrojs/starlight': 0.21.4(astro@4.5.16)
-      '@astrojs/tailwind': 5.1.0(astro@4.5.16)(tailwindcss@3.4.3)
+      '@astrojs/starlight': 0.21.4(astro@4.5.16(@types/node@17.0.45))
+      '@astrojs/tailwind': 5.1.0(astro@4.5.16(@types/node@17.0.45))(tailwindcss@3.4.3)
       tailwindcss: 3.4.3
 
-  '@astrojs/starlight@0.21.4(astro@4.5.16)':
+  '@astrojs/starlight@0.21.4(astro@4.5.16(@types/node@17.0.45))':
     dependencies:
-      '@astrojs/mdx': 2.2.4(astro@4.5.16)
+      '@astrojs/mdx': 2.2.4(astro@4.5.16(@types/node@17.0.45))
       '@astrojs/sitemap': 3.1.2
       '@pagefind/default-ui': 1.1.0
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.3
-      astro: 4.5.16
-      astro-expressive-code: 0.33.5(astro@4.5.16)
+      astro: 4.5.16(@types/node@17.0.45)
+      astro-expressive-code: 0.33.5(astro@4.5.16(@types/node@17.0.45))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.1
       hast-util-select: 6.0.2
@@ -2893,9 +2893,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/tailwind@5.1.0(astro@4.5.16)(tailwindcss@3.4.3)':
+  '@astrojs/tailwind@5.1.0(astro@4.5.16(@types/node@17.0.45))(tailwindcss@3.4.3)':
     dependencies:
-      astro: 4.5.16
+      astro: 4.5.16(@types/node@17.0.45)
       autoprefixer: 10.4.16(postcss@8.4.32)
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
@@ -3568,13 +3568,13 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro-expressive-code@0.33.5(astro@4.5.16):
+  astro-expressive-code@0.33.5(astro@4.5.16(@types/node@17.0.45)):
     dependencies:
-      astro: 4.5.16
+      astro: 4.5.16(@types/node@17.0.45)
       hast-util-to-html: 8.0.4
       remark-expressive-code: 0.33.5
 
-  astro@4.5.16:
+  astro@4.5.16(@types/node@17.0.45):
     dependencies:
       '@astrojs/compiler': 2.7.1
       '@astrojs/internal-helpers': 0.4.0
@@ -3632,8 +3632,8 @@ snapshots:
       tsconfck: 3.0.3
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.2.8
-      vitefu: 0.2.5(vite@5.2.8)
+      vite: 5.2.8(@types/node@17.0.45)
+      vitefu: 0.2.5(vite@5.2.8(@types/node@17.0.45))
       which-pm: 2.1.1
       yargs-parser: 21.1.1
       zod: 3.22.4
@@ -5344,14 +5344,16 @@ snapshots:
   postcss-load-config@4.0.2(postcss@8.4.32):
     dependencies:
       lilconfig: 3.0.0
-      postcss: 8.4.32
       yaml: 2.3.4
+    optionalDependencies:
+      postcss: 8.4.32
 
   postcss-load-config@4.0.2(postcss@8.4.38):
     dependencies:
       lilconfig: 3.0.0
-      postcss: 8.4.38
       yaml: 2.3.4
+    optionalDependencies:
+      postcss: 8.4.38
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -5745,10 +5747,10 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-links-validator@0.8.0(@astrojs/starlight@0.21.4)(astro@4.5.16):
+  starlight-links-validator@0.8.0(@astrojs/starlight@0.21.4(astro@4.5.16(@types/node@17.0.45)))(astro@4.5.16(@types/node@17.0.45)):
     dependencies:
-      '@astrojs/starlight': 0.21.4(astro@4.5.16)
-      astro: 4.5.16
+      '@astrojs/starlight': 0.21.4(astro@4.5.16(@types/node@17.0.45))
+      astro: 4.5.16(@types/node@17.0.45)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
@@ -6093,17 +6095,18 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite@5.2.8:
+  vite@5.2.8(@types/node@17.0.45):
     dependencies:
       esbuild: 0.20.2
       postcss: 8.4.38
       rollup: 4.14.0
     optionalDependencies:
+      '@types/node': 17.0.45
       fsevents: 2.3.3
 
-  vitefu@0.2.5(vite@5.2.8):
-    dependencies:
-      vite: 5.2.8
+  vitefu@0.2.5(vite@5.2.8(@types/node@17.0.45)):
+    optionalDependencies:
+      vite: 5.2.8(@types/node@17.0.45)
 
   w3c-xmlserializer@5.0.0:
     dependencies:
