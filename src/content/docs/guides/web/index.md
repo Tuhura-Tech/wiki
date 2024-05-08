@@ -1,6 +1,6 @@
 ---
 title: Basic HTML
-description: This is how to set up a JavaScript environment.
+description: This is how to set up an html web environment.
 sidebar:
   # Make this always the first
   order: 1
@@ -9,6 +9,7 @@ sidebar:
 
 | | Contents |  |
 |---|---|---|
+-<!doctype html>
 | [HTML](#html) | [Tags](#tags) | [Elements](#elements)|
 | [Attributes](#attributes) |  [Structure](#structure) | [Comments](#comments) |
 | [Heading & paragraphs](#headings-and-paragraphs) | [Links](#links) | [Images](#images) |
@@ -24,7 +25,7 @@ HTML stands for Hypertext Markup Language, this is the standard langue for web p
 ## Tags
 
 Tags are the key to all of HTML. Tags create Titles, Headings, Paragraphs, embolden words and much more.
-A tag should look like this ` <br> ` with an angle bracket opening the tag, required charters inside, and a final angel bracket to close. The "br" tag produces a line break like pushing enter in a writing document.
+A tag should look like this ` <h1> ` with an angle bracket opening the tag, required charters inside, and a final angel bracket to close. The "h1" tag produces a heading in the largest size.
 One tag is not always enough to complete the desired effect; some require a closing tag as well. A closing tag should look like this `</title>`, to make a tag again open with an angle bracket but this time add a slash before your characters then close with the appropriate angle bracket.
 
 ## Elements
@@ -45,7 +46,7 @@ Well not necessary all elements can have Attributes added to the starting tag, t
 For example in the image tag
 
 ```html
- <img src=“<https://i.insider.com/602ee9ced3ad27001837f2ac?width=2000&format=jpeg&auto=webp”> alt=‘click for a great photo’> 
+ <img alt="awesomephoto" src=“<https://i.insider.com/602ee9ced3ad27001837f2ac?width=2000&format=jpeg&auto=webp”> alt=‘click for a great photo’> 
 ```
 
 The link source or "src" is the attribute giving extra information, where the webpage is finding the image to display. Just the source attribute should look like this `src=“…”`
@@ -62,13 +63,11 @@ The link source or "src" is the attribute giving extra information, where the we
 Structure and formatting are the skeleton of HTML, it holds up the code allowing the browser to properly display our web pages. It also helps us or others to follow what’s been coded and where our problems might be. The basic structure should look like this:
 
 ```html
-<HTML>
+<html>
  
      <head>
  
          <title>this is what will be shown in the browsers tab</title>
-
-         <meta name="keywords" content="Web, tutorials, HTML, free, pumpkin">
  
     </head>
      <body>
@@ -80,17 +79,19 @@ Structure and formatting are the skeleton of HTML, it holds up the code allowing
          <p>these are my paragraphs. Don’t be like me do a grammar…</p>
  
      </body>
- </HTML> 
+ </html> 
 ```
 
 The fist line should be a starting tag for HTML. This declares a document type and should make the program we are using to code run better and help us make ending tags. Everything should then be indented *(in most cases this is done by pressing tab)* after all everything is in HTML.
 
 *The head element* is for the unseen parts of your webpage like what character sets are used, or the key words search engines are trying to find. This is the meta data, it will not be displayed but will be used by browsers and search engines to "correctly" display or promote your webpage *(unless like me you add false information like pumpkin).*
 Every new element should be indented in the section they belong. As you can see the title and meta elements are indented from the opening head tag.
-The body element is not part of the head element and holds a similar level of use. The body holds all the information that will be displayed on the webpage like images, paragraphs and headings.
+
+*The body element is not part of the head element and holds a similar level of use.* The body holds all the information that will be displayed on the webpage like images, paragraphs and headings.
 
 > Note:
 >
+>the body element is not part of the head element.
 > - Unfortunately this part is important, making code that others can read is important for group works and employers so start the habit now.
 > - if your worried about coding programmes or applications I use the free software visual studio code, but notepad works too.
 > - Seriously, please indent the work this is most commonly done using tab.
@@ -100,7 +101,7 @@ The body element is not part of the head element and holds a similar level of us
 Comments ` <!-- a comment --> ` can be use to communicate what is happing in your code without adding it in to the code itself, this is very useful for group projects and work environments. You can comment out valid code that you want to keep available but not functioning in the projects current state.
 
 ```html
-    <!--<p>a paragraph that will no longer be seen</P>-->
+    <!--<p>a paragraph that will no longer be seen</p>-->
 ```
 
  Comments open with an angled bracket, a exclamation mark and two dashes followed by your statement or code, two dashes and an angled bracket to close.
