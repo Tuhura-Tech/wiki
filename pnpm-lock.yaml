@@ -13,7 +13,7 @@ importers:
         version: 0.23.1(astro@4.9.0)
       '@astrojs/starlight-tailwind':
         specifier: ^2.0.1
-        version: 2.0.2(@astrojs/starlight@0.23.1(astro@4.9.0))(@astrojs/tailwind@5.1.0(astro@4.9.0)(tailwindcss@3.4.3))(tailwindcss@3.4.3)
+        version: 2.0.3(@astrojs/starlight@0.23.1(astro@4.9.0))(@astrojs/tailwind@5.1.0(astro@4.9.0)(tailwindcss@3.4.3))(tailwindcss@3.4.3)
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.0(astro@4.9.0)(tailwindcss@3.4.3)
@@ -87,8 +87,8 @@ packages:
   '@astrojs/sitemap@3.1.4':
     resolution: {integrity: sha512-po8CqDCK14O6phU1mB5C8SyVLyQEa+7pJM8oXxs1mVh8DgvxxaA5E7lak1vzOmBcyyyHBW32jakGqNYc66sBRw==}
 
-  '@astrojs/starlight-tailwind@2.0.2':
-    resolution: {integrity: sha512-XJccwk6VLeQZuGQwoiLZLNAPCn2fQobtl10Ra2c2yDLjdYEActcqy0eidZbouAwGlbS9I0iJogeGjHQJ2Casjg==}
+  '@astrojs/starlight-tailwind@2.0.3':
+    resolution: {integrity: sha512-ZwbdXS/9rxYlo3tKZoTZoBPUnaaqek02b341dHwOkmMT0lIR2w+8k0mRUGxnRaYtPdMcaL+nYFd8RUa8sjdyRg==}
     peerDependencies:
       '@astrojs/starlight': '>=0.9.0'
       '@astrojs/tailwind': ^5.0.0
@@ -2751,7 +2751,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight-tailwind@2.0.2(@astrojs/starlight@0.23.1(astro@4.9.0))(@astrojs/tailwind@5.1.0(astro@4.9.0)(tailwindcss@3.4.3))(tailwindcss@3.4.3)':
+  '@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.23.1(astro@4.9.0))(@astrojs/tailwind@5.1.0(astro@4.9.0)(tailwindcss@3.4.3))(tailwindcss@3.4.3)':
     dependencies:
       '@astrojs/starlight': 0.23.1(astro@4.9.0)
       '@astrojs/tailwind': 5.1.0(astro@4.9.0)(tailwindcss@3.4.3)
