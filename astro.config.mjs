@@ -52,7 +52,7 @@ export default defineConfig({
         label: "Game Design",
         items: [{
           label: "About",
-          link: 'game-design/about'
+          link: 'game-design/index'
         }, {
           label: "Godot",
           autogenerate: {
@@ -77,7 +77,7 @@ export default defineConfig({
         label: "Javascript",
         items: [{
           label: "Setting Up",
-          link: 'javascript/setting-up'
+          link: 'javascript/index'
         }, {
           label: "Creative Coding",
           autogenerate: {
