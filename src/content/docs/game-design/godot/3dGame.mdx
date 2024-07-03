@@ -12,12 +12,40 @@ This guide is up-to-date with Godot 4.2 stable official release but will most li
 :::
 
 ## Making the project
-
+Unsure if these sections are needed as they're covered by the other 3D Doc? Could merge them? Or just pick up where the other one ends.
 ## Working with the 3D Viewport
-
+Unsure if these sections are needed as they're covered by the other 3D Doc? Could merge them? Or just pick up where the other one ends.
 ## Creating a first person controller
 
+Let's setup a basic character controller. Thankfully, Godot makes this easy for us and actually has a template script that'll let us move around.
+
+But first, lets give ourselves something to stand on.
+
+1. Create a **Node3D** and name it something like "World" or "Level" this'll be the root of our whole scene.
+2. Create a **StaticBody3D** and give it two child nodes, a **MeshInstance3D** and a **CollisionShape3D.** The mesh provides visuals for our floor, while the collisionShape is what we actually stand on. 
+3. Select the **MeshInstance3D** and over on the right, in the inspector, assign its Mesh property to be a **PlaneMesh**
+4. Select the **CollisionShape3D** and set its 'Shape' property to a new **BoxShape3D**
+5. Select **CollisionShape3D** in the scene tree and use the orange dots in the viewport to shape the **BoxShape3D** to the same shape and size as the plane. Although it's good to leave it a little thicker than the plane, to stop us from falling through.
+
+Great! Now our player has something to stand on. Lets add our Character.
+
+1. Create a **CharacterBody3D** as a child of our root world node.
+2. Give it a **Camera3D** and a **CollisionShape3D** as children. The CollisionShape is what'll allow us to collide with the floor.
+3. Right click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the main view.
+4. You may notice that our player seems huge compared to our floor. This is actually because our floor is tiny! Click on the floor **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
+5. Lets click on the collisionShape over on the left, and use the green arrow in the viewport to move it on the Y-axis until its base is above the floor. Let's do the same with the camera, moving it to wherever you think the 'eyes' of your character should be.
+
+Why didn't we just move the CharacterBody3D node up, Instead of the CollisionShape3D?
+
+StaticBody vs RigidBody?
+
+Some things to try
+
+
+
+
 ## Moving the player
+Unsure if these sections are needed as they're covered by the other 3D Doc? Could merge them? Or just pick up where the other one ends.
 
 ## Controlling the Camera
 
