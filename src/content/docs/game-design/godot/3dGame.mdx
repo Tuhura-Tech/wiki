@@ -21,33 +21,45 @@ Let's setup a basic character controller. Thankfully, Godot makes this easy for 
 
 But first, lets give ourselves something to stand on.
 
-1. Create a **Node3D** and name it something like "World" or "Level" this'll be the root of our whole scene.
+1. Create a **Node3D** and name it something like 'World' or 'Level' this'll be the root of our whole scene.
 2. Create a **StaticBody3D** and give it two child nodes, a **MeshInstance3D** and a **CollisionShape3D.** The mesh provides visuals for our floor, while the collisionShape is what we actually stand on. 
 3. Select the **MeshInstance3D** and over on the right, in the inspector, assign its Mesh property to be a **PlaneMesh**
 4. Select the **CollisionShape3D** and set its 'Shape' property to a new **BoxShape3D**
 5. Select **CollisionShape3D** in the scene tree and use the orange dots in the viewport to shape the **BoxShape3D** to the same shape and size as the plane. Although it's good to leave it a little thicker than the plane, to stop us from falling through.
+6. Click on the **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
 
 Great! Now our player has something to stand on. Lets add our Character.
 
-1. Create a **CharacterBody3D** as a child of our root world node.
-2. Give it a **Camera3D** and a **CollisionShape3D** as children. The CollisionShape is what'll allow us to collide with the floor.
-3. Right click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the main view.
-4. You may notice that our player seems huge compared to our floor. This is actually because our floor is tiny! Click on the floor **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
-5. Lets click on the collisionShape over on the left, and use the green arrow in the viewport to move it on the Y-axis until its base is above the floor. Let's do the same with the camera, moving it to wherever you think the 'eyes' of your character should be.
+1. Create a **CharacterBody3D** as a child of our root world node. Right click on it, and save branch as a new scene. This allows us to easily modify our player. Name it something like 'Player' or 'Character'
+2. Find the newly created scene in the file explorer, or click on the "scene" icon, to open our scene.
+2. Give it a **Camera3D** and a **CollisionShape3D** as children. Given the collisionShape a capsule shape using the inspector. The CollisionShape is what'll allow us to collide with the floor.
+3. Right click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the scene view.
+5. Lets click on the **Camera3D** over on the left, and use the green arrow in the viewport to move it on the Y-axis to wherever you think the 'eyes' of your character should be, based on the capsule.
+6. Make sure you save the scene, using **CTRL + S** or using the File menu in the top left.
+7. Let's go back to our main scene now, using the tab with the name you used for your 'World' Scene. You'll probably notice that the player is halfway in the floor, which is not ideal. Just click on the root **CharacterBody3D** Node and move to up on the Y-Axis
 
-Why didn't we just move the CharacterBody3D node up, Instead of the CollisionShape3D?
+Great! Let's test our game! Hit the **Run Project** Button and try moving around!
+You'll probably notice two things:
 
-StaticBody vs RigidBody?
+1. We can't look around
+2. The default controls use the arrow keys to move, when WASD is generally standard.
 
-Some things to try
+Don't worry, we'll fix these issues shortly.
+
+#### StaticBody vs RigidBody?
+
+You may have noticed we used a **StaticBody3D** Object. If you've ever used a 3D game engine before, you've likely heard of 'Static Bodies' and 'Rigid Bodies' but what's the difference?
+
+Both exist as part of the games Physics simulation, and are capable of physically affecting other objects. The main difference is how they're effected by other objects. A Static Body cannot be moved by any other physics object, hence 'static' (Though scripts can still move them) Think a solid wall, or tree. Most objects in a given scene that want a player to colide with, will be Static Bodies.
+A Rigid Body is the opposite, and can bounce and fall and move based on collisions. If one rigidbody hits another, it'll make it move, based on things like velocity and gravity. Think a soccer ball colliding with another.
+
+#### Some things to try
+
+Try deleting the collision shape from the ground or the player, what happens?
+Open up the Script for the character movement, try changing the speed up or down, what happens?
 
 
-
-
-## Moving the player
-Unsure if these sections are needed as they're covered by the other 3D Doc? Could merge them? Or just pick up where the other one ends.
-
-## Controlling the Camera
+## Improving the character controller
 
 ## Creating Enemies
 
