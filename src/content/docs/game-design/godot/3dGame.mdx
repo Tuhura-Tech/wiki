@@ -11,6 +11,8 @@ This is a guide for making a 3-dimensional game in [Godot](https://godotengine.o
 This guide is up-to-date with Godot 4.2 stable official release but will most likely work with any 4.x release.
 :::
 
+We'll be making a complete game in which the player defends an objective against constantly spawning enemies, with both a lose and win condition.
+
 ## Making the project
 Unsure if these sections are needed as they're covered by the other 3D Doc? Could merge them? Or just pick up where the other one ends.
 ## Working with the 3D Viewport
@@ -27,7 +29,9 @@ Godot Documentation for nodes discussed in this section:
 
 Let's set up a basic character controller. Thankfully, Godot makes this easy for us and actually has a template script that'll let us move around.
 
-But first, lets give ourselves something to stand on.
+### Scene Setup
+
+First, lets give ourselves something to stand on.
 
 1. Create a **Node3D** and name it something like 'World' or 'Level' this'll be the root of our whole scene.
 2. Create a **StaticBody3D** and give it two child nodes, a **MeshInstance3D** and a **CollisionShape3D.** The mesh provides visuals for our floor, while the collisionShape is what we actually stand on. 
@@ -37,6 +41,8 @@ But first, lets give ourselves something to stand on.
 6. Click on the **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
 
 Great! Now our player has something to stand on. Lets add our Character.
+
+### Adding the Character
 
 1. Create a **CharacterBody3D** as a child of our root world node. Right click on it, and save branch as a new scene. This allows us to easily modify our player. Name it something like 'Player' or 'Character'
 2. Find the newly created scene in the file explorer, or click on the "scene" icon, to open our scene.
@@ -228,10 +234,44 @@ When we play our game, we can properly walk and look around! Now its time to get
 1. Try increasing and decreasing the Camera sensitivity, change it to a value that feels best for you.
 2. See if you can change the button we use to get our mouse back to something else
 
+## Creating an Objective
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) [CollisionShape3D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_3d.html) 
+[Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html#class-area3d) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html)
+
+:::
+
+(Almost) Every game needs an objective! Something for the player to work towards, and to keep them playing. For our game, we'll be creating something that the player will defend from waves of enemies. In my version of the game, this will be a Crystal,
+but yours can be anything! 
+
+### Objective Scene
+
+Let's start by going back to our main scene, and giving the root node a new child with the **Node3D** Type. Call it something like "Objective". Then, like we did with the player, we'll save it as a new scene, and open it.
+
+Our scene will need a few things: 
+1. A **StaticBody3D** Object, with a **CollisionShape3D** to prevent the player walking through it
+2. A **MeshInstance3D** To give the objective a model
+3. An **Area3D** with a **CollisionShape3D** to detect when enemies 'hit' it. You can think of an **Area3D** as a way to detect when an object enters an Area, using the **CollisionShape3D** to define the area 
+
+Your **MeshIstance3D** can be whatever shape you prefer. However make sure your **StaticBody3D** has a **CollisionShape3D** that roughly matches your **MeshInstance3D**.
+
+Leave the **CollisionShape3D** attached the **Area3D** as a circle or square, we'll be coming back to this later.
+
+Your scene hierarchy should look something like this:
+
+[TODO: Image]
+
+And thats it! Everything else will be handled by our script!
+
+### Health Script
 
 ## Creating Enemies
 
-## Creating an Objective
+### Enemy Scene
+
+### Enemy Script
 
 ## Losing
 
