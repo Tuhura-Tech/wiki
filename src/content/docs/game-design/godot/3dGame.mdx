@@ -53,6 +53,8 @@ Great! Now our player has something to stand on. Lets add our Character.
 6. Make sure you save the scene, using **CTRL + S** or using the File menu in the top left.
 7. Let's go back to our main scene now, using the tab with the name you used for your 'World' Scene. You'll probably notice that the player is halfway in the floor, which is not ideal. Just click on the root **CharacterBody3D** Node and move to up on the Y-Axis
 
+As a final touch, lets add a **DirectionalLight3D** and rotate it to face downwards so that we can see!
+
 Great! Let's test our game! Hit the **Run Project** Button and try moving around!
 You'll probably notice two things:
 
@@ -313,6 +315,8 @@ func entered(area: Area3D):
 
 Great! Let's save our script, and that's it done for now!
 
+Now, we could have just as easily attached the 'Health' script to our player, but in this game, our player isn't our enemy's target. However, if you want to change that, by the end of this guide, you should be able to figure that out fairly easily!
+
 #### What's a group?
 
 Think of a group as a way to, well, group objects in our game. In this case, if we have multiple types of enemies later, we don't need to check if we've collided with any of them,
@@ -346,16 +350,162 @@ Signals are an amazing way to connect scripts without having to store a Node ref
 
 ## Creating Enemies
 
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Material](https://docs.godotengine.org/en/stable/classes/class_material.html) [3D Transforms](https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html) 
+[Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html#class-area3d) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html)
+[Interpolation](https://docs.godotengine.org/en/stable/tutorials/math/interpolation.html)
+
+:::
+
+Let's start making the antagonists of this game, our enemies! 
+As you've hopefully come to expect by now, we'll start by making a scene!
+
+Although as you'll soon find out, this is most important for or enemy, as we'll be creating more instances of this scene through code.
+
 ### Enemy Scene
+
+Let's again give the World root node a new child of a Node3D, right click it, save as scene. Call it something like "enemy_a" or "enemy_1" you can always change the name later.
+It's good to get your head around these steps, as you'll be doing them often in any project you make! This is the last time this guide will go over them in detail, but if you get confused, feel free to look
+back at one of the earlier steps.
+
+Take a second to try and think what Node's we'll likely need for our enemy.
+
+
+We're going to need:
+1. Something to visibly represent the enemy.
+2. Something to allow for our enemy to colide with the objective so that they can deal damage.
+
+We don't necessarily want our enemy to physically collide with anything however, so we'll skip giving them a Static or Rigid Body.
+
+Here's how I've laid out my Enemy Scene, yours should hopefully look similar! If it doesn't don't worry, feel free to change it to look like mine.
+
+[TODO: Image]
+
+Remember to assign shapes to your **MeshInstance3D** and your **CollisionShape3D**
+
+So that he player can differentiate between our enemies and the rest of our level, let's add a material to make the enemy a different colour.
+Materials can be used to alter the apperance of meshes in our game, from simple materials that just change colour, to advanced materials that apply custom textures, different material types, or even shaders.
+
+But for now, let's keep it simple. 
+
+Click on the **MeshInstance3D** and on the right, in the inspector, click on the **Material Surface Override** Button, in the '0' slot, where it says empty, add a new **StandardMaterial3D**
+
+Click on the white sphere that's appeared. Feel free to experiment with any and all of the settings here, but for the colour, click on **Albedo.** Click on the white Rectangle, and experiment with the colour, i'll be making my enemy red.
+
+[TODO: Image]
 
 ### Enemy Script
 
-## Losing
+Great, we have our enemy, it's looking good, now we just need to get it moving! Let's add a script to the root node of the Enemy Scene. Call it 'Enemy' or something similar.
 
+But let's first think about what we're going to need:
+1. A way to control the health and speed of enemies
+2. A reference to their target (The objective)
+3. To face toward, and then move toward, the objective
+
+The first step should be easy, let's add some variables! Remember the **@export** tag we used on the objective script? We'll be using that here too!
+Except this time we'll be using it to allow us to easily change the variables on our enemy, without needing to edit the script. 
+
+```gdscript
+@export var health = 1
+@export var speed = .5
+```
+
+If you save your script, and look in the inspector of the enemy object, you'll notice there are now two boxes, 'health' and 'speed' with their current values being set to 0 and 0.01.
+You can think of the values we declared like default values, and anything we type into those boxes will overwrite them.
+
+Let's add two more variables, which we'll use later.
+
+```gdscript
+var targetNode
+var lerp_t = 0
+var startPosition
+```
+These will only be used inside the script, so there's no need for them to be 'exports.'
+
+In our **_ready** function, we'll get a reference to our Objective, so that our enemies can target it.
+
+```gdscript
+targetNode = get_node("%Objective")
+startPosition = global_position
+```
+
+If you haven't seen it before, the '%' here donotes a unique name, to prevent us from having to put in the complete path for the objective, but this would be equivilent to something like "/root/World/Objective"
+Using the '%' is great when we know we're only going to have one of something! We'll have to edit our objective slightly to make this work, but we'll do that in a moment.
+
+For now, let's focus on our enemy. For this, we're going to be doing something called 'lerping' (Short for Interpolation) lerping is basically a smooth way to move something from one point to another,
+both in 2D and 3D. All we need for a lerp is that starting position (That's why we got the enemies position in the **_ready** function) the target position (That's our objective) and a 't' value, which controls how far between the two points or object is.
+the t value goes from 0 to 1, with 0 being right at the start, and 1 being right at the end. 
+
+Let's start lerping! In our **_process** function we'll add a few lines.
+
+```gdscript
+lerp_t += delta * speed
+look_at(targetNode.global_position)
+global_position = lerp(startPosition, targetNode.global_position, lerp_t)
+```
+
+First, we increase our 't' value, based on Delta (The amount of time since the last frame) and our speed variable, to allow us to control the rate of the lerp.
+
+Next, we ensure our enemy is facing toward the objective, this doesn't matter as much for my circle enemy, but if you have a more complex shape, it'll make things look better.
+
+Then, we set the enemies global_position to the value of the lerp between its starting position, and the objective, based on the 't' value.
+If you're still confused about Lerps, take a look at the [Godot Docs for Interpolation](https://docs.godotengine.org/en/stable/tutorials/math/interpolation.html)
+
+Then, let's rap it all in an 'if' statement, to stop the lerp once the 't' value as reached 1.
+
+```gdscript
+if(lerp_t < 1):
+```
+
+Giving us a final script that looks like this:
+
+```gdscript
+extends Node3D
+
+@export var health = 1
+@export var speed = .5
+
+var targetNode
+var lerp_t = 0
+var startPosition
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	targetNode = get_node("%Objective")
+	startPosition = global_position
+	 # Replace with function body.
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if(lerp_t < 1):
+		
+		lerp_t += delta * speed
+		look_at(targetNode.global_position)
+		global_position = lerp(startPosition, targetNode.global_position, lerp_t)
+```
+
+Before we move on, there's a few more things we should do.
+Go back to your main scene, right click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective") However make sure the name here matches exactly the name used in the script.
+
+[TODO: Delete Enemies]
+
+[TODO: Talk about Global Position vs Position]
+
+[TODO: Try messing around with speed]
+
+### Respawning Enemies
+[TODO: Singletons?]
 ## Fighting Back
+
+## Losing
 
 ## Winning
 
 ## Tying it all together with UI
 
+## Some final touches
+[TODO: Link to Github repo]
 ## Where to next
