@@ -482,21 +482,61 @@ func _ready():
 func _process(delta):
 	if(lerp_t < 1):
 		
-		lerp_t += delta * speed
+		lerp_t += delta * speed 
 		look_at(targetNode.global_position)
 		global_position = lerp(startPosition, targetNode.global_position, lerp_t)
 ```
 
 Before we move on, there's a few more things we should do.
-Go back to your main scene, right click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective") However make sure the name here matches exactly the name used in the script.
 
-[TODO: Delete Enemies]
+Let's assign that group we were talking about earlier, so that our Objective actually loses health when an enemy reaches it. Go into your Enemy Scene, select the root **Node3D**, click on 'Node' on the right inspector, and open the **Groups** Tab.
+Enter "enemy" (case sensitive, ensure this matches what you used in your objective script) and click add. Click 'Manage Groups' and move using the 'Add' button, move every node until it's in the 'Nodes in Group' Section. While every node 
+in this scene could be in different groups, or we would just add the ones we need, in a situation like this it's best to just have every node in the group we want.
+
+
+You'll also want to go back to your main scene, right click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective"). But make sure the name here matches exactly the name used in the script.
+
+
+We probably don't want our enemies to just sit at the objective forever after they reach it, so let's make sure we delete them. Let's go back to our **Objective Script** and after we reduce health, we'll delete the enemy.
+This can be done by calling **queue_free()** on the parent node of the Enemy. This schedules the node to be deleted at the end of the current frame.
+
+Because our Objective has a reference to the Area3D, rather than the root node, we'll write it like this:
+
+```gdscript
+area.get_parent().queue_free()
+```
+Great! Add a couple of copies of your enemy to your game by dragging the scene from the file inspector into the scene. Add at least 3 so we can make sure our lose condition is triggering.
+
+Test your game, and after three enemies reach the objective we should see the 'Game Over!'
+
+That's our enemies themselves done, next we'll make sure they spawn on their own!
+
 
 [TODO: Talk about Global Position vs Position]
 
 [TODO: Try messing around with speed]
 
-### Respawning Enemies
+### Global Position vs Position
+
+You may have noticed us using 'global_position' when moving the enemy. Why not just use 'position'?
+
+This is because 'position' refers to the relative position of a Node to it's root, so modifying this doesn't actually move the 'origin' of the node, it just moves its offset relative to its parent!
+So if we accessed and modified 'position' we might get some unexpected results. Wheras 'global_position' is relative to the entire scenes origin (0,0,0) and allows us to more reliably understand where a node is.
+While there are situations in which we'll want to modify a 'position' in most cases we'll use 'global_position'
+
+### object.queue_free vs object.free
+When deleting an object from our scene, we have two options, the **queue_free()** function, and the **free()** function, but what's the difference? **queue_free()** schedules a node to be deleted at the end of a frame. Wheras **free()** deletes it instantly.
+Your instinct may be to think that surely instant is better! Why wait! But in basically every case, the difference will never be noticeable. Especially when we consider that using **queue_free()** is safer for our code.
+If we were to use **free()** and in the same frame try to call a function on the node (As Godot still thinks it exists until the end of the frame) we would get an error. **queue_free()** Allows for safe deletion of objects.
+
+This likely would make no difference at all to our project, but it's a good thing to keep in mind as you move onto bigger things!
+
+### Some things to try
+
+1. Try messing with the speed on your Enemy (Remember, you can change this in the inspector, you don't need to change the script) until you're happy with how fast they move.
+2. Try creating an 'enemy_2'/'enemy_b' by making a new scene which reuses the enemy script, but has a different material and speed. (Remember to add it to the group)
+
+## Spawning Enemies
 [TODO: Singletons?]
 ## Fighting Back
 
