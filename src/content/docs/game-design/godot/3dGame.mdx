@@ -112,7 +112,7 @@ var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 to
 
 ```gdscript
-var input_dir = Input.get_vector("Left", "Right", "Forward", "Back")
+var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
 ```
 
 and 
@@ -474,7 +474,7 @@ var startPosition
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	targetNode = get_node("%Objective")
+	targetNode = get_node("World/%Objective")
 	startPosition = global_position
 	 # Replace with function body.
 	
@@ -512,11 +512,7 @@ Test your game, and after three enemies reach the objective we should see the 'G
 That's our enemies themselves done, next we'll make sure they spawn on their own!
 
 
-[TODO: Talk about Global Position vs Position]
-
-[TODO: Try messing around with speed]
-
-### Global Position vs Position
+#### Global Position vs Position
 
 You may have noticed us using 'global_position' when moving the enemy. Why not just use 'position'?
 
@@ -524,28 +520,209 @@ This is because 'position' refers to the relative position of a Node to it's roo
 So if we accessed and modified 'position' we might get some unexpected results. Wheras 'global_position' is relative to the entire scenes origin (0,0,0) and allows us to more reliably understand where a node is.
 While there are situations in which we'll want to modify a 'position' in most cases we'll use 'global_position'
 
-### object.queue_free vs object.free
+#### object.queue_free vs object.free
 When deleting an object from our scene, we have two options, the **queue_free()** function, and the **free()** function, but what's the difference? **queue_free()** schedules a node to be deleted at the end of a frame. Wheras **free()** deletes it instantly.
 Your instinct may be to think that surely instant is better! Why wait! But in basically every case, the difference will never be noticeable. Especially when we consider that using **queue_free()** is safer for our code.
 If we were to use **free()** and in the same frame try to call a function on the node (As Godot still thinks it exists until the end of the frame) we would get an error. **queue_free()** Allows for safe deletion of objects.
 
 This likely would make no difference at all to our project, but it's a good thing to keep in mind as you move onto bigger things!
 
-### Some things to try
+#### Some things to try
 
 1. Try messing with the speed on your Enemy (Remember, you can change this in the inspector, you don't need to change the script) until you're happy with how fast they move.
 2. Try creating an 'enemy_2'/'enemy_b' by making a new scene which reuses the enemy script, but has a different material and speed. (Remember to add it to the group)
 
 ## Spawning Enemies
-[TODO: Singletons?]
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Packed Scene](https://docs.godotengine.org/en/stable/classes/class_packedscene.html) [Timer](https://docs.godotengine.org/en/stable/classes/class_timer.html)
+[Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html)
+
+:::
+
+Let's get our enemies spawning on their own, we wouldn't have much of a game if we had to add every enemy manually!
+
+As you may have come to expect by now, we'll be making a new scene, again with a Node3D root. Although in this case, that'll be it! We don't need our spawner to do anything other than exist in 3D Space with a script.
+If you want your spawners to be visible, feel free to add a **MeshInstance3D** but mine will be invisible. Save the scene, call it something like 'spawner_scene'
+
+Let's get straight into the scripting! Attach it to the Node3D in your new scene, call it something like 'spawner_script'
+
+Let's again have a think about what we're going to need:
+1. A reference to the enemy Scene so we can create copies of it
+2. Some way to control how often enemies are spawned
+3. To actually spawn the enemy
+
+Nothing too complicated! But definitely some new concepts. We'll tackle them one at a time!
+
+As always, let's start by declaring some variables.
+
+```gdscript
+@export var spawn_delay_lower = 2
+@export var spawn_delay_upper = 4
+@export var enemy_scene:PackedScene
+var ready_to_spawn = true
+```
+
+We won't be doing anything in the **_ready()** function so you can either delete it or just leave it.
+
+
+
+Our  first two exported vars here will be used to control the spawnrate of our enemies, while allowing for some randomness.
+Our second export will be our reference to our enemy. When we declare a variable in Godot, we can add ':'' followed by a variable type to allow only that type. This is especially useful for exports. (If not declaring a default value, exports require a type be given)
+
+**ready_to_spawn** is simply to keep track of if we're ready to spawn another enemy yet.
+
+Let's get straight into the **_process** function!
+First things first, let's check if we're ready to spawn another enemy.
+```gdscript
+if(ready_to_spawn):
+		ready_to_spawn = false
+    var rng = RandomNumberGenerator.new()
+```
+
+simple enough, if we are ready to spawn, indicate that we're not ready to spawn, and go onto our spawning logic.
+We'll also create a new RandomNumberGenerator so that we can generate a random number within our defined range.
+
+Next, we'll need to create a **Timer** and create our very own **Signal** that calls a function when the timer ends. Sounds scary, but I promise it's not!
+
+First, let's make that **Timer**
+
+```gdscript
+var t = get_tree().create_timer(rng.randi_range(spawn_delay_lower, spawn_delay_upper))
+```
+This will create a timer, add it to the scene tree (*Everything* needs to be in the tree) and give it a timer with a length between our lower and upper **spawn_delay**
+
+Now, let's connect it to a function.
+
+```gdscript
+t.timeout.connect(spawnEnemy)
+```
+This connects our as of yet uncreated function called 'spawnenemy' when the timer ends. Giving us a process function that looks like this:
+
+```gdscript
+func _process(delta):
+	if(ready_to_spawn):
+		ready_to_spawn = false
+    var rng = RandomNumberGenerator.new()
+		var t = get_tree().create_timer(rng.randi_range(spawn_delay_lower, spawn_delay_upper))
+		t.timeout.connect(spawnEnemy)
+```
+
+Let's make that function, where our actual spawning logic will sit.
+
+First, we need to instantiate (create) an instance of our enemy scene
+
+```gdscript
+func spawnEnemy():
+	var n = enemy_scene.instantiate()
+  add_child(n)
+```
+We create a copy of the node, and importantly, add it to the scene.
+
+Then, let's set its position, and then flag that we're ready to create a new enemy
+
+```gdscript
+n.global_position = global_position
+ready_to_spawn = true
+```
+
+giving us a function that looks like this:
+
+```gdscript
+func spawnEnemy():
+	var n = enemy_scene.instantiate()
+	add_child(n)
+	n.global_position = global_position
+	ready_to_spawn = true
+```
+
+Our script is done, but there are a couple more important things we need to do before it's ready to test.
+1. Make sure you open the spawner scene and in the inspector drag your enemy scene into the 'enemy_scene' field.
+2. Move your spawner from the scene origin to somewhere else in the scene, so that it doesn't spawn things ontop of the objective.
+
+After those steps, we should be good to test! Run your game, and let a few enemies spawn. 
+
+Congratulations! Your game now has continuosly spawning enemes! Now to destroy them! 
+
+
+#### Some things to try
+1. Trying messing with the spawn timer variables until you're happy with their rate of spawning.
+2. Add a few more spawners to your scene, so that enemies spawn from multiple different locations
+3. If you created a second type of enemy, create spawners that create that enemy with a different spawn delay *Remember:* You don't need to make a new script, all you need to do is change the scene inside the 'enemy_scene' field!
+
 ## Fighting Back
 
-## Losing
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
 
-## Winning
+[Raycast3D](https://docs.godotengine.org/en/stable/classes/class_raycast3d.html)
+:::
+
+Our enemies have had nothing to stop them so far, but it's time for that to change, it's time to give ourselves a way to destroy them!
+
+To do this, we'll be using something called a **Raycast3D.** The easiest way to think about this, is that we'll be sending out a laser, whenever we click we'll see if this laser is hitting something. If it is, we'll destroy it!
+
+Which as you may be able to guess, will mean we'll need to add something new to our Inputs. Incase you've forgotten, in the top left, click **Project -> Project Settings -> Input Map**
+
+Add a new Input called something like "Attack" and assign it to the Left Mouse Button. 
+
+Then, let's head to our Character Scene. Then, as a child of our camera (To make sure it's always facing the same direction as our camera) add a new **Raycast3D** node.
+You'll now see a short blue line pointing downward in our character scene. To get it pointing forward, in the inspector, set its **Target Position** to X: 0, Y: 0: Z: -20. If this doesn't get it point in the same direction as your camera, change around the values until it does.
+The -20 here determines the range at which our Raycast3D will detect colissions, you're welcome to adjust this value to be higher or lower to what feels right for your game.
+
+Let's head to our character script, and create a new export value to store our **Raycast3D**
+
+```gdscript
+@export var raycast:RayCast3D
+```
+
+Then, in the **func _input(event)** function, let's add a new *if*
+
+```gdscript
+if(event.is_action_pressed("Attack")):
+```
+
+Here's what we need to do after the player clicks:
+1. See if our raycast is colliding with anything
+2. See if what it's colliding with is an Enemy
+3. Destory It
+
+Step 2 and 3 are easy enough, we've done both of those before. To check if the raycast is colliding with something, we'll use:
+
+```gdscript
+if(raycast.is_colliding()):
+```
+
+Then, we just need to do the last two steps.
+
+```gdscript
+if(raycast.get_collider().is_in_group("enemy")):
+				raycast.get_collider().get_parent().queue_free()
+```
+
+Giving us a final statement that looks like this: 
+
+```gdscript
+	if(event.is_action_pressed("Attack")):
+		if(raycast.is_colliding()):
+			if(raycast.get_collider().is_in_group("enemy")):
+				raycast.get_collider().get_parent().queue_free()
+```
+**Important:** Make sure you assign the **RayCast3D** in the inspector!
+
+Let's test our game! We should now be able to destroy enemies by clicking on them! Although it's a little difficult to aim for now... But don't worry, We'll be adding a reticule 
+to help us in the next step.
+
+## Winning & Losing
+[TODO: Singleton timers?]
 
 ## Tying it all together with UI
 
-## Some final touches
+## Final touches
+
+[TODO: Scale up enemy spawnrate]
 [TODO: Link to Github repo]
 ## Where to next
+[TODO: Talk about making your own models, adding sounds, 'gamefeel']
