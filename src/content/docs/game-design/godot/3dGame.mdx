@@ -6,8 +6,6 @@ sidebar:
 ---
 
 
-[TODO: Remove health from enemies]
-
 This is a guide to making a 3-Dimensional game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc and the [3D fundmentals](/game-design/godot/3d) doc.
 
 :::note[Version]
@@ -18,7 +16,9 @@ We'll be making a game in which the player defends an objective against constant
 
 ## Making the project
 Setup a Basic 3D project, using the Forward+ Renderer. Create a Node3D as the root, and call it something like 'World'
+
 [Todo: Image]
+
 ## Working with the 3D Viewport
 [Todo: Explain the ways working in 3d space differs from working in 2D Space]
 
@@ -414,12 +414,11 @@ The first step should be easy, let's add some variables! Remember the **@export*
 Except this time we'll be using it to allow us to easily change the variables on our enemy, without needing to edit the script. 
 
 ```gdscript
-@export var health = 1
 @export var speed = .5
 ```
 
-If you save your script, and look in the inspector of the enemy object, you'll notice there are now two boxes, 'health' and 'speed' with their current values being set to 0 and 0.01.
-You can think of the values we declared like default values, and anything we type into those boxes will overwrite them.
+If you save your script, and look in the inspector of the enemy object, you'll notice there is now a new box,'speed' with it's current value set to 0.5.
+You can think of the value we declared like a default value, and anything we type into it will overwrite it.
 
 Let's add two more variables, which we'll use later.
 
@@ -868,11 +867,96 @@ Now, let's add a timer so we can actually win!
 
 
 ## Winning
-[TODO: Singleton timers?]
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
 
-## Final touches
+[Singletons (Autoload)](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html) 
+:::
 
-[TODO: Scale up enemy spawnrate]
-[TODO: Link to Github repo]
+Our game's win condition is going to be surviving until a timer runs out, without losing beforehand. For this, as you may have guessed, we'll use a Timer again, just like we did with the spawners.
+
+However, we don't really need our timer to have its own scene, as we'll only have one in our scene. This makes this an excellent time to talk about **Autoload** scripts! Which are Godot's equivilent to Singletons if you're familiar from other Languages.
+
+To create an **Autoload** we'll open our **Project Settings** and tab over to the **Autoload** tab. In the **Node Name** Section, call it something like "game_timer" and confirm to create the script.
+Clicking on the "res://game_timer.gd" field will open our script.
+
+First let's set up our variables
+
+```gdscript
+var game_length = 60
+var HUD
+var timer
+```
+
+Our first variable here will determine how many seconds it takes before we win the game. Something to keep in mind, because **Autoload** scripts don't have scenes, we can't use Exported variables.
+Our other two variables will be assigned in our **_ready()** function, which we'll setup now:
+
+```gdscript
+func _ready():
+	HUD = get_tree().root.get_node("World/HUD")
+	timer = get_tree().create_timer(game_length)
+	timer.timeout.connect(win_game)
+```
+First, as we did in our Objective, we'll get a reference to our HUD. Then we'll create a timer with a length set by our **game_length** variable. Then connect it to a function that we'll create now.
+
+```gdscript
+func win_game():
+	HUD.show_win_lose("You Win!")
+	start_close_game()
+```
+
+This function displays "You Win!" on our UI, and then calls another function we'll create now, which will close the game after a delay.
+
+```gdscript
+func start_close_game():
+	var tq = get_tree().create_timer(2)
+	tq.timeout.connect(get_tree().quit)
+```
+Here we again create a new timer, but this time, attach it to a built in Godot function which will close the game. In this case, the game will close after 2 seconds.
+
+Finally, we need to update the text on our **time_label** to reflect the amount of time is left on our timer. Thankfully, Godot makes this easy for us. We'll do this directly in the **_process(delta)** function.
+
+first, let's get the remaining time, and covert it to a string.
+```gdscript
+var time = str(timer.get_time_left())
+```
+We could just leave our variable here, but it would have a lot of extra characters after the decimal place which will go off the edge of the screen, so let's trim it before we update the label.
+
+
+```gdscript
+time = time.erase(5, 15)
+HUD.update_time(time)
+```
+This trim's any characters after the 5th (Which keeps two decimal places) and then updates the text.
+
+Our final step is to make sure our game also closes after two seconds when we lose. Because we've made our timer an **Autoload** it can be accessed easily from anywhere! Let's go to our **Objective** script.
+
+And simply add
+
+```gdscript
+GameTimer.start_close_game()
+```
+
+Directly after the line where we update the label to say "You Lose!"
+
+And that's it! We have a fully functioning 3D game with gameplay, UI, a win condition, and a lose condition! 
+
+Congratulations, you've just made your very own 3D game!
+
+## Final Touches
+
+If you like, you can leave your game there, it's a fully functional game, and if you've made it this far you should be proud of yourself!
+But, if you want to polish it up a little, here are some ideas, although you'll be on your own!
+
+1. Modify the level to include walls to prevent the player falling, as well as platforms to jump on.
+2. Add extra spawners
+3. Add more enemy types
+4. Have the enemy spawners scale up their spawnrate (Remember, you can easily access the gametimer from anywhere)
+
+If you want to look over my version of the project, you can acess the Github repository here: [Link](https://github.com/lillianhidet/THT3DGame)
+
 ## Where to next
-[TODO: Talk about making your own models, adding sounds, 'gamefeel']
+
+From here, you can make the project your own! Add your own models, music, textures. Add whole new mechanics! Look into gamefeel concepts and 'juice' the game up!
+
+I can't wait to see what you make!
