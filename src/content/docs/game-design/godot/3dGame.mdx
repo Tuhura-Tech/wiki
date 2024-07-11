@@ -17,10 +17,15 @@ We'll be making a game in which the player defends an objective against constant
 ## Making the project
 Setup a Basic 3D project, using the Forward+ Renderer. Create a Node3D as the root, and call it something like 'World'
 
-[Todo: Image]
+![Godot new project window](/src/assets/godot/3DGameGuide/3dgameprojectsetup.PNG)
 
 ## Working with the 3D Viewport
-[Todo: Explain the ways working in 3d space differs from working in 2D Space]
+
+When working with 2D Space, we work on two axis, X and Y. When working in a 3D space, we add a third, Z. In Godot, Y represents up and down, while X and Y represent the two horizontal axis.
+
+While mousing over the 3D game viewport, holding **Right Click** will allow to fly around the viewport using **WASD**. You can use the **scroll wheel** to control your speed. While not holding **Right Click** you can use the **scroll wheel** to zoom in and out.
+
+Now that you know the basics, let's get into making our game!
 
 ## Creating a first person controller
 
@@ -267,7 +272,7 @@ Leave the **CollisionShape3D** attached the **Area3D** as a circle or square, we
 
 Your scene hierarchy should look something like this:
 
-[TODO: Image]
+![Objective Scene](/src/assets/godot/3DGameGuide/objectivescene.PNG)
 
 And thats it! Everything else will be handled by our script!
 
@@ -291,7 +296,6 @@ Let's first of all declare a new variable to track our health.
 
 Mine starts at 3, but yours can start at anything (Greater than 0)
 
-[TODO: Explain Exports here]
 
 Now, let's start detecting if an enemy has colided with us.
 
@@ -351,8 +355,6 @@ Great! Now whenever something enters our objective, it'll call this script!
 
 Signals are an amazing way to connect scripts without having to store a Node reference, you can even write your own signal outputs! However that's out of scope for this guide, if you're interested, read over the [Godot Documentation for Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) 
 
-[TODO: Image]
-
 ## Creating Enemies
 
 :::note[Godot Documentation]
@@ -384,9 +386,9 @@ We're going to need:
 
 We don't necessarily want our enemy to physically collide with anything however, so we'll skip giving them a Static or Rigid Body.
 
-Here's how I've laid out my Enemy Scene, yours should hopefully look similar! If it doesn't don't worry, feel free to change it to look like mine.
+Here's how I've laid out my Enemy Scene, yours should hopefully look similar! If it doesn't don't worry, feel free to change it to look like mine. Don't worry about mine being a different colour, we'll be doing that right now!
 
-[TODO: Image]
+![Enemy Scene](/src/assets/godot/3DGameGuide/enemyscene.PNG)
 
 Remember to assign shapes to your **MeshInstance3D** and your **CollisionShape3D**
 
@@ -399,7 +401,7 @@ Click on the **MeshInstance3D** and on the right, in the inspector, click on the
 
 Click on the white sphere that's appeared. Feel free to experiment with any and all of the settings here, but for the colour, click on **Albedo.** Click on the white Rectangle, and experiment with the colour, i'll be making my enemy red.
 
-[TODO: Image]
+![Materials](/src/assets/godot/3DGameGuide/materials.PNG)
 
 ### Enemy Script
 
@@ -776,7 +778,7 @@ Under the **Theme Overrides** section in Inspector, open the font sizes tab, and
 
 Now set them up in the scene, mine look like this:
 
-[TODO: Image]
+![HUD scene](/src/assets/godot/3DGameGuide/hudscene.PNG)
 
 Let's create a simple script to let us easily change the values of our labels.
 
@@ -954,6 +956,8 @@ But, if you want to polish it up a little, here are some ideas, although you'll 
 4. Have the enemy spawners scale up their spawnrate (Remember, you can easily access the gametimer from anywhere)
 
 If you want to look over my version of the project, you can acess the Github repository here: [Link](https://github.com/lillianhidet/THT3DGame)
+
+Remember, if you're ever lost, the [Godot Documentation](https://docs.godotengine.org/en/stable/index.html) is the best place to start!
 
 ## Where to next
 
