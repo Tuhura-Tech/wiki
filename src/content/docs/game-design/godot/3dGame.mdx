@@ -1,33 +1,33 @@
 ---
 title: Making a 3D Game
-description: This page works through creating a full 3D game step by step
+description: This page works through creating a full 3D game step-by-step
 sidebar:
     order: 5
 ---
 
 
-This is a guide to making a 3-Dimensional game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc and the [3D fundmentals](/game-design/godot/3d) doc.
+This is a guide to making a 3-dimensional game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc and the [3D fundmentals](/game-design/godot/3d) doc.
 
 :::note[Version]
 This guide is up-to-date with Godot 4.2 stable official release but will most likely work with any 4.x release.
 :::
 
-We'll be making a game in which the player defends an objective against constantly spawning waves enemies, with both a lose and win condition. Designed to act as a foundation for your own ideas, allowing for easy expansion and polish.
+We'll be making a game in which the player defends an objective against constantly spawning waves of enemies, with both a lose and win condition. Designed to act as a foundation for your own ideas, allowing for easy expansion and polish.
 
 ## Making the project
-Setup a Basic 3D project, using the Forward+ Renderer. Create a Node3D as the root, and call it something like 'World'
+Set up a Basic 3D project, using the Forward+ Renderer. Create a Node3D as the root, and call it something like 'World'
 
 ![Godot new project window](/src/assets/godot/3DGameGuide/3dgameprojectsetup.PNG)
 
 ## Working with the 3D Viewport
 
-When working with 2D Space, we work on two axis, X and Y. When working in a 3D space, we add a third, Z. In Godot, Y represents up and down, while X and Y represent the two horizontal axis.
+When working with 2D Space, we work on two axes, X and Y. When working in a 3D space, we add a third, Z. In Godot, Y represents up and down, while X and Y represent the two horizontal axes.
 
-While mousing over the 3D game viewport, holding **Right Click** will allow to fly around the viewport using **WASD**. You can use the **scroll wheel** to control your speed. While not holding **Right Click** you can use the **scroll wheel** to zoom in and out.
+While mousing over the 3D game viewport, holding **right-click** will allow you to fly around the viewport using **WASD**. You can use the **scroll wheel** to control your speed. While not holding **right-click** you can use the **scroll wheel** to zoom in and out.
 
 Now that you know the basics, let's get into making our game!
 
-## Creating a first person controller
+## Creating a first-person controller
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -40,7 +40,7 @@ Let's set up a basic character controller. Thankfully, Godot makes this easy for
 
 ### Scene Setup
 
-First, lets give ourselves something to stand on.
+First, let's give ourselves something to stand on.
 
 1. Create a **Node3D** and name it something like 'World' or 'Level' this'll be the root of our whole scene.
 2. Create a **StaticBody3D** and give it two child nodes, a **MeshInstance3D** and a **CollisionShape3D.** The mesh provides visuals for our floor, while the collisionShape is what we actually stand on. 
@@ -49,19 +49,19 @@ First, lets give ourselves something to stand on.
 5. Select **CollisionShape3D** in the scene tree and use the orange dots in the viewport to shape the **BoxShape3D** to the same shape and size as the plane. Although it's good to leave it a little thicker than the plane, to stop us from falling through.
 6. Click on the **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
 
-Great! Now our player has something to stand on. Lets add our Character.
+Great! Now our player has something to stand on. Let's add our Character.
 
 ### Adding the Character
 
-1. Create a **CharacterBody3D** as a child of our root world node. Right click on it, and save branch as a new scene. This allows us to easily modify our player. Name it something like 'Player' or 'Character'
+1. Create a **CharacterBody3D** as a child of our root world node. right-click on it, and save it as a new scene. This allows us to easily modify our player. Name it something like 'Player' or 'Character'
 2. Find the newly created scene in the file explorer, or click on the "scene" icon, to open our scene.
 2. Give it a **Camera3D** and a **CollisionShape3D** as children. Given the collisionShape a capsule shape using the inspector. The CollisionShape is what'll allow us to collide with the floor.
-3. Right click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the scene view.
-5. Lets click on the **Camera3D** over on the left, and use the green arrow in the viewport to move it on the Y-axis to wherever you think the 'eyes' of your character should be, based on the capsule.
+3. right-click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the scene view.
+5. Let's click on the **Camera3D** over on the left, and use the green arrow in the viewport to move it on the Y-axis to wherever you think the 'eyes' of your character should be, based on the capsule.
 6. Make sure you save the scene, using **CTRL + S** or using the File menu in the top left.
 7. Let's go back to our main scene now, using the tab with the name you used for your 'World' Scene. You'll probably notice that the player is halfway in the floor, which is not ideal. Just click on the root **CharacterBody3D** Node and move to up on the Y-Axis
 
-As a final touch, lets add a **DirectionalLight3D** and rotate it to face downwards so that we can see!
+As a final touch, let's add a **DirectionalLight3D** and rotate it to face downwards so that we can see!
 
 Great! Let's test our game! Hit the **Run Project** Button and try moving around!
 You'll probably notice two things:
@@ -75,9 +75,9 @@ Don't worry, we'll fix these issues shortly.
 
 You may have noticed we used a **StaticBody3D** Object. If you've ever used a 3D game engine before, you've likely heard of 'Static Bodies' and 'Rigid Bodies' but what's the difference?
 
-Both exist as part of the games Physics simulation, and are capable of physically affecting other objects. The main difference is how they're effected by other objects. 
+Both exist as part of the games Physics simulation, and are capable of physically affecting other objects. The main difference is how they're affected by other objects. 
 
-A Static Body cannot be moved by any other physics object, hence 'static' (Though scripts can still move them) Think a solid wall, or tree. Most objects in a given scene that want a player to colide with, will be Static Bodies.
+A Static Body cannot be moved by any other physics object, hence 'static' (Though scripts can still move them) Think a solid wall, or tree. Most objects in a given scene that want a player to collide with, will be Static Bodies.
 
 A Rigid Body is the opposite, and can bounce and fall and move based on collisions. If one rigidbody hits another, it'll make it move, based on things like velocity and gravity. Think a soccer ball colliding with another.
 
@@ -97,7 +97,7 @@ Godot Documentation for nodes discussed in this section:
 :::
 ### Changing the Controls
 
-First, lets fix our control scheme. If you want, you can leave your controls as the arrowkeys, or make them whatever you like. But it's a good idea to understand how to change them.
+First, let's fix our control scheme. If you want, you can leave your controls as the arrowkeys, or make them whatever you like. But it's a good idea to understand how to change them.
 Thankfully, Godot has a robust Input System. Let's open our input settings by going to **Project > Project Settings... > Input Map** from the top left menu. Using the 'Add new Action' field, add five actions.
 'Forward', 'Backward', 'Left', 'Right', and 'Jump'
 
@@ -111,7 +111,7 @@ Let's go back to our character controller script and change out the default inpu
 The names of these inputs are case sensitive, so make sure they match exactly what you called them!
 :::
 
-Lets change
+Let's change
 
 ```gdscript
 var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
@@ -142,11 +142,11 @@ In the future, if you want to change the controls, all you'll have to do is chan
 
 The final thing we need to do to have a fully functional Character controller, is to get our camera moving!
 
-If we were working on a large long-term project we would likely want to make this its own script, but lets keep things simple for now and just add it to our character controller script.
+If we were working on a large long-term project we would likely want to make this its own script, but let's keep things simple for now and just add it to our character controller script.
 
 Let's open our character controller script by clicking on the CharacterBody3D node and opening the script tab.
 
-below the existing variable declarations, lets add a new line.
+below the existing variable declarations, let's add a new line.
 
 ```gdscript
 @export var camera:Camera3D
@@ -178,7 +178,7 @@ func _input(event) -> void:
   if event.is_action_pressed("ui_cancel"):
     Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 ```
-The **_input(event)** function is called by godot whenever input is detected, this lets us check what was pressed. In this case we'll be checking for 'ui_cancel'. You may notice that we didn't create any input called 'ui_cancel'
+The **_input(event)** function is called by godot whenever input is detected, this let's us check what was pressed. In this case we'll be checking for 'ui_cancel'. You may notice that we didn't create any input called 'ui_cancel'
 This is another one of Godot's default inputs, and is bound to 'esc'
 
 Great! Let's try running our game again, using Esc to get our mouse back.
@@ -189,7 +189,7 @@ Let's add some more to the **_input(event)** function.
 
 ```gdscript
   if event is InputEventMouseMotion:
-    # Get how much the mouse has moved and pass it onto the camera_look function
+    # Get how much the mouse has moved and pass it on to the camera_look function
     var relative_position = event.relative * mouse_sensitivity
     camera_look(relative_position)
 ```
@@ -204,7 +204,7 @@ func _input(event) -> void:
 
   # Get the mouse movement
   if event is InputEventMouseMotion:
-    # Get how much the mouse has moved and pass it onto the camera_look function
+    # Get how much the mouse has moved and pass it on to the camera_look function
     var relative_position = event.relative * mouse_sensitivity
     camera_look(relative_position)
 ```
@@ -233,12 +233,12 @@ This looks complicated, but really what's happening is:
 1. We keep track of the total amount the player is rotated by
 2. We ensure that the Y rotation can't go over a certain value, to prevent us doing flips with the camera (In this case the value has to stay between -90 and 90 degrees)
 3. We zero the basis' of the camera and player, to making adding rotation easy
-4. We rotate the Player on the X-axis, and the Camera on the Y-axis. These are seperated. as if we simply rotated our player, as we looked up, our player would lean backwards until it falls over.
+4. We rotate the Player on the X-axis, and the Camera on the Y-axis. These are separated. as if we simply rotated our player, as we looked up, our player would lean backwards until it falls over.
 
 Finally, we need to revisit that ***@export*** statement. make sure you save your script, then go back to our Player scene. Click on the CharacterBody3D and you'll notice that over on the right in the inspector, is a slot called 'Camera'
 Just drag and drop our Character's camera from the left panel, over into the inspector, and our camera is assigned!
 
-When we play our game, we can properly walk and look around! Now its time to get some gameplay in our game!
+When we play our game, we can properly walk and look around! Now it's time to get some gameplay in our game!
 
 #### Some things to try
 
@@ -274,7 +274,7 @@ Your scene hierarchy should look something like this:
 
 ![Objective Scene](/src/assets/godot/3DGameGuide/objectivescene.PNG)
 
-And thats it! Everything else will be handled by our script!
+And that's it! Everything else will be handled by our script!
 
 ### Health Script
 
@@ -297,7 +297,7 @@ Let's first of all declare a new variable to track our health.
 Mine starts at 3, but yours can start at anything (Greater than 0)
 
 
-Now, let's start detecting if an enemy has colided with us.
+Now, let's start detecting if an enemy has collided with us.
 
 Let's start by declaring a new function that'll be called when something enters the **Area3D** around the Objective.
 
@@ -335,14 +335,14 @@ we can simply check if they're in the 'Enemy' group. We'll go over adding things
 #### Signals
 
 We've created our function, but what calls it? We could create a convoluted way of checking if another object is in the bounds of our objective, but thankfully for us, our **Area3D** already
-regesters whenever anything enters it, all we have to do is connect the functions. We'll do this using signals!
+registers whenever anything enters it, all we have to do is connect the functions. We'll do this using signals!
 
 If we click our **Area3D** and on the right, change from the **Inspector** to the **Node** Tab. From here we can access the Node's signals.
 Here we have all the Signals this Node can output, we can attach our function to one of these, allowing it to 'listen' for the specific condition. Think of it like
 setting up a radar dish to listen for one very specific sound. In this case, we want the **area_entered** signal. You'll notice it outputs an **Area3D** which is why we set up our function to take an **Area3D.**
 Had we not done this, we wouldn't be able to connect the signal.
 
-1. Double click on the **area_entered** signal.
+1. Double-click on the **area_entered** signal.
 2. Select our 'Objective' root node.
 3. Click 'Pick' on the bottom right
 4. Select our 'entered' function.
@@ -373,7 +373,7 @@ Although as you'll soon find out, this is most important for or enemy, as we'll 
 
 ### Enemy Scene
 
-Let's again give the World root node a new child of a Node3D, right click it, save as scene. Call it something like "enemy_a" or "enemy_1" you can always change the name later.
+Let's again give the World root node a new child of a Node3D, right-click it, save as scene. Call it something like "enemy_a" or "enemy_1" you can always change the name later.
 It's good to get your head around these steps, as you'll be doing them often in any project you make! This is the last time this guide will go over them in detail, but if you get confused, feel free to look
 back at one of the earlier steps.
 
@@ -382,7 +382,7 @@ Take a second to try and think what Node's we'll likely need for our enemy.
 
 We're going to need:
 1. Something to visibly represent the enemy.
-2. Something to allow for our enemy to colide with the objective so that they can deal damage.
+2. Something to allow for our enemy to collide with the objective so that they can deal damage.
 
 We don't necessarily want our enemy to physically collide with anything however, so we'll skip giving them a Static or Rigid Body.
 
@@ -392,8 +392,8 @@ Here's how I've laid out my Enemy Scene, yours should hopefully look similar! If
 
 Remember to assign shapes to your **MeshInstance3D** and your **CollisionShape3D**
 
-So that he player can differentiate between our enemies and the rest of our level, let's add a material to make the enemy a different colour.
-Materials can be used to alter the apperance of meshes in our game, from simple materials that just change colour, to advanced materials that apply custom textures, different material types, or even shaders.
+So that the player can differentiate between our enemies and the rest of our level, let's add a material to make the enemy a different colour.
+Materials can be used to alter the appearance of meshes in our game, from simple materials that just change colour, to advanced materials that apply custom textures, different material types, or even shaders.
 
 But for now, let's keep it simple. 
 
@@ -438,11 +438,11 @@ targetNode = get_node("%Objective")
 startPosition = global_position
 ```
 
-If you haven't seen it before, the '%' here donotes a unique name, to prevent us from having to put in the complete path for the objective, but this would be equivilent to something like "/root/World/Objective"
+If you haven't seen it before, the '%' here denotes a unique name, to prevent us from having to put in the complete path for the objective, but this would be equivalent to something like "/root/World/Objective"
 Using the '%' is great when we know we're only going to have one of something! We'll have to edit our objective slightly to make this work, but we'll do that in a moment.
 
 For now, let's focus on our enemy. For this, we're going to be doing something called 'lerping' (Short for Interpolation) lerping is basically a smooth way to move something from one point to another,
-both in 2D and 3D. All we need for a lerp is that starting position (That's why we got the enemies position in the **_ready** function) the target position (That's our objective) and a 't' value, which controls how far between the two points or object is.
+both in 2D and 3D. All we need for a lerp is that starting position (That's why we got the enemy's position in the **_ready** function) the target position (That's our objective) and a 't' value, which controls how far between the two points or object is.
 the t value goes from 0 to 1, with 0 being right at the start, and 1 being right at the end. 
 
 Let's start lerping! In our **_process** function we'll add a few lines.
@@ -496,11 +496,11 @@ func _process(delta):
 Before we move on, there's a few more things we should do.
 
 Let's assign that group we were talking about earlier, so that our Objective actually loses health when an enemy reaches it. Go into your Enemy Scene, select the root **Node3D**, click on 'Node' on the right inspector, and open the **Groups** Tab.
-Enter "enemy" (case sensitive, ensure this matches what you used in your objective script) and click add. Click 'Manage Groups' and move using the 'Add' button, move every node until it's in the 'Nodes in Group' Section. While every node 
+Enter "enemy" (case-sensitive, ensure this matches what you used in your objective script) and click add. Click 'Manage Groups' and move using the 'Add' button, move every node until it's in the 'Nodes in Group' Section. While every node 
 in this scene could be in different groups, or we would just add the ones we need, in a situation like this it's best to just have every node in the group we want.
 
 
-You'll also want to go back to your main scene, right click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective"). But make sure the name here matches exactly the name used in the script.
+You'll also want to go back to your main scene, right-click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective"). But make sure the name here matches exactly the name used in the script.
 
 
 We probably don't want our enemies to just sit at the objective forever after they reach it, so let's make sure we delete them. Let's go back to our **Objective Script** and after we reduce health, we'll delete the enemy.
@@ -523,15 +523,15 @@ That's our enemies themselves done, next we'll make sure they spawn on their own
 You may have noticed us using 'global_position' when moving the enemy. Why not just use 'position'?
 
 This is because 'position' refers to the relative position of a Node to it's root, so modifying this doesn't actually move the 'origin' of the node, it just moves its offset relative to its parent!
-So if we accessed and modified 'position' we might get some unexpected results. Wheras 'global_position' is relative to the entire scenes origin (0,0,0) and allows us to more reliably understand where a node is.
+So if we accessed and modified 'position' we might get some unexpected results. Whereas 'global_position' is relative to the entire scenes origin (0,0,0) and allows us to more reliably understand where a node is.
 While there are situations in which we'll want to modify a 'position' in most cases we'll use 'global_position'
 
 #### object.queue_free vs object.free
-When deleting an object from our scene, we have two options, the **queue_free()** function, and the **free()** function, but what's the difference? **queue_free()** schedules a node to be deleted at the end of a frame. Wheras **free()** deletes it instantly.
+When deleting an object from our scene, we have two options, the **queue_free()** function, and the **free()** function, but what's the difference? **queue_free()** schedules a node to be deleted at the end of a frame. Whereas **free()** deletes it instantly.
 Your instinct may be to think that surely instant is better! Why wait! But in basically every case, the difference will never be noticeable. Especially when we consider that using **queue_free()** is safer for our code.
 If we were to use **free()** and in the same frame try to call a function on the node (As Godot still thinks it exists until the end of the frame) we would get an error. **queue_free()** Allows for safe deletion of objects.
 
-This likely would make no difference at all to our project, but it's a good thing to keep in mind as you move onto bigger things!
+This likely would make no difference at all to our project, but it's a good thing to keep in mind as you move on to bigger things!
 
 #### Some things to try
 
@@ -575,8 +575,8 @@ We won't be doing anything in the **_ready()** function so you can either delete
 
 
 
-Our  first two exported vars here will be used to control the spawnrate of our enemies, while allowing for some randomness.
-Our second export will be our reference to our enemy. When we declare a variable in Godot, we can add ':'' followed by a variable type to allow only that type. This is especially useful for exports. (If not declaring a default value, exports require a type be given)
+Our first two exported vars here will be used to control the spawnrate of our enemies, while allowing for some randomness.
+Our second export will be our reference to our enemy. When we declare a variable in Godot, we can add ':'' followed by a variable type to allow only that type. This is especially useful for exports. (If not declaring a default value, exports require a type to be given)
 
 **ready_to_spawn** is simply to keep track of if we're ready to spawn another enemy yet.
 
@@ -646,11 +646,11 @@ func spawnEnemy():
 
 Our script is done, but there are a couple more important things we need to do before it's ready to test.
 1. Make sure you open the spawner scene and in the inspector drag your enemy scene into the 'enemy_scene' field.
-2. Move your spawner from the scene origin to somewhere else in the scene, so that it doesn't spawn things ontop of the objective.
+2. Move your spawner from the scene origin to somewhere else in the scene, so that it doesn't spawn things on top of the objective.
 
 After those steps, we should be good to test! Run your game, and let a few enemies spawn. 
 
-Congratulations! Your game now has continuosly spawning enemes! Now to destroy them! 
+Congratulations! Your game now has continuously spawning enemies! Now to destroy them! 
 
 
 #### Some things to try
@@ -670,13 +670,13 @@ Our enemies have had nothing to stop them so far, but it's time for that to chan
 
 To do this, we'll be using something called a **Raycast3D.** The easiest way to think about this, is that we'll be sending out a laser, whenever we click we'll see if this laser is hitting something. If it is, we'll destroy it!
 
-Which as you may be able to guess, will mean we'll need to add something new to our Inputs. Incase you've forgotten, in the top left, click **Project -> Project Settings -> Input Map**
+Which as you may be able to guess, will mean we'll need to add something new to our Inputs. In case you've forgotten, in the top left, click **Project -> Project Settings -> Input Map**
 
 Add a new Input called something like "Attack" and assign it to the Left Mouse Button. 
 
 Then, let's head to our Character Scene. Then, as a child of our camera (To make sure it's always facing the same direction as our camera) add a new **Raycast3D** node.
 You'll now see a short blue line pointing downward in our character scene. To get it pointing forward, in the inspector, set its **Target Position** to X: 0, Y: 0: Z: -20. If this doesn't get it point in the same direction as your camera, change around the values until it does.
-The -20 here determines the range at which our Raycast3D will detect colissions, you're welcome to adjust this value to be higher or lower to what feels right for your game.
+The -20 here determines the range at which our Raycast3D will detect collisions, you're welcome to adjust this value to be higher or lower to what feels right for your game.
 
 Let's head to our character script, and create a new export value to store our **Raycast3D**
 
@@ -695,7 +695,7 @@ Here's what we need to do after the player clicks:
 2. See if what it's colliding with is an Enemy
 3. Destory It
 
-Step 2 and 3 are easy enough, we've done both of those before. To check if the raycast is colliding with something, we'll use:
+Steps 2 and 3 are easy enough, we've done both of those before. To check if the raycast is colliding with something, we'll use:
 
 ```gdscript
 if(raycast.is_colliding()):
@@ -736,7 +736,7 @@ First let's think about what we're going to want:
 1. A reticule, so we can aim
 2. A way to track how many lives we have still available
 3. How much time is left before we win
-4. A label which says if you've won or lost.
+4. A label that says if you've won or lost.
 
 
 And that should be all for now, but once we're done you should know how to add anything else you might want 
@@ -750,7 +750,7 @@ As a child of the root **Control** Node, add a **ColorRect**. This will be our R
 **Note: If you have an image you want to use as the reticule instead, use the TextureRect node**
 
 Now, in its inspector, under the **Transform** tab, set both **Size** values to 5px, and both **Pivot offset** values to 5px. Finally, under the **Layout** tab, set the **layout mode** to **Anchors** and the **Anchors Preset** to **Center**
-These will all ensure the reticule is in the exact centre of the screen.
+These will all ensure the reticule is in the exact center of the screen.
 
 Run the game, and you'll notice aiming is much easier now!
 
@@ -792,7 +792,7 @@ As you've probably come to expect, let's add some exports to access our 'val' la
 @export var winlose_lbl:Label
 ```
 
-We'll add three simples functions which update these. Because these are so simple, we won't bother going over them line by line.
+We'll add three simple functions that update these. Because these are so simple, we won't bother going over them line by line.
 
 For the Life Label: 
 
@@ -849,7 +849,7 @@ HUD.update_life(str(health))
 HUD.show_win_lose("You Lose!")
 ```
 
-for a function that looks like this altogether:
+for a function that looks like this all together:
 
 ```gdscript
 func entered(area: Area3D):
@@ -877,12 +877,12 @@ Godot Documentation for nodes discussed in this section:
 
 Our game's win condition is going to be surviving until a timer runs out, without losing beforehand. For this, as you may have guessed, we'll use a Timer again, just like we did with the spawners.
 
-However, we don't really need our timer to have its own scene, as we'll only have one in our scene. This makes this an excellent time to talk about **Autoload** scripts! Which are Godot's equivilent to Singletons if you're familiar from other Languages.
+However, we don't really need our timer to have its own scene, as we'll only have one in our scene. This makes this an excellent time to talk about **Autoload** scripts! Which are Godot's equivalent to Singletons if you're familiar from other Languages.
 
 To create an **Autoload** we'll open our **Project Settings** and tab over to the **Autoload** tab. In the **Node Name** Section, call it something like "game_timer" and confirm to create the script.
 Clicking on the "res://game_timer.gd" field will open our script.
 
-First let's set up our variables
+First, let's set up our variables.
 
 ```gdscript
 var game_length = 60
@@ -891,7 +891,7 @@ var timer
 ```
 
 Our first variable here will determine how many seconds it takes before we win the game. Something to keep in mind, because **Autoload** scripts don't have scenes, we can't use Exported variables.
-Our other two variables will be assigned in our **_ready()** function, which we'll setup now:
+Our other two variables will be assigned in our **_ready()** function, which we'll set up now:
 
 ```gdscript
 func _ready():
@@ -916,7 +916,7 @@ func start_close_game():
 ```
 Here we again create a new timer, but this time, attach it to a built in Godot function which will close the game. In this case, the game will close after 2 seconds.
 
-Finally, we need to update the text on our **time_label** to reflect the amount of time is left on our timer. Thankfully, Godot makes this easy for us. We'll do this directly in the **_process(delta)** function.
+Finally, we need to update the text on our **time_label** to reflect the amount of time left on our timer. Thankfully, Godot makes this easy for us. We'll do this directly in the **_process(delta)** function.
 
 first, let's get the remaining time, and covert it to a string.
 ```gdscript
@@ -929,7 +929,7 @@ We could just leave our variable here, but it would have a lot of extra characte
 time = time.erase(5, 15)
 HUD.update_time(time)
 ```
-This trim's any characters after the 5th (Which keeps two decimal places) and then updates the text.
+This trims any characters after the 5th (Which keeps two decimal places) and then updates the text.
 
 Our final step is to make sure our game also closes after two seconds when we lose. Because we've made our timer an **Autoload** it can be accessed easily from anywhere! Let's go to our **Objective** script.
 
@@ -950,17 +950,17 @@ Congratulations, you've just made your very own 3D game!
 If you like, you can leave your game there, it's a fully functional game, and if you've made it this far you should be proud of yourself!
 But, if you want to polish it up a little, here are some ideas, although you'll be on your own!
 
-1. Modify the level to include walls to prevent the player falling, as well as platforms to jump on.
+1. Modify the level to include walls to prevent the player from falling, as well as platforms to jump on.
 2. Add extra spawners
 3. Add more enemy types
 4. Have the enemy spawners scale up their spawnrate (Remember, you can easily access the gametimer from anywhere)
 
-If you want to look over my version of the project, you can acess the Github repository here: [Link](https://github.com/lillianhidet/THT3DGame)
+If you want to look over my version of the project, you can access the Github repository here: [Link](https://github.com/lillianhidet/THT3DGame)
 
 Remember, if you're ever lost, the [Godot Documentation](https://docs.godotengine.org/en/stable/index.html) is the best place to start!
 
 ## Where to next
 
-From here, you can make the project your own! Add your own models, music, textures. Add whole new mechanics! Look into gamefeel concepts and 'juice' the game up!
+From here, you can make the project your own! Add your own models, music, and textures. Add whole new mechanics! Look into gamefeel concepts and 'juice' the game up!
 
 I can't wait to see what you make!
