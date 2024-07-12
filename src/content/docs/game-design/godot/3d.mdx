@@ -14,7 +14,7 @@ This guide is up-to-date with Godot 4.1.3 stable official release but will most 
 ## Making the project
 
 Making the project is just as easy as 2D.
-![Godot new project window](/src/assets/godot/3D/NewProject.png)
+![Godot new project window](/_astro/godot/3D/NewProject.png)
 
 Make sure your project is set to **Forward+**.
 
@@ -24,7 +24,7 @@ With 3D, there is a large disparity between the renderers.
 Read the notes next to each renderer before picking something other than **Forward+**.
 :::
 
-![Create root node, 3D Scene highlighted](/src/assets/godot/3D/CreateRootNode.png)
+![Create root node, 3D Scene highlighted](/godot/3D/CreateRootNode.png)
 
 Set the root node to 3D and your project is set up!  
 Although, go ahead and save the scene with **Scene > Save Scene** so you have the scene file saved.
@@ -57,7 +57,7 @@ First, you're going to want to set up a platform for the player to stand on.
 11. One final step, add a **DirectionalLight3D** as a child of **Node3D** and rotate it to point down, this can be anywhere in the scene.
 
 Phew! That was some setup, your scene should look something like this:
-![Scene with player](/src/assets/godot/3D/InitialScene.png)
+![Scene with player](/assets/godot/3D/InitialScene.png)
 Now when you play the game and press **down** on the arrow keys you should move backwards off the platform and fall off, you should see the platform briefly as you fall.
 
 ### First person camera
@@ -120,7 +120,7 @@ You will need to add a capsule mesh to the CharacterBody3D, so the player is vis
 
 The tricky part here is the y rotation shouldn't be centered on the camera but on the player's head.  
 Here's an example of what it should look like:
-![Third person camera](/src/assets/godot/3D/ThirdPersonCamera.gif)
+![Third person camera](../../../../assets/godot/3D/ThirdPersonCamera.gif)
 :::
 
 #### Changing the controls
@@ -176,7 +176,7 @@ First, the text. As a child of **Camera3D**, add **Label**.
 Give the label some text and move it to the center of the feint camera box.
 
 It should look something like this:
-![Label](/src/assets/godot/3D/Label.png)
+![Label](../../../assets/godot/3D/Label.png)
 Feel free to change the label to a **RichTextLabel** and mess around with making it look pretty.
 
 After making your text, select your label and, in the inspector, go to **CanvasItem > Visibility** and turn **Visible** off, we will be making it visible with code.
@@ -191,7 +191,7 @@ Go to groups and type in "Button" and press **Add**.
 
 Add a **RayCast3D** as a child of your **Camera3D** and move it to aim in the same direction as the camera and move it to the same position as where the camera originates.  
 Your button and ray cast should look something like this:
-![Button and ray cast](/src/assets/godot/3D/RayCastButton.png)
+![Button and ray cast](../../../../../assets/godot/3D/RayCastButton.png)
 Then, decrease the ray cast's target position's y to -3 or lower.
 
 ### Scripting
