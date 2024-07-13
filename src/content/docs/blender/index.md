@@ -26,3 +26,5 @@ This guide was done in Blender 4.1, however any 4.x Blender version should be al
 Upon opening, you should be greeted with a similar screen to this:
 
 ![Blender's 4.1 welcome screen](/src/assets/blender/WelcomeScreen.png)
+
+If you ever need this spash screen back you can get it back from the blender icon in the top left > Splash Screen.
