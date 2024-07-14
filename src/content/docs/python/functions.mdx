@@ -1,0 +1,58 @@
+---
+title: Functions and Docstring
+description: Learning about functions and docstring
+sidebar:
+    order: 4
+---
+
+## Functions
+
+Functions allows you to create a sequence of code that can be called repeatedly so you don't need to write everything out multiple times.
+
+To create a function, you use `def` followed by your name for the function followed by `():`. Then on the next line you'll start your code. If you want you function to give a result at the end, you'll use `return` and then the result you want to return.
+
+```python
+def my_func():
+    x = 5
+    y = 6
+    sum = x + y
+    return sum
+```
+
+To use a function you've created, it's the same as using `print()`, `input()`, `range()` etc.
+
+```python
+total = my_func()
+```
+
+You can also give a function something called parameters. These are variables that can be used inside the function itself. This allows you to create a general function that can give different results based on what you input. These are put inside the `()` in your method definition.
+
+```python
+def my_func(x, y):
+    sum = x + y
+    return sum
+
+
+total = my_func(4, 10) # This will return 4 + 10
+```
+
+## Docstrings
+
+Docstrings are used to document a function, its parameters, what it does, and its output. These are block comments put at the start of a function, surrounded by `"""`.
+
+```python
+def my_func(x, y):
+    """Adds 2 numbers and returns the result
+
+    Args:
+        x (int): The first number to be added
+        y (int): The second number to be added
+
+    Returns:
+        int: The sum of x and y
+    """
+    sum = x + y
+    return sum
+```
+
+The docstring style above is a common one called Google Docstring Style. It's an easy docstring format to remember and is quite clear. There are other styles you can use, however.

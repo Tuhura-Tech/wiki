@@ -39,6 +39,9 @@ export default defineConfig({
           label: "Lists, Tuples, Dictionaries, and Sets",
           link: "python/lists-tuples-dicts"
         }, {
+          label: "Functions and Docstrings",
+          link: "python/functions"
+        }, {
           label: "Setting Up",
           link: 'python/setting-up'
         }, {
