@@ -9,3 +9,171 @@ Modelling is the foundation for all 3D art, although 3D models on their own do n
 
 Textures, lighting, animation, effects, or several other things are required to make a 3D model look good. But, they require a 3D model to do them.
 
+[Modelling has 3 main modes you'll use](https://docs.blender.org/manual/en/latest/modeling/meshes/introduction.html):
+
+- **Object Mode**: Arrange various objects
+- **Edit Mode**: Modify a single object
+- **Sculpt Mode**: Scult objects like clay
+
+Sculpting is its whole own skillset, and is less foundational than editing an object, so we'll start with edit mode.
+
+## What Is a Model?
+
+A model is made up of [3 structures](https://docs.blender.org/manual/en/latest/modeling/meshes/structure.html):
+
+- Vertex (verticies plural)
+- Edge
+- Face
+
+![Blender's mesh structure example](https://docs.blender.org/manual/en/latest/_images/modeling_meshes_structure_example.svg)
+
+Verticies are the primary structure of meshes.
+
+There are 3 main types of polygons that make up meshes. A polygon is the shape the face makes when it connects the edges connecting the verticies.
+
+4 verticies connected by 3 edges with a face connecting the edges makes a **Quad** (or quadrangle).
+
+3 vertices connected by 3 edges with a face connecting the edges makes a **Tri** (or triangle).
+
+Anything more than that are called n-gons, where *n* is how many verticies in the polygon.
+
+Most meshes will be made with purely quads and tris.
+
+A cube, for example, is made of 6 faces, 12 edges, and 8 verticies.
+
+## Edit Mode
+
+In [navigation](../navigation) you worked in **Object Mode**, now we'll work in **Edit Mode**.
+
+In the top left of your screen there's a drop-down, here you can switch to **Edit Mode**.
+
+![Mode select drop-down](/src/assets/blender/modelling/Drop-Down.png)
+
+There are better and faster ways of doing this.
+
+Press tab to quickly swap between **Object Mode** and **Edit Mode**
+
+If you ever need any of the other options quickly, you can use Ctrl + tab to open this radial menu at your cursor:
+
+![Mode Select radial menu](/src/assets/blender/modelling/ModeSelect.png)
+
+### Using Edit Mode
+
+When in edit mode there is another mode selection.
+
+![Vertex edge face selection next top mode select drop-down](/src/assets/blender/modelling/VEFSelect.png)
+
+These buttons let you switch between selecting verticies, edges, or faces.
+
+You can also use the 1 2 and 3 on your keyboard to quickly swap between these modes (if you don't have numpad emulation enabled).
+
+Being in vertex mode allows you to see and select each vertex on the mesh:
+
+![Cube with one vertex selected](/src/assets/blender/modelling/SelectVertex.png)
+
+The other two modes are self-explanatory. With edge mode you can select edges.
+
+![Cube with edge selected](/src/assets/blender/modelling/SelectEdge.png)
+
+with face mode you can select faces.
+
+![Cube with face selected](/src/assets/blender/modelling/SelectFace.png)
+
+### Editing The Object
+
+Now, we can pretend we're in **Object Mode** again.
+
+Select a vertex, any vertex. Use the move tool (press G) to move the vertex around.
+
+Then move (G), rotate (R), and scale (S) an edge and then a face.
+
+You cannot scale nor rotate a vertex because it takes up no space nor has a rotation.
+
+With these tools you can transform the cube into anything with exactly 6 faces, 12 edges, and 8 verticies, anything you desire.
+
+The only thing you're missing on actually transforming this cube into something completely different is creating and removing structures.
+
+#### Removing Structures
+
+Removing is simple, press delete.
+
+![Delete structure menu](/src/assets/blender/modelling/DeleteStruct.png)
+
+You'll be given one of a few options, the others you can ignore for now.
+
+Test them out, they should be pretty self-explanatory based on what you've selected.
+
+It's a good way of getting to viscerally know that edges only connect vertices and do not exist on their own, and faces only exist when connecting edges.
+
+#### Adding Structures
+
+Here's where it gets a bit more complicated.
+
+There are three main ways of creating new structures:
+
+- Subdivide
+- New from connection
+- Extrude
+
+![Making new structures right click edit menu](/src/assets/blender/modelling/MakingStructures.png)
+
+##### Extrude
+
+Extruding is the easiest, select a structure and press E or right click and press Extrude.
+
+Then, it's similar to using the move tool. Just move your cursor and it will add a new structure and connect it to whichever you had selected.
+
+If you extrude a face it will extrude in the same direction and stay locked, you can click middle click briefly to unlock it and extrude in any direction.
+
+##### Subdivide
+
+The other two require selecting multiple structures.
+
+To select a second structure hold Shift and select another of the same structure you already have selected. 
+
+If you're in vertex select mode and you selected a vertex, Shift + click a different vertex and they will both be selected.
+
+Now, select two verticies that are connected by an edge. 
+
+Then, right click and press subdivide.
+
+Subdividing created a new vertex halfway between the two verticies.
+
+##### New From Connection
+
+Last but not least is creating a new structure between other structures.
+
+If you select two verticies and press F or right click and press New Edge/Face from Verticies, it'll create a new edge.
+
+If you select three or more verticies it'll create a new face.
+
+#### Building Familiarity
+
+1. Move, rotate, and scale parts of the cube.
+2. Test each of the deleting options.
+3. Extrude and connect new faces and edges.
+4. Make new edges and faces from connections.
+
+Extra challenge to get really good:
+
+Try making a real-world object in front of you, something that can be made from simple shapes.
+
+It could be a soft-drink can, the monitor you're looking at, your headphones, or practically anything.
+
+You'll want to avoid complex shapes with lots of parts.
+
+For example, a hair brush. It hasn't been covered how to quickly build up lots of those little things, and it'll be a pain to model each one by hand. Keyboards are in a similar boat. 
+
+Any organic shapes are a no-go, don't try modelling a plant or clothes, those are best fit for sculpting.
+
+You'll want to make it in a low-poly style. Most 3D models are actually low-poly models that have had normal maps applied to them from high-poly models.
+
+This means you'll want to stick to making any cylindrical or spherical objects in 5 or 6 segments that loop around.
+
+Think of making a circular object like making a circle with your thumb and index finger. Your fingers collectively only have 6 segments, but they make the impression of a circle even if it isn't a perfect circle.
+
+You can see this best on the default Blender torus shape:
+
+![Default blender torus](/src/assets/blender/modelling/Torus.png)
+
+This has 16 segments to make the circle, and then 8 segments to make the tube.
