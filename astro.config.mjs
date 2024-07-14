@@ -45,18 +45,20 @@ export default defineConfig({
           label: "Flask",
           autogenerate: {
             directory: 'python/flask'
-          }
+          },
+          collapsed: true
         }]
       }, {
         label: "Game Design",
         items: [{
           label: "About",
-          link: 'game-design/about'
+          link: 'game-design/index'
         }, {
           label: "Godot",
           autogenerate: {
             directory: 'game-design/godot'
-          }
+          },
+          collapsed: true
         }],
       },
       {
@@ -75,12 +77,13 @@ export default defineConfig({
         label: "Javascript",
         items: [{
           label: "Setting Up",
-          link: 'javascript/setting-up'
+          link: 'javascript/index'
         }, {
           label: "Creative Coding",
           autogenerate: {
             directory: 'javascript/creative-coding'
-          }
+          },
+          collapsed: true
         }]
       }, {
         label: "Git",
