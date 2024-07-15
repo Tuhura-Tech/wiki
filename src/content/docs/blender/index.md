@@ -5,6 +5,12 @@ sidebar:
   order: 0
 ---
 
+:::note[Staying updated]
+This guide and all following pages were made in Blender 4.1.1.
+
+The guide should be relevant for all 4.x releases, and most 3.x releases.
+:::
+
 Blender is a [free](https://docs.blender.org/manual/en/latest/getting_started/about/license.html) and open-source 3D creation suite, [according to their introduction docs](https://docs.blender.org/manual/en/latest/getting_started/about/introduction.html).
 
 If you want to read all about its uses and how different industries use the tool, go through the introduction docs.
@@ -17,7 +23,7 @@ It can be highly customized to your liking, even going as far as letting you wri
 
 ## Installation
 
-[Download blender here](https://www.blender.org/download/)!
+[Download Blender here](https://www.blender.org/download/)!
 
 It's also [available on Steam](http://store.steampowered.com/app/365670/Blender/), if you frequently use Steam it is the easiest way to access Blender.
 
@@ -27,4 +33,5 @@ Upon opening, you should be greeted with a similar screen to this:
 
 ![Blender's 4.1 welcome screen](/src/assets/blender/WelcomeScreen.png)
 
-If you ever need this spash screen back you can get it back from the blender icon in the top left > Splash Screen.
+If you ever need this spash screen back you can get it back from the Blender icon in the top left > Splash Screen.
+
