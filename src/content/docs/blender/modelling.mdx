@@ -13,37 +13,45 @@ Textures, lighting, animation, effects, or several other things are required to 
 
 - **Object Mode**: Arrange various objects
 - **Edit Mode**: Modify a single object
-- **Sculpt Mode**: Scult objects like clay
+- **Sculpt Mode**: Sculpt objects like clay
 
-Sculpting is its whole own skillset, and is less foundational than editing an object, so we'll start with edit mode.
+Sculpting is its whole own skill set, and is less foundational than editing an object, so we'll start with edit mode.
 
-## What Is a Model?
+## What is a Model?
 
 A model is made up of [3 structures](https://docs.blender.org/manual/en/latest/modeling/meshes/structure.html):
 
-- Vertex (verticies plural)
+- Vertex (vertices plural)
 - Edge
 - Face
 
 ![Blender's mesh structure example](https://docs.blender.org/manual/en/latest/_images/modeling_meshes_structure_example.svg)
 
-Verticies are the primary structure of meshes.
+Vertices are the primary structure of meshes.
 
-There are 3 main types of polygons that make up meshes. A polygon is the shape the face makes when it connects the edges connecting the verticies.
+There are 3 main types of polygons that make up meshes. A polygon is the shape the face makes when it connects the edges connecting the vertices.
 
-4 verticies connected by 3 edges with a face connecting the edges makes a **Quad** (or quadrangle).
+4 vertices connected by 3 edges with a face connecting the edges makes a **Quad** (or quadrangle).
 
 3 vertices connected by 3 edges with a face connecting the edges makes a **Tri** (or triangle).
 
-Anything more than that are called n-gons, where *n* is how many verticies in the polygon.
+Anything more than that are called n-gons, where *n* is how many vertices in the polygon.
 
 Most meshes will be made with purely quads and tris. [N-gons are not a good idea to use in most cases](https://blender.stackexchange.com/a/95).
 
-A cube, for example, is made of 6 faces, 12 edges, and 8 verticies.
+A cube, for example, is made of 6 faces, 12 edges, and 8 vertices.
 
-## Edit Mode
+:::tip[Aren't meshes just triangles?]
+You may have heard all meshes are made of triangles, this is only true to a computer.
 
-In [navigation](../navigation) you worked in **Object Mode**, now we'll work in **Edit Mode**.
+When modelling we mostly use quads, the computer then turns those quads into triangles for several reasons, which we won't get into.
+
+This is part of the reason n-gons are so bad, the computer has a hard time turning n-gons into a good mesh.
+:::
+
+## Using Edit Mode
+
+In [navigation,](../navigation) you worked in **Object Mode**, now we'll work in **Edit Mode**.
 
 In the top left of your screen there's a drop-down, here you can switch to **Edit Mode**.
 
@@ -57,13 +65,11 @@ If you ever need any of the other options quickly, you can use Ctrl + tab to ope
 
 ![Mode Select radial menu](/src/assets/blender/modelling/ModeSelect.png)
 
-### Using Edit Mode
-
 When in edit mode there is another mode selection.
 
 ![Vertex edge face selection next top mode select drop-down](/src/assets/blender/modelling/VEFSelect.png)
 
-These buttons let you switch between selecting verticies, edges, or faces.
+These buttons let you switch between selecting vertices, edges, or faces.
 
 You can also use the 1 2 and 3 on your keyboard to quickly swap between these modes (if you don't have numpad emulation enabled).
 
@@ -75,11 +81,11 @@ The other two modes are self-explanatory. With edge mode you can select edges.
 
 ![Cube with edge selected](/src/assets/blender/modelling/SelectEdge.png)
 
-with face mode you can select faces.
+With face mode you can select faces.
 
 ![Cube with face selected](/src/assets/blender/modelling/SelectFace.png)
 
-### Editing The Object
+## Editing The Object
 
 Now, we can pretend we're in **Object Mode** again.
 
@@ -89,11 +95,11 @@ Then move (G), rotate (R), and scale (S) an edge and then a face.
 
 You cannot scale nor rotate a vertex because it takes up no space nor has a rotation.
 
-With these tools you can transform the cube into anything with exactly 6 faces, 12 edges, and 8 verticies, anything you desire.
+With these tools you can transform the cube into anything with exactly 6 faces, 12 edges, and 8 vertices, anything you desire.
 
-The only thing you're missing on actually transforming this cube into something completely different is creating and removing structures.
+The only thing you're missing to actually transform this cube into something completely different is creating and removing structures.
 
-#### Removing Structures
+### Removing Structures
 
 Removing is simple, press delete.
 
@@ -105,7 +111,7 @@ Test them out, they should be pretty self-explanatory based on what you've selec
 
 It's a good way of getting to viscerally know that edges only connect vertices and do not exist on their own, and faces only exist when connecting edges.
 
-#### Adding Structures
+### Adding Structures
 
 Here's where it gets a bit more complicated.
 
@@ -119,37 +125,35 @@ There are three main ways of creating new structures:
 
 These three are great for small-scale things where you need to build up a model piece by piece. You can also use the various tools on the left side toolbar in **Edit Mode**.
 
-##### Extrude
+#### Extrude
 
-Extruding is the easiest, select a structure and press E or right click and press Extrude.
+Extruding is the easiest, select a structure and press E. Or, right click and press Extrude.
 
-Then, it's similar to using the move tool. Just move your cursor and it will add a new structure and connect it to whichever you had selected.
+Then, it's similar to using the move tool. Just move your cursor, and it will add a new structure and connect it to whichever you had selected.
 
 If you extrude a face it will extrude in the same direction and stay locked, you can click middle click briefly to unlock it and extrude in any direction.
 
-##### Subdivide
+#### Subdivide
 
 The other two require selecting multiple structures.
 
-To select a second structure hold Shift and select another of the same structure you already have selected. 
+To select a second structure hold Shift and select another of the same structure you already have selected.
 
-If you're in vertex select mode and you selected a vertex, Shift + click a different vertex and they will both be selected.
-
-Now, select two verticies that are connected by an edge. 
+Now, select two vertices that are connected by an edge.
 
 Then, right click and press subdivide.
 
-Subdividing created a new vertex halfway between the two verticies.
+Subdividing created a new vertex halfway between the two vertices.
 
-##### New From Connection
+#### New From Connection
 
 Last but not least is creating a new structure between other structures.
 
-If you select two verticies and press F or right click and press New Edge/Face from Verticies, it'll create a new edge.
+If you select two vertices and press F or right click and press New Edge/Face from Vertices, it'll create a new edge.
 
-If you select three or more verticies it'll create a new face.
+If you select three or more vertices it'll create a new face.
 
-### Adding meshes
+## Adding meshes
 
 It can be useful to add another primitive mesh (e.g. cube, sphere, cylinder) to the current mesh you're working on.
 
@@ -161,7 +165,7 @@ Select the mesh you wish to add and it should appear. If you wish to conjoin the
 
 If you're in **Object Mode** when you press Shift + A it gives you a lot more options.
 
-If you add a mesh while in **Object Mode** it will be considered a new object, and appear in the top-left outliner as a different object. You cannot edit two objects while in **Edit Mode** so be careful if you decide to do this.
+If you add a mesh while in **Object Mode** it will be considered a new object, and appear in the outliner as a different object. You cannot edit two objects while in **Edit Mode** so be careful if you decide to do this.
 
 #### Building Familiarity
 
@@ -179,11 +183,15 @@ It could be a soft-drink can, the monitor you're looking at, your headphones, or
 
 You'll want to avoid complex shapes with lots of parts.
 
-For example, a hair brush. It hasn't been covered how to quickly build up lots of those little things, and it'll be a pain to model each one by hand. Keyboards are in a similar boat. 
+For example, a hairbrush. It hasn't been covered how to quickly build up lots of those little things, and it'll be a pain to model each one by hand. Keyboards are in a similar boat. 
 
 Any organic shapes are a no-go, don't try modelling a plant or clothes, those are best fit for sculpting.
 
-You'll want to make it in a low-poly style. Most 3D models are actually low-poly models that have had normal maps applied to them from high-poly models.
+You'll want to make it in a low-poly style.
+
+:::tip[All good models are low-poly]
+Most 3D models are actually low-poly models that have had normal maps applied to them from high-poly models.
+:::
 
 This means you'll want to stick to making any cylindrical or spherical objects in 5 or 6 segments that loop around.
 

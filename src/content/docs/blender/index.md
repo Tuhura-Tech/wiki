@@ -25,13 +25,13 @@ It can be highly customized to your liking, even going as far as letting you wri
 
 [Download Blender here](https://www.blender.org/download/)!
 
-It's also [available on Steam](http://store.steampowered.com/app/365670/Blender/), if you frequently use Steam it is the easiest way to access Blender.
+It's also [available on Steam](http://store.steampowered.com/app/365670/Blender/), if you frequently use Steam it is the easiest way to access Blender and stay up to date.
 
-This guide was done in Blender 4.1, however any 4.x Blender version should be alright.
+This guide was done in Blender 4.1 and 4.2, however any 4.x Blender version should be alright. Most 3.x versions should be good as well, but several things will be different.
 
 Upon opening, you should be greeted with a similar screen to this:
 
 ![Blender's 4.1 welcome screen](/src/assets/blender/WelcomeScreen.png)
 
-If you ever need this spash screen back you can get it back from the Blender icon in the top left > Splash Screen.
+If you ever need this splash screen back go to the Blender icon in the top left > Splash Screen.
 
