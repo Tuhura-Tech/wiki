@@ -10,7 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.24.0",
+    "@astrojs/starlight": "^0.25.0",
     "@astrojs/starlight-tailwind": "^2.0.1",
     "@astrojs/tailwind": "^5.1.0",
     "astro": "^4.0.8",
@@ -27,5 +27,5 @@
     "rehype": "13.0.1",
     "unist-util-visit": "5.0.0"
   },
-  "packageManager": "pnpm@9.2.0"
+  "packageManager": "pnpm@9.5.0"
 }
