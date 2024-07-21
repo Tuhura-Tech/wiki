@@ -48,7 +48,8 @@ export default defineConfig({
           },
           collapsed: true
         }]
-      }, {
+      }, 
+      {
         label: "Game Design",
         items: [{
           label: "About",
@@ -60,6 +61,12 @@ export default defineConfig({
           },
           collapsed: true
         }],
+      },
+      {
+        label: "Blender",
+        autogenerate: {
+          directory: 'blender'
+        }
       },
       {
         label: "Cybersecurity",

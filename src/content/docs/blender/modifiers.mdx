@@ -1,0 +1,174 @@
+---
+title: Modifiers
+description: Introduces common modifiers and gets the reader to explore more
+sidebar:
+  order: 3
+---
+
+## What is a Modifier?
+
+Modifiers are a great tool in Blender's vast toolbox, and there are many modifiers.
+
+To add a modifier to an object select it and go to the Modifiers tab in the properties area:
+
+![Empty modifiers tab](/src/assets/blender/modifiers/Tab.png)
+
+There are many modifiers to choose from:
+
+![Generate modifiers](/src/assets/blender/modifiers/Generate.png)
+
+This is just the generate categories, there are many more as you can tell by there being more categories.
+
+We'll only need a handful, but it's good to familiarize yourself with what's possible.
+
+Modifiers have 2 steps:
+
+- First, you need to add the modifier to the object. 
+
+In the viewport, you should see what the model will look like after the modifier has been applied.
+
+However, when you edit the object you may notice that nothing has changed and vertices are not lining up with the model you see.
+
+That's because it hasn't been applied yet.
+
+- The second step is applying it.
+
+When you apply it there's no going back (aside from undo).
+
+You can no longer edit the modifier and the changes have been permanently made to the object.
+
+## Mirror
+
+If you're making a symmetrical object, the mirror modifier literally saves you half the time of making your creation.
+
+Let's start by mirroring the cube so we only need to work on half of it.
+
+You can subdivide a cube with a loop cut. There is a loop cut tool in **Edit Mode** on the left side. Find it by hovering over each icon until you find it, or find the icon that looks similar to this cube:
+
+![Cube subdivided down the middle](/src/assets/blender/modifiers/CutCube.png)
+
+Subdivide your cube down the middle by using loop cut.
+
+Select half of the vertices on the cube and delete them.
+
+![Four vertices selected for deletion](/src/assets/blender/modifiers/DeleteHalf.png)
+
+:::note[Complex shapes]
+If you are trying to use mirror on something more complex than a cube you can select all vertices on one half by using X-ray, then clicking and dragging with the Select Box tool.
+
+X-ray allows you to select structures through the object.
+
+Use Alt + Z to toggle X-ray, or find the button in the top right of the viewport.
+:::
+
+Now, add the mirror modifier in the modifier tab.
+
+You will most likely need to change the axis that it's mirroring. The example cube I'm using needed to be mirrored on the Y axis.
+
+The half you just deleted should reappear, although you will not be able to select any vertices.
+
+This is because none of the vertices are real, it is only a representation of what it will look like if you apply the modifier.
+
+![Mirrored cube](/src/assets/blender/modifiers/Mirrored.png)
+
+You will likely also want to enable clipping.
+
+Clipping makes it so that the vertices in the middle between the two halves cannot move away from the half, this makes it so you won't have gaps in your model when you finally apply the modifier.
+
+From here, go ham and edit the model as you desire, it saves a lot of time when making symmetrical models.
+
+## Subdivision Surface
+
+Subdivision surface is a simple modifier, it subdivides every face into more faces.
+
+Make a new cube to work on in **Object Mode** and move it away from the mirrored cube if you had one so you can work on this one separately.
+
+Subdivision surface is one of the best ways to make a sphere in Blender.
+
+:::note[Types of 3D spheres]
+The two types of spheres you can make by default in blender are UV Spheres and Ico Spheres.
+
+![The three main kinds of spheres](/src/assets/blender/modifiers/SphereTypes.png)
+
+UV Spheres (bottom left) end in 'poles', which is tough to model around and makes the shape non-uniform.
+
+Ico Spheres (bottom right) are made of triangles, which makes them [non-ideal for animation](https://blender.stackexchange.com/a/2939).
+
+Subdivided Cubes (top middle) are the best way to quickly get what you need and not give up future possibilities.
+:::
+
+Add the subdivision surface modifier to the cube. 
+
+![Subdivided cube](/src/assets/blender/modifiers/SubdividedCube.png)
+
+Increase Levels Viewport to change how many times it's cut. Do not make this number go very high, it may crash Blender.
+
+If you change the mode from Catmull-Clark to Simple it will not bring the edges in to make it smoother, it still increases how many polygons are in the mesh.
+
+Simple subdivision surface is only visible in **Edit Mode** after you apply the modifier.
+
+:::tip[Before and after]
+You can turn the modifier's visibility with this button at the top-right of the modifier:
+
+![Realtime toggle on modifier](/src/assets/blender/modifiers/Realtime.png)
+:::
+
+## Applying Modifiers
+
+To apply a modifier you need to go back to **Object Mode** with tab.
+
+Then, press the drop-down arrow and then apply. It's as simple as that.
+
+![Mirror modifier with apply drop down opened](/src/assets/blender/modifiers/ApplyMirror.png)
+
+You cannot apply modifiers while in **Edit Mode**.
+
+## Using Multiple Modifiers
+
+Modifiers are applied one by one.
+
+You can see the order they are applied in, they are applied top-to-bottom in the modifiers tab.
+
+In this example, I have the Array and Subdivision Surface modifier applied:
+
+![Subdiv + array modifiers applied to cube](/src/assets/blender/modifiers/Array.png)
+
+:::tip[Minimize modifiers]
+You can minimize modifiers with the drop-down arrow in the top left of the modifier.
+:::
+
+However, I would like to apply the Decimate modifier.
+
+If I apply it at this point I get this:
+
+![Decimate modifier added](/src/assets/blender/modifiers/Decimate.png)
+
+They all look different!
+
+This is because the decimate modifier is being applied to the whole mesh that was generated after the array modifier already took place.
+
+To change when this modifier takes place, I can move the modifier above the array modifier. Use the handle (the six tiny dots) in the top right to move the modifier.
+
+Now it looks like this when I place it above the array modifier:
+
+![Decimate moved above array](/src/assets/blender/modifiers/MovedDecimate.png)
+
+Now they're all the same, which is what I wanted. (They look slightly different in the picture due to perspective, they are exactly the same within Blender.)
+
+And just for fun here's what it looks like if you move the decimate modifier above subdivision surface:
+
+![Decimate moved above subdiv](/src/assets/blender/modifiers/DecimateSubdiv.png)
+
+This is also what the mesh would look like if I applied the decimate modifier before applying the other two.
+
+Apply your modifiers in order when you apply them or the mesh may look different.
+
+The order of your modifiers matters, be careful when they're being applied.
+
+#### Building Familiarity
+
+1. Make a sphere with subdivision surface.
+2. Cut the sphere into a quarter or eighth and use the mirror modifier to make it so you only need to edit the quarter/eighth to edit the whole sphere.
+3. Try a dozen or so other modifiers! There are some fun ones in there. See what is available to you.
+4. Mix and match multiple modifiers at a time to see what you can create out of a simple cube.
+

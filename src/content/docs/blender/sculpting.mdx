@@ -1,0 +1,213 @@
+---
+title: Sculpting
+description: Goes through the basics of sculpting
+sidebar:
+  order: 4
+---
+
+Sculpting is *the* way you make highly detailed models, organic models, or anything that can't be made with simple blocking out and moving vertices.
+
+The first step to any good sculpt is blocking out your final model in simple shapes.
+
+Then, you'll want to conjoin all the pieces and finally start sculpting.
+
+Sculpting can be one of the most taxing aspects of Blender on your computer. It is recommended to sculpt on a somewhat powerful machine.
+
+If sculpting is beyond the capability of your computer, making low-poly models is just as valid.
+
+## Blocking Out
+
+This of this step like making the rough sketch blockout for a drawing. This will be the foundation for the rest of your model. 
+
+If proportions feel off it's a lot easier to fix them here than later on, try and get the best foundation you can while you can.
+
+Also like drawing, it is almost necessary to use references to make a good model.
+
+In the example images we'll be modelling a koru, which will be based off of many reference pictures of a koru found online.
+
+In **Object Mode** block out the basic form of your model with the basic meshes.
+
+- Use A to select everything and Delete to delete the default cube, camera, and light.
+- Use Shift + A to add a mesh.
+- Use Alt + D to duplicate the mesh you have selected.
+- Everything else are the basic G R S, and X Y Z keybinds to manipulate the meshes into your basic shape.
+
+For the example the blockout is just made with many cylinders, scaled to different lengths:
+
+![Simple koru blockout with cylinders](/src/assets/blender/sculpting/BlockOut.png)
+
+Select all of your meshes with A, the select box tool, or selecting the top and Shift + clicking the bottom mesh in the outliner.
+
+Use Ctrl + A to apply all of your transforms. When you rotate or scale a mesh in Blender it's only masking what actual transform it has, similar to modifiers. 
+
+You **must** apply your scaling before merging or sculpting, otherwise the brushes will be off.
+
+You may need to apply transforms to meshes separately. If you use Alt + D you only need to apply transforms to one mesh for all the meshes that were duplicated.
+
+Then, use Ctrl + J to merge all of your meshes into one mesh.
+
+If your mesh has multiple sections to it, for example the horns on a deer's head, you can merge those separately to be a second mesh. This can be helpful for performance and workflow.
+
+Now, you can switch to **Sculpt Mode** or the **Sculpting** workspace at the top.
+
+Switch to Sculpt Mode with Ctrl + tab. Now, when you press tab it'll switch between **Edit Mode** and **Sculpt Mode**.
+
+## Sculpting
+
+Now we get to sculpting.
+
+![Two bars showing all the sculpting tools](/src/assets/blender/sculpting/SculptingTools.png)
+
+:::tip[Two lines of tools]
+You can make the toolbar look like this by clicking and dragging on the side of the toolbar, you can extend it further so that the tool's names are shown as well.
+:::
+
+As you can probably see, there are many, many tools.
+
+Think of these like the tools in a workshop. The best workshops have just as many tools for every situation.
+
+Many of them you won't need for what you're making now, or perhaps ever for the kinds of things you make. But, they may come in handy for other kinds of sculpting.
+
+### Using brushes
+
+Many sculptors use drawing tablets to sculpt, this is far from necessary, and even hinders learning as you get used to navigating.
+
+The default draw tool is enough to get started.
+
+You can use numpad period to center your view on your last stroke, and the Alt + middle mouse button keybind is very useful in sculpting.
+
+Use F to change the brush size and Shift + F to change the brush strength.
+
+:::tip[Brush colors]
+The main tools you'll need are the [blue, red, and yellow](https://youtu.be/TAGWu08oWAM?si=2Xl_q-Lk_xUs-bQY&t=290) tools at the top of the toolbar.
+
+- Blue is for simple adding/subtracting 'clay' from the model.
+- Red is increasing/decreasing contrast.
+- Yellow is for grabbing or manipulating already present 'clay'.
+:::
+
+## Sculpting Methods
+
+There are two main methods of sculpting, Dyntopo (dynamic topology), and Remesh.
+
+You can go without either of these [adaptive resolution](https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/introduction/adaptive.html) methods, but it is severely limiting and usually better to just use edit mode.
+
+Enabling dyntopo makes it so that sculpting brushes add geometry as you need it, based on how zoomed in you are.
+
+Remeshing makes Blender algorithmically make your entire mesh even in how many faces it uses to make the mesh across the whole thing.
+
+![Top-right sculpting tools](/src/assets/blender/sculpting/SculptingOptions.png)
+
+On the top right of the sculpting viewport you can find these options.
+
+As you can see, dyntopo is a toggle for while you work, and remesh happens as singular points when you need it to.
+
+Up here you can also find the option to mirror your work, which is recommended. Using a mirror *modifier* is not recommended when sculpting.
+
+The best way to sculpt is to both use dyntopo and remesh as you need it.
+
+### Remesh
+
+You should remesh when the area you're working on does not have enough vertices.
+
+In the example, it's very difficult to work on the model. Let's see how it looks in Edit Mode:
+
+![Edit mode showing the edges and vertices of the koru example](/src/assets/blender/sculpting/EditVerts.png)
+
+If you tried using the basic Draw brush (keybind: V) on the cylinder it would return a weird result.
+
+![Draw brush used on the edge vertices](/src/assets/blender/sculpting/DrawUnRemeshed.png)
+
+It's only moving the edge vertices. If you use Dyntopo it will act even weirder.
+
+The best solution is to **[Remesh](https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/remesh.html)**.
+
+:::caution[Enclosed volume]
+Remeshing does not work on meshes that have holes in them.
+
+If you're going to remesh make sure there are no gaps in your faces.
+
+If you're unsure you can use [mask slice and fill holes](https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/editing/mask.html#bpy-ops-mesh-paint-mask-slice) in Mask > Mask Slice and Fill Holes.
+
+Mask can be found at the top left, along with the radius and strength of your brush.
+:::
+
+Remesh makes it so that there are enough vertices all over your mesh so that you can sculpt comfortably without stretching. After you have stretched the model enough it may need to be remeshed again.
+
+You can either use the sculpt mode's Remesh in the top right, or you can use the Remesh modifier. 
+
+The Remesh modifier has more options to mess around with, which can be nice.
+
+Here's what drawing with the Draw brush looks like after doing a default remesh:
+
+![Draw brush clearly drawn on a remeshed koru blockout](/src/assets/blender/sculpting/RemeshDraw.png)
+
+Here, you can clearly see two lines made with the Draw brush.
+
+When you remesh it's going to add a lot of new vertices to work with. 
+
+You may have to fiddle with the **Voxel Size** to find what best suits your mesh and your machine, you can always undo a remesh.
+
+![Remesh sculpt tool drop down](/src/assets/blender/sculpting/VoxelSize.png)
+
+You can see how many vertices the defaults made for the koru:
+
+![Edit mode showing there are a lot of verts to work with](/src/assets/blender/sculpting/MoreVerts.png)
+
+You can quickly remesh with Ctrl + R. To change the size of the remesh use R.
+
+Here's changing the size with R:
+
+![Popup to change the remesh size with R](/src/assets/blender/sculpting/RemeshRect.png)
+
+After you think it's a good size, left click to confirm, and then press Ctrl + R to remesh at that size at any point.
+
+![Large voxel remesh, koru looks melded together](/src/assets/blender/sculpting/RemeshRect.png)
+
+Remeshing blends together nearby meshes. This can be bad if you have fingers, for example, and they merge together in a remesh.
+
+This means you either need to undo the remesh and then either lower the voxel size, move the merged bits further apart, or use dyntopo depending on your situation.
+
+As you continue your sculpt, you can either use Dyntopo or remesh as you need to. Both are good depending on what you're going for.
+
+### Dyntopo
+
+[Dyntopo means dynamic topology](https://docs.blender.org/manual/en/latest/sculpt_paint/sculpting/tool_settings/dyntopo.html).
+
+As you sculpt it will increase or decrease how many vertices there are where you are painting.
+
+![Dyntopo warning when you activate it](/src/assets/blender/sculpting/DyntopoWarning.png)
+
+Enable dyntopo in the top right. You may get this warning, if you have been using the mentioned Blender features, turn back now and try using just remesh.
+
+While using dyntopo you can use the same R/Ctrl + R keybind as remesh to change the resolution of it.
+
+The resolution is relative to your viewpoint.
+
+Dyntopo can be very taxing on your computer, don't be afraid to turn the resolution down and make the triangles larger.
+
+If your blockout is getting weird results, don't be afraid to remesh before you start sculpting. Dyntopo gets confused on objects with vertices concentrated to the edges of objects.
+
+Using dyntopo effectively means you can get very, very fine detail depending on your resolution and how zoomed in you are.
+
+![Example of different levels of polygon count for zoom levels with dyntopo](/src/assets/blender/sculpting/SmallRes.png)
+
+In this example, after drawing one blob the camera was zoomed in a bit and then another blob was drawn until Blender would no longer zoom in.
+
+You can see that the largest blob isn't as smooth as the smaller ones, this is due to dyntopo.
+
+Well, each blob has the exact same number of triangles as every other blob. They were all drawn with the same brush size. But, dyntopo condensed the number of triangles to the more zoomed in space.
+
+With these two tools of adaptive resolution you can effectively sculpt anything. 
+
+#### Building Familiarity
+
+1. Sculpt something!
+
+If you have a model in mind you wish to sculpt out, find some pictures of it.
+
+It's okay if you don't have anything in mind. You can find a potted plant you have around, or a piece of clothing, or find images of a plant you like. 
+
+You could even model your own hand, the reference is always right there, but it's not recommended since the human form requires good knowledge of anatomy and is very difficult to create for a first model.
+
+
