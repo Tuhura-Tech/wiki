@@ -5,6 +5,13 @@ import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax';
 
 export default defineConfig({
+  vite: {
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
+  },
   site: 'https://wiki.tuhuratech.org.nz/',
   integrations: [starlight({
     title: 'Wiki',
@@ -38,6 +45,9 @@ export default defineConfig({
         }, {
           label: "Lists, Tuples, Dictionaries, and Sets",
           link: "python/lists-tuples-dicts"
+        }, {
+          label: "Functions and Docstrings",
+          link: "python/functions"
         }, {
           label: "Setting Up",
           link: 'python/setting-up'
