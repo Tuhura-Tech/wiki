@@ -36,9 +36,26 @@ def my_func(x, y):
 total = my_func(4, 10) # This will return 4 + 10
 ```
 
+You can give parameters a default value. This enables the parameter to be used in your function without explicitly needing to give the function a value for that parameter when you call it. To do this, you add `=value` after a parameter, where `value` will be what you want to set as the default. You can override this default when calling the function and replace it with a given value.
+
+```python
+def my_func(x, y=10):
+    sum = x + y
+    return sum
+
+
+total = my_func(4) # This will return 4 + 10
+total = my_func(4, y=15) # This will return 4 + 15
+```
+
+:::note
+If you do not give a parameter a default value, you must provide a value for it when you call the function. Otherwise you will get an error similar to this: `TypeError: my_func() missing 1 required positional argument: 'x'`
+:::
+
+
 ## Docstrings
 
-Docstrings are used to document a function, its parameters, what it does, and its output. These are block comments put at the start of a function, surrounded by `"""`.
+Docstrings are used to document a function, its parameters, what it does, and its output. These are block comments put at the start of a function, surrounded by `"""`. Visual Studio (and VS Code) use something called Intellisense, which is a code-completion tool. One of the things this does is it will show you what your docstrings look like when rendered properly.
 
 ```python
 def my_func(x, y):
@@ -55,4 +72,7 @@ def my_func(x, y):
     return sum
 ```
 
-The docstring style above is a common one called Google Docstring Style. It's an easy docstring format to remember and is quite clear. There are other styles you can use, however.
+The render for this docstring using intellisense looks like this:   
+![Docstring Render](/src/assets/python/docstrings.png)
+
+The docstring style above is a common one called [Google Docstring Style](https://google.github.io/styleguide/pyguide.html#s3.8.1-comments-in-doc-strings). It's an easy docstring format to remember and is quite clear. There are other styles you can use, however. 

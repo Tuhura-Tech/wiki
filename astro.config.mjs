@@ -5,6 +5,13 @@ import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax';
 
 export default defineConfig({
+  vite: {
+    server: {
+      watch: {
+        usePolling: true,
+      },
+    },
+  },
   site: 'https://wiki.tuhuratech.org.nz/',
   integrations: [starlight({
     title: 'Wiki',
