@@ -2,7 +2,7 @@
 title: Python Turtle
 description: This is how to use the Turtle extension in python.
 sidebar:
-  order: 5
+  order: 6
 
 ---
 
@@ -27,8 +27,8 @@ when first starting a new file, the turtle library must be called. There are two
 when moving your turtle avatar there are two directions your turtle will move, forwards and backwards. 
 
 ``` python
-forward (100)
-backward (100)
+forward(100)
+backward(100)
 ```
 
 The above code would move your turtle by 100 pixels. whatever number is in the brackets will be the amount of pixels your turtle moves. 
