@@ -30,8 +30,8 @@ importers:
         specifier: ^0.33.1
         version: 0.33.4
       starlight-links-validator:
-        specifier: ^0.9.0
-        version: 0.9.1(@astrojs/starlight@0.25.4(astro@4.11.5))(astro@4.11.5)
+        specifier: ^0.10.0
+        version: 0.10.1(@astrojs/starlight@0.25.4(astro@4.11.5))(astro@4.11.5)
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.9
@@ -2158,8 +2158,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  starlight-links-validator@0.9.1:
-    resolution: {integrity: sha512-fTAa/Sq5KVI2QbW8Q49k+MSrOkuvK0XYt+EuIP1OcduIUOysdeH8+QzutD5Qdivtsk9gKduzYjxGuvUP5ssBmA==}
+  starlight-links-validator@0.10.1:
+    resolution: {integrity: sha512-Z8VaWXaP+/0F6Jsml0zkDsPTbOyVO12qwfqseTp1aUI2B0gfF6GYt+WHvZ2EB5SCqkPmxmzyCOomqwRB0QmE5g==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
@@ -3812,7 +3812,7 @@ snapshots:
 
   hast-util-raw@9.0.2:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       '@types/unist': 3.0.2
       '@ungap/structured-clone': 1.2.0
       hast-util-from-parse5: 8.0.1
@@ -3934,7 +3934,7 @@ snapshots:
 
   hast-util-to-parse5@8.0.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.3
       devlop: 1.1.0
       property-information: 6.5.0
@@ -4377,7 +4377,7 @@ snapshots:
 
   mdast-util-to-hast@13.1.0:
     dependencies:
-      '@types/hast': 3.0.3
+      '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       '@ungap/structured-clone': 1.2.0
       devlop: 1.1.0
@@ -5261,7 +5261,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  starlight-links-validator@0.9.1(@astrojs/starlight@0.25.4(astro@4.11.5))(astro@4.11.5):
+  starlight-links-validator@0.10.1(@astrojs/starlight@0.25.4(astro@4.11.5))(astro@4.11.5):
     dependencies:
       '@astrojs/starlight': 0.25.4(astro@4.11.5)
       astro: 4.11.5
