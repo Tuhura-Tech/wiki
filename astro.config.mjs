@@ -49,6 +49,9 @@ export default defineConfig({
           label: "Functions and Docstrings",
           link: "python/functions"
         }, {
+          label: "Turtle",
+          link: "python/turtle"
+        }, {
           label: "Setting Up",
           link: 'python/setting-up'
         }, {
