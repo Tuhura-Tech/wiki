@@ -146,10 +146,5 @@ export default defineConfig({
   markdown: {
     remarkPlugins: [remarkMath],
     rehypePlugins: [rehypeMathjax],
-  },
-  image: {
-    service: {
-      entrypoint: 'astro/assets/services/sharp'
-    }
   }
 });
