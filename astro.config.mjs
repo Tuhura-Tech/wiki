@@ -49,6 +49,9 @@ export default defineConfig({
           label: "Functions and Docstrings",
           link: "python/functions"
         }, {
+          label: "Classes and Object-Oriented Programming (OOP)",
+          link: "python/classes"
+        }, {
           label: "Turtle",
           link: "python/turtle"
         }, {
