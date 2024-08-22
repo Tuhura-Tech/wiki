@@ -10,19 +10,19 @@ importers:
     dependencies:
       '@astrojs/cloudflare':
         specifier: ^11.0.4
-        version: 11.0.4(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+        version: 11.0.4(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
       '@astrojs/starlight':
         specifier: ^0.26.0
-        version: 0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+        version: 0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
       '@astrojs/starlight-tailwind':
         specifier: ^2.0.1
-        version: 2.0.3(@astrojs/starlight@0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10))(tailwindcss@3.4.10)
+        version: 2.0.3(@astrojs/starlight@0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10))(tailwindcss@3.4.10)
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)
+        version: 5.1.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)
       astro:
         specifier: ^4.0.8
-        version: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+        version: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       rehype-mathjax:
         specifier: ^6.0.0
         version: 6.0.0
@@ -34,7 +34,7 @@ importers:
         version: 0.33.5
       starlight-links-validator:
         specifier: ^0.10.0
-        version: 0.10.1(@astrojs/starlight@0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)))(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+        version: 0.10.1(@astrojs/starlight@0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)))(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.10
@@ -1138,8 +1138,8 @@ packages:
     peerDependencies:
       astro: ^4.12.0
 
-  astro@4.14.3:
-    resolution: {integrity: sha512-+Hox1EhiS5iHy4pfZaLidpD9x7WVAcgGgjTo1JOYSQ0+a2ZA9mbLtGVEXbUeeYweviNc0ZNHMnI4r9S2e8xnXg==}
+  astro@4.14.4:
+    resolution: {integrity: sha512-gpHGyY9qVJg1WXD/0UFoV3cdGZifhmCkJ3fuYV1zUlh+lWbjEB7/cE+KoSvj6aXHJGyLuTbvWOoxZs2yAdnREw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -1424,8 +1424,8 @@ packages:
   electron-to-chromium@1.4.719:
     resolution: {integrity: sha512-FbWy2Q2YgdFzkFUW/W5jBjE9dj+804+98E4Pup78JBPnbdb3pv6IneY2JCPKdeKLh3AOKHQeYf+KwLr7mxGh6Q==}
 
-  electron-to-chromium@1.5.12:
-    resolution: {integrity: sha512-tIhPkdlEoCL1Y+PToq3zRNehUaKp3wBX/sr7aclAWdIWjvqAe/Im/H0SiCM4c1Q8BLPHCdoJTol+ZblflydehA==}
+  electron-to-chromium@1.5.13:
+    resolution: {integrity: sha512-lbBcvtIJ4J6sS4tb5TLp1b4LyfCdMkwStzXPyAgVgTRAsep4bvrAGaBOP7ZJtQMNJpSQ9SqG4brWOroNaQtm7Q==}
 
   emoji-regex@10.3.0:
     resolution: {integrity: sha512-QpLs9D9v9kArv4lfDEgg1X/gN5XLnf/A6l9cs8SPZLRZR3ZkY9+kwIQTxm+fsSej5UMYGE8fdoaZVIBlqG0XTw==}
@@ -1947,8 +1947,8 @@ packages:
   mdast-util-from-markdown@2.0.1:
     resolution: {integrity: sha512-aJEUyzZ6TzlsX2s5B4Of7lN7EQtAxvtradMMglCQDyaTFgse6CmtmdJ15ElnVRlCg1vpNyVtbem0PWzlNieZsA==}
 
-  mdast-util-gfm-autolink-literal@2.0.0:
-    resolution: {integrity: sha512-FyzMsduZZHSc3i0Px3PQcBT4WJY/X/RCtEJKuybiC6sjPqLv7h1yqAkmILZtuxMSsUyaLUWNp71+vQH2zqp5cg==}
+  mdast-util-gfm-autolink-literal@2.0.1:
+    resolution: {integrity: sha512-5HVP2MKaP6L+G6YaxPNjuL0BPrq9orG3TsrZ9YXbA3vDw/ACI4MEsnoDpn6ZNm7GnZgtAcONJyPhOP8tNJQavQ==}
 
   mdast-util-gfm-footnote@2.0.0:
     resolution: {integrity: sha512-5jOT2boTSVkMnQ7LTrd6n/18kqwjmuYqo7JUPe+tRCY6O7dAuTFMtTPauYYrMPpox9hlN0uOx/FL8XvEfG9/mQ==}
@@ -3034,13 +3034,13 @@ snapshots:
       css-tree: 2.3.1
       is-potential-custom-element-name: 1.0.1
 
-  '@astrojs/cloudflare@11.0.4(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))':
+  '@astrojs/cloudflare@11.0.4(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))':
     dependencies:
       '@astrojs/internal-helpers': 0.4.1
       '@astrojs/underscore-redirects': 0.3.4
       '@cloudflare/workers-types': 4.20240806.0
-      '@inox-tools/astro-when': 0.2.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      '@inox-tools/astro-when': 0.2.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       esbuild: 0.22.0
       estree-walker: 3.0.3
       magic-string: 0.30.11
@@ -3079,12 +3079,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.3(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))':
+  '@astrojs/mdx@3.1.3(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))':
     dependencies:
       '@astrojs/markdown-remark': 5.2.0
       '@mdx-js/mdx': 3.0.1
       acorn: 8.12.1
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
       github-slugger: 2.0.0
@@ -3110,21 +3110,21 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10))(tailwindcss@3.4.10)':
+  '@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)))(@astrojs/tailwind@5.1.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10))(tailwindcss@3.4.10)':
     dependencies:
-      '@astrojs/starlight': 0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
-      '@astrojs/tailwind': 5.1.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)
+      '@astrojs/starlight': 0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
+      '@astrojs/tailwind': 5.1.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)
       tailwindcss: 3.4.10
 
-  '@astrojs/starlight@0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))':
+  '@astrojs/starlight@0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))':
     dependencies:
-      '@astrojs/mdx': 3.1.3(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+      '@astrojs/mdx': 3.1.3(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
       '@astrojs/sitemap': 3.1.6
       '@pagefind/default-ui': 1.1.0
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
-      astro-expressive-code: 0.35.6(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
+      astro-expressive-code: 0.35.6(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
       bcp-47: 2.1.0
       hast-util-from-html: 2.0.1
       hast-util-select: 6.0.2
@@ -3143,9 +3143,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/tailwind@5.1.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)':
+  '@astrojs/tailwind@5.1.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))(tailwindcss@3.4.10)':
     dependencies:
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       autoprefixer: 10.4.16(postcss@8.4.32)
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
@@ -3654,10 +3654,10 @@ snapshots:
   '@img/sharp-win32-x64@0.33.5':
     optional: true
 
-  '@inox-tools/astro-when@0.2.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))':
+  '@inox-tools/astro-when@0.2.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))':
     dependencies:
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
-      astro-integration-kit: 0.16.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
+      astro-integration-kit: 0.16.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
 
   '@isaacs/cliui@8.0.2':
     dependencies:
@@ -3960,18 +3960,18 @@ snapshots:
 
   astring@1.8.6: {}
 
-  astro-expressive-code@0.35.6(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)):
+  astro-expressive-code@0.35.6(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)):
     dependencies:
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       rehype-expressive-code: 0.35.6
 
-  astro-integration-kit@0.16.0(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)):
+  astro-integration-kit@0.16.0(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)):
     dependencies:
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       pathe: 1.1.2
       recast: 0.23.9
 
-  astro@4.14.3(rollup@4.21.0)(typescript@5.5.4):
+  astro@4.14.4(rollup@4.21.0)(typescript@5.5.4):
     dependencies:
       '@astrojs/compiler': 2.10.3
       '@astrojs/internal-helpers': 0.4.1
@@ -4122,7 +4122,7 @@ snapshots:
   browserslist@4.23.3:
     dependencies:
       caniuse-lite: 1.0.30001651
-      electron-to-chromium: 1.5.12
+      electron-to-chromium: 1.5.13
       node-releases: 2.0.18
       update-browserslist-db: 1.1.0(browserslist@4.23.3)
 
@@ -4299,7 +4299,7 @@ snapshots:
 
   electron-to-chromium@1.4.719: {}
 
-  electron-to-chromium@1.5.12: {}
+  electron-to-chromium@1.5.13: {}
 
   emoji-regex@10.3.0: {}
 
@@ -5059,7 +5059,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-autolink-literal@2.0.0:
+  mdast-util-gfm-autolink-literal@2.0.1:
     dependencies:
       '@types/mdast': 4.0.4
       ccount: 2.0.1
@@ -5107,7 +5107,7 @@ snapshots:
   mdast-util-gfm@3.0.0:
     dependencies:
       mdast-util-from-markdown: 2.0.1
-      mdast-util-gfm-autolink-literal: 2.0.0
+      mdast-util-gfm-autolink-literal: 2.0.1
       mdast-util-gfm-footnote: 2.0.0
       mdast-util-gfm-strikethrough: 2.0.0
       mdast-util-gfm-table: 2.0.0
@@ -6128,10 +6128,10 @@ snapshots:
       as-table: 1.0.55
       get-source: 2.0.12
 
-  starlight-links-validator@0.10.1(@astrojs/starlight@0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)))(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4)):
+  starlight-links-validator@0.10.1(@astrojs/starlight@0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)))(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4)):
     dependencies:
-      '@astrojs/starlight': 0.26.1(astro@4.14.3(rollup@4.21.0)(typescript@5.5.4))
-      astro: 4.14.3(rollup@4.21.0)(typescript@5.5.4)
+      '@astrojs/starlight': 0.26.1(astro@4.14.4(rollup@4.21.0)(typescript@5.5.4))
+      astro: 4.14.4(rollup@4.21.0)(typescript@5.5.4)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
       hast-util-has-property: 3.0.0
@@ -6322,7 +6322,7 @@ snapshots:
 
   unist-util-find-after@5.0.0:
     dependencies:
-      '@types/unist': 3.0.3
+      '@types/unist': 3.0.2
       unist-util-is: 6.0.0
 
   unist-util-is@6.0.0:
