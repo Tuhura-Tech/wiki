@@ -33,8 +33,8 @@ importers:
         specifier: ^0.33.1
         version: 0.33.5
       starlight-links-validator:
-        specifier: ^0.10.0
-        version: 0.10.1(@astrojs/starlight@0.26.1(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)))(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4))
+        specifier: ^0.11.0
+        version: 0.11.0(@astrojs/starlight@0.26.1(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)))(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4))
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.10
@@ -2592,8 +2592,8 @@ packages:
   stacktracey@2.1.8:
     resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
 
-  starlight-links-validator@0.10.1:
-    resolution: {integrity: sha512-Z8VaWXaP+/0F6Jsml0zkDsPTbOyVO12qwfqseTp1aUI2B0gfF6GYt+WHvZ2EB5SCqkPmxmzyCOomqwRB0QmE5g==}
+  starlight-links-validator@0.11.0:
+    resolution: {integrity: sha512-7mKiP0xAS8ItKy8QAIkmeNYbzI4w0WD0pOYoTPa1xMNbz+qYr/QWT+a40QO/Z2XYJLzzQn47yomupUfI89wheg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
@@ -4611,7 +4611,7 @@ snapshots:
       parse5: 7.1.2
       unist-util-position: 5.0.0
       unist-util-visit: 5.0.0
-      vfile: 6.0.2
+      vfile: 6.0.3
       web-namespaces: 2.0.1
       zwitch: 2.0.4
 
@@ -5172,7 +5172,7 @@ snapshots:
       trim-lines: 3.0.1
       unist-util-position: 5.0.0
       unist-util-visit: 5.0.0
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   mdast-util-to-markdown@2.1.0:
     dependencies:
@@ -5633,7 +5633,7 @@ snapshots:
       nlcst-to-string: 4.0.0
       unist-util-modify-children: 4.0.0
       unist-util-visit-children: 3.0.0
-      vfile: 6.0.2
+      vfile: 6.0.3
 
   parse5@7.1.2:
     dependencies:
@@ -6084,7 +6084,7 @@ snapshots:
       as-table: 1.0.55
       get-source: 2.0.12
 
-  starlight-links-validator@0.10.1(@astrojs/starlight@0.26.1(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)))(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)):
+  starlight-links-validator@0.11.0(@astrojs/starlight@0.26.1(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)))(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4)):
     dependencies:
       '@astrojs/starlight': 0.26.1(astro@4.15.1(rollup@4.21.1)(typescript@5.5.4))
       astro: 4.15.1(rollup@4.21.1)(typescript@5.5.4)
