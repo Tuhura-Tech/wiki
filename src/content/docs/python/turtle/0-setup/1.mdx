@@ -1,4 +1,6 @@
 ---
+type: tutorial
+unitTitle: 'Setting up that Turtle!'
 title: Python Turtle
 description: This is how to use the Turtle extension in python.
 sidebar:
@@ -6,21 +8,8 @@ sidebar:
 
 ---
 
-## setting up turtle for use
-
-Turtle is a visual extension for python, but its still python code, utilising the same python rules and syntax. Although the principles behind turtle graphics can be extended to include three-dimensional space this page will be focusing on two-dimensional graphics.
-Turtle is a pre installed python library  however a pip install might be needed.
-
-when first starting a new file, the turtle library must be called. There are two options for calling the turtle library. 
-
-``` python
-    from turtle import *
-# or 
-    from turtle import Turtle
- ```
-
-> Note: that naming the file turtle.py will confuse the import command and cause it and the turtle library to fail.
-
+import Checklist from '~/components/tutorial/Checklist.astro';
+import Box from '~/components/tutorial/Box.astro';
 
 ## basic movement 
 
@@ -53,6 +42,8 @@ negative on the Y axis which is down on the screen.
 
 > note: turtle is very visual, as you try new movement run the program and see what happening.
     If using goto() syntax a line may still be drawn between last location and the goto location, penup() may be advised.
+
+    
 
 ## turtle attributes
 
@@ -186,3 +177,13 @@ for i in range (5):
 
 
 For a good list of turtle syntax check out Turtle methods on the webpage at https://docs.python.org/3/library/turtle.html#turtle-methods
+
+<Box icon="check-list">
+## Checklist for moving on
+
+<Checklist>
+- [ ] I can access the command line in a terminal.
+- [ ] I have Node.js installed.
+- [ ] I have a code editor like VS Code.
+</Checklist>
+</Box>

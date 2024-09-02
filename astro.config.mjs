@@ -1,8 +1,8 @@
 import starlight from '@astrojs/starlight';
 import { defineConfig } from 'astro/config';
-import starlightLinksValidator from 'starlight-links-validator'
-import remarkMath from 'remark-math';
 import rehypeMathjax from 'rehype-mathjax';
+import remarkMath from 'remark-math';
+import starlightLinksValidator from 'starlight-links-validator';
 
 export default defineConfig({
   vite: {
@@ -53,7 +53,7 @@ export default defineConfig({
           link: "python/classes"
         }, {
           label: "Turtle",
-          link: "python/turtle"
+          link: "python/turtle/0-setup/"
         }, {
           label: "Setting Up",
           link: 'python/setting-up'
