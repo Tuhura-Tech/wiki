@@ -1,0 +1,83 @@
+---
+title: Making a 2D top down dungeon crawler
+description: This page works through 2D top down dungeon crawler step-by-step
+sidebar:
+    order: 5
+---
+
+
+This is a guide to making a 2-dimensional dungeon crawling game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc as this tutorial assumes basic knowledge of navigating and using the Godot Engine.
+
+:::note[Version]
+This guide is up-to-date with Godot 4.2 stable official release but will most likely work with any 4.x release.
+:::
+
+We'll be making a game in which the player explores a multi-floor dungeon in a top-down perspective. This project will include:
+- Movement 
+- Attacking
+- Health loss & Gain 
+- Pickups (Coins & Potions)
+- Enemies
+
+We will not be creating our own assets as part of this project, although you are of course welcome to!
+
+We'll instead be using a free asset pack by Ox72 on Itch.IO which [can be found here](https://0x72.itch.io/dungeontileset-ii) Just click *Download now* followed by *No thanks, just take me to the download* and download the file called *0x72_DungeonTilesetII_v1.7.zip*
+
+
+## Making the project
+Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing our assets. 
+First let's create a new folder, and call it something like 'Assets' 
+
+Then, let's extract the assets from the folder we downloaded, and at them into our Assets folder. Mine looks like this, but it's fine if yours looks slightly different.
+
+TODO: Image here
+
+![Godot new project window](/src/assets/godot/3DGameGuide/3dgameprojectsetup.png)
+
+Let's also create two new top level folders called **Scripts** and **Scenes**
+
+TODO: Image here
+
+
+To ensure our pixel art assets look crisp and not blurred we'll want to make one quick change.
+
+Using the buttons in the top left of the screen, select **Project -> Project settings** In this menu, select the **General** tab, and scroll until you see the **Rendering** header. Under this, select **Textures**
+
+Change **Default Texture Filter** from **Linear** to **Nearest**
+
+TODO: Settings image
+
+
+## Creating the Player
+
+Great! Let's start by making a basic version of our player character that will let us move around. We'll worry about more complicated things like attacking later.
+
+Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node.
+
+Give the **CharacterBody2D** a name like **Player** and give it two children:
+
+A **CollisionShape2D** and an **AnimatedSprite2D**
+
+Here's how my scene looks with no other modifications:
+
+TODO: Player scene basic img
+
+Let's hit **Ctrl + S** and save this scene in our **Scenes** folder, call it something like **Player.tscn**
+
+Let's give ourselves something to look at. Click on the **AnimatedSprite2D** and in the inspector, under **Animation** you'll see **\<Empty>** in the **Spriteframes** field.
+Click on **\<Empty>** and create a new **Spriteframes** Click on the **Spriteframes** you created. This will open a new window at the bottom of the screen.
+
+This is where we'll create our player's animations. Rename the *General* animation to *Idle* and click the *Add frames from File* Button (The folder icon)
+
+Navigate to your *assets/frames* folder, and decide which character you want to be your player. I'll be using the Plague Doctor. Using Shift + Click select all the frames for your character labeled *Idle* (This should be four frames) then open them.
+
+TODO: Image
+
+You'll see them added to the animation timeline. We'll want to select two things in the timeline. The **Loop** Button (To ensure the animation loops) and the **Play on start button** (To ensure the animation plays automatically)
+Let's also increase the FPS to 8 so that the animation plays a little faster. 
+
+Hit play to test! You'll see the player now has an idle animation that loops!
+
+
+
+
