@@ -88,6 +88,8 @@ Do the same thing we did to grab the frames for the idle animation, but this tim
 
 TODO: Walk anim image
 
+Finally, just select your idle animation again, to make sure this is what our player will start on.
+
 great! That's our animations all done!
 
 ### Collision and Movement
@@ -140,6 +142,81 @@ func _physics_process(delta):
     move_and_slide()
 ```
 For now our movement is controlled using the arrow keys, but we'll go over how to map it to whatever we want later in the guide.
+
+Switch back to 2D view at the top of the screen.
+
+## Building a level
+
+Let's move onto giving us something to walk around. Create a new scene. Give it a node2D as its root node, and call it something like "Floor 1" 
+
+Save the scene in our Scenes folder.
+
+Give our root node a child node with the type **TileMap** this will handle the visuals and collision of our level.
+In the inspector, create a new **Tile Set** for the **empty** **Tile Set** field.
+
+You'll notice two new tabs have appeared at the **TileSet** and **TileMap** we'll be working with both of these, but open the **TileSet** tab first.
+
+using the **+** button in the lower left, navigate to your assets, and load in the "atlas_floor-16x16.png" hit **Yes** when prompted.
+
+Do the same for the "atlas_walls_low-16x16.png" file, again hitting **Yes** when prompted.
+
+You can think of these two as palettes we'll use to paint our levels! Our dungeon will be made up from a series of tiles that we can arrange however we want!
+
+**Note: We won't be implementing the spikes/buttons/levers. So if you add these to your level they'll be purely decorative.**
+
+Next, we'll want to make sure our walls appear **ontop** of our floors! To do this we'll use layers! On the right, in the inspector for the **TileMap** you'll see a section called layers, with one already there!
+
+Call this one "Floors" and modify its **Z Index** field to be -1.
+
+Click **Add Element** to add another layer. Call this one "Walls" and set its **Z Index** field to be 1.
+
+Todo: layers image
+
+With our **Tilesets** setup we can now go to the **TileMap** tab. 
+
+From here, if you click on a tile and then in the scene, you'll notice your able to paint them into the scene! This is how we'll create our levels! you can click between the floor and wall tilesets to get access to the different tiles.
+
+You'll also notice you can switch layers in the top righ of the **TileMap** section. Make sure you're in the right layer for what you're painting! Otherwise they won't appear right! It might be a good idea to do the floors first, followed by the walls.
+
+Spend some time and get familiar with painting and removing tiles! Aim to create a single room that we can use to test our game.
+
+**Tip: You can use the Rect tool to draw a rectangle of tiles all at once**
+
+TODO: rect tool image
+
+Here's what my room looks like:
+
+TODO: Basic Room Image
+
+
+## Adding our player to the level
+
+
+### Level collision
+
+
+## Improving our player
+
+### Animtion switching
+
+### Input mapping
+
+## Health
+
+## Pickups
+
+### Coins
+
+### Potions
+
+## Enemies
+
+## Another floor
+
+
+TODO: Link to docs
+TODO: general cleanup pass
+TODO: Add images
 
 
 
