@@ -229,7 +229,106 @@ We'll also be implementing attacking, but we'll do that in it's own section!
 
 ### Input mapping
 
+To change our inputs, we'll first need to set up our **Input Map** to do this, we'll navigate to **Project -> Project Settings** in the top left of the workspace.
+
+Then, open the **Input Map** tab.
+
+We'll add our new Inputs by typing a name for each of them in the **Add New Action** box and hitting add. 
+
+I'll be calling mine "Up" "Down" "Left" "Right" and i'll also add one called "Attack"
+
+[TODO: Images]
+
+To add buttons to these, we'll hit the "+" to the right of each action, we'll then physically press the key we want to assign on our keyboard, and hit "Ok"
+
+For my **Attack** action i'll be using **Left Click* for which you'll want to physically click (once) inside the **Listening for input** box.
+
+Here's what my inputs look like:
+[TODO: Image]
+
+If you're happy with your inputs, you can then hit **Close** at the bottom of the screen. Let's navigate back to our **player_movement.gd** script. This can be done by opening our **player** scene, clicking on the **CharacterBody2D** and clicking the **Script** tab at the top of the screen.
+
+To change our inputs, all we need to do is change the predifined inputs to what we called ours!
+
+**Note:** What you named your input actions *is* case sensitive
+
+So, "ui_left" becomes "Left"
+"ui_right" becomes "Right" and so on!
+
+leaving that line line in our script looking like this:
+
+```gdscript
+    var direction = Input.get_vector("Left", "Right", "Up", "Down")
+```
+if you run your game, you'll notice your inputs are now changed!
+
+We won't assign our Attack option just yet, but it's good we've created it already.
+
 ### Animation switching
+
+To change our animation depending on if we're moving or not, we'll only need to add a few lines to our script. But first, we'll need a reference to our **AnimatedSprite2D** in our script.
+
+We can do this easily, by **Clicking** and **Dragging** our **AnimatedSprite2D** into our script, making sure we hold **Ctrl** on the keyboard after grabbing it, but before dropping it.
+
+We'll want to drop it below 
+
+```gdscript
+@export var speed = 200
+```
+It should get added to our script looking like:
+
+```gdscript
+@onready var animated_sprite_2d = $AnimatedSprite2D
+```
+
+if it doesn't look like this, delete the line and try again, making sure you're holding **Ctrl** on your keyboard after picking it up.
+
+Great! Let's get to changing our animation!
+
+Under where we set our velocity, we'll simply add a check to see if our velocity is anything other than 0 and change our animation based on that!
+
+We can check this simply with:
+
+**Note:** Why can't we just do velocity != 0? This is because velocity actually contains both our X (Horizontal) and Y (Vertical) velocity, so we need to make sure **Both** aren't zero.
+
+```gdscript
+if velocity != Vector2.ZERO:
+```
+
+Then, we can play our run animation!
+
+```gdscript
+if velocity != Vector2.ZERO:
+    animated_sprite_2d.play("walk")
+```
+
+and if we're not moving, let's play our idle
+
+```gdscript
+else:
+	animated_sprite_2d.play("idle")
+```
+
+Giving us a movement script that looks like this:
+
+```gdscript
+extends CharacterBody2D
+
+@export var speed = 200
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+func _physics_process(delta):
+	var direction = Input.get_vector("Left", "Right", "Up", "Down")
+	velocity = direction * speed
+	if velocity != Vector2.ZERO:
+		animated_sprite_2d.play("walk")
+	else:
+		animated_sprite_2d.play("idle")
+
+	move_and_slide()
+```
+
+Play your game, and you'll notice your animation changes when you move!
 
 ### Sprite facing
 
