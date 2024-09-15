@@ -188,18 +188,56 @@ Here's what my room looks like:
 
 TODO: Basic Room Image
 
-
 ## Adding our player to the level
 
+Now that we have a basic level set up, let's add our player to it so we can start to properly test our game! To do this, we'll just drag our player scene from the **Scenes** folder
+in the file browser, into our **scene tree** as a child of the root node! Finally, we'll give the player a child of type **Camera2D.** here's what my scene looks like:
+
+[TODO: image]
+
+You should be able to move around! Though you'll quickly notice you're able to walk through walls, which isn't ideal, so let's fix that!
 
 ### Level collision
 
+Click on your **TileMap** Node again, select **TileSet** at the bottom of the screen, and click on your Wall **TileSet** Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector.
+Under the **Physics Layers** drop down, click **Add Element.** 
+
+Now, back in the section at the bottom of the screen, navigate to the **Paint** tab, and using the drop down, select **Physics Layer 0.** Here's how things look for me!
+
+[TODO: Image]
+Think of the blue square that has appeared under the **Paint** tab as our brush that we'll use to paint collisions onto our **Tileset** with the blue square representing where exactly our player will collide.
+
+
+You can click and drag the white diamonds to move them, and click on the edges to add new points. pressing F (Full) will make the collider occupy the whole square, and pressing C (Clear) will make it occupy none of it.
+
+So using this, try to create colliders for each tile that closely match their sprite. 
+
+Tip: It'll be easiest to do them in batches of tiles that have the same collision!
+
+Here's how mine look:
+
+[TODO: Image]
+
+Now try playing your game again! You'll notice you actually collide with the walls! Great!
 
 ## Improving our player
 
-### Animtion switching
+Let's spend some time further improving our player. Let's implement some different controls (Well be doing WASD, but you can using any controls you like)
+make sure our animation changes to our walking animation when we move, and make sure our sprite faces in the direction we're moving.
+
+We'll also be implementing attacking, but we'll do that in it's own section!
 
 ### Input mapping
+
+### Animation switching
+
+### Sprite facing
+
+## Attacking
+
+### Weapon Scene
+
+### Adding our weapon to our player
 
 ## Health
 
