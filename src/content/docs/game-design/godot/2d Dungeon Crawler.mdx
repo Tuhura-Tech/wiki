@@ -332,6 +332,57 @@ Play your game, and you'll notice your animation changes when you move!
 
 ### Sprite facing
 
+To flip our player based on the direction we're moving, all we really need to do is add another If to check only the **Horizontal** part of our velocity, as thankfully the **AnimatedSprite2D** node has a built in way to flip our sprite!
+
+I'll be adding this section **beneath** the animation section, but before the **move_and_slide()** function call.
+
+let's start by checking the Horizontal portion of our movement:
+
+```gdscript
+if(velocity.x < 0):
+```
+if our x velocity is less than 0 (moving to the left) we want to flip our sprite.
+
+```gdscript
+animated_sprite_2d.flip_h = true
+```
+
+And if it's greater than 0, we'll unflip it
+
+```gdscript
+elif(velocity.x > 0):
+		animated_sprite_2d.flip_h = false
+```
+
+giving us a movement script that looks like this:
+
+```gdscript
+extends CharacterBody2D
+
+@export var speed = 200
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+func _physics_process(delta):
+	var direction = Input.get_vector("Left", "Right", "Up", "Down")
+	velocity = direction * speed 
+	
+	if velocity != Vector2.ZERO:
+		animated_sprite_2d.play("walk")
+	else:
+		animated_sprite_2d.play("idle")
+		
+	if(velocity.x < 0):
+		animated_sprite_2d.flip_h = true
+	elif(velocity.x > 0):
+		animated_sprite_2d.flip_h = false
+
+	move_and_slide()
+```
+**Note:** Why didn't we juse use **else:**? - If we'd just used **Else:** our sprite would have jarringly flipped to face left whenever we stopped moving, or if we were just moving up and down. 
+This way the direction our sprite is facing doesn't change unless we move either left or right!
+
+Test your game, and you'll notice your sprite now faces left or right depending on the direction we're facing!
+
 ## Attacking
 
 ### Weapon Scene
