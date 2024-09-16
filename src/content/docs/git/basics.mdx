@@ -10,27 +10,27 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
 <Tabs>
   <TabItem label="Linux/Unix">
 
-**Debian/Ubuntu**
+  **Debian/Ubuntu**
 
-```sh
-sudo apt install git
+  ```sh
+  sudo apt install git
 ```
 
-For other distros, look at the [git documentation](https://git-scm.com/download/linux).
+  For other distros, look at the [git documentation](https://git-scm.com/download/linux).
 
   </TabItem>
   <TabItem label="MacOS">
   
   ```sh 
   brew install git
-  ```
+```
 
   </TabItem>
   <TabItem label="Windows">
   
   ```sh
   winget install --id Git.Git -e --source winget
-  ```
+```
   
   </TabItem>
 </Tabs>
@@ -61,8 +61,42 @@ Good commit messages should explain what has been done, a good format is [Conven
 
 ## Git Remotes (GitHub/GitLab/Forgejo)
 
-## Reverting Changes
+When you want to move your repository to the internet or another network to share it with others, git remotes are what you'll use. These allow multiple people to collaborate on a project together. Each option has their own setup guide on their website to help you connect your local repository to a remote ([GitHub](https://docs.github.com/en/get-started), [GitLab](https://docs.gitlab.com/ee/tutorials/), and [Forgejo](https://forgejo.org/docs/latest/)). Once you have your local repository setup with a remote, you can push your commits to the remote using the command `git push <remote> <branch>`. 
+
+- `git push origin main` 
+
+If someone else pushes something to the remote and you would like to download it into your local repo, you can use the `git fetch <remote>`. 
+
+- `git fetch origin`
+
+The [Tips and Tricks](/git/tips-and-tricks) page includes a section on deciding which remote is best for you. If there is a repositiory you wish to download, you can use the `git clone` command.
+
+- `git clone https://github.com/Tuhura-Tech/wiki.git` will download the Tūhura Tech wiki repositiory.
 
 ## Branches and Pull Requests
 
+Usually when collaborating on a project, you'll want to do your work separately from the main branch. You can do this by creating a new branch using the `git branch` command. 
+
+- `git branch git-resources` will create a branch called git-resources.
+- `git branch Godot-2D-Platformer` will create a branch called Godot-2D-Platformer.
+
+You can then use the `git checkout` command to switch to the new branch you created. 
+
+- `git checkout git-resources` will switch you to the git-resources branch.
+- `git checkout Godot-2D-Platformer` will switch you to the Godot-2D-Platformer branch.
+
+Now all work done on this branch will be separate from the main branch. You can also push this branch to the remote by using `git push origin`. When you've finished all your work on the branch and want to move it into the main branch, you can open a pull request (or merge request), which will allow you to merge the changes in the branch into main. [GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), [GitLab](https://docs.gitlab.com/ee/user/project/merge_requests/), and [Forgejo](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/) each have their own docs for making these requests.
+
+## Reverting Changes
+
+Sometimes you'll commit something that breaks your project, or is faulty in some way. This is where reverting comes in. This allows you to essentially undo a commit and revert back to a previous version of your repository. To do this, you'll use the `git revert` command. 
+
+- `git revert HEAD` will revert the most recent commit made on the current branch and create a new commit with the changes.
+- `git revert main~6..main~3` will revert the changes made in the 6th last commit (included) to the 4th last commit (included) made on the main branch and create a new commit with the changes.
+- `git revert -n git-resources~2` will revert to the 3rd last commit made on the git-resources branch but will not create a new commit with the changes, due to the `-n` flag.
+
 ## More info
+
+- The [git docs](https://git-scm.com/docs) themselves can be quite useful when you need to quickly check what a command does.
+- Something not touched on here is merging, as it can get quite complicated and confusing. We recommend the [Git by Example](https://antonz.org/git-by-example/#branch-and-merge) and [Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge) guides. These also include help on most other areas of git as well.
+- GitHub has a useful GUI tool called [GitHub Desktop](https://github.com/apps/desktop) which simplifies the whole git process for you.
