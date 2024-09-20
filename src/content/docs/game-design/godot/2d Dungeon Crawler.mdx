@@ -241,7 +241,7 @@ I'll be calling mine "Up" "Down" "Left" "Right" and i'll also add one called "At
 
 To add buttons to these, we'll hit the "+" to the right of each action, we'll then physically press the key we want to assign on our keyboard, and hit "Ok"
 
-For my **Attack** action i'll be using **Left Click* for which you'll want to physically click (once) inside the **Listening for input** box.
+For my **Attack** action i'll be using **Left Click* for which you'll want to physically click *once* inside the **Listening for input** box.
 
 Here's what my inputs look like:
 [TODO: Image]
@@ -383,9 +383,35 @@ This way the direction our sprite is facing doesn't change unless we move either
 
 Test your game, and you'll notice your sprite now faces left or right depending on the direction we're facing!
 
-## Attacking
-
 ### Weapon Scene
+
+Let's create a new scene for our weapon!
+Give it a root node of just a **Node2D** with two children, a **Sprite2D** and a **Animationplayer** 
+Give the sprite a child of type **Area2D** and give the **Area2D** a child of **CollisionShape2D**
+
+Here's how my scenetree looks:
+
+[TODO: Weapon scenetree]
+
+Let's start by picking a sprite for our weapon, so we can see what we're working with!
+Select the sprite node, and in the **Empty** texture field, select Load. Navigate to your assets folder, and select a weapon that you like!
+
+Don't worry that it's pointing up, we'll rotate it when we add it to our player scene! It'll be helpful to keep all Transform values at 0 in this scene.
+
+Let's open the **CollisionShape2D** node and assign a shape, you'll probably just want to use a rectangle shape. This will be the hitbox of the sword, and determine whether an enemy has been hit! Adjust its bounds so that it vaguely matches the sprite. 
+Although you'll likely want to make it a little bigger than the sprite, as we don't want our game to feel like the player has to be too precise.
+
+Now, let's starting creating our attack animation! Navigate to the **Animationplayer** and click **Animation** and create a new animation. Call it "Attack"
+Now that we've created a new animation, we'll need to create an **Animation Track** which you can do by clicking **Add track.** This will ask us what type of Animation Track we want to create.
+
+We want to animation the **Position** of our weapon, this is a **Property** so we'll create a **Property** Track. 
+
+Then, when prompted, we'll select the **Sprite2D** as this is what we want to change the position of!
+
+Finally, scroll until you see the **Position** property. 
+
+Phew! That was quite a few steps, but our animation track is created!
+
 
 ### Adding our weapon to our player
 
