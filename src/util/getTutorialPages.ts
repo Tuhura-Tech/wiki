@@ -3,9 +3,7 @@ import type { TutorialEntry } from '../content/config';
 
 /** Get a full list of pages for the tutorial. */
 export function getTutorialPages(allPages: TutorialEntry[]) {
-    const pages = allPages;
-	/** Pages */
-	pages.map((page) => {
+	const pages = allPages.map((page) => {
 			return {...(page as TutorialEntry)};
 		})
 		.sort((a, b) => {
