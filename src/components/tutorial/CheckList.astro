@@ -8,18 +8,6 @@ const { key = 'default' } = Astro.props as Props;
 
 <check-list data-key={key}>
 	<div class="checklist"><slot /></div>
-	<!-- {
-		Astro.slots.has('alternative') && (
-			<>
-				<p class="or">
-					<div class="checklist.or" />
-				</p>
-				<div class="checklist alternative">
-					<slot name="alternative" />
-				</div>
-			</>
-		)
-	} -->
 </check-list>
 
 <style>
@@ -29,16 +17,15 @@ const { key = 'default' } = Astro.props as Props;
 
 	.checklist > :global(ul) {
 		list-style: none;
-		padding-inline-start: 0;
+		margin-top: 1rem;
+		color: var(--sl-color-green-high);
+		font-size: var(--sl-text-lg);
 	}
 
 	check-list :global(label) {
 		display: block;
 		position: relative;
-		margin: 0 -1rem !important;
-		border-radius: 0.5rem;
-		padding-block: 0.5rem;
-		padding-inline: 3.5rem 0.5rem;
+		border-radius: 5rem;
 		cursor: pointer;
 		font-size: var(--sl-text-lg);
 		color: var(--sl-color-green-high);
@@ -66,7 +53,6 @@ const { key = 'default' } = Astro.props as Props;
 		font-size: 1.25em;
 		border: 1px solid var(--sl-color-green-high);
 		border-radius: 0.25rem;
-		color: var(--sl-color-green);
 		cursor: pointer;
 	}
 
@@ -74,27 +60,6 @@ const { key = 'default' } = Astro.props as Props;
 		content: url("data:image/svg+xml,%3Csvg width='28' height='28' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='24' height='24' rx='4' fill='white'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M20.0946 6.02558C20.6992 6.592 20.7301 7.54124 20.1636 8.14578L10.3868 18.5806C9.55548 19.468 8.14726 19.468 7.3159 18.5806L4.02558 15.0689C3.45917 14.4643 3.49008 13.5151 4.09461 12.9487C4.69915 12.3822 5.6484 12.4132 6.21481 13.0177L8.85137 15.8317L17.9744 6.09461C18.5408 5.49007 19.4901 5.45917 20.0946 6.02558Z' fill='%232F4D22'/%3E%3C/svg%3E%0A");
 		border: none;
 	}
-
-	/* .or {
-		display: grid;
-		grid-template-columns: 1fr auto 1fr;
-		gap: 1em;
-		text-transform: uppercase;
-		font-weight: bold;
-		color: var(--theme-text-lighter);
-	} */
-/* 
-	.or::before,
-	.or::after {
-		--divider-width: 4px;
-		content: '';
-		background-image: linear-gradient(
-			to bottom,
-			transparent calc(50% - var(--divider-width) / 2),
-			var(--theme-divider) calc(50% - var(--divider-width) / 2) calc(50% + var(--divider-width) / 2),
-			transparent calc(50% + var(--divider-width) / 2) 100%
-		);
-	} */
 </style>
 
 <script>
