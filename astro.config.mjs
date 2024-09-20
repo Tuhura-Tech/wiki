@@ -145,6 +145,7 @@ export default defineConfig({
     components: {
       Hero: './src/components/starlight/Hero.astro',
       TableOfContents: './src/components/starlight/TableOfContents.astro',
+      Pagination: './src/components/starlight/Pagination.astro',
     },
   })],
   markdown: {
