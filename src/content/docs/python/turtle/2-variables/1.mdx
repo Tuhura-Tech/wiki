@@ -1,0 +1,74 @@
+---
+type: tutorial
+title: Attributes
+description: This is how to use the Turtle extension in python.
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+
+## turtle attributes
+
+By naming your turtle you can make multiple instances, giving each unique attributes. When coming up with a name I suggest using short or one letter name as these will be repeated a lot. Remember when naming your turtle that capitals matter.
+
+``` python
+t = Turtle()
+u = Turtle()
+r = Turtle()
+l = Turtle()
+e = Turtle()
+```
+
+Each turtle is its own pen and each can be given their own version of a state/ appearance/ attribute. 
+My favorite functions: ``` pendown(), penup(), width(), color(), fillcolor(), speed(), shape(). ```
+the pen will draw a line behind the turtle as it moves, bring the pen up removes this line. By default the pen is down. 
+Width changes the thickness of the line the pen draws this is in pixels and does not change the size of the turtle drawing the line. for this use ``` turtlesize() ```. color will change the colour of both the line and turtle. fillcolor will change the colour inside the lines but must be used with ``` begin_fill() and end_fill() ```. speed ranges from the slowest speed of 1 to the fast speed of 0, which confusingly enough is a stand in for 10, with 9 being the next highest speed. shape refers to the look of your turtle. The shapes in turtle include circle, square, triangle, arrow and turtle.
+
+``` python
+t.penup()
+t.width(30)
+r.width(10)
+l.shape("circle")
+e.speed(0)
+u.speed(9)
+u.color("green") 
+```
+
+> note: once your turtle has been named its name must be used to register code to that turtle. Without spaces the turtles name is followed by a fullstop and then the syntax for your required code. Instances such as the turtle and screen require capitals like pronouns in english.
+
+
+## window setup / control
+
+setting up a window can help you understand the parameters. For example knowing the edges of your screen means knowing how far you can add assets before they are lost beyond the edges of your screen.
+window set up also allows for adding background colours and clearing the screen.
+when calling the screen you create an instance, only one screen instance can be active at a time. 
+This instance is called Screen, the function comes after a fullstop. setup(), resetscreen(), bgcolor() are what I have found to be the most used screen functions. Setup dictates screen width, height, starting x position, starting y position in that order. resetting the screen clears all drawing and changes made to the turtle i.e. color, shape, speed. reset dose not wipe the changes made to the screen just to the other instances.
+
+```python
+#setup(width, height, x, y)
+Screen.setup(600,600,0,0)
+#this can also be done without setting the starting x, y positions.
+Screen.setup(600,600)
+Screen.color("black")
+```
+
+## making life easer
+
+turtles aren't the only thing you can "name", naming as I have called it, is just the syntax for assigning a value to a variable. To shorten a instance, class or functions name you can assign it a new name. For example the screen class can create an instance with a shorted name.
+
+```python 
+wn = Screen()
+# changes 
+screen.bgcolor("black")
+# to
+wn.bgcolor("black")
+```
+<Box>
+## Checklist
+
+<Checklist>
+- [ ] I have made a python file.
+- [ ] I have imported from turtle.
+</Checklist>
+</Box>
