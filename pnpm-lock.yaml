@@ -34,7 +34,7 @@ importers:
         version: 0.33.5
       starlight-links-validator:
         specifier: ^0.12.0
-        version: 0.12.0(@astrojs/starlight@0.28.2(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)))(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4))
+        version: 0.12.1(@astrojs/starlight@0.28.2(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)))(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4))
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.12
@@ -917,6 +917,9 @@ packages:
 
   '@types/node@22.5.5':
     resolution: {integrity: sha512-Xjs4y5UPO/CLdzpgR6GirZJx36yScjh73+2NlLlkFRSoQN8B0DpfXPdZGnvVmLRLOsqDpOfTNv7D9trgGhmOIA==}
+
+  '@types/picomatch@2.3.3':
+    resolution: {integrity: sha512-Yll76ZHikRFCyz/pffKGjrCwe/le2CDwOP5F210KQo27kpRE46U2rDnzikNlVn6/ezH3Mhn46bJMTfeVTtcYMg==}
 
   '@types/sax@1.2.7':
     resolution: {integrity: sha512-rO73L89PJxeYM3s3pPPjiPgVVcymqU490g0YO5n5By0k2Erzj6tay/4lr1CHAAU4JyOWd1rpQ8bCf6cZfHU96A==}
@@ -2452,8 +2455,8 @@ packages:
   stacktracey@2.1.8:
     resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
 
-  starlight-links-validator@0.12.0:
-    resolution: {integrity: sha512-R4EfOyyeTHLPZX2QJmkk1s2cln9ejN+BJIucRhlavqd1R/hM05CMtP5Tpfb7WTzrTHGlqFlQlL0gbRAhc2+mQA==}
+  starlight-links-validator@0.12.1:
+    resolution: {integrity: sha512-LhRuGaI9Rp7c7ltwcG0BfCZuAN1d15oYbDB4jXblJ6zsiFcrSGHNlDnKXJHEJZ6XhJ+eOpd1IsHLFLh5Sq6uHg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       '@astrojs/starlight': '>=0.15.0'
@@ -3677,6 +3680,8 @@ snapshots:
   '@types/node@22.5.5':
     dependencies:
       undici-types: 6.19.8
+
+  '@types/picomatch@2.3.3': {}
 
   '@types/sax@1.2.7':
     dependencies:
@@ -5863,9 +5868,10 @@ snapshots:
       as-table: 1.0.55
       get-source: 2.0.12
 
-  starlight-links-validator@0.12.0(@astrojs/starlight@0.28.2(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)))(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)):
+  starlight-links-validator@0.12.1(@astrojs/starlight@0.28.2(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)))(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)):
     dependencies:
       '@astrojs/starlight': 0.28.2(astro@4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4))
+      '@types/picomatch': 2.3.3
       astro: 4.15.8(@types/node@22.5.5)(rollup@4.22.0)(typescript@5.5.4)
       github-slugger: 2.0.0
       hast-util-from-html: 2.0.1
