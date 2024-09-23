@@ -35,17 +35,21 @@ import { Tabs, TabItem } from "@astrojs/starlight/components";
   </TabItem>
 </Tabs>
 
+## What is Git?
+
+Git is a version control system (VCS). Version control is the process of tracking and managing code changes, and version control systems are used to perform this process. They are essential when working on a large project or with other people. Git is the most popular VCS currently used. You will likely see it everywhere when working in tech, so it is important to learn its basics.
+
 ## Creating a git repository
 
-You can create a local git repo by running `git init` in the folder of your code. This local repository can be used with all of git's features.
+A git repository is somewhere you can create a project, store the code and other files, and keep track of changes. These are helpful when working on big projects or with others as it lets you keep track of who is doing what and what changes are being made. Plus, it enables you to revert any changes that break the project. You can create a local git repository by running `git init` in the terminal in your code folder. Your local repository can be used with all of git's features.
 
 ## Adding files
 
-With git, you have control over what files you commit ("save") in version control and when, this can be done at any time with any files.
+With git, you have control over what files you commit (or save) in version control and when. You can do this at any time with any files. There are two steps for adding files: Staging and Committing.
 
 ### Staging
 
-Git has a concept called staging, which means changes you want to save. To save a change, you first need to add it to staging using `git add`. Some examples are shown below.
+Git has a concept called staging, which is where you'll tell git what files you would like to save. To stage a file, you must first add it to staging using `git add`. Some examples are shown below.
 
 - Add all files with changes to staging: `git add .`
 - Add one file with changes to staging: `git add file1`
@@ -54,28 +58,25 @@ Git has a concept called staging, which means changes you want to save. To save 
 
 ### Committing
 
-Once a change has been saved to staging, we can commit ("save") that change to version control through the commit command. 
-When saving a change, we also need to add a message explaining what the change does. 
-The command to commit changes is: `git commit -m "commit message"`. 
-Good commit messages should explain what has been done, a good format is [Conventional Commits.](https://conventionalcommits.org).
+Once a change has been saved to staging, we can commit (or save) that change to version control through the commit command. A commit keeps track of the changes made, which files were changed, who changed them, and when. It also has a unique identifier if you need to revert these changes later. When saving a change, we must also add a message explaining the changes or what they do. The command to commit changes is `git commit -m "commit message"`. The `-m` flag allows you to add a message afterwards. Good commit messages should explain what has been done. A good format to use is [Conventional Commits](https://conventionalcommits.org).
 
 ## Git Remotes (GitHub/GitLab/Forgejo)
 
-When you want to move your repository to the internet or another network to share it with others, git remotes are what you'll use. These allow multiple people to collaborate on a project together. Each option has their own setup guide on their website to help you connect your local repository to a remote ([GitHub](https://docs.github.com/en/get-started), [GitLab](https://docs.gitlab.com/ee/tutorials/), and [Forgejo](https://forgejo.org/docs/latest/)). Once you have your local repository setup with a remote, you can push your commits to the remote using the command `git push <remote> <branch>`. 
+When you want to move your repository to the internet or another network to share it with others, you'll use git remotes. These allow multiple people to collaborate on a project together. Each option has its setup guide on its website to help you connect your local repository to a remote ([GitHub](https://docs.github.com/en/get-started), [GitLab](https://docs.gitlab.com/ee/tutorials/), and [Forgejo](https://forgejo.org/docs/latest/)). Once your local repository is set up with a remote, you can push your commits to the remote using the command `git push <remote> <branch>`. 
 
 - `git push origin main` 
 
-If someone else pushes something to the remote and you would like to download it into your local repo, you can use the `git fetch <remote>`. 
+If someone else pushes something to the remote and you want to download it into your local repo, you can use the `git fetch <remote>`.
 
 - `git fetch origin`
 
-The [Tips and Tricks](/git/tips-and-tricks) page includes a section on deciding which remote is best for you. If there is a repositiory you wish to download, you can use the `git clone` command.
+The [Tips and Tricks](/git/tips-and-tricks) page includes a section on deciding which remote is best for you. If there is a repository you wish to download, you can use the `git clone` command.
 
-- `git clone https://github.com/Tuhura-Tech/wiki.git` will download the Tūhura Tech wiki repositiory.
+- `git clone https://github.com/Tuhura-Tech/wiki.git` will download the Tūhura Tech wiki repository.
 
 ## Branches and Pull Requests
 
-Usually when collaborating on a project, you'll want to do your work separately from the main branch. You can do this by creating a new branch using the `git branch` command. 
+Usually, when collaborating on a project, you'll want to do your work separately from the main branch. You can do this by creating a new branch using the `git branch` command. 
 
 - `git branch git-resources` will create a branch called git-resources.
 - `git branch Godot-2D-Platformer` will create a branch called Godot-2D-Platformer.
@@ -85,18 +86,22 @@ You can then use the `git checkout` command to switch to the new branch you crea
 - `git checkout git-resources` will switch you to the git-resources branch.
 - `git checkout Godot-2D-Platformer` will switch you to the Godot-2D-Platformer branch.
 
-Now all work done on this branch will be separate from the main branch. You can also push this branch to the remote by using `git push origin`. When you've finished all your work on the branch and want to move it into the main branch, you can open a pull request (or merge request), which will allow you to merge the changes in the branch into main. [GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), [GitLab](https://docs.gitlab.com/ee/user/project/merge_requests/), and [Forgejo](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/) each have their own docs for making these requests.
+All work done on this branch will be separate from the main branch. You can also push this branch to the remote using `git push origin`. When you've finished all your work on the branch and want to move it into the main branch, you can open a pull request (or merge request) to merge the branches' changes into main. [GitHub](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests), [GitLab](https://docs.gitlab.com/ee/user/project/merge_requests/), and [Forgejo](https://forgejo.org/docs/latest/user/pull-requests-and-git-flow/) each have docs for making these requests.
 
 ## Reverting Changes
 
-Sometimes you'll commit something that breaks your project, or is faulty in some way. This is where reverting comes in. This allows you to essentially undo a commit and revert back to a previous version of your repository. To do this, you'll use the `git revert` command. 
+Sometimes, you'll commit something that breaks your project or is faulty in some way. This is where reverting comes in. Reverting allows you to undo a commit and revert to a previous version of your repository. To do this, you'll use the `git revert` command.
 
 - `git revert HEAD` will revert the most recent commit made on the current branch and create a new commit with the changes.
-- `git revert main~6..main~3` will revert the changes made in the 6th last commit (included) to the 4th last commit (included) made on the main branch and create a new commit with the changes.
-- `git revert -n git-resources~2` will revert to the 3rd last commit made on the git-resources branch but will not create a new commit with the changes, due to the `-n` flag.
+- `git revert -n git-resources` will revert the most recent commit made on the git-resources branch but will not create a new commit with the changes, due to the `-n` flag.
+
+To revert to earlier commits, you'll add `~x` to the end of the commit, with x being a number. 1 going back one more, 2 going back two more, etc. Below are some examples of this.
+
+- `git revert git-resources~2` will revert to the 3rd last commit made on the git-resources branch and create a new commit with the changes.
+- `git revert main~6..main~3` will revert the changes made in the 7th last commit (excluded) to the 4th last commit (included) on the main branch and create a new commit with the changes. It is important to note that when giving a range of commits, the starting point is not reverted, but the endpoint is. So this example will start at the 7th last commit and then revert all changes afterwards until it reaches the 4th last commit. 
 
 ## More info
 
-- The [git docs](https://git-scm.com/docs) themselves can be quite useful when you need to quickly check what a command does.
-- Something not touched on here is merging, as it can get quite complicated and confusing. We recommend the [Git by Example](https://antonz.org/git-by-example/#branch-and-merge) and [Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge) guides. These also include help on most other areas of git as well.
-- GitHub has a useful GUI tool called [GitHub Desktop](https://github.com/apps/desktop) which simplifies the whole git process for you.
+- The [git docs](https://git-scm.com/docs) themselves can be quite helpful when you need to check what a command does quickly.
+- Something not touched on here is merging, which can get complicated and confusing. We recommend the [Git by Example](https://antonz.org/git-by-example/#branch-and-merge) and [Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge) guides. These also include help in most other areas of git.
+- GitHub has a useful GUI tool called [GitHub Desktop](https://github.com/apps/desktop) which simplifies the whole git process.
