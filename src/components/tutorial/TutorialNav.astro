@@ -13,11 +13,8 @@ export interface Props {
 }
 
 const currentUrl = Astro.url.pathname.replace(/\/$/, '');
-const pathName = Astro.url.pathname;
-
-
-const allPages = await getCollection('docs');
-const pages = allPages.filter(isTutorialEntry);
+export const allPages = await getCollection('docs');
+export const pages = allPages.filter(isTutorialEntry);
 
 const tutorialPages = getTutorialPages(pages);
 const units = getTutorialUnits(tutorialPages);
@@ -51,7 +48,7 @@ const isCurrentUnit = (unit: (typeof units)[number]) =>
 										<div>
 											<a
 												class="header-link"
-												href={`/${pathName}/${slug}/`}
+												href={`/${slug}`}
 												aria-current={currentUrl.endsWith(slug)}
 											>
 												<Progress {index} path={'/' + lesson.slug} />

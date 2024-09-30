@@ -7,7 +7,7 @@ const baseSchema = z.object({
 });
 
 const tutorialSchema = baseSchema.extend({
-	type: z.literal('tutorial').optional(),
+	type: z.literal('tutorial'),
 	unitTitle: z.string().optional(),
 });
 
@@ -19,7 +19,7 @@ const docsCollectionSchema = z.union([
 type DocsEntryData = z.infer<typeof docsCollectionSchema>;
 
 export type DocsEntry<T extends DocsEntryType> = CollectionEntry<'docs'> & {
-	data: Extract<DocsEntryData, { type: T }>;
+	data: Extract<DocsEntryData, { type: T}>;
 };
 type DocsEntryType = DocsEntryData['type'];
 
