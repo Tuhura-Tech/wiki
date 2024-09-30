@@ -1,0 +1,45 @@
+---
+type: tutorial
+unitTitle: "Setting up that Turtle!"
+title: Python Turtle
+description: This is how to use the Turtle extension in python.
+sidebar:
+  order: 6
+---
+
+import Checklist from "/src/components/tutorial/Checklist.astro";
+import Box from "/src/components/tutorial/Box.astro";
+
+Turtle is a visual extension for python, but its still python code, utilising the same python rules and syntax.
+Although the principles behind turtle graphics can be extended to include 3D space this page will be focusing on 2D graphics.
+Turtle is a pre installed python library however a pip install might be needed.
+
+Turtle is a visual extension for python, but its still python code, utilising the same python rules and syntax. Although the principles behind turtle graphics can be extended to include three-dimensional space this page will be focusing on two-dimensional graphics.
+Turtle is a pre installed python library however a pip install might be needed.
+
+when first starting a new file, the turtle library must be called. There are two options for calling the turtle library.
+
+```python
+    from turtle import *
+# or
+    from turtle import Turtle
+```
+
+:::note[The above not working?]
+If you see something like this error: No module named '\_tkinter', go ahead and write this in your terminal:
+
+```python
+sudo apt install python3-tkinter
+```
+
+_Then_ you can call the turtle library.
+:::
+
+<Box>
+## Checklist
+
+<Checklist>
+- [ ] I have made a python file.
+- [ ] I have imported from turtle.
+</Checklist>
+</Box>

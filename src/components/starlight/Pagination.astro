@@ -1,0 +1,40 @@
+---
+import Default from '@astrojs/starlight/components/Pagination.astro';
+import type { Props } from '@astrojs/starlight/props';
+import { getTutorialPages } from '../../util/getTutorialPages';
+import { pages } from '../tutorial/TutorialNav.astro';
+
+const { entry, pagination } = Astro.props;
+const { type } = Astro.props.entry.data;
+let { prev, next } = pagination;
+
+const tutorialPages = getTutorialPages(pages);
+
+if (type === 'tutorial') {
+	const i = tutorialPages.findIndex((p) => p.slug === entry.slug);
+	if (tutorialPages[i - 1]) {
+		const prevPage = tutorialPages[i - 1];
+		prev = {
+			href: `/${prevPage.slug}/`,
+			isCurrent: false,
+			label: prevPage.data.title,
+			type: 'link',
+            badge: undefined,
+            attrs: {}
+		};
+	}
+	if (tutorialPages[i + 1]) {
+		const nextPage = tutorialPages[i + 1];
+		next = {
+			href: `/${nextPage.slug}/`,
+			isCurrent: false,
+			label: nextPage.data.title,
+			type: 'link',
+            badge: undefined,
+            attrs: {}
+		};
+	}
+}
+---
+
+<Default {...{ ...Astro.props, ...{ pagination: { prev, next } } }} />
