@@ -52,7 +52,7 @@ TODO: Settings image
 
 Great! Let's start by making a basic version of our player character that will let us move around. We'll worry about more complicated things like attacking later.
 
-Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node.
+Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node. call it something like **Player**
 
 Give the **CharacterBody2D** a name like **Player** and give it two children:
 
@@ -100,7 +100,7 @@ Mine looks like this:
 
 TODO: image CollisionShape2D
 
-Great! Our player now has collision. We'll do one more thing while we're here, which is give our player a script to handle movement. Right click on the **CharacterBody2D** and Attach a script. Call it something like "player_movement" and make sure we're saving it 
+Great! Our player now has collision. We'll do one more thing while we're here, which is give our player a script to handle movement. Right click on the **CharacterBody2D** and Attach a script. Call it something like "player.gd" and make sure we're saving it 
 in our Scripts folder. We also need to make sure we **untick** the **template** box as we will not be using the template! This is because the template is designed for gravity based platformers.
 
 With our script created and attached, let's get to programming our movement!
@@ -188,7 +188,7 @@ Here's what my room looks like:
 
 TODO: Basic Room Image
 
-## Adding our player to the level
+### Adding our player to the level
 
 Now that we have a basic level set up, let's add our player to it so we can start to properly test our game! To do this, we'll just drag our player scene from the **Scenes** folder
 in the file browser, into our **scene tree** as a child of the root node! Finally, we'll give the player a child of type **Camera2D.** here's what my scene looks like:
@@ -383,23 +383,37 @@ This way the direction our sprite is facing doesn't change unless we move either
 
 Test your game, and you'll notice your sprite now faces left or right depending on the direction we're facing!
 
+## The Weapon
+
 ### Weapon Scene
 
 Let's create a new scene for our weapon!
 Give it a root node of just a **Node2D** with two children, a **Sprite2D** and a **Animationplayer** 
 Give the sprite a child of type **Area2D** and give the **Area2D** a child of **CollisionShape2D**
 
+Name the root **Node2D** something like "Weapon" 
+
 Here's how my scenetree looks:
 
 [TODO: Weapon scenetree]
 
+Make sure you save the scene, calling it something like "Weapon.tscn"
+
 Let's start by picking a sprite for our weapon, so we can see what we're working with!
 Select the sprite node, and in the **Empty** texture field, select Load. Navigate to your assets folder, and select a weapon that you like!
 
-Don't worry that it's pointing up, we'll rotate it when we add it to our player scene! It'll be helpful to keep all Transform values at 0 in this scene.
+Don't worry that it's pointing up, we'll rotate it in a minute.
 
 Let's open the **CollisionShape2D** node and assign a shape, you'll probably just want to use a rectangle shape. This will be the hitbox of the sword, and determine whether an enemy has been hit! Adjust its bounds so that it vaguely matches the sprite. 
 Although you'll likely want to make it a little bigger than the sprite, as we don't want our game to feel like the player has to be too precise.
+
+Before we get to the attack animation, let's rotate the **Sprite2D** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
+
+Let's also offset it's position a little, to help it rotate around our player smoothly. Set its x-position to something like **20px**
+
+Here's how my sword scene and inspector look: 
+
+[TODO: swordSceneInspector]
 
 Now, let's starting creating our attack animation! Navigate to the **Animationplayer** and click **Animation** and create a new animation. Call it "Attack"
 Now that we've created a new animation, we'll need to create an **Animation Track** which you can do by clicking **Add track.** This will ask us what type of Animation Track we want to create.
@@ -412,10 +426,235 @@ Finally, scroll until you see the **Position** property.
 
 Phew! That was quite a few steps, but our animation track is created!
 
+Great, now we need to determine the keyframes our sword will animate between. We'll need three: The first being the start position, the second being the extent of the attack, and the third being returning to the start position.
+
+To add a keyframe, right click on the animation track. (In the **Position** Row) and press **Insert Key** do this until you have three keyframes. If we select each keyframe, we can modify their values!
+
+The first and last keyframe, we want to be at **Time** 0 and 1.0 respectively, with their values being unchanged (Remember, we want both of these to represent the sword at rest)
+
+Our second keyframe, we'll for now put at a **Time** of 0.5. Let's however, set its **x-value** to 30.
+
+Great! Let's hit the play button on the animation, and you'll notice we have a simple stabbing animation. But it's a little slow... We can fix this by adjusting the total length of the animation, this can be done over on the right. 
+
+Change the length from 1.0 to 0.5. We'll then need to adjust our keyframes, adjusting the middle one to be at a **Time** of 0.25, and the last to be at 0.5.
+
+Play it again, and you'll notice it's much faster! Now we just need to play this animation from a script!
+
+### Weapon Script
+
+Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it something like "weapon"
+
+We'll need this script to do two things:
+
+1. Rotate around our player, facing the mouse.
+2. Play the animation when we press our attack input.
+
+The first step will be nice and easy! In the **process** function, add the line
+```gdscript
+look_at(get_global_mouse_position())
+```
+This will cause this node to always face toward the position of the mouse!
+
+Next, we'll need to get a reference to our **AnimatedSprite2D** node, we'll do this the same way we did for the **animated_sprite_2d** node for the player' by clicking, dragging, and then holding ctrl before we let go of the click.
+
+your script should look like this:
+
+```gdscript
+extends Node2D
+
+@onready var animation_player = $AnimationPlayer
+
+func _process(delta):
+	look_at(get_global_mouse_position())
+```
+
+Great, now let's add a check to see if we've just used the **Attack** input action we created earler, and play the animation if we have. This is all stuff we've done earlier, so this should be pretty easy. Here's what it'll look like!
+
+Making sure that the Input action name, and animation name match, including case sensitivity. 
+```gdscript
+extends Node2D
+
+@onready var animation_player = $AnimationPlayer
+
+func _process(delta):
+	look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("Attack"):
+		animation_player.play("Attack")
+
+```
+Great! Let's get our weapon added to our player!
 
 ### Adding our weapon to our player
 
+Navigate to your player secene. From the filesystem, drag in your weapon scene (Likely called something like **weapon.tscn**) and attach it as a child of the main 
+**CharacterBody2D** node. 
+
+Play your game, and you should hopefully have a weapon that rotates around the player and stabs when you click it! If it doesn't seem to be rotating around the middle of the player sprite, feel free to adjust its position within the Player scene.
+
+You're also welcome to adjust the size of the weapon (Although, you're best to do this within the weapon scene itself) it's your game after all!
+
 ## Health
+
+### Player Health
+
+Let's start setting up our health system on the player side, we'll start by adding a new Node to our player, as a child of the root **CharacterBody2D** node. The node should be of type **Area2D** 
+give the **Area2D** a child of type **CollisionShape2D** rename the Area2D to something like "Hitbox." 
+
+Give the **CollisionShape2D** a shape, ideally a rectangle or circle, and make it *slightly* bigger than the shape for the **CharacterBody2D's** **CollisionShape2D**
+
+Let's give the **Area2D** one more child of type **Timer** and name it something like "damageTimer" this timer will be used to determine how quickly we can take damage again after being hurt, think of it as invulnerability time!
+In the timer's inspector, set its **Wait Time** field to 0.5s
+
+Great! this **Area2D** will be used to detect collision with enemies, potions, and coins! For now we'll just be setting it up to handle health, both healing and damage.
+
+Let's attach a script to the **Area2D** (that we named "Hitbox") and call it something like "hitbox.gd"
+
+This script is going to get a little complicated, as it's going to have to handle quite a few things. In a bigger project we would want to break its funcitonality up into multiple scripts, but for our scope this is fine!
+Let's break down what we need it to do:
+
+1. Track our health
+2. Detect collisions with potions/enemies/coins
+3. Change our health value
+4. Update the UI
+
+Let's start by creating the variables we'll need, those being:
+
+1. The signal we'll use to talk to the UI 
+2. A max health, and current health value
+3. A reference to the timer we created.
+4. A boolean determining if we can take damage
+
+These should look something like this, using the same click + drag + ctrl method to get the reference to the **Timer**
+
+```gdscript
+signal on_health_changed(new_health : int)
+@export var max_health : int = 6
+@onready var damage_timer = $damageTimer
+var health : int
+var can_take_damage : bool = true
+```
+
+**Remember:** We can use the **\@export** to modify the max health value, without editing the script!
+
+**Note:** Why are we starting at 6 health? We're doing this because each point of health will represent half a heart to the UI, for a total of 3 full hearts! Using ints like this is safer than using a float,
+because what if we somehow end up with 0.001 health!
+
+in our **_ready** function we'll want to set some default values, and emit the health_changed signal to send our starting health to the UI.
+
+```gdscript
+func _ready():
+	health = max_health
+	emit_signal("on_health_changed", health)
+```
+
+Right, let's get onto the most complicated function in the script, the function for taking damage! In this function, there'll be a few different possible outcomes.
+1. We can't take damage as we're currently immune. In this case. Nothing happens
+2. Otherwise we'll take damage. Emitting the signal to change the UI.
+3. If we do take damage, we might be reduced to 0 hitpoints
+4. If we are, we die! If we're not. We start our immunity timer.
+
+Great! Let's write that in gdscript:
+
+```gdscript
+func take_damage():
+	if can_take_damage:
+		health = health - 1
+		emit_signal("on_health_changed", health)
+		
+		if health <= 0:
+			print("you died!")
+		else:
+			can_take_damage = false
+			damage_timer.connect("timeout", allow_damage())
+			damage_timer.start()
+```
+
+**Note:** For now we'll just having dying print to the console and do nothing else, as we'll want some proper UI.
+
+You'll notice we connected our timer to a function called **allow_damage()** which doesn't exist, let's create that now. All it's going to do is set the **can_take_damage** boolean to **True** as unfortunately Godot doesn't let you assign a value to a variable directly via the **connect()** function.
+
+```gdscript
+func allow_damage():
+	can_take_damage = true
+```
+
+Next we'll do healing! This one is *much* easier. We just need to check if we have room to be healed (Our health is less than our max health). If we do, increase our health by 1. Then emit the signal to update the UI! We'll also want to delete the potion, so it can no longer be used.
+
+```gdscript
+func heal(body):
+	if health < max_health:
+		health = health + 1
+		emit_signal("on_health_changed", health)
+		body.get_parent().queue_free()
+```
+
+Finally, we need a function that calls our **heal** and **damage** functions based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
+
+To check if something has collided with us, we'll need to the **on_body_entered** signal! To connect this, swap to the **Node** tab of the **Inspector** and click on the **Area2D** node in the **SceneTree** again. You'll see a list of all the signals we have available to us!
+Click the **on_body_entered** signal and press **Connect** select the **Area2D (hitbox)** node and click **Connect** 
+
+You'll see a new function appear in our script! On that'll be called whenever something enteres this **Area2D**
+
+In here, we can check the **Group** of what we've collided with!
+
+```gdscript
+func _on_body_entered(body):
+	if body.is_in_group("enemy"):
+		take_damage()
+	elif body.is_in_group("health"):
+		heal(body)
+```
+and that's it! Giving us a full script that looks something that this:
+
+```gdscript
+extends CollisionShape2D
+
+signal on_health_changed(new_health : int)
+@export var max_health : int = 6
+@onready var damage_timer = $damageTimer
+var health : int
+var can_take_damage : bool = true
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	health = max_health
+	emit_signal("on_health_changed", health)
+
+func _on_body_entered(body):
+	if body.is_in_group("enemy"):
+		take_damage()
+	elif body.is_in_group("health"):
+		heal(body)
+		
+
+func take_damage():
+	if can_take_damage:
+		health = health - 1
+		emit_signal("on_health_changed", health)
+		
+		if health <= 0:
+			print("you died!")
+		else:
+			can_take_damage = false
+			damage_timer.connect("timeout", allow_damage())
+			damage_timer.start()
+	
+func heal(body):
+	if health < max_health:
+		health = health + 1
+		emit_signal("on_health_changed", health)
+		body.get_parent().queue_free()
+	
+func allow_damage():
+	can_take_damage = true
+```
+
+**Note:** If you copy and paste the above, you'll still need to manually connect the **on_body_entered** signal!
+
+And that's the player side of health done! Let's move onto the UI side!
+
+### Health UI
 
 ## Pickups
 
