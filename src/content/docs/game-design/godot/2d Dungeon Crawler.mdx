@@ -1,5 +1,6 @@
 ---
-title: Making a 2D top down dungeon crawler
+unitTitle: Making a 2D top down dungeon crawler
+title: Setting up our scene.
 description: This page works through 2D top down dungeon crawler step-by-step
 sidebar:
     order: 5
@@ -203,6 +204,8 @@ TODO: rect tool image
 Here's what my room looks like:
 
 TODO: Basic Room Image
+
+**Note:** Don't go too crazy on your level design just now! This first area will just be to test!
 
 ### Adding our player to the level
 
@@ -416,6 +419,7 @@ Godot Documentation for nodes discussed in this section:
 [Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
 :::
 
+Let's give our player something to attack with!
 
 ### Weapon Scene
 
@@ -949,13 +953,13 @@ We'll be keeping our enemy fairly simple, it'll operate off a circular detection
 
 Let's get to making the scene!
 
-It'll need: a root **Rigidbody2D** (Called "Enemy") with three children: a **CollisionShape2D,** an **Area2D** (named "range") and an **AnimatedSprite2D**
+It'll need: a root **CharacterBody2D** (Called "Enemy") with three children: a **CollisionShape2D,** an **Area2D** (named "range") and an **AnimatedSprite2D**
 
 Additionally we'll want to give the **Area2D** a **CollisionShape2D** as a child.
 
 [TODO: Enemy scene image]
 
-First, in the **Inspector** of the **Rigidbody2D** we'll want to set the **Gravity Scale** to 0 (As we don't want it to have gravity) and under the **Collision** section, we'll want **Layer** **2** and **3** selected. With only **1** selected under **Mask**
+First, on the **CharacterBody2D** under the **Collision** section, we'll want **Layer** **2** and **3** selected. With only **1** selected under **Mask**
 
 Let's skip down to setting up the **AnimatedSprite2D.** Create two animations, call the first "idle" and the second "move". Then, pick something to be your enemy! Selecting both the idle and move animation as we did for the player, using the **Add from file** button.
 
@@ -1011,11 +1015,54 @@ Now, in the **_process()** function, we'll want to check if our player is in ran
 ```gdscript
 func _process(delta):
 	if(in_range):
-		position = position.move_toward(target.position, speed * delta)
+
+		velocity = (target.global_position - global_position).normalized() * speed
+
 		if(target.global_position.x < global_position.x):
 			animated_sprite_2d.flip_h = true
 		else:
 			animated_sprite_2d.flip_h = false
+
+		move_and_slide()
+```
+
+for a final script that looks like this:
+
+```gdscript
+
+extends CharacterBody2D
+
+var in_range : bool = false
+var target
+
+@export var speed : float = 50.0
+@onready var animated_sprite_2d = $AnimatedSprite2D
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	if(in_range):
+		
+		velocity = (target.global_position - global_position).normalized() * speed
+		
+		if(target.global_position.x < global_position.x):
+			animated_sprite_2d.flip_h = true
+		else:
+			animated_sprite_2d.flip_h = false
+		move_and_slide()
+		
+	
+func _on_range_body_entered(body):
+	if(body.is_in_group("player")):
+		in_range = true
+		target = body
+		animated_sprite_2d.play("move")
+
+func _on_range_body_exited(body):
+	if(body.is_in_group("player")):
+		in_range = false
+		animated_sprite_2d.play("idle")
+
+
 ```
 
 and that's it! The last thing we need to do is head over to our **Player** scene, create a group called "player" and add the root node of the scene to it.
@@ -1061,12 +1108,100 @@ Test it out, and hopefully you'll find you can now destroy the enemies!
 
 ## Another floor
 
-## Finishing up!
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+Until now, our game has only had one level. Let's change that! Thankfully, Godot makes this fairly easy! There's only a couple of things we'll need to do.
+
+1. Actually create and store multiple levels.
+2. Load the level when we enter a specific spot.
+
+Let's get straight into it!
+
+### Creating Multiple Levels
+
+To create multiple levels, we'll want to save each level and *everything* in the level, as a **Scene.** A level should contain **Everything** that we want to be part of the level, such as enemies, coins, and potions. However we *don't* want the player or the UI to be saved in the level.
+
+An easy way to remember what we want to store in a level, is by thinking of what we want to *belong* or exist as part of the level!
+
+Now, for our levels, we'll obviously need our tilemap! But we don't want to be redoing **all** of the tileset settings each time... So what we'll want to do, is save a blank version of our current tilemap so that we can reuse it!
+
+So go to what is currently our testing scene, go to your **TileMap** and erase all the tiles you've painted, so it's just a blank **TileMap** with all of our settings. Now, let's right-click that and click **Save Branch as Scene** calling it something like "Level_Template"
+
+Great! Now we can get to actually setting up our first level! A level will only *Need* a couple of things to function:
+
+1. The TileMap
+2. A node that represents the players spawn
+
+Let's create a new scene with a root **Node2D** and call it something like "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling it something like "player_spawn"
+
+And that's the most basic form of a level setup! From here, paint the level using the **TileMap** (Remembering to use the right layers for walls and floors) and adding enemies, potions, and coins, all as children of the **Root** node.
+
+Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somehwat different, so you can tell when you've changed levels.
+
+You'll also want to make sure you place the "player_spawn" node in the position you want the player to spawn in the level.
+
+### Level Loader 
+
+The very last step for our game, is creating something to actually transition us between levels! But first, let's quickly cleanup our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** and the **CanvasLayer** that holds the **UI** (And obviously keeping the root node)
+
+We'll add one additional node as a child of the **root** node called "levelHolder"
+
+From your filesystem, drag your newly created "level_1.tscn" onto the **levelHolder** so that it becomes its child, as we want level 1 to be loaded from the start!
+
+Here's how my **World** scene looks:
+
+[TODO: world scene]
+
+For the final scene of our project, let's create a new scene, with a root **Node2D** called something like "levelTransition" with a child **Area2D** and give that a child **CollisionShape2D**
+
+Set the shape of the **CollisionShape2D** to be a square.
+
+let's create a script attached to the root node, called something like "level_transition.gd"
+
+Let's think about the variables for this script:
+
+1. The level we want to load (We'll use an \@export for this)
+2. A reference to our "levelHolder" node
+3. A reference to our player, to set their position
+
+```gdscript
+@export var to_load : PackedScene
+
+@onready var levelHolder : Node2D = $"../levelHolder"
+@onready var player : CharacterBody2D = $"../player"
+```
+
+Great! The \@export will allow us to assign what level want to load from each level, within the editor!
+
+Now, if the player enters this region, we'll
+
+1. Remove the last Level
+2. Load the new level
+3. Set the players position
+
+```gdscript
+func _on_area_2d_body_entered(body):
+	if(body.is_in_group("player")):
+		levelHolder.get_child(0).queue_free()
+		var loaded = to_load.instantiate()
+		levelHolder.add_child(loaded)
+		player.global_position = loaded.get_node("player_spawn").position
+```
+
+Great! Now to each of our level scenes that we've created, add in this scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so they player expects the change)
+And in the inspector of the **level_transition,** *after* you've added an instance to a scene, find the level you want it to open in your filesystem, and drag it into the "to_load" slot.
+
+
 
 
 TODO: Link to docs
 TODO: general cleanup pass
 TODO: Add images
+TODO: dying...
 
 
 

@@ -71,10 +71,28 @@ export default defineConfig({
           label: "About",
           link: 'game-design/index'
         }, {
-          label: "Godot",
-          autogenerate: {
-            directory: 'game-design/godot'
-          },
+          label: "Godot", items: [{
+            label: "3D Intro",
+            link: "game-design/godot/3d"
+          },{
+            label: "3D Game",
+            link: "game-design/godot/3dgame"
+          },{
+            label: "Basics",
+            link: "game-design/godot/basics"
+          },{
+          label: "Setting up C# For Godot",
+          link: "game-design/godot/projectsetup"
+          },{
+            label: "Survivors-Like",
+            link: "game-design/godot/survivors"
+          },{
+            label: "Universal Features",
+            link: "game-design/godot/universal"
+          },{
+            label: "Top-down Dungeon Crawler",
+            link: "game-design/godot/dungeoncrawler/0-scenesetup/"
+          }],
           collapsed: true
         }],
       },

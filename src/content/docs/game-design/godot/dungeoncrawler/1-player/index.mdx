@@ -1,0 +1,112 @@
+---
+
+unitTitle: Creating our player
+title: Setting up our player.
+description: Creating our player scene and scripts
+---
+
+## Creating the Player
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+
+Great! Let's start by making a basic version of our player character that will let us move around. We'll worry about more complicated things like attacking later.
+
+Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node. call it something like **Player**
+
+Give the **CharacterBody2D** a name like **Player** and give it two children:
+
+A **CollisionShape2D** and an **AnimatedSprite2D**
+
+Here's how my scene looks with no other modifications:
+
+![Basic player scene](/src/assets/godot/dungeonCrawler/playerscenebasic.png)
+
+Let's hit **Ctrl + S** and save this scene in our **Scenes** folder, call it something like **Player.tscn**
+
+### Animations
+
+Let's give ourselves something to look at! Click on the **AnimatedSprite2D** and in the inspector, under **Animation** you'll see **\<Empty>** in the **Spriteframes** field.
+Click on **\<Empty>** and create a new **Spriteframes** Click on the **Spriteframes** you created. This will open a new window at the bottom of the screen.
+
+This is where we'll create our player's animations. Rename the *General* animation to *Idle* and click the *Add frames from File* Button (The folder icon)
+
+Navigate to your *assets/frames* folder, and decide which character you want to be your player. I'll be using the Plague Doctor. Using Shift + Click select all the frames for your character labeled *Idle* (This should be four frames) then open them.
+
+![Idle Animation Frames](/src/assets/godot/dungeonCrawler/idleanim.png)
+
+You'll see them added to the animation timeline. We'll want to select two things in the timeline. The **Loop** Button (To ensure the animation loops) and the **Play on start button** (To ensure the animation plays automatically)
+Let's also increase the FPS to 8 so that the animation plays a little faster. 
+
+Hit play to test! You'll see the player now has an idle animation that loops!
+
+Let's add our characters walking animation. Add a new animation using the **Add animation** Button and call it something like "Walk"
+
+![Idle Animation Frames](/src/assets/godot/dungeonCrawler/addanim.png)
+
+Do the same thing we did to grab the frames for the idle animation, but this time, grab all the frames labeled "Run" it should again be 4 frames. We want this animation to loop, but we **don't** want it to autoplay. Let's also give this a framerate of 8 FPS.
+
+![Walk Animation Frames](/src/assets/godot/dungeonCrawler/walkanim.png)
+
+Finally, just select your idle animation again, to make sure this is what our player will start on.
+
+great! That's our animations all done!
+
+### Collision and Movement
+
+Now that we have something to look at, let's give our player a hitbox. Open the inspector for the **CollisionShape2D** we added, and add a new shape in the **empty** shape field.
+It's a good idea to use a **CapsuleShape** as it will make us less likely to get stuck on corners. Position and adjust the capsule so that it's *slightly* smalle than the sprite for our player.
+Mine looks like this:
+
+![CollissionShape](/src/assets/godot/dungeonCrawler/collshapeimg.png)
+
+Great! Our player now has collision. We'll do one more thing while we're here, which is give our player a script to handle movement. Right click on the **CharacterBody2D** and Attach a script. Call it something like "player.gd" and make sure we're saving it 
+in our Scripts folder. We also need to make sure we **untick** the **template** box as we will not be using the template! This is because the template is designed for gravity based platformers.
+
+With our script created and attached, let's get to programming our movement!
+
+First, let's set up a variable to control our speed.
+
+```gdscript
+@export var speed = 200
+```
+
+The **\@export** tag will allow us to easily edit our speed variable, without needing to open the script!
+
+Then, we'll want to use Godots built in **_physics_process(delta):** function for our movement logic. Inside that we'll want to get the combined vector of all the inputs the player is pressing.
+
+```gdscript
+func _physics_process(delta):
+    var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+```
+
+We'll then multiply this vector by our speed, and then invoke Godots built in **move_and_slide()** function
+
+```gdscript
+velocity = direction * speed
+
+move_and_slide()
+```
+
+giving us a final script that looks like this:
+
+```gdscript
+extends CharacterBody2D
+
+@export var speed = 200
+
+func _physics_process(delta):
+    var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+    velocity = direction * speed
+
+    move_and_slide()
+```
+For now our movement is controlled using the arrow keys, but we'll go over how to map it to whatever we want later in the guide.
+
+Switch back to 2D view at the top of the screen.
+
+And that's our player ready to go for now!
