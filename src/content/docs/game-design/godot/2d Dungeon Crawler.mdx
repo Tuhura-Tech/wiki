@@ -25,6 +25,14 @@ We'll instead be using a free asset pack by Ox72 on Itch.IO which [can be found 
 
 
 ## Making the project
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+
 Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing our assets. 
 First let's create a new folder, and call it something like 'Assets' 
 
@@ -49,6 +57,13 @@ TODO: Settings image
 
 
 ## Creating the Player
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
 
 Great! Let's start by making a basic version of our player character that will let us move around. We'll worry about more complicated things like attacking later.
 
@@ -147,6 +162,7 @@ Switch back to 2D view at the top of the screen.
 
 ## Building a level
 
+
 Let's move onto giving us something to walk around. Create a new scene. Give it a node2D as its root node, and call it something like "World" 
 
 Save the scene in our Scenes folder.
@@ -223,6 +239,13 @@ Here's how mine look:
 Now try playing your game again! You'll notice you actually collide with the walls! Great!
 
 ## Improving our player
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
 
 Let's spend some time further improving our player. Let's implement some different controls (Well be doing WASD, but you can using any controls you like)
 make sure our animation changes to our walking animation when we move, and make sure our sprite faces in the direction we're moving.
@@ -387,6 +410,13 @@ Test your game, and you'll notice your sprite now faces left or right depending 
 
 ## The Weapon
 
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+
 ### Weapon Scene
 
 Let's create a new scene for our weapon!
@@ -513,6 +543,13 @@ Play your game, and you should hopefully have a weapon that rotates around the p
 You're also welcome to adjust the size of the weapon (Although, you're best to do this within the weapon scene itself) it's your game after all!
 
 ## Health
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
 
 ### Player Health
 
@@ -819,6 +856,13 @@ Run your game! And you should have 3 hearts! Great!
 
 ## Pickups
 
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+
 Let's get onto pickups! Our game will have two types of pickups: Coins, and Potions. Coins will give us a point, and Potions will heal us for half a heart!
 
 Thankfully the setup for the two will be extremely simple, and they won't even need a script! As all logic is handled by our hitbox script!
@@ -889,6 +933,12 @@ For potions the process is exactly the same! You should be able to do it on your
 
 ## Enemies
 
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
 We've got a weapon, we've got health, we've got treasure to collect. What's missing?
 
 Something to fight!
@@ -913,12 +963,102 @@ You may want to speed the animations up as they're fairly slow by default, I fou
 
 Set the **CollisionShape2D** that's a child of the root node to have a shape that generally matches the sprite.
 
-Finally, set the shape of the **CollisionShape2D** child of the **Area2D** to be a circle, making it however large you want the 'detection' range of the enemy to be!
+Set the shape of the **CollisionShape2D** child of the **Area2D** to be a circle, making it however large you want the 'detection' range of the enemy to be!
+
+Finally, let's create a new **Group** and call it "enemy", and assign it to the root node of the scene.
 
 ### Enemy Scripting
 
+Now let's get the enemy moving!
+
+Let's create some variables: 
+1. a boolean to keep track of if the player is in range
+2. a reference to the player
+3. a variable to control our speed
+
+It should look something like this, again getting the reference to the **AnimatedSprite2D** the usual way:
+```gdscript
+var in_range : bool = false
+var target
+
+@export var speed : float = 50.0
+@onready var animated_sprite_2d = $AnimatedSprite2D
+```
+
+Then, we'll want to connect two signals from the "range" **Area2D** node, we'll want to connect both the "on_body_entered" and "on_body_exited" signals to the script we created!
+
+Let's write those functions. When the player enters the the range, we'll want to set our **in_range** boolean, and play our move animation
+
+``` gdscript
+func _on_range_body_entered(body):
+	if(body.is_in_group("player")):
+		in_range = true
+		target = body
+		animated_sprite_2d.play("move")
+```
+
+and in the exited function, we'll want to do the inverse!
+
+```gdscript
+func _on_range_body_exited(body):
+	if(body.is_in_group("player")):
+		in_range = false
+		animated_sprite_2d.play("idle")
+```
+
+Now, in the **_process()** function, we'll want to check if our player is in range, if they are, move toward them. We'll also want to flip our sprite based on where the player is in relation to the enemy.
+
+```gdscript
+func _process(delta):
+	if(in_range):
+		position = position.move_toward(target.position, speed * delta)
+		if(target.global_position.x < global_position.x):
+			animated_sprite_2d.flip_h = true
+		else:
+			animated_sprite_2d.flip_h = false
+```
+
+and that's it! The last thing we need to do is head over to our **Player** scene, create a group called "player" and add the root node of the scene to it.
+
+Add an enemy to the scene, and you should notice that if you get close to it, it'll walk toward you, and take health away whenever it touches you! 
+
+Although there's one problem... We can't destroy it!
+
 ### Destroying the enemy!
-sword scene function
+
+Head to your weapon scene and open the **weapon.gd** script. We'll just need to make some slight modifications to check if the sword is colliding with enemies when we attack.
+
+First, let's get a reference to the **Area2D** node.
+
+```gdscript
+@onready var area_2d = $Sprite2D/Area2D
+```
+Then, in our **_process()** function, if we're attacking, we'll want to get all the bodies we're colliding with and check if they're enemies.
+
+```gdscript
+if attacking:	
+		for body in area_2d.get_overlapping_bodies():
+			if body.is_in_group("enemy"):
+				body.queue_free()
+```
+
+leaving the **_process():** function looking like this:
+
+```gdscript
+func _process(delta):
+	look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("Attack"):
+		animation_player.play("Attack")
+		
+	if attacking:	
+		for body in area_2d.get_overlapping_bodies():
+			if body.is_in_group("enemy"):
+				body.queue_free()
+```
+
+Test it out, and hopefully you'll find you can now destroy the enemies!
+
 ## Another floor
 
 ## Finishing up!
@@ -927,7 +1067,6 @@ sword scene function
 TODO: Link to docs
 TODO: general cleanup pass
 TODO: Add images
-
 
 
 
