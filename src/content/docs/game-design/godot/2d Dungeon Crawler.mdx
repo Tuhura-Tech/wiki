@@ -656,11 +656,124 @@ And that's the player side of health done! Let's move onto the UI side!
 
 ### Health UI
 
-Time to start making some UI! Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node something like UI. and add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
+Time to start making some UI! Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node something like "UI" and add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
 
 Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whetever the size of our screen is, the health will always be pinned to the top left!
 
-Rename the node to something like "health_container"
+Rename the node to something like "health_container." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
+
+ Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points, and a "You died" message)
+
+ Add a script to the root node, calling it something like "ui.gd"
+
+ Let's think about what we need this script to do: 
+ 1. Store our three different heart images
+ 2. Recieve signals from our player when we take damage
+ 3. Update our health UI.
+
+ We'll set this up so that it automatically adjusts depending on the players **max_health** when the game is run, so you can easily have more (or less) than three hearts! 
+ (Or, you could implement an item that increases your max hp!)
+
+ Thankfull, we can reference images in our filesystem the same way we can reference nodes, with the **Drag + Ctrl + Release** technique we've been using! We'll want: The full heart image, the half heart image, and the empty heart image
+
+Find these in yor filesystem, and drag in the references, it should look something like this: 
+
+```gdscript
+const UI_HEART_EMPTY = preload("res://Assets/frames/ui_heart_empty.png")
+const UI_HEART_FULL = preload("res://Assets/frames/ui_heart_full.png")
+const UI_HEART_HALF = preload("res://Assets/frames/ui_heart_half.png")
+```
+
+Let's also get a reference to our **health_container** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
+We won't set this variable here, as it'll be set by whatever the most health we've had so far has been.
+
+```gdscript
+@onready var health_cont = $health_container
+var maxHealth : int = 0
+```
+Next will be the function that our signal will call, where most of the logic will happen, so let's think about what we need it to do!
+
+1. If the health recieved is bigger than our highest health so far, make that our new highest health. Easy enough!
+
+```gdscript
+func changed_health(newHealth : int):
+	if newHealth > maxHealth:
+		maxHealth = newHealth
+```
+
+2. we'll want to check if we have enough hearts currently to represent that, if we don't, we'll need to add some more. (We'll create the function for this last)
+
+```gdscript
+	if(maxHealth/2 > health_cont.get_child_count()):
+		for h in (maxHealth/2) - health_cont.get_child_count():
+			add_heart()
+```
+
+3. we'll iterate through all the children our **health_container** node has, and assign an image based on the current health.
+
+This section may look complicated, but once you get your head around it, it's fairly simple! Spend some time looking over it, and thinking about the conditions for each heart to be drawn.
+When I was figuring out how to program this, I found it useful to draw out the hearts on paper, at different levels of health!
+
+```gdscript
+for i in health_cont.get_child_count():
+		if (i * 2) + 1 < newHealth:
+			health_cont.get_child(i).texture = UI_HEART_FULL
+		elif (i * 2) < newHealth:
+			health_cont.get_child(i).texture = UI_HEART_HALF
+		else:
+			health_cont.get_child(i).texture = UI_HEART_EMPTY
+```
+
+giving us a full **changed_health** function that looks like this:
+
+```gdscript
+func changed_health(newHealth : int):
+	if newHealth > maxHealth:
+		maxHealth = newHealth
+		
+	if(maxHealth/2 > health_cont.get_child_count()):
+		for h in (maxHealth/2) - health_cont.get_child_count():
+			add_heart()
+	
+	for i in health_cont.get_child_count():
+		if (i * 2) + 1 < newHealth:
+			health_cont.get_child(i).texture = UI_HEART_FULL
+		elif (i * 2) < newHealth:
+			health_cont.get_child(i).texture = UI_HEART_HALF
+		else:
+			health_cont.get_child(i).texture = UI_HEART_EMPTY
+```
+
+Not too bad!
+
+Let's add that **add_heart** function, which just creates and configures another child if we need one.
+
+```gdscript
+func add_heart():
+	var img : TextureRect = TextureRect.new()
+	img.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+	health_cont.add_child(img)
+```
+
+Save the scene as something like "UI.tscn"
+
+Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that that the UI 'sticks' to the camera, rather than existing within the game)
+
+*Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
+
+First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations.
+
+```
+@onready var ui : Control = $"../../CanvasLayer/UI"
+```
+
+Then, finally, before we call the signal the first time, connect the signal with:
+
+```gdscript
+on_health_changed.connect(ui.changed_health)
+```
+
+Run your game! And you should have 3 hearts! Great!
 
 ## Pickups
 
