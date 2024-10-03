@@ -202,6 +202,8 @@ You should be able to move around! Though you'll quickly notice you're able to w
 Click on your **TileMap** Node again, select **TileSet** at the bottom of the screen, and click on your Wall **TileSet** Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector.
 Under the **Physics Layers** drop down, click **Add Element.** 
 
+Here you'll see the **Collision Layer** section, make sure **1** and **3** are selected. For the **Collision Mask** section, only **1** should be selected.
+
 Now, back in the section at the bottom of the screen, navigate to the **Paint** tab, and using the drop down, select **Physics Layer 0.** Here's how things look for me!
 
 [TODO: Image]
@@ -415,6 +417,8 @@ Here's how my sword scene and inspector look:
 
 [TODO: swordSceneInspector]
 
+Before we move on, navigate to the inspector tab of the **Area2D** node and find the **Collision** tab, under **Layer** make sure nothing is selected. Under **Mask** Make sure *only* 2 is selected.
+
 ### Weapon Script
 
 Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it something like "weapon"
@@ -562,6 +566,7 @@ in our **_ready** function we'll want to set some default values, and emit the h
 
 ```gdscript
 func _ready():
+	damage_timer.connect("timeout", allow_damage)
 	health = max_health
 	emit_signal("on_health_changed", health)
 ```
@@ -584,7 +589,6 @@ func take_damage():
 			print("you died!")
 		else:
 			can_take_damage = false
-			damage_timer.connect("timeout", allow_damage())
 			damage_timer.start()
 ```
 
@@ -641,6 +645,7 @@ var can_take_damage : bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	damage_timer.connect("timeout", allow_damage)
 	health = max_health
 	emit_signal("on_health_changed", health)
 
@@ -663,7 +668,6 @@ func take_damage():
 			print("you died!")
 		else:
 			can_take_damage = false
-			damage_timer.connect("timeout", allow_damage())
 			damage_timer.start()
 	
 func heal(body):
@@ -885,10 +889,36 @@ For potions the process is exactly the same! You should be able to do it on your
 
 ## Enemies
 
+We've got a weapon, we've got health, we've got treasure to collect. What's missing?
+
+Something to fight!
+
+We'll be keeping our enemy fairly simple, it'll operate off a circular detection range, and walk toward the player if it enters that range, without taking into account walls (Though it will of course still collide with walls)
+
 ### Enemy Scene
+
+Let's get to making the scene!
+
+It'll need: a root **Rigidbody2D** (Called "Enemy") with three children: a **CollisionShape2D,** an **Area2D** (named "range") and an **AnimatedSprite2D**
+
+Additionally we'll want to give the **Area2D** a **CollisionShape2D** as a child.
+
+[TODO: Enemy scene image]
+
+First, in the **Inspector** of the **Rigidbody2D** we'll want to set the **Gravity Scale** to 0 (As we don't want it to have gravity) and under the **Collision** section, we'll want **Layer** **2** and **3** selected. With only **1** selected under **Mask**
+
+Let's skip down to setting up the **AnimatedSprite2D.** Create two animations, call the first "idle" and the second "move". Then, pick something to be your enemy! Selecting both the idle and move animation as we did for the player, using the **Add from file** button.
+
+You may want to speed the animations up as they're fairly slow by default, I found 10 fps to be good for both! You'll also want to make sure you set the **idle** animation to be autoplay!
+
+Set the **CollisionShape2D** that's a child of the root node to have a shape that generally matches the sprite.
+
+Finally, set the shape of the **CollisionShape2D** child of the **Area2D** to be a circle, making it however large you want the 'detection' range of the enemy to be!
 
 ### Enemy Scripting
 
+### Destroying the enemy!
+sword scene function
 ## Another floor
 
 ## Finishing up!
@@ -897,8 +927,6 @@ For potions the process is exactly the same! You should be able to do it on your
 TODO: Link to docs
 TODO: general cleanup pass
 TODO: Add images
-TODO: Weapon active logic
-TODO: destroying coins and potions
 
 
 
