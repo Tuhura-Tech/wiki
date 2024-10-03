@@ -147,11 +147,11 @@ Switch back to 2D view at the top of the screen.
 
 ## Building a level
 
-Let's move onto giving us something to walk around. Create a new scene. Give it a node2D as its root node, and call it something like "Floor 1" 
+Let's move onto giving us something to walk around. Create a new scene. Give it a node2D as its root node, and call it something like "World" 
 
 Save the scene in our Scenes folder.
 
-Give our root node a child node with the type **TileMap** this will handle the visuals and collision of our level.
+Give our root node a child node with the type **TileMap** this will handle the visuals and collision of our level. Call it something like "Level 1"
 In the inspector, create a new **Tile Set** for the **empty** **Tile Set** field.
 
 You'll notice two new tabs have appeared at the **TileSet** and **TileMap** we'll be working with both of these, but open the **TileSet** tab first.
@@ -407,13 +407,64 @@ Don't worry that it's pointing up, we'll rotate it in a minute.
 Let's open the **CollisionShape2D** node and assign a shape, you'll probably just want to use a rectangle shape. This will be the hitbox of the sword, and determine whether an enemy has been hit! Adjust its bounds so that it vaguely matches the sprite. 
 Although you'll likely want to make it a little bigger than the sprite, as we don't want our game to feel like the player has to be too precise.
 
-Before we get to the attack animation, let's rotate the **Sprite2D** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
+let's rotate the **Sprite2D** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
 
 Let's also offset it's position a little, to help it rotate around our player smoothly. Set its x-position to something like **20px**
 
 Here's how my sword scene and inspector look: 
 
 [TODO: swordSceneInspector]
+
+### Weapon Script
+
+Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it something like "weapon"
+
+We'll need this script to do two things:
+
+1. Rotate around our player, facing the mouse.
+2. Play the animation when we press our attack input.
+
+The first step will be nice and easy! In the **process** function, add the line
+```gdscript
+look_at(get_global_mouse_position())
+```
+This will cause this node to always face toward the position of the mouse!
+
+Next, we'll need to get a reference to our **AnimatedSprite2D** node, we'll do this the same way we did for the **animated_sprite_2d** node for the player' by clicking, dragging, and then holding ctrl before we let go of the click.
+
+We'll also want a variable that keeps track of if we're *currently* attacking, as we don't want the sword to destroy enemies when we haven't attacked.
+
+your script should look like this:
+
+```gdscript
+extends Node2D
+
+@onready var animation_player = $AnimationPlayer
+@export var attacking : bool = false
+
+func _process(delta):
+	look_at(get_global_mouse_position())
+```
+
+Great, now let's add a check to see if we've just used the **Attack** input action we created earler, and play the animation we'll create next. This is all stuff we've done earlier, so this should be pretty easy. Here's what it'll look like!
+
+Making sure that the Input action name, and animation name match, including case sensitivity. 
+```gdscript
+extends Node2D
+
+@onready var animation_player = $AnimationPlayer
+
+@export var attacking : bool = false
+
+func _process(delta):
+	look_at(get_global_mouse_position())
+	
+	if Input.is_action_just_pressed("Attack"):
+		animation_player.play("Attack")
+
+```
+
+### Sword Animation
 
 Now, let's starting creating our attack animation! Navigate to the **Animationplayer** and click **Animation** and create a new animation. Call it "Attack"
 Now that we've created a new animation, we'll need to create an **Animation Track** which you can do by clicking **Add track.** This will ask us what type of Animation Track we want to create.
@@ -438,51 +489,14 @@ Great! Let's hit the play button on the animation, and you'll notice we have a s
 
 Change the length from 1.0 to 0.5. We'll then need to adjust our keyframes, adjusting the middle one to be at a **Time** of 0.25, and the last to be at 0.5.
 
-Play it again, and you'll notice it's much faster! Now we just need to play this animation from a script!
+Play it again, and you'll notice it's much faster!
 
-### Weapon Script
+We'll want to add another **Property Animation Track** this time to modify the **attacking** variable, to keep track of if our weapon is "Active" or not.
 
-Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it something like "weapon"
+Add a new animation track, select property, and you should see "attacking" right at the top! Add two keyframes, one right at the start, and one right at the end. The first we'll want to set the value to "on" (as we're now attacking) and the one at the end will set the property back to "off" (or unticked)
 
-We'll need this script to do two things:
+And that's it! We'll come back later to add the code for destroying enemies.
 
-1. Rotate around our player, facing the mouse.
-2. Play the animation when we press our attack input.
-
-The first step will be nice and easy! In the **process** function, add the line
-```gdscript
-look_at(get_global_mouse_position())
-```
-This will cause this node to always face toward the position of the mouse!
-
-Next, we'll need to get a reference to our **AnimatedSprite2D** node, we'll do this the same way we did for the **animated_sprite_2d** node for the player' by clicking, dragging, and then holding ctrl before we let go of the click.
-
-your script should look like this:
-
-```gdscript
-extends Node2D
-
-@onready var animation_player = $AnimationPlayer
-
-func _process(delta):
-	look_at(get_global_mouse_position())
-```
-
-Great, now let's add a check to see if we've just used the **Attack** input action we created earler, and play the animation if we have. This is all stuff we've done earlier, so this should be pretty easy. Here's what it'll look like!
-
-Making sure that the Input action name, and animation name match, including case sensitivity. 
-```gdscript
-extends Node2D
-
-@onready var animation_player = $AnimationPlayer
-
-func _process(delta):
-	look_at(get_global_mouse_position())
-	
-	if Input.is_action_just_pressed("Attack"):
-		animation_player.play("Attack")
-
-```
 Great! Let's get our weapon added to our player!
 
 ### Adding our weapon to our player
@@ -500,6 +514,8 @@ You're also welcome to adjust the size of the weapon (Although, you're best to d
 
 Let's start setting up our health system on the player side, we'll start by adding a new Node to our player, as a child of the root **CharacterBody2D** node. The node should be of type **Area2D** 
 give the **Area2D** a child of type **CollisionShape2D** rename the Area2D to something like "Hitbox." 
+
+In the **Inspector** of the **Area2D** Navigate to the **Collision** section. Deselect all numbers under the **Layer** Section, and ensure *only* 2 is selected under the **Mask** Section.
 
 Give the **CollisionShape2D** a shape, ideally a rectangle or circle, and make it *slightly* bigger than the shape for the **CharacterBody2D's** **CollisionShape2D**
 
@@ -520,15 +536,17 @@ Let's break down what we need it to do:
 
 Let's start by creating the variables we'll need, those being:
 
-1. The signal we'll use to talk to the UI 
-2. A max health, and current health value
-3. A reference to the timer we created.
-4. A boolean determining if we can take damage
+1. The signal we'll use to talk to the UI when our health has changed
+2. While we're here, a signal for when we've collected a coin, as it'll also talk to the UI
+3. A max health, and current health value
+4. A reference to the timer we created.
+5. A boolean determining if we can take damage
 
 These should look something like this, using the same click + drag + ctrl method to get the reference to the **Timer**
 
 ```gdscript
 signal on_health_changed(new_health : int)
+signal on_point_gained
 @export var max_health : int = 6
 @onready var damage_timer = $damageTimer
 var health : int
@@ -586,7 +604,7 @@ func heal(body):
 	if health < max_health:
 		health = health + 1
 		emit_signal("on_health_changed", health)
-		body.get_parent().queue_free()
+		body.queue_free()
 ```
 
 Finally, we need a function that calls our **heal** and **damage** functions based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
@@ -596,7 +614,7 @@ Click the **on_body_entered** signal and press **Connect** select the **Area2D (
 
 You'll see a new function appear in our script! On that'll be called whenever something enteres this **Area2D**
 
-In here, we can check the **Group** of what we've collided with!
+In here, we can check the **Group** of what we've collided with! Let's also add a check to see if we've collected a coin here, to save us some time later!
 
 ```gdscript
 func _on_body_entered(body):
@@ -604,6 +622,10 @@ func _on_body_entered(body):
 		take_damage()
 	elif body.is_in_group("health"):
 		heal(body)
+	elif body.is_in_group("coin"):
+		emit_signal("on_point_gained")
+		body.queue_free()
+
 ```
 and that's it! Giving us a full script that looks something that this:
 
@@ -611,6 +633,7 @@ and that's it! Giving us a full script that looks something that this:
 extends Area2D
 
 signal on_health_changed(new_health : int)
+signal on_point_gained
 @export var max_health : int = 6
 @onready var damage_timer = $damageTimer
 var health : int
@@ -621,11 +644,14 @@ func _ready():
 	health = max_health
 	emit_signal("on_health_changed", health)
 
-func _on_body_entered(body):
+func _on_body_entered():
 	if body.is_in_group("enemy"):
 		take_damage()
 	elif body.is_in_group("health"):
 		heal(body)
+	elif body.is_in_group("coin"):
+		emit_signal("on_point_gained")
+		body.queue_free()
 		
 
 func take_damage():
@@ -644,7 +670,7 @@ func heal(body):
 	if health < max_health:
 		health = health + 1
 		emit_signal("on_health_changed", health)
-		body.get_parent().queue_free()
+		body.queue_free()
 	
 func allow_damage():
 	can_take_damage = true
@@ -660,7 +686,7 @@ Time to start making some UI! Let's make a new scene, of, as you may have guesse
 
 Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whetever the size of our screen is, the health will always be pinned to the top left!
 
-Rename the node to something like "health_container." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
+Rename the node to something like "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
 
  Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points, and a "You died" message)
 
@@ -684,11 +710,11 @@ const UI_HEART_FULL = preload("res://Assets/frames/ui_heart_full.png")
 const UI_HEART_HALF = preload("res://Assets/frames/ui_heart_half.png")
 ```
 
-Let's also get a reference to our **health_container** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
+Let's also get a reference to our **healthContainer** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
 We won't set this variable here, as it'll be set by whatever the most health we've had so far has been.
 
 ```gdscript
-@onready var health_cont = $health_container
+@onready var health_cont = $healthContainer
 var maxHealth : int = 0
 ```
 Next will be the function that our signal will call, where most of the logic will happen, so let's think about what we need it to do!
@@ -709,7 +735,7 @@ func changed_health(newHealth : int):
 			add_heart()
 ```
 
-3. we'll iterate through all the children our **health_container** node has, and assign an image based on the current health.
+3. we'll iterate through all the children our **healthContainer** node has, and assign an image based on the current health.
 
 This section may look complicated, but once you get your head around it, it's fairly simple! Spend some time looking over it, and thinking about the conditions for each heart to be drawn.
 When I was figuring out how to program this, I found it useful to draw out the hearts on paper, at different levels of health!
@@ -755,6 +781,13 @@ func add_heart():
 	health_cont.add_child(img)
 ```
 
+Let's also while we're here, add an empty function for our point system, which we'll come back to later!
+
+```gdscript
+func add_point():
+	pass
+```
+
 Save the scene as something like "UI.tscn"
 
 Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that that the UI 'sticks' to the camera, rather than existing within the game)
@@ -763,7 +796,7 @@ Go back to your main level scene. Add a new child of type **CanvasLayer** and ad
 
 First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations.
 
-```
+```gdscript
 @onready var ui : Control = $"../../CanvasLayer/UI"
 ```
 
@@ -772,14 +805,83 @@ Then, finally, before we call the signal the first time, connect the signal with
 ```gdscript
 on_health_changed.connect(ui.changed_health)
 ```
+we'll also connect our point signal with:
+
+```gdscript
+on_point_gained.connect(ui.add_point)
+```
 
 Run your game! And you should have 3 hearts! Great!
 
 ## Pickups
 
+Let's get onto pickups! Our game will have two types of pickups: Coins, and Potions. Coins will give us a point, and Potions will heal us for half a heart!
+
+Thankfully the setup for the two will be extremely simple, and they won't even need a script! As all logic is handled by our hitbox script!
+
 ### Coins
 
+For coins, we'll create a new scene with a root node of **Staticbody2D** calling it something like "Coin"
+
+It should have a child of type **CollisionShape2D**
+
+We'll also want to add an **AnimatedSprite2D** to the root node.
+
+Here's how my scene looks:
+
+[TODO: coin scene]
+
+We'll add the animation the same way we did with our player! Click on the **AnimatedSprite2D** and in the inspector, under **Animation** create a new **Spriteframes**
+
+Click on the new **Spriteframes** and add sprites from file. (The coin has four frames) Make sure to click **autoplay** (The 'A' in the pointy box)
+and then assign a shape to the **CollisionShape2D** that loosely matches the coin. (I just used a circle)
+
+The coin as is is very small, so open the inspector for the root **Staticbody2D** and change the **Scale** values to 2.
+
+Now, all that's left to do is create a **Group.** With the root **Staticbody2D** still selected, navigate to the **Node** tab of the inspector, then to the **Groups** tab.
+
+[TODO: Groups img]
+
+In the box, type "coin" and click **Add**
+
+Then, click **Manage Groups** and select each Node, followed by **Add** to ensure that each node in the scene is in the group.
+
+Finally, we'll want to open the **Collision** tab on the inspector of the **Staticbody2D** setting the **Layer** to *only* 2, and deselecting all numbers under the **Mask** as we don't want our coin to be looking for collisions, or to be physically collided with!
+
+And that's our coin! The only script work we need to do is in our **UI** script! But first we'll need to add a UI element to track our points!
+
+Don't worry, we've done all the hard work of connecting signals earlier! This'll be nice and easy!
+
+Let's head to our UI Scene. To the root node, add a new child, of type **HBoxContainer** call it something like "pointContainer"
+
+Give it two children, a **TextureRect** and a **Label,** name the label something like **pointsLabel** 
+
+In the inspector of the **TextureRect** set the **Expand Mode** to "Fit Width" and assign the first coin image to the **Texture** field using the **Load** Option
+
+Finally for UI setup, in the inspector of the **Label** write "0" in the **Text** field. You'll notice this is pretty small! Scroll down in the **Inspector** until you see **Theme Overrides.** in this section you'll find **Font Sizes.** Set this to something you think looks good! I went with 40px.
+
+Great! Now we just need to add two lines of code to our UI. and then our points are done!
+
+First, a reference to our label, same way we've been doing, this should be second nature by now!
+
+```gdscript
+@onready var points_label = $pointContainer/pointsLabel
+```
+
+then, we'll finish the function we created earlier.
+
+
+```gdscript
+func add_point():
+	points_label.text = str(int(points_label.text) + 1)
+```
+This looks a little silly, but what we're doing is taking the current text in the label, converting it to a number, adding 1 to it, and then converting to *back* to a string.
+
+If you've set it all up right, you should notice this number going up each time you pick up a coin! Add a few instances of the coin scene to your level to test!
+
 ### Potions
+
+For potions the process is exactly the same! You should be able to do it on your own! Just follow the steps for creating the coin scene. Except in this case we'll just want a regular **Sprite2D** As the potion sprite isn't animated, and we'll want the group to be called "health" (make sure it matches the line we wrote in **hitbox.gd**)
 
 ## Enemies
 
@@ -789,11 +891,14 @@ Run your game! And you should have 3 hearts! Great!
 
 ## Another floor
 
+## Finishing up!
+
 
 TODO: Link to docs
 TODO: general cleanup pass
 TODO: Add images
 TODO: Weapon active logic
+TODO: destroying coins and potions
 
 
 
