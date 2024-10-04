@@ -4,7 +4,8 @@ unitTitle: The Enemy
 title: Adding an Enemy
 description: Adding an enemy for the player to fight
 ---
-
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
 
 ## Enemies
 
@@ -176,3 +177,14 @@ func _process(delta):
 ```
 
 Test it out, and hopefully you'll find you can now destroy the enemies!
+
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've created the enemy scene
+- [ ] I've created the enemy script
+- [ ] The enemy damages me
+- [ ] The enemy moves toward me 
+- [ ] I'm able to destroy the enemy
+</Checklist>
+</Box>

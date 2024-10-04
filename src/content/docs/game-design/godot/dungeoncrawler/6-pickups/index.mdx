@@ -5,6 +5,9 @@ title: Health & Coins
 description: Implementing pickups for the player to collect
 ---
 
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
 ## Pickups
 
 :::note[Godot Documentation]
@@ -81,3 +84,13 @@ If you've set it all up right, you should notice this number going up each time 
 ### Potions
 
 For potions the process is exactly the same! You should be able to do it on your own! Just follow the steps for creating the coin scene. Except in this case we'll just want a regular **Sprite2D** As the potion sprite isn't animated, and we'll want the group to be called "health" (make sure it matches the line we wrote in **hitbox.gd**)
+
+
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've created a coin pickup
+- [ ] I've created a potion pickup
+- [ ] I've tested them in my game
+</Checklist>
+</Box>

@@ -5,6 +5,9 @@ title: Another Floors
 description: Adding a level switching system to our game
 ---
 
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
 ## Another floor
 
 :::note[Godot Documentation]
@@ -91,6 +94,15 @@ func _on_area_2d_body_entered(body):
 		player.global_position = loaded.get_node("player_spawn").position
 ```
 
-Great! Now to each of our level scenes that we've created, add in this scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so they player expects the change)
+Great! Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so they player expects the change)
 And in the inspector of the **level_transition,** *after* you've added an instance to a scene, find the level you want it to open in your filesystem, and drag it into the "to_load" slot.
 
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've at least two levels
+- [ ] I've created the level loader
+- [ ] I've added the level loader to my levels
+- [ ] I'm able to transition between levels
+</Checklist>
+</Box>

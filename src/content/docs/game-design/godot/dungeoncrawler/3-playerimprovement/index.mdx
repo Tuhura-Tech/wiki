@@ -5,6 +5,9 @@ title: Player Improvement
 description: Upgrading our player scene
 ---
 
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
 ## Improving our player
 
 :::note[Godot Documentation]
@@ -175,3 +178,12 @@ func _physics_process(delta):
 This way the direction our sprite is facing doesn't change unless we move either left or right!
 
 Test your game, and you'll notice your sprite now faces left or right depending on the direction we're facing!
+
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've setup the Inputs
+- [ ] My sprite flips from left to right
+- [ ] My sprite's animations change
+</Checklist>
+</Box>

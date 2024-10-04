@@ -5,12 +5,15 @@ title: The Weapon
 description: Implementing the weapon scene and script
 ---
 
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
 ## The Weapon
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
 
-[Animation Player](https://docs.godotengine.org/en/stable/classes/class_animationplayer.html) [Sprites](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html)
+[Animation Player](https://docs.godotengine.org/en/stable/classes/class_animationplayer.html) [Sprites](https://docs.godotengine.org/en/stable/classes/class_sprite2d.html) [Area2D](https://docs.godotengine.org/en/stable/classes/class_area2d.html)
 :::
 
 Let's give our player something to attack with!
@@ -139,3 +142,14 @@ Navigate to your player secene. From the filesystem, drag in your weapon scene (
 Play your game, and you should hopefully have a weapon that rotates around the player and stabs when you click it! If it doesn't seem to be rotating around the middle of the player sprite, feel free to adjust its position within the Player scene.
 
 You're also welcome to adjust the size of the weapon (Although, you're best to do this within the weapon scene itself) it's your game after all!
+
+
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've created the weapon scene
+- [ ] I've created the weapon script
+- [ ] My sword sprite has an animation
+- [ ] I've added the sword to my player scene
+</Checklist>
+</Box>
