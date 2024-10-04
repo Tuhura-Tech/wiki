@@ -42,7 +42,7 @@ Now, click on the **floor** layer and follow the same steps, except this time lo
 
 With our **Tilesets** setup we can now go to the **TileMap** tab. 
 
-From here, if you click on a tile and then in the scene, you'll notice your able to paint them into the scene! This is how we'll create our levels! you can click between the floor and wall **Tilemaps** to get access to the different tiles and to paint the different layers.
+From here, if you click on a tile and then in the scene, you'll notice you're able to paint them into the scene! This is how we'll create our levels! you can click between the floor and wall **Tilemaps** to get access to the different tiles and to paint the different layers.
 
 **Note:** Why do we have a different layer for the two? We'll want our walls to have collision, but not our floors! So we have them on different **TilemapLayer** nodes.
 
@@ -71,17 +71,17 @@ in the file browser, into our **scene tree** as a child of the root node! Finall
 
 ![Initial Scene](/src/assets/godot/dungeonCrawler/inittestscene.png)
 
-Don't worry if the names of your nodes are different, leave them as the are for now!
+Don't worry if the names of your nodes are different, leave them as they are for now!
 
 You should be able to move around! Though you'll quickly notice you're able to walk through walls, which isn't ideal, so let's fix that!
 
 ### Level collision
 
-Click on your **Walls TilemapLayer** Node, Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector. Under the **Physics Layers** drop down, click **Add Element.** 
+Click on your **Walls TilemapLayer** Node, Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector. Under the **Physics Layers** drop-down, click **Add Element.** 
 
 Here you'll see the **Collision Layer** section, make sure **1** and **3** are selected. For the **Collision Mask** section, only **1** should be selected.
 
-Now, back in the section at the bottom of the screen, navigate to the **Paint** tab, and using the drop down, select **Physics Layer 0.** Here's how things look for me!
+Now, back in the section at the bottom of the screen, navigate to the **Paint** tab, and using the drop-down, select **Physics Layer 0.** Here's how things look for me!
 
 ![Physics Layers](/src/assets/godot/dungeonCrawler/tilesetphysicslayer.png)
 

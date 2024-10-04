@@ -31,7 +31,7 @@ Great! this **Area2D** will be used to detect collision with enemies, potions, a
 
 Let's attach a script to the **Area2D** (that we named "Hitbox") and call it something like "hitbox.gd"
 
-This script is going to get a little complicated, as it's going to have to handle quite a few things. In a bigger project we would want to break its funcitonality up into multiple scripts, but for our scope this is fine!
+This script is going to get a little complicated, as it's going to have to handle quite a few things. In a bigger project we would want to break its functionality up into multiple scripts, but for our scope this is fine!
 Let's break down what we need it to do:
 
 1. Track our health
@@ -115,7 +115,7 @@ Finally, we need a function that calls our **heal** and **damage** functions bas
 To check if something has collided with us, we'll need to the **on_body_entered** signal! To connect this, swap to the **Node** tab of the **Inspector** and click on the **Area2D** node in the **SceneTree** again. You'll see a list of all the signals we have available to us!
 Click the **on_body_entered** signal and press **Connect** select the **Area2D (hitbox)** node and click **Connect** 
 
-You'll see a new function appear in our script! On that'll be called whenever something enteres this **Area2D**
+You'll see a new function appear in our script! On that'll be called whenever something enters this **Area2D**
 
 In here, we can check the **Group** of what we've collided with! Let's also add a check to see if we've collected a coin here, to save us some time later!
 
@@ -130,7 +130,7 @@ func _on_body_entered(body):
 		body.queue_free()
 
 ```
-and that's it! Giving us a full script that looks something that this:
+and that's it! Giving us a full script that looks something like this:
 
 ```gdscript
 extends Area2D
@@ -187,7 +187,7 @@ And that's the player side of health done! Let's move onto the UI side!
 
 Time to start making some UI! Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node something like "UI" and add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
 
-Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whetever the size of our screen is, the health will always be pinned to the top left!
+Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whatever the size of our screen is, the health will always be pinned to the top left!
 
 Rename the node to something like "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
 
@@ -208,9 +208,9 @@ Next, in the 2D view of the UI, move the Text so that it's where you want it, I 
  We'll set this up so that it automatically adjusts depending on the players **max_health** when the game is run, so you can easily have more (or less) than three hearts! 
  (Or, you could implement an item that increases your max hp!)
 
- Thankfull, we can reference images in our filesystem the same way we can reference nodes, with the **Drag + Ctrl + Release** technique we've been using! We'll want: The full heart image, the half heart image, and the empty heart image
+ Thankfully, we can reference images in our filesystem the same way we can reference nodes, with the **Drag + Ctrl + Release** technique we've been using! We'll want: The full heart image, the half heart image, and the empty heart image
 
-Find these in yor filesystem, and drag in the references, it should look something like this: 
+Find these in your filesystem, and drag in the references, it should look something like this: 
 
 ```gdscript
 const UI_HEART_EMPTY = preload("res://Assets/frames/ui_heart_empty.png")
@@ -228,7 +228,7 @@ var maxHealth : int = 0
 ```
 Next will be the function that our signal will call, where most of the logic will happen, so let's think about what we need it to do!
 
-1. If our health is set to 0, show the "You died text" Otherwise, If the health recieved is bigger than our highest health so far, make that our new highest health. Easy enough!
+1. If our health is set to 0, show the "You died text" Otherwise, If the health received is bigger than our highest health so far, make that our new highest health. Easy enough!
 
 ```gdscript
 func changed_health(newHealth : int):
@@ -302,7 +302,7 @@ func add_point():
 
 Save the scene as something like "UI.tscn"
 
-Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that that the UI 'sticks' to the camera, rather than existing within the game)
+Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that the UI 'sticks' to the camera, rather than existing within the game)
 
 *Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
 

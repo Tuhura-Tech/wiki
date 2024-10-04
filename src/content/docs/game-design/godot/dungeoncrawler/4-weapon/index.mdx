@@ -81,7 +81,7 @@ func _process(delta):
 	look_at(get_global_mouse_position())
 ```
 
-Great, now let's add a check to see if we've just used the **Attack** input action we created earler, and play the animation we'll create next. This is all stuff we've done earlier, so this should be pretty easy. Here's what it'll look like!
+Great, now let's add a check to see if we've just used the **Attack** input action we created earlier, and play the animation we'll create next. This is all stuff we've done earlier, so this should be pretty easy. Here's what it'll look like!
 
 Making sure that the Input action name, and animation name match, including case sensitivity. 
 ```gdscript
@@ -101,7 +101,7 @@ func _process(delta):
 
 ### Sword Animation
 
-Now, let's starting creating our attack animation! Navigate to the **Animationplayer** and click **Animation** and create a new animation. Call it "Attack"
+Now, let's start creating our attack animation! Navigate to the **Animationplayer** and click **Animation** and create a new animation. Call it "Attack"
 Now that we've created a new animation, we'll need to create an **Animation Track** which you can do by clicking **Add track.** This will ask us what type of Animation Track we want to create.
 
 We want to animation the **Position** of our weapon, this is a **Property** so we'll create a **Property** Track. 
@@ -136,7 +136,7 @@ Great! Let's get our weapon added to our player!
 
 ### Adding our weapon to our player
 
-Navigate to your player secene. From the filesystem, drag in your weapon scene (Likely called something like **weapon.tscn**) and attach it as a child of the main 
+Navigate to your player scene. From the filesystem, drag in your weapon scene (Likely called something like **weapon.tscn**) and attach it as a child of the main 
 **CharacterBody2D** node. 
 
 Play your game, and you should hopefully have a weapon that rotates around the player and stabs when you click it! If it doesn't seem to be rotating around the middle of the player sprite, feel free to adjust its position within the Player scene.

@@ -2,7 +2,7 @@
 type: tutorial
 unitTitle: More Levels
 title: Another Floors
-description: Adding a level switching system to our game
+description: Adding a level-switching system to our game
 ---
 
 import Checklist from '/src/components/tutorial/Checklist.astro';
@@ -46,7 +46,7 @@ To edit the two **TileMapLayers** we'll need to right click on the **Level_Templ
 
 And that's the most basic form of a level setup! From here, paint the level using the **TileMap** (Remembering to use the right layers for walls and floors) and adding enemies, potions, and coins, all as children of the **Root** node.
 
-Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somehwat different, so you can tell when you've changed levels.
+Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somewhat different, so you can tell when you've changed levels.
 
 You'll also want to make sure you place the "player_spawn" node in the position you want the player to spawn in the level.
 
@@ -56,7 +56,7 @@ Here's an example of a level I made:
 
 ### Level Loader 
 
-The very last step for our game, is creating something to actually transition us between levels! But first, let's quickly cleanup our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** and the **CanvasLayer** that holds the **UI** (And obviously keeping the root node)
+The very last step for our game, is creating something to actually transition us between levels! But first, let's quickly clean up our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** and the **CanvasLayer** that holds the **UI** (And obviously keeping the root node)
 
 We'll add one additional node as a child of the **root** node called "levelHolder"
 
@@ -104,7 +104,7 @@ func _on_area_2d_body_entered(body):
 		player.global_position = loaded.get_node("player_spawn").position
 ```
 
-Great! Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so they player expects the change)
+Great! Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so the player expects the change)
 And in the inspector of the **level_transition,** *after* you've added an instance to a scene, find the level you want it to open in your filesystem, and drag it into the "to_load" slot.
 
 <Box>
