@@ -29,22 +29,30 @@ To create multiple levels, we'll want to save each level and *everything* in the
 
 An easy way to remember what we want to store in a level, is by thinking of what we want to *belong* or exist as part of the level!
 
-Now, for our levels, we'll obviously need our tilemap! But we don't want to be redoing **all** of the tileset settings each time... So what we'll want to do, is save a blank version of our current tilemap so that we can reuse it!
+Now, for our levels, we'll obviously need our **TileMapLayers!** But we don't want to be redoing **all** of the tileset settings each time... So what we'll want to do, is save a blank version of our current **TileMapLayers** so that we can reuse them!
 
-So go to what is currently our testing scene, go to your **TileMap** and erase all the tiles you've painted, so it's just a blank **TileMap** with all of our settings. Now, let's right-click that and click **Save Branch as Scene** calling it something like "Level_Template"
+So go to what is currently our testing scene, go to your **TileMapLayers** and erase all the tiles you've painted, so it's just two blank **TileMapLayers** with all of our settings and our assets loaded. Now, let's right-click the parent node of **both** **TileMapLayers** and click **Save Branch as Scene** calling it something like "Level_Template"
 
 Great! Now we can get to actually setting up our first level! A level will only *Need* a couple of things to function:
 
-1. The TileMap
+1. The **TileMapLayers**
 2. A node that represents the players spawn
 
-Let's create a new scene with a root **Node2D** and call it something like "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling it something like "player_spawn"
+Anything else, like enemies or coins, are optional
+
+Let's create a new scene with a root **Node2D** and call it something like "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling "player_spawn"
+
+To edit the two **TileMapLayers** we'll need to right click on the **Level_Template** we imported, and tick **editable children** which makes this a unique instance of the scene, which we want anyway!
 
 And that's the most basic form of a level setup! From here, paint the level using the **TileMap** (Remembering to use the right layers for walls and floors) and adding enemies, potions, and coins, all as children of the **Root** node.
 
 Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somehwat different, so you can tell when you've changed levels.
 
 You'll also want to make sure you place the "player_spawn" node in the position you want the player to spawn in the level.
+
+Here's an example of a level I made:
+
+![Initial Scene](/src/assets/godot/dungeonCrawler/createdLevel.png)
 
 ### Level Loader 
 
@@ -57,6 +65,8 @@ From your filesystem, drag your newly created "level_1.tscn" onto the **levelHol
 Here's how my **World** scene looks:
 
 ![World Scene](/src/assets/godot/dungeonCrawler/worldScene.png)
+
+We'll make that **level_transition** node now!
 
 For the final scene of our project, let's create a new scene, with a root **Node2D** called something like "levelTransition" with a child **Area2D** and give that a child **CollisionShape2D**
 
@@ -73,8 +83,8 @@ Let's think about the variables for this script:
 ```gdscript
 @export var to_load : PackedScene
 
-@onready var levelHolder : Node2D = $"../levelHolder"
-@onready var player : CharacterBody2D = $"../player"
+@onready var levelHolder : Node2D = $"../../../levelHolder"
+@onready var player : CharacterBody2D = $"../../../player"
 ```
 
 Great! The \@export will allow us to assign what level want to load from each level, within the editor!
@@ -90,7 +100,7 @@ func _on_area_2d_body_entered(body):
 	if(body.is_in_group("player")):
 		levelHolder.get_child(0).queue_free()
 		var loaded = to_load.instantiate()
-		levelHolder.add_child(loaded)
+		levelHolder.call_deferred("add_child",loaded)
 		player.global_position = loaded.get_node("player_spawn").position
 ```
 
