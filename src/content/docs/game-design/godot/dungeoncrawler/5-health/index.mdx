@@ -87,13 +87,11 @@ func take_damage():
 		emit_signal("on_health_changed", health)
 		
 		if health <= 0:
-			print("you died!")
+			get_tree().paused = true
 		else:
 			can_take_damage = false
 			damage_timer.start()
 ```
-
-**Note:** For now we'll just having dying print to the console and do nothing else, as we'll want some proper UI.
 
 You'll notice we connected our timer to a function called **allow_damage()** which doesn't exist, let's create that now. All it's going to do is set the **can_take_damage** boolean to **True** as unfortunately Godot doesn't let you assign a value to a variable directly via the **connect()** function.
 
@@ -166,7 +164,7 @@ func take_damage():
 		emit_signal("on_health_changed", health)
 		
 		if health <= 0:
-			print("you died!")
+			get_tree().paused = true
 		else:
 			can_take_damage = false
 			damage_timer.start()
@@ -193,7 +191,12 @@ Let's open its inspector, navigate to the **Layout** tab and change it to "Ancho
 
 Rename the node to something like "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
 
- Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points, and a "You died" message)
+Let's also, to the **Root** node, and a child of type **Label** call it something like "diedLabel"
+
+In the inspector for this label, in the **Text** box, write "You Died!" then look for the **Theme Overrides** section, open this, find **Font Size** and change this to about 35px. 
+Next, in the 2D view of the UI, move the Text so that it's where you want it, I placed mine in the middle of the screen. Then, as we want this to be hidden by default, click the little 'eye' icon next to the label in the **SceneTree** to hide it!
+
+ Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points)
 
  Add a script to the root node, calling it something like "ui.gd"
 
@@ -215,19 +218,23 @@ const UI_HEART_FULL = preload("res://Assets/frames/ui_heart_full.png")
 const UI_HEART_HALF = preload("res://Assets/frames/ui_heart_half.png")
 ```
 
-Let's also get a reference to our **healthContainer** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
+Let's also get a reference to our **healthContainer** node, our **diedLabel** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
 We won't set this variable here, as it'll be set by whatever the most health we've had so far has been.
 
 ```gdscript
 @onready var health_cont = $healthContainer
+@onready var died_label = $diedLabel
 var maxHealth : int = 0
 ```
 Next will be the function that our signal will call, where most of the logic will happen, so let's think about what we need it to do!
 
-1. If the health recieved is bigger than our highest health so far, make that our new highest health. Easy enough!
+1. If our health is set to 0, show the "You died text" Otherwise, If the health recieved is bigger than our highest health so far, make that our new highest health. Easy enough!
 
 ```gdscript
 func changed_health(newHealth : int):
+	if(newHealth == 0):
+		died_label.visible = true
+
 	if newHealth > maxHealth:
 		maxHealth = newHealth
 ```
