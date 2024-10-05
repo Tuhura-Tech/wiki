@@ -1,14 +1,15 @@
 ---
 type: tutorial
-unitTitle: Making a 2D top down dungeon crawler
+unitTitle: Making a 2D top-down dungeon crawler
 title: Setting up our scene
-description: This page works through 2D top down dungeon crawler step-by-step
+description: This page works through 2D top-down dungeon crawler step-by-step
 sidebar:
     order: 2
 ---
 
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
 
 This is a guide to making a 2-dimensional dungeon crawling game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc as this tutorial assumes basic knowledge of navigating and using the Godot Engine.
 
@@ -38,26 +39,26 @@ Godot Documentation for nodes discussed in this section:
 
 
 Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing our assets. 
-First let's create a new folder, and call it something like 'Assets' 
-
-Then, let's extract the assets from the folder we downloaded, and at them into our Assets folder. Mine looks like this, but it's fine if yours looks slightly different.
-
-![Assets](/src/assets/godot/dungeonCrawler/assets.png)
 
 
 
-Let's also create two new top level folders called **Scripts** and **Scenes**
+<Steps>
 
-![Folders](/src/assets/godot/dungeonCrawler/folders.png)
+1.  First let's create a new folder, and call it something like 'Assets' 
+    Then, let's extract the assets from the folder we downloaded, and at them into our Assets folder. Mine looks like this, but it's fine if yours looks slightly different.
 
+    ![Assets](/src/assets/godot/dungeonCrawler/assets.png)
 
-To ensure our pixel art assets look crisp and not blurred we'll want to make one quick change.
+2. Let's also create two new top level folders called **Scripts** and **Scenes**
 
-Using the buttons in the top left of the screen, select **Project -> Project settings** In this menu, select the **General** tab, and scroll until you see the **Rendering** header. Under this, select **Textures**
+    ![Folders](/src/assets/godot/dungeonCrawler/folders.png)
 
-Change **Default Texture Filter** from **Linear** to **Nearest**
+3. To ensure our pixel art assets look crisp and not blurred we'll want to make one quick change.
+    Using the buttons in the top left of the screen, select **Project -> Project settings** In this menu, select the **General** tab, and scroll until you see the **Rendering** header. Under this, select **Textures**
+    Change **Default Texture Filter** from **Linear** to **Nearest**
 
-![Folders](/src/assets/godot/dungeonCrawler/TextureFilter.png)
+    ![Folders](/src/assets/godot/dungeonCrawler/TextureFilter.png)
+</Steps>
 
 <Box>
 ### Checklist
