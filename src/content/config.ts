@@ -1,5 +1,6 @@
 import { docsSchema, i18nSchema } from "@astrojs/starlight/schema";
 import { type CollectionEntry, defineCollection, z } from "astro:content";
+import path from 'node:path';
 
 // find all tutorial pages
 const baseSchema = z.object({
@@ -24,11 +25,22 @@ export type DocsEntry<T extends DocsEntryType> = CollectionEntry<'docs'> & {
 type DocsEntryType = DocsEntryData['type'];
 
 function createIsDocsEntry<T extends DocsEntryType>(type: T) {
-	return (entry: CollectionEntry<'docs'>): entry is DocsEntry<T> => entry.data.type === type;
+	return (entry: CollectionEntry<'docs'>, id: string): entry is DocsEntry<T> => {
+		if (entry.data.type !== type) {
+			return false;
+		}
+		const currentPath = path.parse(id);
+		const currentDir = path.dirname(currentPath.dir);
+		
+		const pagePath = path.parse(entry.id);
+		const pageDir = path.dirname(pagePath.dir);
+		
+		return pageDir === currentDir;
+	};
 }
 
 export type TutorialEntry = DocsEntry<'tutorial'>;
-export const isTutorialEntry = createIsDocsEntry('tutorial');
+export const isTutorialEntry = createIsDocsEntry<'tutorial'>('tutorial');
 
 export const collections = {
   docs: defineCollection({ schema: docsSchema({ extend: docsCollectionSchema }) }),

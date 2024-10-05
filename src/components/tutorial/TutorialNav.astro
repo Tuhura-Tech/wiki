@@ -1,4 +1,5 @@
 ---
+import type { Props } from '@astrojs/starlight/props';
 import { getCollection } from "astro:content";
 import { isTutorialEntry } from '../../content/config';
 import { getTutorialPages, getTutorialUnits } from '../../util/getTutorialPages';
@@ -8,13 +9,11 @@ import TabPanel from '../tabs/TabPanel.astro';
 import Progress from './Progress.astro';
 import UnitProgressIcon from './UnitProgressIcon.astro';
 
-export interface Props {
-	id: string;
-}
-
 const currentUrl = Astro.url.pathname.replace(/\/$/, '');
+const { id } = Astro.props;
+
 export const allPages = await getCollection('docs');
-export const pages = allPages.filter(isTutorialEntry);
+const pages = allPages.filter((page) => isTutorialEntry(page, id));
 
 const tutorialPages = getTutorialPages(pages);
 const units = getTutorialUnits(tutorialPages);
