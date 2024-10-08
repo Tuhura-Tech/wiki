@@ -9,7 +9,6 @@ import Box from '/src/components/tutorial/Box.astro';
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-## Health
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -18,7 +17,7 @@ Godot Documentation for nodes discussed in this section:
 :::
 
 
-### Player Health
+## Giving our player Health
 
 Let's start setting up our health system on the player side!
 <Steps>
@@ -199,9 +198,9 @@ Let's start setting up our health system on the player side!
 
 And that's the player side of health done! Let's move onto the UI side!
 
-### Health UI
+## Health UI
 
-#### UI Setup
+### UI Setup
 
 Time to start making some UI!
 <Steps>
@@ -222,7 +221,7 @@ Time to start making some UI!
 
 Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points)
 
-#### UI Scripting
+### UI Scripting
 
 <Steps>
 1. Add a script to the root node, calling it "ui.gd"
@@ -330,7 +329,7 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 
 </Steps>
 
-#### Getting things connected
+### Getting things connected
 
 <Steps>
 1. Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that the UI 'sticks' to the camera, rather than existing within the game)
@@ -359,7 +358,7 @@ Run your game! And you should have 3 hearts! Great!
 
 
 <Box>
-### Checklist
+## Checklist
 <Checklist>
 - [ ] I've given the player a hitbox
 - [ ] I've created the health UI

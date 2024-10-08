@@ -8,7 +8,7 @@ description: Setting up a basic test level
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 
-## Building a level
+## Level Scene
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -82,7 +82,7 @@ Here's what my room looks like:
 Don't go too crazy on your level design just now! This first area will just be to test!
 :::
 
-### Adding our player to the level
+## Adding our player to the level
 
 Now that we have a basic level set up, let's add our player to it so we can start to properly test our game! To do this, we'll just drag our player scene from the **Scenes** folder
 in the file browser, into our **scene tree** as a child of the root node! Finally, we'll give the player a child of type **Camera2D.** here's what my scene looks like:
@@ -93,7 +93,7 @@ Don't worry if the names of your nodes are different, leave them as they are for
 
 You should be able to move around! Though you'll quickly notice you're able to walk through walls, which isn't ideal, so let's fix that!
 
-### Level collision
+## Level collision
 <Steps>
 1. Click on your **Walls TilemapLayer** Node, Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector. 
 
@@ -125,7 +125,7 @@ You should be able to move around! Though you'll quickly notice you're able to w
 Now try playing your game again! You'll notice you actually collide with the walls! Great!
 
 <Box>
-### Checklist
+## Checklist
 <Checklist>
 - [ ] I've set up the Tilemaps
 - [ ] I've added collision

@@ -9,7 +9,6 @@ import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-## Another floor
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -24,7 +23,7 @@ Until now, our game has only had one level. Let's change that! Thankfully, Godot
 
 Let's get straight into it!
 
-### Creating Multiple Levels
+## Creating Multiple Levels
 
 To create multiple levels, we'll want to save each level and *everything* in the level, as a **Scene.** A level should contain **Everything** that we want to be part of the level, such as enemies, coins, and potions. However we *don't* want the player or the UI to be saved in the level.
 
@@ -59,7 +58,7 @@ Here's an example of a level I made, take note of the order of the nodes in the 
 
 ![Initial Scene](/src/assets/godot/dungeonCrawler/createdLevel.png)
 
-### Level Loader 
+## Level Loader 
 
 The very last step for our game, is creating something to actually transition us between levels! 
 <Steps>

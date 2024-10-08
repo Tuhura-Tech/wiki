@@ -9,7 +9,6 @@ import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-## Creating our Weapon
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -19,7 +18,7 @@ Godot Documentation for nodes discussed in this section:
 
 Let's give our player something to attack with!
 
-### Weapon Scene
+## Weapon Scene
 
 Let's make our weapon!
 <Steps>
@@ -54,7 +53,7 @@ Let's make our weapon!
 6. Before we move on, navigate to the inspector tab of the **Area2D** node and find the **Collision** tab, under **Layer** make sure nothing is selected. Under **Mask** Make sure *only* 2 is selected.
 
 </Steps>
-### Weapon Script
+## Weapon Script
 <Steps>
 1. Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it "weapon.gd"
 
@@ -105,7 +104,7 @@ Let's make our weapon!
 	```
 </Steps>
 
-### Sword Animation
+## Sword Animation
 
 Now, let's start creating our attack animation! 
 <Steps>
@@ -144,7 +143,7 @@ And that's it! We'll come back later to add the code for destroying enemies.
 
 Great! Let's get our weapon added to our player!
 
-### Adding our weapon to our player
+## Adding our weapon to our player
 
 Navigate to your player scene. From the filesystem, drag in your weapon scene (called **weapon.tscn**) and attach it as a child of the main 
 **CharacterBody2D** node. 
@@ -155,7 +154,7 @@ You're also welcome to adjust the size of the weapon (Although, you're best to d
 
 
 <Box>
-### Checklist
+## Checklist
 <Checklist>
 - [ ] I've created the weapon scene
 - [ ] I've created the weapon script

@@ -8,7 +8,6 @@ import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-## Enemies
 
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
@@ -22,7 +21,7 @@ Something to fight!
 
 We'll be keeping our enemy fairly simple, it'll operate off a circular detection range, and walk toward the player if it enters that range, without taking into account walls (Though it will of course still collide with walls)
 
-### Enemy Scene
+## Enemy Scene
 
 Let's get to making the scene!
 
@@ -48,7 +47,7 @@ Let's get to making the scene!
 
 </Steps>
 
-### Enemy Scripting
+## Enemy Scripting
 
 Now let's get the enemy moving!
 <Steps>
@@ -149,7 +148,7 @@ Add an enemy to the scene, and you should notice that if you get close to it, it
 
 Although there's one problem... We can't destroy it!
 
-### Destroying the enemy!
+## Destroying the enemy!
 
 Head to your Weapon Scene and open the **weapon.gd** script. We'll just need to make some slight modifications to check if the sword is colliding with enemies when we attack.
 
@@ -187,7 +186,7 @@ Head to your Weapon Scene and open the **weapon.gd** script. We'll just need to 
 Test it out, and hopefully you'll find you can now destroy the enemies!
 
 <Box>
-### Checklist
+## Checklist
 <Checklist>
 - [ ] I've created the enemy scene
 - [ ] I've created the enemy script

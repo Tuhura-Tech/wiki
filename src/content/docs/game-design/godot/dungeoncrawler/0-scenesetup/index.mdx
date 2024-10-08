@@ -17,17 +17,20 @@ This is a guide to making a 2-dimensional dungeon crawling game in [Godot](https
 This guide is up-to-date with Godot 4.3 stable official release, and will likely work with any version of Godot newer than 4.3. Due to the use of **TileMapLayers** which were introduced in 4.3, this tutorial isn't compatible with any version pre 4.3
 :::
 
-We'll be making a game in which the player explores a multi-floor dungeon in a top-down perspective. This project will include:
-- Movement 
-- Attacking
-- Health loss & Gain 
-- Pickups (Coins & Potions)
-- Enemies
+## What you'll be making
 
-We will not be creating our own assets as part of this project, although you are of course welcome to!
+![Screenshot preview of the game](/src/assets/godot/dungeonCrawler/screenshot.png)
 
-We'll instead be using a free asset pack by Ox72 on Itch.IO which [can be found here](https://0x72.itch.io/dungeontileset-ii) Just click *Download now* followed by *No thanks, just take me to the download* and download the file called *0x72_DungeonTilesetII_v1.7.zip*
+In this tutorial, you'll work step by step through creating your very own Dungeon Crawler! In this game, the player will navigate through a multi-level dungeon of your design, full of enemies to fight, and treasure to collect!
 
+You'll learn to:
+- Create an animated player character
+- Create enemies that chase and attack the player
+- Create a User Interface that tracks health and points
+- Switch levels 
+- Design 2D Combat
+
+Let's jump right in!
 
 ## Making the project
 
@@ -38,9 +41,11 @@ Godot Documentation for nodes discussed in this section:
 :::
 
 
-Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing our assets. 
+We won't be creating our own assets as part of this project, we'll instead be using a free asset pack by Ox72 on Itch.IO which [can be found here](https://0x72.itch.io/dungeontileset-ii) Just click *Download now* followed by *No thanks, just take me to the download* and download the file called *0x72_DungeonTilesetII_v1.7.zip*
 
+Create a new 2D project, using the Forward+ Renderer. 
 
+Let's start by importing our assets!
 
 <Steps>
 
@@ -61,7 +66,7 @@ Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing
 </Steps>
 
 <Box>
-### Checklist
+## Checklist
 <Checklist>
 - [ ] I have imported the assets
 - [ ] I have setup my folders and changed the settings
