@@ -10,11 +10,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^11.1.0",
-    "@astrojs/starlight": "^0.28.3",
-    "@astrojs/starlight-tailwind": "^2.0.3",
-    "@astrojs/tailwind": "^5.1.1",
-    "astro": "^4.15.12",
+    "@astrojs/cloudflare": "^11.0.4",
+    "@astrojs/starlight": "^0.28.0",
+    "@astrojs/starlight-tailwind": "^2.0.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^4.0.8",
     "rehype-mathjax": "^6.0.0",
     "remark-math": "^6.0.0",
     "sharp": "^0.33.1",
