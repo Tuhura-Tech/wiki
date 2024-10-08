@@ -23,18 +23,18 @@ Godot Documentation for nodes discussed in this section:
 Let's start setting up our health system on the player side!
 <Steps>
 1. We'll start by adding a new Node to our player Scene, as a child of the root **CharacterBody2D** node. The node should be of type **Area2D** 
-	give the **Area2D** a child of type **CollisionShape2D** rename the Area2D to something like "Hitbox." 
+	give the **Area2D** a child of type **CollisionShape2D** rename the Area2D to "Hitbox." 
 
 	In the **Inspector** of the **Area2D** Navigate to the **Collision** section. Deselect all numbers under the **Layer** Section, and ensure *only* 2 is selected under the **Mask** Section.
 
 	Give the **CollisionShape2D** a shape, ideally a rectangle or circle, and make it *slightly* bigger than the shape for the **CharacterBody2D's** **CollisionShape2D**
 
-2. Let's give the **Area2D** one more child of type **Timer** and name it something like "damageTimer" this timer will be used to determine how quickly we can take damage again after being hurt, think of it as invulnerability time!
+2. Let's give the **Area2D** one more child of type **Timer** and name it "damageTimer" this timer will be used to determine how quickly we can take damage again after being hurt, think of it as invulnerability time!
 	In the timer's inspector, set its **Wait Time** field to 0.5s
 
 	Great! this **Area2D** will be used to detect collision with enemies, potions, and coins! For now we'll just be setting it up to handle health, both healing and damage.
 
-3. Let's attach a script to the **Area2D** (that we named "Hitbox") and call it something like "hitbox.gd"
+3. Let's attach a script to the **Area2D** (that we named "Hitbox") and call it "hitbox.gd"
 
 4. This script is going to get a little complicated, as it's going to have to handle quite a few things. In a bigger project we would want to break its functionality up into multiple scripts, but for our scope this is fine!
 	Let's break down what we need it to do:
@@ -205,15 +205,15 @@ And that's the player side of health done! Let's move onto the UI side!
 
 Time to start making some UI!
 <Steps>
-1. Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node something like "UI" 
+1. Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node "UI" 
 
 2. Add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
 
 	Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whatever the size of our screen is, the health will always be pinned to the top left!
 
-	Rename the node to something like "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
+	Rename the node to "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
 
-3. Let's also, to the **Root** node, and a child of type **Label** call it something like "diedLabel"
+3. Let's also, to the **Root** node, and a child of type **Label** call it "diedLabel"
 
 	In the inspector for this label, in the **Text** box, write "You Died!" then look for the **Theme Overrides** section, open this, find **Font Size** and change this to about 35px. 
 
@@ -225,7 +225,7 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 #### UI Scripting
 
 <Steps>
-1. Add a script to the root node, calling it something like "ui.gd"
+1. Add a script to the root node, calling it "ui.gd"
 
 	Let's think about what we need this script to do: 
 	1. Store our three different heart images
@@ -326,7 +326,7 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 		pass
 	```
 
-10. Save the scene as something like "UI.tscn"
+10. Save the scene as "UI.tscn"
 
 </Steps>
 

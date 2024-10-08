@@ -24,7 +24,7 @@ Let's give our player something to attack with!
 Let's make our weapon!
 <Steps>
 1. Create a new scene for our weapon!
-	Give it a Root node of a **Node2D** and name it something like "Weapon"  
+	Give it a Root node of a **Node2D** and name it "Weapon"  
 	
 2. Give it two children, a **Sprite2D** and a **Animationplayer** 
 	Give the **Sprite2D** a child of type **Area2D** and give the **Area2D** a child of **CollisionShape2D**
@@ -33,7 +33,7 @@ Let's make our weapon!
 
 	![Weapon scenetree](/src/assets/godot/dungeonCrawler/weaponscenetree.png)
 
-	 Make sure you save the scene, calling it something like "Weapon.tscn"
+	 Make sure you save the scene, calling it "Weapon.tscn"
 
 3. Let's start by picking a sprite for our weapon, so we can see what we're working with!
 	Select the sprite node, and in the **Empty** texture field, select Load. Navigate to your assets folder, and select a weapon that you like!
@@ -45,7 +45,7 @@ Let's make our weapon!
 
 5. let's rotate the **Sprite2D** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
 
-	Let's also offset it's position a little, to help it rotate around our player smoothly. Set its x-position to something like **20px**
+	Let's also offset it's position a little, to help it rotate around our player smoothly. Set its x-position to **20px**
 
 	Here's how my sword scene and inspector look: 
 
@@ -56,7 +56,7 @@ Let's make our weapon!
 </Steps>
 ### Weapon Script
 <Steps>
-1. Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it something like "weapon"
+1. Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it "weapon.gd"
 
 	We'll need this script to do two things:
 
@@ -146,7 +146,7 @@ Great! Let's get our weapon added to our player!
 
 ### Adding our weapon to our player
 
-Navigate to your player scene. From the filesystem, drag in your weapon scene (Likely called something like **weapon.tscn**) and attach it as a child of the main 
+Navigate to your player scene. From the filesystem, drag in your weapon scene (called **weapon.tscn**) and attach it as a child of the main 
 **CharacterBody2D** node. 
 
 Play your game, and you should hopefully have a weapon that rotates around the player and stabs when you click it! If it doesn't seem to be rotating around the middle of the player sprite, feel free to adjust its position within the Player scene.

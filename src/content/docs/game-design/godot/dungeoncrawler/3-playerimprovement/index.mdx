@@ -99,7 +99,7 @@ Great! Let's get to changing our animation!
 
 	```gdscript
 	if velocity != Vector2.ZERO:
-    animated_sprite_2d.play("walk")
+    	animated_sprite_2d.play("walk")
 	```
 
 3. If we're not moving, let's play our idle
@@ -147,14 +147,14 @@ I'll be adding this section **beneath** the animation section, but before the **
 2. If our x velocity is less than 0 (moving to the left) we want to flip our sprite.
 
 	```gdscript
-	animated_sprite_2d.flip_h = true
+		animated_sprite_2d.flip_h = true
 	```
 
 3. And if it's greater than 0, we'll unflip it
 
 	```gdscript
 	elif(velocity.x > 0):
-			animated_sprite_2d.flip_h = false
+		animated_sprite_2d.flip_h = false
 	```
 
 4. Giving us a movement script that looks like this:

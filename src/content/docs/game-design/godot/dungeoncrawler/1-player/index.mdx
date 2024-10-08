@@ -23,8 +23,7 @@ Great! Let's start by making a basic version of our player character that will l
 
 <Steps>
 
-1. Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node. call it something like **Player**
-    Give the **CharacterBody2D** a name like **Player** 
+1. Start by creating a new 2D Scene, with a **CharacterBody2D** as the root node. Call it 'Player'
 
 2. Give it two children:
     A **CollisionShape2D** and an **AnimatedSprite2D**
@@ -35,7 +34,7 @@ Here's how my scene looks with no other modifications:
 
 ![Basic player scene](/src/assets/godot/dungeonCrawler/playerscenebasic.png)
 
-Let's hit **Ctrl + S** and save this scene in our **Scenes** folder, call it something like **Player.tscn**
+Let's hit **Ctrl + S** and save this scene in our **Scenes** folder, call it **Player.tscn**
 
 ### Animations
 
@@ -59,7 +58,7 @@ Let's give ourselves something to look at!
 
     Hit play to test! You'll see the player now has an idle animation that loops!
 
-5. Let's add our character's walking animation. Add a new animation using the **Add animation** Button and call it something like "Walk"
+5. Let's add our character's walking animation. Add a new animation using the **Add animation** Button and call it "Walk"
 
     ![Idle Animation Frames](/src/assets/godot/dungeonCrawler/addanim.png)
 
@@ -95,6 +94,8 @@ With our script created and attached, let's get to programming our movement!
 1. First, let's set up a variable to control our speed.
 
     ```gdscript
+    extends CharacterBody2D
+
     @export var speed = 200
     ```
 
@@ -107,12 +108,15 @@ With our script created and attached, let's get to programming our movement!
         var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     ```
 
-3. We'll then multiply this vector by our speed, and then invoke Godots built-in **move_and_slide()** function
+3. We'll then add some lines to multiply this vector by our speed, and then invoke Godots built-in **move_and_slide()** function, which actually does the moving!
 
     ```gdscript
-    velocity = direction * speed
+     func _physics_process(delta):
+        var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 
-    move_and_slide()
+        velocity = direction * speed
+
+        move_and_slide()
     ```
 
 4. giving us a final script that looks like this:

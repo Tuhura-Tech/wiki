@@ -14,7 +14,7 @@ import { Steps } from '@astrojs/starlight/components';
 This is a guide to making a 2-dimensional dungeon crawling game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc as this tutorial assumes basic knowledge of navigating and using the Godot Engine.
 
 :::note[Version]
-This guide is up-to-date with Godot 4.3 stable official release but will most likely work with any 4.x release.
+This guide is up-to-date with Godot 4.3 stable official release, and will likely work with any version of Godot newer than 4.3. Due to the use of **TileMapLayers** which were introduced in 4.3, this tutorial isn't compatible with any version pre 4.3
 :::
 
 We'll be making a game in which the player explores a multi-floor dungeon in a top-down perspective. This project will include:
@@ -44,12 +44,12 @@ Set up a Basic 2D project, using the Forward+ Renderer. Let's start by importing
 
 <Steps>
 
-1.  First let's create a new folder, and call it something like 'Assets' 
+1.  First let's create a new folder, and call it 'Assets'
     Then, let's extract the assets from the folder we downloaded, and at them into our Assets folder. Mine looks like this, but it's fine if yours looks slightly different.
 
     ![Assets](/src/assets/godot/dungeonCrawler/assets.png)
 
-2. Let's also create two new top level folders called **Scripts** and **Scenes**
+2. Let's also create two new top level folders called 'Scripts' and 'Scenes'
 
     ![Folders](/src/assets/godot/dungeonCrawler/folders.png)
 

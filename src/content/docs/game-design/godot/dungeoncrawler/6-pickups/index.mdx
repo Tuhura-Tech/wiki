@@ -26,7 +26,7 @@ Thankfully the setup for the two will be extremely simple, and they won't even n
 
 <Steps>
 
-1. For coins, we'll create a new scene with a root node of **Staticbody2D** calling it something like "Coin"
+1. For coins, we'll create a new scene with a root node of **Staticbody2D** calling it "Coin"
 
 	It should have a child of type **CollisionShape2D**
 
@@ -53,6 +53,7 @@ Thankfully the setup for the two will be extremely simple, and they won't even n
 
 8. Finally, we'll want to open the **Collision** tab on the inspector of the **Staticbody2D** setting the **Layer** to *only* 2, and deselecting all numbers under the **Mask** as we don't want our coin to be looking for collisions, or to be physically collided with!
 
+9. Save the scene as "Coin.tscn"
 </Steps>
 
 And that's our coin! The only script work we need to do is in our **UI** script! But first we'll need to add a UI element to track our points!
@@ -61,9 +62,9 @@ Don't worry, we've done all the hard work of connecting signals earlier! This'll
 
 <Steps>
 
-1. Let's head to our UI Scene. To the root node, add a new child, of type **HBoxContainer** call it something like "pointContainer"
+1. Let's head to our UI Scene. To the root node, add a new child, of type **HBoxContainer** call it "pointContainer"
 
-2. Give it two children, a **TextureRect** and a **Label,** name the label something like **pointsLabel** 
+2. Give it two children, a **TextureRect** and a **Label,** name the label "pointsLabel"
 
 3. In the inspector of the **TextureRect** set the **Expand Mode** to "Fit Width" and assign the first coin image to the **Texture** field using the **Load** Option
 

@@ -32,7 +32,7 @@ An easy way to remember what we want to store in a level, is by thinking of what
 
 Now, for our levels, we'll obviously need our **TileMapLayers!** But we don't want to be redoing **all** of the tileset settings each time... So what we'll want to do, is save a blank version of our current **TileMapLayers** so that we can reuse them!
 <Steps>
-1. Let's go to what is currently our testing scene, go to your **TileMapLayers** and erase all the tiles you've painted, so it's just two blank **TileMapLayers** with all of our settings and our assets loaded. Now, let's right-click the parent node of **both** **TileMapLayers** and click **Save Branch as Scene** calling it something like "Level_Template"
+1. Let's go to what is currently our testing scene, go to your **TileMapLayers** and erase all the tiles you've painted, so it's just two blank **TileMapLayers** with all of our settings and our assets loaded. Now, let's right-click the parent node of **both** **TileMapLayers** and click **Save Branch as Scene** calling it "Level_Template.tscn"
 
 2. Great! Now we can get to actually setting up our first level! A level will only *Need* a couple of things to function:
 
@@ -41,7 +41,7 @@ Now, for our levels, we'll obviously need our **TileMapLayers!** But we don't wa
 
 	Anything else, like enemies or coins, are optional
 
-3. Let's create a new scene with a root **Node2D** and call it something like "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling "player_spawn"
+3. Let's create a new scene with a root **Node2D** and call it "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling "player_spawn"
 
 4. To edit the two **TileMapLayers** we'll need to right click on the **Level_Template** we imported, and tick **editable children** which makes this a unique instance of the scene, which we want anyway!
 
@@ -50,6 +50,8 @@ Now, for our levels, we'll obviously need our **TileMapLayers!** But we don't wa
 5. Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somewhat different, so you can tell when you've changed levels.
 
 6. You'll also want to make sure you place the "player_spawn" node in the position you want the player to spawn in the level.
+
+7. Save the scene as "level_1.tscn"
 
 </Steps>
 
@@ -77,11 +79,11 @@ We'll make that **level_transition** node now!
 
 <Steps>
 
-1. For the final scene of our project, let's create a new scene, with a root **Node2D** called something like "levelTransition" with a child **Area2D** and give that a child **CollisionShape2D**
+1. For the final scene of our project, let's create a new scene, with a root **Node2D** called "levelTransition" with a child **Area2D** and give that a child **CollisionShape2D**
 
 2. Set the shape of the **CollisionShape2D** to be a square.
 
-3. let's create a script attached to the root node, called something like "level_transition.gd"
+3. let's create a script attached to the root node, called "level_transition.gd"
 
 4. Let's think about the variables for this script:
 
@@ -113,7 +115,9 @@ We'll make that **level_transition** node now!
 			player.global_position = loaded.get_node("player_spawn").position
 	```
 
-6. Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so the player expects the change)
+6. Save the scene as "level_transition.tscn"
+
+7. Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so the player expects the change)
 	And in the inspector of the **level_transition,** *after* you've added an instance to a scene, find the level you want it to open in your filesystem, and drag it into the "to_load" slot.
 </Steps>
 <Box>
