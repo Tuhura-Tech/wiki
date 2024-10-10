@@ -1,0 +1,135 @@
+---
+type: tutorial
+unitTitle: Creating our level
+title: Building a level
+description: Setting up a basic test level
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## Level Scene
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html)
+:::
+
+import { Steps } from '@astrojs/starlight/components';
+
+Let's move onto giving us something to walk around on!
+
+<Steps>
+1. Create a new scene. Give it a node2D as its root node, and call it "World" 
+
+    Save the scene in our Scenes folder, calling it "world.tscn".
+
+2. Give our root node a child of type **Node2D** and call it "level"
+
+3. To this node, add two children of type **TilemapLayer**
+
+    call the top one "floor" and the bottom one "walls"
+
+4. Let's start with the "Floor" layer, as it'll be slightly more simple, and we'll redo all the steps for the "walls" layer.
+
+    Click on the "floor" Node, and in the inspector, you'll see **Tile Set - Empty** click on **Empty** and create a **new Tileset** then click on the newly created **Tileset**
+
+    You'll notice two new tabs have appeared at the bottom of the screen **TileSet** and **TileMap** we'll be working with both of these, but open the **TileSet** tab first.
+
+    using the **+** button in the lower left, navigate to your assets, and load in the "atlas_floor-16x16.png" hit **Yes** when prompted.
+
+    You can think of this as a palette we'll use to pain our level! Our dungeon will be made up from a series of tiles that we can arrange however we want!
+
+</Steps>
+
+:::note[Decorations]
+ We won't be implementing the spikes/buttons/levers. So if you add these to your level they'll be purely decorative.**
+:::
+
+
+Now, click on the **floor** layer and follow the same steps, except this time loading in the "atlas_walls_low-16x16.png" file.
+
+With our **Tilesets** setup we can now go to the **TileMap** tab. 
+
+From here, if you click on a tile and then in the scene, you'll notice you're able to paint them into the scene! This is how we'll create our levels! you can click between the floor and wall **Tilemaps** to get access to the different tiles and to paint the different layers.
+
+:::note[Layers]
+Why do we have a different layer for the two? We'll want our walls to have collision, but not our floors! So we have them on different **TilemapLayer** nodes.
+:::
+
+Spend some time and get familiar with painting and removing tiles! Aim to create a single room that we can use to test our game.
+
+:::tip 
+If you find you can't paint, make sure you're on the **TileMap** tab and NOT the **TileSet** tab (confusing, I know)
+:::
+
+:::tip
+ You can use the Rect tool to draw a rectangle of tiles all at once
+
+![Rect tool](/src/assets/godot/dungeonCrawler/recttoolimg.png)
+
+You can use the Erase tool to remove tiles, just remember to click it again when you want to start painting again
+
+![Rect tool](/src/assets/godot/dungeonCrawler/eraseTool.png)
+:::
+
+Here's what my room looks like:
+
+![Basic Level](/src/assets/godot/dungeonCrawler/basicroomimg.png)
+
+:::note[Testing]
+Don't go too crazy on your level design just now! This first area will just be to test!
+:::
+
+## Adding our player to the level
+
+Now that we have a basic level set up, let's add our player to it so we can start to properly test our game! To do this, we'll just drag our player scene from the **Scenes** folder
+in the file browser, into our **scene tree** as a child of the root node! Finally, we'll give the player a child of type **Camera2D.** here's what my scene looks like:
+
+![Initial Scene](/src/assets/godot/dungeonCrawler/inittestscene.png)
+
+Don't worry if the names of your nodes are different, leave them as they are for now!
+
+You should be able to move around! Though you'll quickly notice you're able to walk through walls, which isn't ideal, so let's fix that!
+
+## Level collision
+<Steps>
+1. Click on your **Walls TilemapLayer** Node, Then, navigate to the inspector. Click the **TileSet** Object at the top of the inspector. 
+
+2. Under the **Physics Layers** drop-down, click **Add Element.** 
+
+3. Here you'll see the **Collision Layer** section, make sure **1** and **3** are selected. For the **Collision Mask** section, only **1** should be selected.
+
+4. Now, back in the section at the bottom of the screen, navigate to the **Paint** tab, and using the drop-down, select **Physics Layer 0.** Here's how things look for me!
+
+    ![Physics Layers](/src/assets/godot/dungeonCrawler/tilesetphysicslayer.png)
+
+    Think of the blue square that has appeared under the **Paint** tab as our brush that we'll use to paint collisions onto our **Tileset** with the blue square representing where exactly our player will collide.
+
+
+    You can click and drag the white diamonds to move them, and click on the edges to add new points. pressing F (Full) will make the collider occupy the whole square, and pressing C (Clear) will make it occupy none of it.
+
+5. using this, try to create colliders for each tile that closely match their sprite. 
+
+    :::tip 
+    It'll be easiest to do them in batches of tiles that have the same collision!
+    :::
+
+    Here's how mine look:
+
+    ![Wall colliders](/src/assets/godot/dungeonCrawler/wallcolliders.png)
+
+</Steps>
+
+Now try playing your game again! You'll notice you actually collide with the walls! Great!
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've set up the Tilemaps
+- [ ] I've added collision
+- [ ] I've made a basic room
+- [ ] I've added my player to the game
+</Checklist>
+</Box>

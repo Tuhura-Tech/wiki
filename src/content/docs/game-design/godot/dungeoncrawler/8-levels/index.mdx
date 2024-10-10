@@ -1,0 +1,130 @@
+---
+type: tutorial
+unitTitle: More Levels
+title: Adding more levels
+description: Adding a level-switching system to our game
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[PackedScene](https://docs.godotengine.org/en/stable/classes/class_packedscene.html)
+:::
+
+Until now, our game has only had one level. Let's change that! Thankfully, Godot makes this fairly easy! There's only a couple of things we'll need to do.
+
+1. Actually create and store multiple levels.
+2. Load the level when we enter a specific spot.
+
+Let's get straight into it!
+
+## Creating Multiple Levels
+
+To create multiple levels, we'll want to save each level and *everything* in the level, as a **Scene.** A level should contain **Everything** that we want to be part of the level, such as enemies, coins, and potions. However we *don't* want the player or the UI to be saved in the level.
+
+An easy way to remember what we want to store in a level, is by thinking of what we want to *belong* or exist as part of the level!
+
+Now, for our levels, we'll obviously need our **TileMapLayers!** But we don't want to be redoing **all** of the tileset settings each time... So what we'll want to do, is save a blank version of our current **TileMapLayers** so that we can reuse them!
+<Steps>
+1. Let's go to what is currently our testing scene, go to your **TileMapLayers** and erase all the tiles you've painted, so it's just two blank **TileMapLayers** with all of our settings and our assets loaded. Now, let's right-click the parent node of **both** **TileMapLayers** and click **Save Branch as Scene** calling it "Level_Template.tscn"
+
+2. Great! Now we can get to actually setting up our first level! A level will only *Need* a couple of things to function:
+
+	1. The **TileMapLayers**
+	2. A node that represents the players spawn
+
+	Anything else, like enemies or coins, are optional
+
+3. Let's create a new scene with a root **Node2D** and call it "Level 1" drag in your **Level_Template.tscn** as a child of this. Also giving the root node another child of type **Node2D** calling "player_spawn"
+
+4. To edit the two **TileMapLayers** we'll need to right click on the **Level_Template** we imported, and tick **editable children** which makes this a unique instance of the scene, which we want anyway!
+
+	And that's the most basic form of a level setup! From here, paint the level using the **TileMap** (Remembering to use the right layers for walls and floors) and adding enemies, potions, and coins, all as children of the **Root** node.
+
+5. Once you've made a level, save the scene. Creating a new folder called "Levels" to store it in! Try creating two levels "level_1" and "level_2" making sure they're somewhat different, so you can tell when you've changed levels.
+
+6. You'll also want to make sure you place the "player_spawn" node in the position you want the player to spawn in the level.
+
+7. Save the scene as "level_1.tscn"
+
+</Steps>
+
+Here's an example of a level I made, take note of the order of the nodes in the SceneTree:
+
+![Initial Scene](/src/assets/godot/dungeonCrawler/createdLevel.png)
+
+## Level Loader 
+
+The very last step for our game, is creating something to actually transition us between levels! 
+<Steps>
+1. But first, let's quickly clean up our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** and the **CanvasLayer** that holds the **UI** (And obviously keeping the root node)
+
+2. We'll add one additional node as a child of the **root** node called "levelHolder"
+
+3. From your filesystem, drag your newly created "level_1.tscn" onto the **levelHolder** so that it becomes its child, as we want level 1 to be loaded from the start!
+
+</Steps>
+
+Here's how my **World** scene looks:
+
+![World Scene](/src/assets/godot/dungeonCrawler/worldScene.png)
+
+We'll make that **level_transition** node now!
+
+<Steps>
+
+1. For the final scene of our project, let's create a new scene, with a root **Node2D** called "levelTransition" with a child **Area2D** and give that a child **CollisionShape2D**
+
+2. Set the shape of the **CollisionShape2D** to be a square.
+
+3. let's create a script attached to the root node, called "level_transition.gd"
+
+4. Let's think about the variables for this script:
+
+	1. The level we want to load (We'll use an \@export for this)
+	2. A reference to our "levelHolder" node
+	3. A reference to our player, to set their position
+
+	```gdscript
+	@export var to_load : PackedScene
+
+	@onready var levelHolder : Node2D = $"../../../levelHolder"
+	@onready var player : CharacterBody2D = $"../../../player"
+	```
+
+	Great! The \@export will allow us to assign what level want to load from each level, within the editor!
+
+5. Now, if the player enters this region, we'll
+
+	1. Remove the last Level
+	2. Load the new level
+	3. Set the players position
+
+	```gdscript
+	func _on_area_2d_body_entered(body):
+		if(body.is_in_group("player")):
+			levelHolder.get_child(0).queue_free()
+			var loaded = to_load.instantiate()
+			levelHolder.call_deferred("add_child",loaded)
+			player.global_position = loaded.get_node("player_spawn").position
+	```
+
+6. Save the scene as "level_transition.tscn"
+
+7. Now to each of our level scenes that we've created, add in the **level_transition** scene by dragging it from the filesystem. Place it somewhere you want the level to end (Ideally on some stairs, so the player expects the change)
+	And in the inspector of the **level_transition,** *after* you've added an instance to a scene, find the level you want it to open in your filesystem, and drag it into the "to_load" slot.
+</Steps>
+<Box>
+### Checklist
+<Checklist>
+- [ ] I've at least two levels
+- [ ] I've created the level loader
+- [ ] I've added the level loader to my levels
+- [ ] I'm able to transition between levels
+</Checklist>
+</Box>

@@ -207,8 +207,6 @@ export class ProgressStore {
 	}
 
 	private static slugFromPathname(pathname: string) {
-		// Remove the language segment from the path,
-		// and strip a trailing slash, if present.
-		return pathname.split('/').slice(2).join('/').replace(/\/$/, '');
+		return pathname.replace(/\/$/, '');
 	}
 }
