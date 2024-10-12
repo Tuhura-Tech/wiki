@@ -1,0 +1,85 @@
+---
+title: Making a 3D Racing Game
+description: This page works through creating a full 3D racing game step-by-step
+sidebar:
+    order: 7
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[If you're a beginner...]
+Read through and implement [3D Game](/game-design/godot/3dGame) or [3D Intro](/game-design/godot/3d) until you know the basics of Godot.
+:::
+
+# Preview
+![Preview of end result]()
+
+You will be making a 3D race car game with simple 
+
+# Setting up the main scene
+
+<Steps>
+1. Select **`3D Scene`** and rename to "Game".
+2. Add a child **`MeshInstance3D`** and rename to "Ground". In the Inpector:
+1. Select **`New BoxMesh`** under Mesh.
+2. Click the BoxMesh and change the Size to (x: 50, y: 1, z: 50).
+2. Still in the BoxMesh, under `Material`, select **`New StandardMaterial3D`**.
+2. Find a road picture (preferably .png) so you can see where the car is going.
+    - Download it into your racing game folder (I found mine here, on [OpenGameArt](https://opengameart.org/content/cartoony-montainside-ii)).
+    - In the Grounds' **Inspector > Mesh > Material > Albedo > Texture**, click 'Load' and select your texture.
+    - You will also need to change this Size to (x: 50, y: 1, z: 50).
+    - To make the texture repeat itself: **UV1 > Triplanar** to 'On'.
+3. When on the Ground node, the menu bar will have a **`Mesh`** button. 
+
+    Create a collision shape and change **`Collision shape placement`** to `Static Body Child`.
+4. Save your scene.
+</Steps>
+
+# Adding in your car
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section:
+[VehicleBody3D](https://docs.godotengine.org/en/stable/classes/class_vehiclebody3d.html#vehiclebody3d), [VehicleWheel3D](https://docs.godotengine.org/en/stable/classes/class_vehiclewheel3d.html)
+:::
+
+### The Vehicle Body
+<Steps>
+1. Add a child **`VehicleBody3D`** node to Game. Make sure to move it above the ground.
+1. Add a **`MeshInstance3D`** and make a **`New BoxMesh`**. Change this to a car shape (my Size is (1.5, 0.5, 3)).
+1. On the menu bar **`Mesh`** button, create a collision shape. But this time, 
+    
+    **`Collision shape placement`** is `Sibling`. This is because the car needs to not be static.
+
+    **`Collision Shape Type`** is `Simplified Convex`.
+1. To change the colour of your car, go **MeshInstance3D > Mesh > Material > New StandardMaterial3D > Albedo** and change the colour.
+1. Save your scene.
+</Steps>
+
+#### Final Look
+
+
+### The Vehicle Wheels
+<Steps>
+1. Add a child **`VehicleWheel3D`** node to VehicleBody3D and rename it to "FrontLeftWheel".
+1. Using the X, Y, Z axes adjust the wheel location to be just outside the vehicle body.
+1. In the Inspector:
+    - Under **Wheel** change the **Radius** to 0.4m (or to a size which the light blue circle is bigger than your car body).
+    - Under **Suspension** change the **Stiffness** to 50 (hover over the word 'Stiffness' to see Godots explanation).
+    - Under **VehicleBody3D Motion** tick **Use as Steering** (as we want the front wheels to steer).
+1. Add a child **MeshInstance3D** node and create a **New CylinderMesh**.
+    - By clicking on the mesh instance, change the Top & Bottom Radius to the same as the Wheel Radius (0.4m).
+    - Change the Height to 0.3m.
+    - Under the **MeshInstance3D > Tranform**, set the **`Rotation z`** to **90** degrees.
+1. Duplicate this wheel (ctrl/cmd D). Under the Transform tab, change the x-position to the negation of the current number. Rename it to "FrontRightWheel".
+1. Select both these wheels and duplicate again, this time changing the z-position to its' negation. Rename them to "BackRightWheel" and "BackLeftWheel".
+1. Set the back wheels' **VehicleBody3D Motion** to only tick **Use as Traction** (as we want the back wheels to accelerate).
+</Steps>
+
+
+#### Final Look
+
+### Check in: Testing the current game out
+
+To view the current progress, you'll need to insert a **Camera3D** node as a child of your Game node.
+
+Then use the arrows to move it to an appropriate area overlooking the scene. Change the viewport angle (rotation x) to -45 degrees to make it look down.
