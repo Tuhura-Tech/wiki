@@ -1,39 +1,13 @@
 ---
-title: Making a 3D Racing Game
+type: tutorial
+unitTitle: "Making the car"
+title: "Vehicle Wheels and Body"
 description: This page works through creating a full 3D racing game step-by-step
-sidebar:
-    order: 7
 ---
 
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
-
-:::note[If you're a beginner...]
-Read through and implement [3D Game](/game-design/godot/3dGame) or [3D Intro](/game-design/godot/3d) until you know the basics of Godot.
-:::
-
-# Preview
-![Preview of end result]()
-
-You will be making a 3D race car game with simple 
-
-# Setting up the main scene
-
-<Steps>
-1. Select **`3D Scene`** and rename to "Game".
-2. Add a child **`MeshInstance3D`** and rename to "Ground". In the Inpector:
-1. Select **`New BoxMesh`** under Mesh.
-2. Click the BoxMesh and change the Size to (x: 50, y: 1, z: 50).
-2. Still in the BoxMesh, under `Material`, select **`New StandardMaterial3D`**.
-2. Find a road picture (preferably .png) so you can see where the car is going.
-    - Download it into your racing game folder (I found mine here, on [OpenGameArt](https://opengameart.org/content/cartoony-montainside-ii)).
-    - In the Grounds' **Inspector > Mesh > Material > Albedo > Texture**, click 'Load' and select your texture.
-    - You will also need to change this Size to (x: 50, y: 1, z: 50).
-    - To make the texture repeat itself: **UV1 > Triplanar** to 'On'.
-3. When on the Ground node, the menu bar will have a **`Mesh`** button. 
-
-    Create a collision shape and change **`Collision shape placement`** to `Static Body Child`.
-4. Save your scene.
-</Steps>
 
 # Adding in your car
 
@@ -78,8 +52,10 @@ Godot Documentation for nodes discussed in this section:
 
 #### Final Look
 
-### Check in: Testing the current game out
-
-To view the current progress, you'll need to insert a **Camera3D** node as a child of your Game node.
-
-Then use the arrows to move it to an appropriate area overlooking the scene. Change the viewport angle (rotation x) to -45 degrees to make it look down.
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have a car body and four wheels.
+- [ ] I understand how I can change the VehicleBody3D and VehicleWheel3D in the Inspector to suit my liking (e.g., if I want my wheels to be a different colour, or if I want the front wheels to accelerate too).
+</Checklist>
+</Box>

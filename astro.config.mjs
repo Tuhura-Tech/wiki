@@ -92,7 +92,10 @@ export default defineConfig({
           },{
             label: "Setting up C# For Godot",
             link: "game-design/godot/projectsetup"
-            }],
+          },{
+            label: "3D Racing Game",
+            link: "game-design/godot/3dracinggame/0-main-scene/"
+          }],
           collapsed: true
         }],
       },
