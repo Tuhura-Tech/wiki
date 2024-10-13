@@ -1,0 +1,106 @@
+---
+type: tutorial
+unitTitle: Pickups
+title: Potions & Coins
+description: Implementing pickups for the player to collect
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Static Body 2D](https://docs.godotengine.org/en/3.2/classes/class_staticbody2d.html) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [Collision Shapes](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_2d.html) [Area2D](https://docs.godotengine.org/en/stable/classes/class_area2d.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+
+Let's get onto pickups! Our game will have two types of pickups: Coins, and Potions. Coins will give us a point, and Potions will heal us for half a heart!
+
+Thankfully the setup for the two will be extremely simple, and they won't even need a script! As all logic is handled by our hitbox script!
+
+## Coins
+
+<Steps>
+
+1. For coins, we'll create a new scene with a root node of **Staticbody2D** calling it "Coin"
+
+	It should have a child of type **CollisionShape2D**
+
+2. We'll also want to add an **AnimatedSprite2D** to the root node.
+
+	Here's how my scene looks:
+
+	![Coin Scene](/src/assets/godot/dungeonCrawler/coinScene.png)
+
+3. We'll add the animation the same way we did with our player! Click on the **AnimatedSprite2D** and in the inspector, under **Animation** create a new **Spriteframes**
+
+4. Click on the new **Spriteframes** and add sprites from file. (The coin has four frames) Make sure to click **autoplay** (The 'A' in the pointy box)
+ and then assign a shape to the **CollisionShape2D** that loosely matches the coin. (I just used a circle)
+
+5. The coin as it is very small, so open the inspector for the root **Staticbody2D** and change the **Scale** values to 2.
+
+6. Now, all that's left to do is create a **Group.** With the root **Staticbody2D** still selected, navigate to the **Node** tab of the inspector, then to the **Groups** tab.
+
+	![Groups](/src/assets/godot/dungeonCrawler/groups.png)
+
+	In the box, type "coin" and click **Add**
+
+7. Then, click **Manage Groups** and select each Node, followed by **Add** to ensure that each node in the scene is in the group.
+
+8. Finally, we'll want to open the **Collision** tab on the inspector of the **Staticbody2D** setting the **Layer** to *only* 2, and deselecting all numbers under the **Mask** as we don't want our coin to be looking for collisions, or to be physically collided with!
+
+9. Save the scene as "Coin.tscn"
+</Steps>
+
+And that's our coin! The only script work we need to do is in our **UI** script! But first we'll need to add a UI element to track our points!
+
+Don't worry, we've done all the hard work of connecting signals earlier! This'll be nice and easy!
+
+<Steps>
+
+1. Let's head to our UI Scene. To the root node, add a new child, of type **HBoxContainer** call it "pointContainer"
+
+2. Give it two children, a **TextureRect** and a **Label,** name the label "pointsLabel"
+
+3. In the inspector of the **TextureRect** set the **Expand Mode** to "Fit Width" and assign the first coin image to the **Texture** field using the **Load** Option
+
+4. Finally for UI setup, in the inspector of the **Label** write "0" in the **Text** field. You'll notice this is pretty small! Scroll down in the **Inspector** until you see **Theme Overrides.** in this section you'll find **Font Sizes.** Set this to something you think looks good! I went with 40px.
+
+5. Great! Now we just need to add two lines of code to our UI. and then our points are done!
+
+	First, a reference to our label, same way we've been doing, this should be second nature by now!
+
+	```gdscript
+	@onready var points_label = $pointContainer/pointsLabel
+	```
+
+	then, we'll finish the function we created earlier.
+
+
+	```gdscript
+	func add_point():
+		points_label.text = str(int(points_label.text) + 1)
+	```
+	This looks a little silly, but what we're doing is taking the current text in the label, converting it to a number, adding 1 to it, and then converting to *back* to a string.
+
+</Steps>
+
+If you've set it all up right, you should notice this number going up each time you pick up a coin! Add a few instances of the coin scene to your level to test!
+
+## Potions
+
+For potions the process is exactly the same! You should be able to do it on your own! Just follow the steps for creating the coin scene. Except in this case we'll just want a regular **Sprite2D** As the potion sprite isn't animated, and we'll want the group to be called "health" (make sure it matches the line we wrote in **hitbox.gd**)
+
+Don't worry if you don't seem to be able to pick up the potions! It's probably because you have full health!
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created a coin pickup
+- [ ] I've created a potion pickup
+- [ ] I've tested them in my game
+</Checklist>
+</Box>
