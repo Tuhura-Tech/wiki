@@ -1,6 +1,6 @@
 ---
 type: tutorial
-title: "Check In: Testing the current game out"
+title: "Check In: Testing the Current Game"
 unitTitle: "Car Controls"
 description: This page works through creating a full 3D racing game step-by-step
 ---
@@ -8,10 +8,22 @@ description: This page works through creating a full 3D racing game step-by-step
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 
+## Adding a Camera & Light
 
 To view the current progress, you'll need to insert a **Camera3D** node as a child of your Game node.
+    :::tip[Positioning your camera]
+        Use the green, red, and blue arrows to move the camera to an appropriate area overlooking the scene.
+        
+        
+        Change the viewport angle (rotation x) to -45 degrees to make it look down. Make sure to save it!
+    :::
+If it's too dark, add a **DirectionalLight3D** and rotate it to face downwards.
 
-Then use the arrows to move it to an appropriate area overlooking the scene. Change the viewport angle (rotation x) to -45 degrees to make it look down.
+
+Now, when you play from your "Game" scene, you should see the car fall down and bounce into place.
+
+So far, you won't be able to control it -- this is on the next page.
+
 
 <Box>
 ## Checklist
