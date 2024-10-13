@@ -1,4 +1,5 @@
 ---
+import type { Props } from '@astrojs/starlight/props';
 import { getCollection } from "astro:content";
 import { isTutorialEntry } from '../../content/config';
 import { getTutorialPages, getTutorialUnits } from '../../util/getTutorialPages';
@@ -8,13 +9,11 @@ import TabPanel from '../tabs/TabPanel.astro';
 import Progress from './Progress.astro';
 import UnitProgressIcon from './UnitProgressIcon.astro';
 
-export interface Props {
-	id: string;
-}
-
 const currentUrl = Astro.url.pathname.replace(/\/$/, '');
+const { id } = Astro.props;
+
 export const allPages = await getCollection('docs');
-export const pages = allPages.filter(isTutorialEntry);
+const pages = allPages.filter((page) => isTutorialEntry(page, id));
 
 const tutorialPages = getTutorialPages(pages);
 const units = getTutorialUnits(tutorialPages);
@@ -58,9 +57,9 @@ const isCurrentUnit = (unit: (typeof units)[number]) =>
 										{currentUrl.endsWith(lesson.slug) && (
 											<ul class="on-this-page">
 												{(await lesson.render()).headings
-													.filter(({ depth }) => depth <= 2)
+													.filter(({ depth }) => depth <= 6)
 													.map((h) => (
-														<li>
+														<li class="subheader-link" style={`--depth:${h.depth}`}>
 															<a class="header-link" href={'#' + h.slug}>
 																{h.text}
 															</a>
@@ -135,6 +134,10 @@ const isCurrentUnit = (unit: (typeof units)[number]) =>
 	.header-link :global(.circle) {
 		opacity: 1;
 		margin-top: -0.125rem;
+	}
+
+	.subheader-link {
+		margin-left: calc(var(--depth) * 0.8rem);
 	}
 
 	.on-this-page {

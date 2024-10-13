@@ -1,13 +1,15 @@
 ---
 import Default from '@astrojs/starlight/components/Pagination.astro';
 import type { Props } from '@astrojs/starlight/props';
+import { isTutorialEntry } from '../../content/config';
 import { getTutorialPages } from '../../util/getTutorialPages';
-import { pages } from '../tutorial/TutorialNav.astro';
+import { allPages } from '../tutorial/TutorialNav.astro';
 
-const { entry, pagination } = Astro.props;
+const { entry, pagination, id } = Astro.props;
 const { type } = Astro.props.entry.data;
 let { prev, next } = pagination;
 
+const pages = allPages.filter((page) => isTutorialEntry(page, id));
 const tutorialPages = getTutorialPages(pages);
 
 if (type === 'tutorial') {
