@@ -20,21 +20,29 @@ You will be making a 3D race car game with simple
 # Setting up the main scene
 
 <Steps>
-1. Select **`3D Scene`** and rename to "Game".
-2. Add a child **`MeshInstance3D`** and rename to "Ground". In the Inpector:
-1. Select **`New BoxMesh`** under Mesh.
+1. Select **3D Scene** and rename to "Game".
+2. Add a child **MeshInstance3D** and rename to "Ground". In the Inpector:
+1. Select **New BoxMesh** under Mesh.
 2. Click the BoxMesh and change the Size to (x: 50, y: 1, z: 50).
-2. Still in the BoxMesh, under `Material`, select **`New StandardMaterial3D`**.
+2. Still in the BoxMesh, under Material, select **New StandardMaterial3D**.
 2. Find a road picture (preferably .png) so you can see where the car is going.
     - Download it into your racing game folder (I found mine here, on [OpenGameArt](https://opengameart.org/content/cartoony-montainside-ii)).
     - In the Grounds' **Inspector > Mesh > Material > Albedo > Texture**, click 'Load' and select your texture.
     - You will also need to change this Size to (x: 50, y: 1, z: 50).
+    ![Picture of Ground Mesh properties](/src/assets/godot/3DRacing/groundMeshProperties.png)
     - To make the texture repeat itself: **UV1 > Triplanar** to 'On'.
-3. When on the Ground node, the menu bar will have a **`Mesh`** button. 
+3. When on the Ground node, the menu bar will have a **Mesh** button.
 
-    Create a collision shape and change **`Collision shape placement`** to `Static Body Child`.
+    Create a collision shape and change **Collision shape placement** to `Static Body Child`.
 4. Save your scene.
 </Steps>
+
+### Current Look
+Your ground should now have repeated your picture and look something like this:
+
+
+![Picture of repeating picture on the ground](/src/assets/godot/3DRacing/repeatingAPicForGround.png)
+
 
 <Box>
 ## Checklist
