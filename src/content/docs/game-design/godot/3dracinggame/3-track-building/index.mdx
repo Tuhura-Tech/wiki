@@ -8,6 +8,29 @@ description: This page works through creating a full 3D racing game step-by-step
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 
+1. Add Node3D to World.
+2. Add Path3D to Node3D
+3. Move Ground below y=0.
+4. When on Path3D, you'll notice that there are extra options in the nav bar.
+    - Click on the green 'Add point' button.
+    - Click on the Y Axis so that each of these points will be at the same height.
+    - Add your points.
+    - To finish, click the blue triangle 'close curve' button.
+5. To make the path curved:
+    - Click the 'select control points'
+    - Hold shift and click each point to drag the control handles around.
+    - It should something like this:
+        ![Picture of curved path on the ground](/src/assets/godot/3DRacing/curvedPath3D.png)
+6. Move your path points up to make some hills:
+    ![Picture of moving path point up](/src/assets/godot/3DRacing/editingPathPointHeights.png)
+7. To make the path visible:
+    - Add **CSGPolygon** to Path3D.
+    - Set the **Mode** to Path.
+    - Assign the **Path Node** to the Path3D.
+8. To make the visible path thinner:
+    - Click the Plygons' PackedVector2Array and change the 0 & 1 x position to -3.
+    
+
 
 <Box>
 ## Checklist
