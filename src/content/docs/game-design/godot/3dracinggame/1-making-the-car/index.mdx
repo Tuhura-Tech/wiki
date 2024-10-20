@@ -43,7 +43,7 @@ Godot Documentation for nodes discussed in this section:
 1. In the Inspector:
     - Under **VehicleBody3D Motion** tick
         - [x] **Use as Steering** (as we want the front wheels to steer).
-    - Under **Wheel** change the **Radius** to 0.4m and **Friction Slip** to 2 (1 is normal grip, higher means more grip).
+    - Under **Wheel** change the **Roll Influence** to 1.0 (to keep the car from flipping over) **Radius** to 0.4m and **Friction Slip** to 2 (1 is normal grip, higher means more grip).
     - Under **Suspension** set **Stiffness** to 50 (or a value between 50 and 100 for a race car).
     - Under **Damping** set **Compression** to 0.5 (0.0 will make the car bounce through its' springs, we want less bounce for a race car).
 1. Add a child **MeshInstance3D** node and create a **New CylinderMesh**.
