@@ -15,7 +15,7 @@ Read through and implement [3D Game](/game-design/godot/3dGame) or [3D Intro](/g
 :::
 ![Preview of end result]()
 
-You will be making a 3D race car game with simple 
+You will be making a 3D race car game with two simple tracks, a timer, lap counter, menu, and a multiplayer function if you're up for it!
 
 # Setting up the main scene
 
@@ -31,6 +31,7 @@ You will be making a 3D race car game with simple
     - You will also need to change this Size to (x: 50, y: 1, z: 50).
     ![Picture of Ground Mesh properties](/src/assets/godot/3DRacing/groundMeshProperties.png)
     - To make the texture repeat itself: **UV1 > Triplanar** to 'On'.
+    - To make the texture not repeat as much, you can toggle with the  **UV1 > Scale** properties.
 3. When on the Ground node, the menu bar will have a **Mesh** button.
 
     Create a collision shape and change **Collision shape placement** to `Static Body Child`.
