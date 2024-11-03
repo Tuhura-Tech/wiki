@@ -1,0 +1,150 @@
+---
+title: 2D Racing Game
+description: This page is a step by step guide to making a 2D platformer
+sidebar:
+  order: 3
+---
+
+This is a tutorial for a basic 2D racing game in Godot. This will follow on from previous learning we did in the [2D Platformer](/game-design/godot/2dplatformergame). We will be starting with a new project.
+
+Please download the asset pack linked [here](https://www.kenney.nl/assets/racing-pack) (it is free so you don't need to pay).
+
+import { Steps } from '@astrojs/starlight/components';
+
+## Making the Car
+
+<Steps>
+
+1. Make a CharacterBody2D, then give it 2 child nodes: Sprite2D and CollisionShape2D. 
+
+2.  On sSprite2D, drag and drop spritesheet_vehicles.png into the empty texture in the inspector.
+
+3. In the region drop down, enable the region, click on edit region, and then cover a single car using the red dots. 
+    ![Screenshot showing edited region](/src/assets/godot/2DRacing/image1.png)
+
+4. For the Collisionshape2D, select new CapsuleShape2D and cover the car. 
+
+5. Attach a script to CharacterBody2D and replace the code with this:
+    ```gdscript
+    extends CharacterBody2D
+
+
+    const ACC = 25.0
+    const MAX = 750
+    const DEC = 5
+    var motion = 0
+
+
+    func _physics_process(delta: float) -> void:
+        # Add the gravity.
+
+        # Get the input direction and handle the movement/deceleration.
+        # As good practice, you should replace UI actions with custom gameplay actions.
+        var direction := Input.get_axis("ui_left", "ui_right")
+        if direction:
+            rotation += 2 * direction * delta
+            
+        var moving := Input.get_axis("ui_up", "ui_down")
+        if moving:
+            motion += ACC * moving
+            if motion > MAX:
+                motion = MAX
+            elif motion < -MAX:
+                motion = -MAX
+
+
+        velocity = lerp(motion * transform.y, Vector2.ZERO, 0.2)
+            
+        
+        if velocity != Vector2.ZERO:
+            if motion > 0:
+                motion = max(motion - DEC, -ACC)
+            elif motion < 0:
+                motion = min(motion + DEC, ACC)
+
+        move_and_slide()
+    ```
+    This will allow your car to turn, accelerate, and decelerate.
+
+6. To test this, create a new scene and give it a Node2D, give it a child node Camera2D and your car scene as a child node. If you now play the track scene, you should be able to drive around.
+    :::tip
+    Remember to name your scenes. I named mine car and track1.
+    :::
+
+</Steps>
+
+## Making the Track
+
+<Steps>
+
+1. Give track1 a TileMapLayer and name it Foreground. This is where we'll make the track.
+
+2. For the tileset, open the spritesheet_tiles.png. in the TileSet menu, set the texture region to 128 by 128 and in the inspector click on TileSet and change the tile size to 128 by 128.
+    ![Screenshot showing TileSet size menu](/src/assets/godot/2DRacing/image2.png)
+
+3. Now you can draw your own track.
+
+4. If you want to make a background, create a new TileMapLayer by duplicating the foreground, and draw using that as your base.
+    ![Screenshot showing current track](/src/assets/godot/2DRacing/image3.png)
+
+</Steps>
+
+## Making the Second Car
+
+<Steps>
+
+1. Duplicate the car scene and name it car2. 
+
+2. In Project > Project Settings > Input Map, we will create other keys for the second player to use so that both players can use one keyboard. In the "add new action" box, type in something like Left2 and then click add.
+
+3. On the right, click the plus button and and then press a key to represent it. E.g. for left you could use a, right is d, backward is s, and forward is w. Repeat the steps for all 4 directions.
+    ![Screenshot showing Input Map](/src/assets/godot/2DRacing/image4.png)
+
+4. Now go into the car2 script and change the `"ui_left"`, `"ui_right"` etc. to the inputs you made before. Now you can use the second car on the same keyboard!
+
+</Steps>
+
+## Making the Menu
+
+<Steps>
+
+1. Make a new scene with a Control node. Add a Label child node. In the inspector will be a text box - write Racing Game or whatever you want to call it. 
+
+2. In the control section of the inspector there is a dropdown for theme overrides. This is where you can get creative and change the colors, the fonts, outlines etc. Save this scene as main.
+    ![Screenshot showing creative controls](/src/assets/godot/2DRacing/image5.png)
+
+3. Make a new scene and give it a Button node. Change the text the same way as the Label in the previous step. Type in Level 1 or whatever you want to call it. You can change the style a similar way to the text with theme overrides, but now there is an extra styles menu. You can customise the button to look however you like.
+
+4. Attach a script to the button. In the node menu, connect the Pressed signal to the script and change the code to this: 
+    ```gdscript
+    extends Button
+
+    @export var level : String
+    # Called when the node enters the scene tree for the first time.
+    func _ready() -> void:
+        pass # Replace with function body.
+
+
+    # Called every frame. 'delta' is the elapsed time since the previous frame.
+    func _process(delta: float) -> void:
+        pass
+
+
+    func _on_pressed() -> void:
+        get_tree().change_scene_to_file(level)
+    ```
+
+5. Now in your menu script you can add in the button for track one. In the inspector near the top you should see a text box for Level. Right click on your track1.tscn and copy the path and paste it into that text box.
+    ![Screenshot showing level variable](/src/assets/godot/2DRacing/image6.png)
+
+6. Now when you run the menu (main) and click the button, it should load the track and you can now play it. To add more levels, simply add another button and change the path in the Level text box.
+
+</Steps>
+
+## Next Steps
+
+1. Add more levels and connect them to your menu
+2. Add items to pick up 
+3. Make an end screen
+4. Make your menus more sophisticated - how could you add a settings menu?
+5. Make a character selection menu

@@ -1,0 +1,370 @@
+---
+title: 2D Platformer
+description: This page is a step by step guide to making a 2D platformer
+sidebar:
+  order: 2
+---
+
+This is a tutorial for a basic 2D platformer in Godot. We will be starting with a new project.
+
+Please download the asset pack linked [here](https://brackeysgames.itch.io/brackeys-platformer-bundle) (it is free so you don't need to pay).
+
+## Making the Player
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Click "Other Node" and add a CharacterBody2D. Rename this to Player.
+
+2. In the Inspector, click on “Collision” in the CollisionObject2D section and change the layer to only have 2 selected
+
+3. Give your CharacterBody2D 2 child nodes, an AnimatedSprite2D and a CollisionShape2D.
+
+4. In the project menu at the top left, open the project settings, go to the rendering heading in the general tab, click on texture, and change the default texture filter to Nearest. ![Screenshot showing the settings menu](/src/assets/godot/2DPlatformer/screenshot1.png)
+
+</Steps>
+
+
+<Steps>
+
+1. Click on AnimatedSprite2D and click on “Animation” in the inspector.
+
+2. Click on Sprite Frames and New SpriteFrames.
+
+3. Click on the SpriteFrames you just made. This should open a SpriteFrames dock at the bottom of the screen. Here we are going to add the sprite animations for our character.
+
+4. Click on the new animation button at the top left of the new dock and create 4 new animations so you have 5 total. These will be the Idle, Run, Roll, Hit, and Death animations. ![Screenshot showing new animation button](/src/assets/godot/2DPlatformer/screenshot2.png)
+
+</Steps>
+
+
+### Animating The Sprite
+
+<Steps>
+
+1. Starting with Idle, click the grid icon to the right of the play/pause buttons. Navigate to the knight.png image in the sprites folder of the asset pack and open it. ![Screenshot showing add sprite frames button](/src/assets/godot/2DPlatformer/screenshot3.png)
+
+2. On the right, you will need to change both Vertical and Horizontal to 8, as the images are in an 8x8 grid.
+
+3. Select the first 4 squares as these are our Idle animation frames. Add these frames and you can now watch your knight idle if you click the play button.
+
+4. Make sure to have this animation auto play by clicking the icon to the right of the trash can above the “Filter Animations” bar. ![Screenshot showing auto play on load button](/src/assets/godot/2DPlatformer/screenshot4.png)
+
+5. Now repeat these steps (not including the auto play) for each of the animations.
+
+6. Click on CollisionShape2D in the Node Tree and make the Shape in the Inspector a New CapsuleShape2D. Modify it so that it roughly covers the knight. ![Screenshot showing CollisionShape covering player](/src/assets/godot/2DPlatformer/screenshot5.png)
+	:::tip
+	Making this shape smaller makes the game easier for the player. At this stage of the design, making the shape slightly smaller than the sprite is recommended. You can experiment with this to find a size you like for your design.
+	:::
+
+</Steps>
+
+You can save this scene as we are done with the knight for right now.
+
+## Creating a Level
+
+<Steps>
+
+1. Create a new scene by clicking the + button in the scene tabs. Add a 2D Scene and rename it Level 1.
+
+2. Click and drag your Player scene from the FileSystem into the Level 1 Scene Node Tree as a child of Level 1. 
+
+3. Add a Camera2D node as a child of the Player and set the Zoom for it in the inspector to 4 for both x and y. If you now run the game, you should see your knight floating in a gray void.
+
+4. Add a TileMapLayer node as a child of Level 1. Rename this to Foreground and create a new Tile Set using the Inspector. This should open 2 new menus at the bottom of the screen, a TileSet menu and a TileMap menu. ![Screenshot showing TileSet and Tilemap menus](/src/assets/godot/2DPlatformer/screenshot6.png)
+
+5. Inside the TileSet menu, click the + button and select “Atlas”. 
+
+6. Navigate to the world_tileset.png image in the sprites folder and load that. You will be asked if Godot can automatically create tiles, select yes.
+
+7. Click the “TileSet” button in the inspector. Go to the “Physics Layers” drop down and click the “Add Element” button. ![Screenshot showing physics layer add element](/src/assets/godot/2DPlatformer/screenshot7.png)
+
+8. Move back to the TileSet menu. Click the Paint button and then click the drop down that appears and select “Physics Layer 0”.
+
+9. Click on some of the square platforms and they should be given a blue collision box. It will look highlighted on the Base Tiles sections. ![Screenshot showing TileMap collision boxes](/src/assets/godot/2DPlatformer/screenshot8.png)
+	:::tip
+	When you click on a sprite, you should see it appear in the Paint window. You can then drag the white diamonds so that the blue collision box roughly covers the sprite. For things like the ground sprites, the default square is ok, but you may need to play around for other sprites, such as the bridge sprites.
+	:::
+
+10. Now open the TileMap menu at the bottom of the screen and click on a tile to enable drawing in the editor. You can click to place individual tiles, or click and drag to paint them following the cursor. Play around with the tile paint tools to create a fun level to play. Some cool things to check out are the Rect tool and the Place Random Tile options.
+
+11. Add a new TileMapLayer as a child of Level 1 and place it above Foreground in the Scene Tree. ![Screenshot showing scene tree](/src/assets/godot/2DPlatformer/screenshot9.png)
+
+12. Repeat the steps used for the Foreground (ignoring the physics steps) to create your Background.
+	:::tip
+	If you placed the Background TileMapLayer above the Foreground, Background tiles should appear behind the Foreground tiles. Unless your player is below the TileMapLayers, they will disappear behind the background, so make sure to move them below the Foreground in the Scene Tree.
+	:::
+
+</Steps>
+
+
+
+## Adding Movement
+
+Now we are going to add gravity and movement to the player. 
+
+<Steps>
+
+1. Go back to your Player scene and attach a script by right clicking the player node and clicking “Attach Script”. Click “Create” as the defaults are what we want. Now if you run your game, you should be able to run around. 
+	:::tip
+	You may want to reduce your speed and jump height, depending on how you want the game to feel (I recommend a speed of 150 and a jump velocity of -300). 
+	:::
+
+
+2. You may notice that your player doesn't flip when going to the left, nor does the animation change from idle to run when you're moving. To solve this, add the below code 
+	```gdscript
+	if velocity.x > 0:
+		sprite_node.flip_h = false
+	elif velocity.x < 0:
+		sprite_node.flip_h = true
+
+	if abs(velocity.x) > 0:
+		sprite_node.animation = "Run"
+	else:
+		sprite_node.animation = "Idle"
+	```
+	above `move_and_slide()` as well as adding `@onready var sprite_node = $AnimatedSprite2D` below `extends CharacterBody2D` as shown below. Note that the animation names are case sensitive, so if your player disappears that may be why.
+	
+	```gdscript
+	extends CharacterBody2D
+
+	@onready var sprite_node = $Sprite
+
+	const SPEED = 150.0
+	const JUMP_VELOCITY = -300.0
+
+
+	func _physics_process(delta: float) -> void:
+		# Add the gravity.
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+
+		# Handle jump.
+		if Input.is_action_just_pressed("ui_select") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
+		var direction := Input.get_axis("ui_left", "ui_right")
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+
+		if velocity.x > 0:
+			sprite_node.flip_h = false
+		elif velocity.x < 0:
+			sprite_node.flip_h = true
+
+		if abs(velocity.x) > 0:
+			sprite_node.animation = "Run"
+		else:
+			sprite_node.animation = "Idle"
+
+		move_and_slide()
+	```
+
+</Steps>
+
+## Adding Killzones
+
+Next let's make a killzone so that when you fall off the map or hit an enemy, you'll restart the level.
+
+<Steps>
+
+1. Create a new scene with an Area2D node and rename it Killzone. Go to Collision in the Inspector and change the mask to only have 2 selected. 
+
+2. Add a Timer node as a child of Killzone and change the wait time in the Inspector to 0 (this will auto change to 0.001).
+
+3. Attach a script to Killzone. Default options are ok.
+
+4. Click on Timer and in the node menu on the right connect the “timeout” signal to the Killzone script. Now click on Killzone and in the node menu, connect the “body entered” signal to the Killzone script. Replace the all of the code in the script with this:
+	```gdscript
+	extends Area2D
+
+	@onready var timer = $Timer
+
+	func _on_body_entered(body:Node2D):
+		timer.start()
+
+
+	func _on_timer_timeout():
+		get_tree().reload_current_scene()
+	```
+
+5. After saving, you can now drag this scene into your Level 1 scene. 
+
+6. Give the Killzone a CollisionShape2D as a child node and make the shape a New WorldBoundaryShape2D. Drag this below your platforms so the player can fall into it. ![Screenshot showing WorldBoundary](/src/assets/godot/2DPlatformer/screenshot10.png)
+	:::tip
+	You don't need to stretch it out as it will automatically cover the bottom of the scene.
+	:::
+
+</Steps>
+
+
+
+## Making Enemies
+
+<Steps>
+
+1. Create a new scene with a CharacterBody2D and rename this to Slime.
+
+2. Give it 3 child nodes: an AnimatedSprite2D, a CollisionShape2D, and a Killzone. The Killzone will also need a CollisionShape2D as a child.
+
+3. To add the sprite, simply repeat the steps we used for the player, but this time picking a different sprite (e.g. slime_green.png). 
+
+4. For the Killzone, add a New RectangleShape2D to the CollisionShape2D and make it roughly cover the slime. Make the other CollisionShape2D the same as the Killzone's one. 
+
+5. We need to give it some way to recognise walls and turn around. Add a RayCast2D as a child of Slime and move it to the centre of the sprite and rotate the arrow so it points forward and stays close to the edge of the sprite.
+
+6. Duplicate this node and flip the arrow the other way. At this point I'd suggest renaming them RayCastLeft and RayCastRight (or something similar) so it's not confusing which is which when we put them in code. ![Screenshot showing slime scene](/src/assets/godot/2DPlatformer/screenshot11.png)
+
+7. Now attach a script to Slime and change all the code to this:
+	```gdscript
+	extends CharacterBody2D
+
+
+	const SPEED = 30.0
+	var direction = 1
+	@onready var sprite_node = $AnimatedSprite2D
+	@onready var raycast_left = $RayCastLeft
+	@onready var raycast_right = $RayCastRight
+
+	func _physics_process(delta: float) -> void:
+		# Add the gravity.
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+
+
+		if raycast_left.is_colliding():
+			direction = 1
+		elif raycast_right.is_colliding():
+			direction = -1
+
+		if velocity.x > 0:
+			sprite_node.flip_h = false
+		elif velocity.x < 0:
+			sprite_node.flip_h = true
+
+		velocity.x = direction * SPEED
+
+		move_and_slide()
+	```
+
+</Steps>
+
+Now you can add your Slime to your level and if you run into it, you will reset the level.
+
+
+## Adding Items
+
+Now let's add a coin pickup. 
+
+<Steps>
+
+1. Create a new scene with an Area2D node and rename it Coin. 
+
+2. Change the collision mask to only have 2 selected. 
+
+3. Give this node a AnimatedSprite2D and a CollisionShape2D as children. Add the coin sprite and animation to the node as before. 
+
+4. Give the CollisionShape2D a New CircleShape2D and have it cover the coin. 
+
+5. Attach a script to the Area2D node and connect the “body entered” signal to it. Inside the `_on_body_entered` function make it print something so we can test that it's working. If you put the coin in your level, it should print out your message when you run over it. To make the coin disappear when you run over it, add `queue_free()` after the print.
+
+
+</Steps>
+
+
+## Connecting Levels
+
+Now let's create a trigger to load the next level. 
+
+<Steps>
+
+1. In Level 1 add a new Area2D node and give it a CollisionShape2D as a child. 
+
+2. On the Area2D node, change the collision mask to only have 2 selected. 
+
+3. Give the CollisionShape2D a shape and place it where you'd like the end of the level to be.
+
+4. Attach a script to the Level 1 node, then click on the new Area2D node you just made and connect the “body entered” signal to Level 1. Change the code to this:
+	```gdscript
+	extends Node2D
+
+	signal level1_finished
+
+
+	func _on_area_2d_body_entered(body:Node2D) -> void:
+		level1_finished.emit()
+	```
+
+5. Create a new Scene with a Node2D called Game and attach a script to it. Change the code to below and make sure the preload filepath goes to your Level 1 scene.
+	```gdscript
+	extends Node2D
+
+	var level1 = preload("res://Scenes/level1.tscn")
+
+	func _ready() -> void:
+		var l = level1.instantiate()
+		l.connect("level1_finished", _on_level1_finished)
+		add_child(l)
+
+	func _on_level1_finished():
+		for n in get_children():
+			remove_child(n)
+			n.queue_free()
+	```
+
+6. Go into Project -> Project Settings -> Application -> Run and change the main scene to your new Game scene.
+	![Screenshot showing changing the main scene](/src/assets/godot/2DPlatformer/screenshot12.png) If you now run the project, you should be met with a gray void upon reaching the end of the level. 
+
+7. You can make another scene called Level 2 and once you've done that, change the code in the Game script to the below:
+	```gdscript
+	extends Node2D
+
+	var level1 = preload("res://Scenes/level1.tscn")
+	var level2 = preload("res://Scenes/level2.tscn")
+	var levels = [level1, level2]
+	var current_level = 0
+
+	func _ready() -> void:
+		var l = levels[current_level].instantiate()
+		l.connect("level1_finished", _on_level1_finished)
+		call_deferred("add_child", l)
+
+	func reload_current_level():
+		for n in get_children():
+			remove_child(n)
+			n.queue_free()
+
+		var l = levels[current_level].instantiate()
+		if current_level == 0:
+			l.connect("level1_finished", _on_level1_finished)
+		call_deferred("add_child", l)
+
+	func _on_level1_finished():
+		for n in get_children():
+			remove_child(n)
+			n.queue_free()
+
+		current_level += 1
+		call_deferred("add_child", levels[current_level].instantiate())
+	```
+	You will also need to change the code in the `_on_timer_timeout()` function in the Killzone's script to `get_tree().get_root().get_node("Game").reload_current_level()` keeping in mind that "Game" is the name of the node in your game scene and is case sensitive. Now when you reach the end of Level 1, it will load Level 2 and you can play it.
+	:::tip
+	If you want to add further levels, don't forget to emit a finished signal from the level and load in and connect the new level and signal in the Game script.
+	:::
+
+</Steps>
+
+## Next Steps
+
+Congratulations, you now have a working 2D platformer. Here is a list of possible extensions you might want to add to your game:
+1. Investigate adding moving platforms using AnimationPlayers
+2. Killing enemies if you jump on them or some form of combat
+3. On screen health or life system
+4. On screen timer or score
+5. Game over screen
+6. Messing with tile collisions to create secret areas
