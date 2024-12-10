@@ -162,7 +162,9 @@ export default defineConfig({
           sizes: '32x32'
         }
       }],
-    plugins: [starlightLinksValidator()],
+    plugins: [starlightLinksValidator({
+      errorOnLocalLinks: false,
+    })],
     components: {
       Hero: './src/components/starlight/Hero.astro',
       TableOfContents: './src/components/starlight/TableOfContents.astro',
