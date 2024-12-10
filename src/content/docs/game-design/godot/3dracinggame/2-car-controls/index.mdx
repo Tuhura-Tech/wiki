@@ -1,0 +1,42 @@
+---
+type: tutorial
+title: "Check In: Testing the Current Game"
+unitTitle: "Car Controls"
+description: This page works through creating a full 3D racing game step-by-step
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## Adding a Camera & Light
+
+To view the current progress, you'll need to insert a **Camera3D** node as a child of your VehicleBody3D node.
+    :::tip[Positioning your camera]
+        Use the green, red, and blue arrows to move the camera to an appropriate area overlooking the car.
+        To see where you'll be driving put the camera just above the car, with the back wheels nearest to you.
+        
+        
+        Change the viewport angle (rotation x) to -20 degrees to make it look down. Make sure to save it!
+    :::
+If it's too dark, add a **DirectionalLight3D** and rotate it to face downwards.
+
+## Current File Structures
+
+This is what your car file structure should look like. Rename the nodes to simpler terms, e.g. VehicleBody3D -> "Car".
+
+![File structure for the car with camera](/src/assets/godot/3DRacing/builtCarFileStructure.png)
+
+What your world file structure should look like:
+![File structure for the world with light](/src/assets/godot/3DRacing/worldCurrentFileStructure.png)
+
+Now, when you play from your "Game" scene, you should see the car fall down and bounce into place.
+
+So far, you won't be able to control it -- this is on the next page.
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I'm ready to drive my car!
+</Checklist>
+</Box>
