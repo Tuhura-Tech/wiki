@@ -1,13 +1,14 @@
 {
   "name": "wiki",
-  "type": "module",
   "version": "0.1.0",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "lint:eslint": "eslint ."
   },
   "dependencies": {
     "@astrojs/cloudflare": "^12.0.0",
@@ -26,7 +27,15 @@
     "hast-util-to-string": "3.0.1",
     "hastscript": "9.0.0",
     "rehype": "13.0.2",
-    "unist-util-visit": "5.0.0"
+    "unist-util-visit": "5.0.0",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "eslint": "^8.29.0",
+    "eslint-plugin-astro": "^0.21.0",
+    "@astrojs/check": "^0.9.4",
+    "@typescript-eslint/eslint-plugin": "^5.46.1",
+    "@typescript-eslint/parser": "^5.46.1",
+    "eslint-plugin-react": "^7.32.1"
   },
   "packageManager": "pnpm@9.15.0"
 }
