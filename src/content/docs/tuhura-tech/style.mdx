@@ -1,0 +1,228 @@
+---
+title: Contribution Best practices
+description: Details on how to best structure and layout your contributions
+---
+
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[Markdown]
+For more general info on Markdown syntax, take a look at the [Markdown Guide](https://www.markdownguide.org/basic-syntax/#overview)
+:::
+
+This is a guide on how to structure your contributions to the wiki! To ensure that the content you create is accesable and structered correctly. 
+Though please keep in mind that contributions are always wanted! There are no consequences to getting things wrong, at most we might ask you to tweak a few things.
+
+With all that said, let's go over how to structure your pages!
+
+There are two main types of contribtions to me made:
+
+1. Single page short overviews and guides
+2. Multi page projects and tutorials
+
+Depending on what you're adding, some things will change, but we'll cover everything!
+
+## Creating a branch of the repository
+
+## Adding a page
+
+### Adding a single page
+
+### Adding a multi-page tutorial
+
+## Headings
+
+Headings denote new major sections of your contribution, and should be used only for distinct sections covering something new. They create new major sections on the right-side navigation bar, to allow for easy navigation between the important sections of your contribution.
+
+Headings can be added like this:
+
+```md
+## Your heading here
+```
+
+### Sub-Headings
+
+Sub-headings work similarly to Headings, and denote new sections <i>Within</i> the topic designated by the heading. These should be used to break down the major topic into sub-topics or sections. They also create sub-sections on the right-side navigation bar, allowing for navigation between the sub-headings.
+
+Sub-headings can be added like this:
+
+```md
+### Your sub-heading here
+```
+
+Note that a sub-heading will belong to the nearest Heading **Above** it
+
+Headings and sub-headings should be used to control the flow of your contribution, and prevent it from becoming one big wall of text. They can let the reader know when they're moving onto something new, and also allow them to quickly jump between sections!
+
+## Notes and Tips
+
+Notes and Tips can be used to add extra information or context in a way that stands out to the reader as being important! 
+
+Notes are great for Information like if the guide will only work with a particular version of software! 
+
+Tips on the other hand are great for providing some extra information to the reader, such as where to find a particularly hard to find feature, or a time-saving suggesting, or even just something you've learnt through trial and error. 
+
+Notes look like this:
+
+:::note[Note heading]
+Note text, here is where your information will be!
+:::
+
+and are added like this:
+
+```md
+:::note[Note heading]
+Note text, here is where your information will be!
+:::
+```
+
+and Tips look like this:
+
+:::tip 
+Here's a useful tip!
+:::
+
+
+and are added like this:
+
+```md
+:::tip 
+Here's a useful tip!
+:::
+```
+
+Think of notes and tips as a way to add extra context for the reader. Notes fit great below a heading or sub-heading to provide context for a situation. Tips work great after asking the reader to do something, or explaining how something works.
+
+## Inserting Code
+
+One of the most important things for making sure your contribution is useful and easy to follow, is the way you integrate the code you want the reader to write!
+
+Adding code itself is easy, and can be done using Backticks like this:
+
+```
+​```
+print("hello")
+print("World!")
+​```
+```
+You can also optionally denote a language for syntax highlighting, for example
+
+```
+​```python
+print("hello")
+print("World!")
+​```
+```
+
+Would look like this:
+
+```python
+print("hello")
+print("World!")
+```
+### When to add code
+
+It's important when going over code, you show each new section on its own as you add it, and at the end of the section, show the entire script in its entirety, to give the reader context for what they've just added. For example:
+<Steps>
+1. Let's add the variables:
+
+    ```python
+    a = 1
+    b = 2
+    ```
+
+2. Then we'll create a function
+
+    ```python
+    def add():
+        print(a + b)
+    ```
+
+3. Giving us this so far:
+
+    ```python
+    a = 1
+    b = 2
+
+    def add():
+        print(a + b)
+    ```
+</Steps>
+## Steps
+
+Steps are another important way to ensure that your guide is clear and readable! Infact you've already seen them used in the step before! 
+Steps should always be used when covering a multi-step process, and are often a great fit under a sub-heading!
+
+First, to use steps, you'll need to import the required file. This can be done by adding 
+
+```md
+import { Steps } from '@astrojs/starlight/components';
+```
+
+To the top of each page using steps!
+
+Steps can be added like this:
+
+:::tip
+It's very important that the content of each step be indented correctly! Only the lines with the step numbers should not be indented!
+:::
+
+```md
+<Steps>
+1. First step title
+    Here's the content of the first step
+    steps can be as long as you want!
+2. Second step title
+    They can even contain other things covered in this guide, such as codeblocks
+    ​```python
+        print("hello world!")
+    ​```
+3. Third step title
+    Steps allow the reader to nicely follow along, and should be used where applicable
+</Steps>
+```
+## Multi page tutorials
+
+The content in the next two sections is mostly applicable to multi page tutorials, but can still be useful to understand even if you're only writing a single page guide!
+
+## Checklists
+
+The end of every page of multi-step tutorials **must** have a checklist. Which first need to be imported using:
+
+```md
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/tutorial/Checklist.astro';
+```
+
+Checklists will look like this: 
+
+<Box icon="check-list">
+
+### Checklist name
+<Checklist>
+- [ ] I've done the things
+- [ ] I was meant to!
+- [ ] I'm ready to add my awesome idea to the wiki
+</Checklist>
+</Box>
+
+and are added like this:
+
+```md
+
+<Box icon="check-list">
+
+### Checklist name
+<Checklist>
+- [ ] I've done the things
+- [ ] I was meant to!
+- [ ] I'm ready to add my awesome idea to the wiki
+</Checklist>
+</Box>
+```
+
+## Need help?
+
+If you have any questions about contributing, or need help with anything, everyone in [our Discord](https://discord.com/invite/PNxh7cwKfQ) would be more than happy to give you some pointers!
