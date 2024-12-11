@@ -23,8 +23,6 @@ body:
       description: Please provide the url to the page with the issue.
       placeholder: https://wiki.tuhuratech.org.nz/
       value: https://wiki.tuhuratech.org.nz/
-      render: shell
-      required: true
   - type: checkboxes
     id: assist
     attributes:
