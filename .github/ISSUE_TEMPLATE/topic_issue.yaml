@@ -1,0 +1,43 @@
+name: Request an issue with a topic
+description: Request a new topic to be added to the Wiki
+title: "[Issue]: "
+labels: ["topic-issue"]
+projects: ["Tuhura-Tech/2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting an issue with a resource!
+  - type: textarea
+    id: description
+    attributes:
+      label: What is wrong with this resource?
+      description: Please describe the the issue with this resource, this could be incorrect information, out of date details or any other issues.
+      placeholder: X and Y are wrong with this resources because...
+    validations:
+      required: true
+  - type: input
+    id: category
+    attributes:
+      label: What is the url to the page?
+      description: Please provide the url to the page with the issue.
+      placeholder: https://wiki.tuhuratech.org.nz/
+      value: https://wiki.tuhuratech.org.nz/
+      render: shell
+      required: true
+  - type: checkboxes
+    id: assist
+    attributes:
+      label: Would you be willing to contribute to or help review this resource?
+      description: Will you be able to give some of your time to either help fix or at least review the fixed resource?
+      options:
+        - label: I agree to help with this resource
+          required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Tuhura-Tech/wiki/blob/main/CODE_OF_CONDUCT.md). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
