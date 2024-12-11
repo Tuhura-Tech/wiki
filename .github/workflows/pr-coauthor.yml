@@ -14,4 +14,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: kevinzunigacuellar/coauthor-action@v0.1.2
+      - uses: kevinzunigacuellar/coauthor-action@292b32bdbffc663431a2a37b3bfa597d83a74905 # v0.1.3
