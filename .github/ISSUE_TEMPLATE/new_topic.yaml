@@ -20,8 +20,8 @@ body:
   - type: dropdown
     id: category
     attributes:
-      label: What category would the topic best fit under
-      multiple: true
+      label: What category would the topic best fit under?
+      multiple: false
       options:
         - Python
         - JS/TS
@@ -31,6 +31,18 @@ body:
         - Design/Modelling
         - NCEA resources
         - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: diataxis
+    attributes:
+      label: What [Diataxis](https://diataxis.fr/) category would the topic best fit under?
+      multiple: false
+      options:
+        - Tutorial
+        - How to guide
+        - Explanation
+        - Reference
     validations:
       required: true
   - type: checkboxes
