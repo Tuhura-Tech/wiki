@@ -7,6 +7,7 @@ description: Details on how to best structure and layout your contributions
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
+import { FileTree } from '@astrojs/starlight/components';
 
 :::note[Markdown]
 For more general info on Markdown syntax, take a look at the [Markdown Guide](https://www.markdownguide.org/basic-syntax/#overview)
@@ -23,6 +24,108 @@ There are two main types of contribtions to me made:
 2. Multi page projects and tutorials
 
 Depending on what you're adding, some things will change, but we'll cover everything!
+
+:::note[Getting set up]
+For more information on how to actually prepare to contribute, take a look at the [Contribute doc](../contribute)
+:::
+
+First, let's cover how to actually add a page!
+
+## Adding a new page to the wiki
+
+Adding a page is simple! Though it'll be different depending on if you just want a single page guide, or if you want to make a multi-step tutorial.
+Generally large projects should always be multi-page tutorials, wheras small guides about single topics should be single pages.
+
+### Adding one page
+
+To add a page, you'll want to open up the local copy of the Wiki you've cloned, and find the folder that matches the topic you want to add your page to!
+You'll add a new page, name it something about your topic, and end it with **.mdx**
+
+For example, if I wanted to make a page for Godot about setting up a third person camera, i'd do something like:
+
+<FileTree>
+- src/
+    - content/
+      - godot/
+        - 3rdPersonCam.mdx
+
+</FileTree>
+
+In this page, you'll at the very top want to add something like this:
+
+```md
+---
+title: 3rd Person Camera Setup
+description: A guide on how to set up a third person camera for Godot
+---
+```
+
+The **Title** will be what actually shows up in the navigation bar, so keep it short, but descriptive!
+
+
+### Making a multi-page tutorial
+
+Making a multi page tutorial is a little more involved, and has a few more things you'll need to do to make it work! If you get confused, take a look at the Godot Dungeon Crawler, and see how that's set up.
+
+<Steps>
+
+1. First, you'll again want to navigate to the folder for the subject you want to cover, though this time you'll create a folder to hold your pages, named something relevant to your tutorial.
+
+2. Inside this, you'll want to create a folder for **each** page/step in your tutorial, with the names of the pages starting with the step number, starting from 0.
+
+3. Inside each of these folders, you'll want a page called **index.mdx** 
+
+4. That's a lot of steps! So here's an example of how that might look if you were making a tutorial on making a 3rd person game in Godot with health and enemies
+
+    <FileTree>
+    - src/
+        - content/
+        - godot/
+            - 3rdPersonGame/
+                - 0-setup/
+                    - index.mdx
+                - 1-3rdPersonCam/
+                    - index.mdx
+                - 2-health/
+                    - index.mdx
+                - 3-enemies/
+                    - index.mdx
+
+    </FileTree>
+
+5. Each of these pages should have headings that look like something like this:
+
+    ```md
+    ---
+    type: tutorial
+    unitTitle: Getting started
+    title: Setting up our scene
+    description: Creating our player scene and scripts
+    ---
+    ```
+    The **type** should always be tutorial
+
+    The **unitTitle** is what will show up on the right side navigation for your tutorial.
+
+6. The final, and most complicated step, is to add a link to your **0** folder inside `astro.config.mjs`
+
+    If you take a look at the folder, you'll get a pretty good idea of how it should look! Find the section that has the `label` for your topic, and add a link, which for our example would be under `label: "Game Design"`
+
+    ```md
+        {
+            label: "3rd Person Game",
+            link: "game-design/godot/3rdPersonGame/0-setup/"
+        },
+    ```
+    Test your addition using `npm run dev` and see if it shows up!
+
+    Remember: There are no consequences to getting this wrong! Try it out, and if you get stuck, ask for help!
+
+</Steps>
+
+:::note[Checkboxes]
+Each page of a multi-step tutorial **Must** have a checkbox at the bottom, which we'll cover later in this guide!
+:::
 
 ## Headings
 
@@ -216,5 +319,6 @@ and are added like this:
 ```
 
 ## Need help?
+Take a look at other pages on the wiki, and see how they work! Remember, changing things on your local copy **Only** changes them for you! So there's no risk to messing around and figuring out how things work! Just make sure you don't submit those changes when it's time to create a Pull Request!
 
 If you have any questions about contributing, or need help with anything, everyone in [our Discord](https://discord.com/invite/PNxh7cwKfQ) would be more than happy to give you some pointers!
