@@ -12,7 +12,7 @@ body:
     id: description
     attributes:
       label: What is the topic?
-      description: Please describe the topic that you believe should be added along with any information around it. This should include the technology used, how it could tie into other resources (if applicable) and what you think it should cover.
+      description: Please describe the topic that you believe should be added along with any information around it. This should include the technology used, how it could tie into other resources (if applicable) and what you think it should cover. Please also indicate any specific prior knowledge or topics that should be assumed for this topic.
       placeholder: Really interesting topic that should be added.
       value: "Topic information!"
     validations:
@@ -43,6 +43,17 @@ body:
         - How to guide
         - Explanation
         - Reference
+    validations:
+      required: true
+  - type: dropdown
+    id: prior-knowledge
+    attributes:
+      label: What prior knowledge should be assumed for this resource?
+      multiple: false
+      options:
+        - No Prior knowledge
+        - Basic Familiarity with the topic area
+        - Familiar with the topic area
     validations:
       required: true
   - type: checkboxes
