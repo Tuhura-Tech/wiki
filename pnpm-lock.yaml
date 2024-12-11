@@ -40,22 +40,22 @@ importers:
         version: 3.4.16
     devDependencies:
       '@astrojs/check':
-        specifier: ^0.9.4
+        specifier: 0.9.4
         version: 0.9.4(prettier-plugin-astro@0.14.1)(prettier@3.4.2)(typescript@5.5.4)
       '@typescript-eslint/eslint-plugin':
-        specifier: ^5.46.1
+        specifier: 5.62.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.5.4))(eslint@8.57.1)(typescript@5.5.4)
       '@typescript-eslint/parser':
-        specifier: ^5.46.1
+        specifier: 5.62.0
         version: 5.62.0(eslint@8.57.1)(typescript@5.5.4)
       eslint:
-        specifier: ^8.29.0
+        specifier: 8.57.1
         version: 8.57.1
       eslint-plugin-astro:
-        specifier: ^0.21.0
+        specifier: 0.21.1
         version: 0.21.1(eslint@8.57.1)
       eslint-plugin-react:
-        specifier: ^7.32.1
+        specifier: 7.37.2
         version: 7.37.2(eslint@8.57.1)
       hast-util-from-html:
         specifier: 2.0.3
@@ -67,10 +67,10 @@ importers:
         specifier: 9.0.0
         version: 9.0.0
       prettier:
-        specifier: ^3.3.3
+        specifier: 3.4.2
         version: 3.4.2
       prettier-plugin-astro:
-        specifier: ^0.14.1
+        specifier: 0.14.1
         version: 0.14.1
       rehype:
         specifier: 13.0.2
