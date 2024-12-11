@@ -31,7 +31,7 @@
     "prettier": "3.4.2",
     "prettier-plugin-astro": "0.14.1",
     "eslint": "8.57.1",
-    "eslint-plugin-astro": "0.21.1",
+    "eslint-plugin-astro": "0.34.0",
     "@astrojs/check": "0.9.4",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
