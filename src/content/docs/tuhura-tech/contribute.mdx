@@ -38,9 +38,12 @@ Static assets, like favicons, can be placed in the `public/` directory.
 
 Modifying existing content is straightforward as it can be done through the GitHub web UI once you click the `Edit page` button on the associated wiki page. It can also be done through a local copy of the wiki by modifying the md/mdx file.
 
+
 ### Adding new content
 
 Adding new content is a bit more involved then modifying new content as you have to create the required folder if needed and then add the new files into `astro.config.mjs`.
+
+Check out the [Style Guide](../style) for contribution style best practices 
 
 <details>
   <summary>Adding new <ins>tutorial</ins> content...</summary>
@@ -61,6 +64,12 @@ At the start of the [number].mdx files
 ```md
 type: tutorial
 title: 'My Page Title'
+```
+To import necessary modules
+```md
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
 ```
 
 At the end of **every** mdx file
