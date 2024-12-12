@@ -13,35 +13,35 @@ import { FileTree } from '@astrojs/starlight/components';
 For more general info on Markdown syntax, take a look at the [Markdown Guide](https://www.markdownguide.org/basic-syntax/#overview)
 :::
 
-This is a guide on how to structure your contributions to the wiki! To ensure that the content you create is accesable and structered correctly. 
-Though please keep in mind that contributions are always wanted! There are no consequences to getting things wrong, at most we might ask you to tweak a few things.
+This is a guide on how to structure your contributions to the wiki! Ensuring that the content you create is accessible and structered correctly. 
+Though please keep in mind that contributions are always wanted! There are no consequences for getting things wrong; at most, we might ask you to tweak a few things.
 
 With all that said, let's go over how to structure your pages!
 
-There are two main types of contribtions to me made:
+There are two main types of contributions you'd be wanting to make:
 
-1. Single page short overviews and guides
-2. Multi page projects and tutorials
+1. Single-page short overviews and guides
+2. Multi-page projects and tutorials
 
 Depending on what you're adding, some things will change, but we'll cover everything!
 
 :::note[Getting set up]
-For more information on how to actually prepare to contribute, take a look at the [Contribute doc](../contribute)
+For more information on how to get set up to contribute, take a look at the [Contribute doc](../contribute)
 :::
 
 First, let's cover how to actually add a page!
 
 ## Adding a new page to the wiki
 
-Adding a page is simple! Though it'll be different depending on if you just want a single page guide, or if you want to make a multi-step tutorial.
-Generally large projects should always be multi-page tutorials, wheras small guides about single topics should be single pages.
+Adding a page is simple! However it'll be different depending on if you just want a single page guide, or if you want to make a multi-step tutorial.
+Generally large projects should always be multi-page tutorials, whereas small guides about single topics should be single pages.
 
 ### Adding one page
 
 To add a page, you'll want to open up the local copy of the Wiki you've cloned, and find the folder that matches the topic you want to add your page to!
 You'll add a new page, name it something about your topic, and end it with **.mdx**
 
-For example, if I wanted to make a page for Godot about setting up a third person camera, i'd do something like:
+For example, if I wanted to make a page for Godot about setting up a third-person camera, i'd do something like:
 
 <FileTree>
 - src/
@@ -56,7 +56,7 @@ In this page, you'll at the very top want to add something like this:
 ```md
 ---
 title: 3rd Person Camera Setup
-description: A guide on how to set up a third person camera for Godot
+description: A guide on how to set up a third-person camera for Godot
 ---
 ```
 
@@ -65,7 +65,7 @@ The **Title** will be what actually shows up in the navigation bar, so keep it s
 
 ### Making a multi-page tutorial
 
-Making a multi page tutorial is a little more involved, and has a few more things you'll need to do to make it work! If you get confused, take a look at the Godot Dungeon Crawler, and see how that's set up.
+Making a multi-page tutorial is a little more involved, and has a few more things you'll need to do to make it work! If you get confused, take a look at the Godot Dungeon Crawler, and see how that's set up.
 
 <Steps>
 
@@ -105,11 +105,11 @@ Making a multi page tutorial is a little more involved, and has a few more thing
     ```
     The **type** should always be tutorial
 
-    The **unitTitle** is what will show up on the right side navigation for your tutorial.
+    The **unitTitle** is what will show up on the right-side navigation for your tutorial.
 
 6. The final, and most complicated step, is to add a link to your **0** folder inside `astro.config.mjs`
 
-    If you take a look at the folder, you'll get a pretty good idea of how it should look! Find the section that has the `label` for your topic, and add a link, which for our example would be under `label: "Game Design"`
+    If you take a look at the file, you'll get a pretty good idea of how it should look! Find the section that has the `label` for your topic, and add a link, which for our example would be under `label: "Game Design"` and would look something like this:
 
     ```md
         {
@@ -119,7 +119,7 @@ Making a multi page tutorial is a little more involved, and has a few more thing
     ```
     Test your addition using `npm run dev` and see if it shows up!
 
-    Remember: There are no consequences to getting this wrong! Try it out, and if you get stuck, ask for help!
+    Remember: There are no consequences to getting this wrong! Try and solve any errors you get, and if you get stuck, ask for help!
 
 </Steps>
 
@@ -157,7 +157,7 @@ Notes and Tips can be used to add extra information or context in a way that sta
 
 Notes are great for Information like if the guide will only work with a particular version of software! 
 
-Tips on the other hand are great for providing some extra information to the reader, such as where to find a particularly hard to find feature, or a time-saving suggesting, or even just something you've learnt through trial and error. 
+Tips on the other hand are great for providing some extra information to the reader, such as where to find a particularly hard-to-find feature, or a time-saving suggestion, or even just something you've learnt through trial and error. 
 
 Notes look like this:
 
@@ -192,7 +192,7 @@ Think of notes and tips as a way to add extra context for the reader. Notes fit 
 
 ## Inserting Code
 
-One of the most important things for making sure your contribution is useful and easy to follow, is the way you integrate the code you want the reader to write!
+One of the most important things to make sure your contribution is useful and easy to follow is the way you integrate the code you want the reader to write!
 
 Adding code itself is easy, and can be done using Backticks like this:
 
@@ -219,7 +219,7 @@ print("World!")
 ```
 ### When to add code
 
-It's important when going over code, you show each new section on its own as you add it, and at the end of the section, show the entire script in its entirety, to give the reader context for what they've just added. For example:
+It's important when going over code that you show each new section on its own, as well as showing the script in its entirety at the end. This helps to give the reader context for what they've just added. For example:
 <Steps>
 1. Let's add the variables:
 
@@ -278,9 +278,9 @@ It's very important that the content of each step be indented correctly! Only th
     Steps allow the reader to nicely follow along, and should be used where applicable
 </Steps>
 ```
-## Multi page tutorials
+## Multi-page tutorials
 
-The content in the next two sections is mostly applicable to multi page tutorials, but can still be useful to understand even if you're only writing a single page guide!
+The content in the next two sections is mostly applicable to multi-page tutorials, but can still be useful to understand even if you're only writing a single page guide!
 
 ## Checklists
 
@@ -297,8 +297,7 @@ Checklists will look like this:
 
 ### Checklist name
 <Checklist>
-- [ ] I've done the things
-- [ ] I was meant to!
+- [ ] I've read this doc
 - [ ] I'm ready to add my awesome idea to the wiki
 </Checklist>
 </Box>
@@ -311,8 +310,7 @@ and are added like this:
 
 ### Checklist name
 <Checklist>
-- [ ] I've done the things
-- [ ] I was meant to!
+- [ ] I've read this doc
 - [ ] I'm ready to add my awesome idea to the wiki
 </Checklist>
 </Box>
