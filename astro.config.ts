@@ -13,7 +13,7 @@ export default defineConfig({
 		starlight({
 			title: 'Wiki',
 			description:
-				'A collection of guides and resources for learning technology targeted towards rangatahi and kura in Aotearoa',
+				'A collection of guides and resources for learning technology targeted towards tamariki and rangatahi in Aotearoa',
 			logo: {
 				light: './src/assets/logo-light.png',
 				dark: './src/assets/logo-dark.png',
@@ -184,7 +184,7 @@ export default defineConfig({
 				},
 
 				mi: {
-					label: 'Māori',
+					label: 'te reo Māori',
 					lang: 'mi',
 				},
 			},
