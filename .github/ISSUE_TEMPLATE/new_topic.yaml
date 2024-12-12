@@ -1,0 +1,74 @@
+name: Request a new topic
+description: Request a new topic to be added to the Wiki
+title: "[Topic Request]: "
+labels: ["new-topic"]
+projects: ["Tuhura-Tech/2"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for requesting a new topic to be added to the wiki!
+  - type: textarea
+    id: description
+    attributes:
+      label: What is the topic?
+      description: Please describe the topic that you believe should be added along with any information around it. This should include the technology used, how it could tie into other resources (if applicable) and what you think it should cover. Please also indicate any specific prior knowledge or topics that should be assumed for this topic.
+      placeholder: Really interesting topic that should be added.
+      value: "Topic information!"
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: What category would the topic best fit under?
+      multiple: false
+      options:
+        - Python
+        - JS/TS
+        - Game Development
+        - Cyber Security
+        - Electronics
+        - Design/Modelling
+        - NCEA resources
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: diataxis
+    attributes:
+      label: What [Diataxis](https://diataxis.fr/) category would the topic best fit under?
+      multiple: false
+      options:
+        - Tutorial
+        - How to guide
+        - Explanation
+        - Reference
+    validations:
+      required: true
+  - type: dropdown
+    id: prior-knowledge
+    attributes:
+      label: What prior knowledge should be assumed for this resource?
+      multiple: false
+      options:
+        - No Prior knowledge
+        - Basic Familiarity with the topic area
+        - Familiar with the topic area
+    validations:
+      required: true
+  - type: checkboxes
+    id: assist
+    attributes:
+      label: Would you be willing to contribute to or help review this resource?
+      description: Will you be able to give some of your time to either help build or at least review the completed resource?
+      options:
+        - label: I agree to help with this resource
+          required: false
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://github.com/Tuhura-Tech/wiki/blob/main/CODE_OF_CONDUCT.md). 
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true

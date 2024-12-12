@@ -1,0 +1,28 @@
+name: 'Format Code'
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code using Git
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          ref: ${{ github.head_ref }}
+          # Needs access to push to main
+          token: ${{ secrets.BOT_GITHUB_TOKEN }}
+      - name: Install Tools & Dependencies
+        uses: ./.github/actions/install
+      - name: Format code
+        run: pnpm run format:ci
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@8621497c8c39c72f3e2a999a26b4ca1b5058a842 # v5
+        with:
+          commit_message: '[ci] format'
+          branch: ${{ github.head_ref }}
+          commit_user_name: bot
+          commit_user_email: bot@tuhuratech.org.nz
