@@ -35,6 +35,9 @@ importers:
       sharp:
         specifier: ^0.33.1
         version: 0.33.5
+      starlight-image-zoom:
+        specifier: ^0.9.0
+        version: 0.9.0(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4)))
       starlight-links-validator:
         specifier: ^0.13.0
         version: 0.13.4(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))
@@ -3583,6 +3586,12 @@ packages:
 
   stacktracey@2.1.8:
     resolution: {integrity: sha512-Kpij9riA+UNg7TnphqjH7/CzctQ/owJGNbFkfEeve4Z4uxT5+JapVLFXcsurIfN34gnTWZNJ/f7NMG0E8JDzTw==}
+
+  starlight-image-zoom@0.9.0:
+    resolution: {integrity: sha512-XG87T80g5hsT6dvtNk9OKx0gD+M8lsloVTApQYnxdc3JD8lQBfu2kCsrwkyrwXZRtV7JRyd0PDHwx1UFmGmI1g==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@astrojs/starlight': '>=0.22.0'
 
   starlight-links-validator@0.13.4:
     resolution: {integrity: sha512-LdmLbJyPHVrSUhcuxiP3pJNnW8zRcOg/32C996Ic0LOCKbB8vylqHLvAMdIhT67FvEV4eAROun+2wTVU2J156A==}
@@ -8712,6 +8721,13 @@ snapshots:
       as-table: 1.0.55
       get-source: 2.0.12
 
+  starlight-image-zoom@0.9.0(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))):
+    dependencies:
+      '@astrojs/starlight': 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))
+      rehype-raw: 7.0.0
+      unist-util-visit: 5.0.0
+      unist-util-visit-parents: 6.0.1
+
   starlight-links-validator@0.13.4(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4)):
     dependencies:
       '@astrojs/starlight': 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))
@@ -9058,7 +9074,7 @@ snapshots:
 
   unist-util-visit-parents@6.0.1:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-is: 6.0.0
 
   unist-util-visit@5.0.0:

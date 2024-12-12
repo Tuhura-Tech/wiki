@@ -4,6 +4,7 @@ import rehypeMathjax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
 import starlightLinksValidator from 'starlight-links-validator';
 import sitemap from '@astrojs/sitemap';
+import starlightImageZoom from 'starlight-image-zoom';
 
 // https://astro.build/config
 export default defineConfig({
@@ -175,6 +176,7 @@ export default defineConfig({
 					},
 				},
 			],
+			defaultLocale: 'root',
 			locales: {
 				root: {
 					label: 'English',
@@ -186,14 +188,13 @@ export default defineConfig({
 					lang: 'mi',
 				},
 			},
-			favicon: '/images/favicon.svg',
 			head: [
 				// Add ICO favicon fallback for Safari.
 				{
 					tag: 'link',
 					attrs: {
 						rel: 'icon',
-						href: '/images/favicon.ico',
+						href: '/favicon.ico',
 						sizes: '32x32',
 					},
 				},
@@ -202,6 +203,7 @@ export default defineConfig({
 				starlightLinksValidator({
 					errorOnLocalLinks: false,
 				}),
+				starlightImageZoom(),
 			],
 			components: {
 				Hero: './src/components/starlight/Hero.astro',
