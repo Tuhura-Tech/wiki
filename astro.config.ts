@@ -3,16 +3,10 @@ import { defineConfig } from 'astro/config';
 import rehypeMathjax from 'rehype-mathjax';
 import remarkMath from 'remark-math';
 import starlightLinksValidator from 'starlight-links-validator';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	vite: {
-		server: {
-			watch: {
-				usePolling: true,
-			},
-		},
-	},
 	site: 'https://wiki.tuhuratech.org.nz/',
 	integrations: [
 		starlight({
@@ -32,6 +26,10 @@ export default defineConfig({
 				mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
 				discord: 'https://discord.gg/PNxh7cwKfQ',
 				github: 'https://github.com/Tuhura-Tech/Wiki',
+				instagram: 'https://www.instagram.com/tuhura_tech',
+				facebook: 'https://www.facebook.com/p/T%C5%ABhura-Tech-100083052084710/',
+				linkedin: 'https://www.linkedin.com/company/tuhuratech',
+				email: 'mailto:contact@tuhuratech.org.nz',
 			},
 			customCss: [
 				// Relative path to your custom CSS file
@@ -212,6 +210,7 @@ export default defineConfig({
 				MobileTableOfContents: './src/components/starlight/MobileTableOfContents.astro',
 			},
 		}),
+		sitemap(),
 	],
 	markdown: {
 		remarkPlugins: [remarkMath],

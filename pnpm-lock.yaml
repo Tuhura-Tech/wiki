@@ -11,6 +11,9 @@ importers:
       '@astrojs/cloudflare':
         specifier: ^12.0.0
         version: 12.0.1(@types/node@22.10.2)(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))(jiti@1.21.6)(yaml@2.6.1)
+      '@astrojs/sitemap':
+        specifier: ^3.2.1
+        version: 3.2.1
       '@astrojs/starlight':
         specifier: ^0.29.0
         version: 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.0)(typescript@5.5.4))
@@ -5261,7 +5264,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.10.2
 
   '@types/semver@7.5.8': {}
 
