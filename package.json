@@ -6,6 +6,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:cloudflare": "wrangler pages dev ./dist",
     "astro": "astro",
     "check": "astro check",
     "lint:eslint": "eslint ."
@@ -36,7 +37,8 @@
     "prettier": "3.4.2",
     "prettier-plugin-astro": "0.14.1",
     "rehype": "13.0.2",
-    "unist-util-visit": "5.0.0"
+    "unist-util-visit": "5.0.0",
+    "wrangler": "^3.95.0"
   },
   "packageManager": "pnpm@9.15.0"
 }
