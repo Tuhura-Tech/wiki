@@ -1,5 +1,5 @@
 ---
-title: Contribution Best practices
+title: Contribution Style Best Practices
 description: Details on how to best structure and layout your contributions
 ---
 
@@ -11,6 +11,8 @@ import { FileTree } from '@astrojs/starlight/components';
 
 :::note[Markdown]
 For more general info on Markdown syntax, take a look at the [Markdown Guide](https://www.markdownguide.org/basic-syntax/#overview)
+
+This wiki is built using the Starlight framework. Take a look at [Starlight](https://starlight.astro.build/) and the [Astro docs](https://docs.astro.build/en/getting-started/) for more information about how the wiki is built!
 :::
 
 This is a guide on how to structure your contributions to the wiki! Ensuring that the content you create is accessible and structered correctly. 
@@ -27,9 +29,31 @@ Depending on what you're adding, some things will change, but we'll cover everyt
 
 :::note[Getting set up]
 For more information on how to get set up to contribute, take a look at the [Contribute doc](../contribute)
+
+Also take a look at the [Contribution Manual](https://github.com/Tuhura-Tech/wiki/blob/main/CONTRIBUTING.md) on our Github.
 :::
 
-First, let's cover how to actually add a page!
+First, let's cover how to approach and think about what we're going to write
+
+## Writing the content
+
+We'll cover all the things you can add to your contribution, but what about writing the content itself? Unfortunately, this is a hard thing to define with strict rules and examples!
+But, our focus is to engage and teach those who come to the wiki looking to learn! 
+
+One of the best approaches to writing this kind of material is the [Diátaxis approach](https://diataxis.fr/) which we highly recommend you take the time to read! 
+
+In most of our resources, we're taking the **Tutorial approach** as outlined by Diátaxis. This means that the learner, the person engaging with your resource, should learn through **Doing.** They should come out the other end with something they've **Made** with your resource serving to guide them through the process of this creation. 
+However, we should never be withholding information under the guise of the reader "Figuring it out themselves." Our role as resource creators is to provide a structured and safe environment for the reader to learn and create. Often even identifying potential mistakes or pitfalls the reader could encounter, and addressing them in the tutorial.
+
+You'll also find **Reference** style pages on the wiki (Such as the page on [Classes and object oriented programming](../../python/classes)) Which contain direct, clear and referenceable information about a particular topic. 
+
+You may even find pages that fit best under the **How-To guide** category (This page for example) or the **Explanation** category! 
+
+What's most important, is knowing what type of page **you're** setting out to right, and how to approach writing it. 
+
+Take a look at the [Diátaxis approach](https://diataxis.fr/) figure out which category your contribution fits best under, take some time to understand what it should and shouldn't have, and then get stuck in! 
+
+We can't wait to see what you write! Let's move onto how to structure and style your contribution! Starting with adding a new page.
 
 ## Adding a new page to the wiki
 
@@ -250,7 +274,7 @@ It's important when going over code that you show each new section on its own, a
 Steps are another important way to ensure that your guide is clear and readable! Infact you've already seen them used in the step before! 
 Steps should always be used when covering a multi-step process, and are often a great fit under a sub-heading!
 
-First, to use steps, you'll need to import the required file. This can be done by adding 
+First, to use steps, you'll need to import the required module. This can be done by adding 
 
 ```md
 import { Steps } from '@astrojs/starlight/components';
@@ -316,27 +340,9 @@ and are added like this:
 </Box>
 ```
 
-## Writing the content
-
-We've covered all the things you can add to your contribution, but what about writing the content itself? Unfortunately, this is a hard thing to define with strict rules and examples!
-But, our focus is to engage and teach those who come to the wiki looking to learn! 
-
-One of the best approaches to writing this kind of material is the [Diátaxis approach](https://diataxis.fr/) which we highly recommend you take the time to read! 
-
-In most of our resources, we're taking the **Tutorial approach** as outlined by Diátaxis. This means that the learner, the person engaging with your resource, should learn through **Doing.** They should come out the other end with something they've **Made** with your resource serving to guide them through the process of this creation. 
-However, we should never be withholding information under the guise of the reader "Figuring it out themselves." Our role as resource creators is to provide a structured and safe environment for the reader to learn and create. Often even identifying potential mistakes or pitfalls the reader could encounter, and addressing them in the tutorial.
-
-You'll also find **Reference** style pages on the wiki (Such as the page on [Classes and object oriented programming](../../python/classes)) Which contain direct, clear and referenceable information about a particular topic. 
-
-You may even find pages that fit best under the **How-To guide** category (This page for example) or the **Explanation** category! 
-
-What's most important, is knowing what type of page **you're** setting out to right, and how to approach writing it. 
-
-Take a look at the [Diátaxis approach](https://diataxis.fr/) figure out which category your contribution fits best under, take some time to understand what it should and shouldn't have, and then get stuck in! 
-
-We can't wait to see what you write!
-
 ## Need help?
 Take a look at other pages on the wiki, and see how they work! Remember, changing things on your local copy **Only** changes them for you! So there's no risk to messing around and figuring out how things work! Just make sure you don't submit those changes when it's time to create a Pull Request!
 
 If you have any questions about contributing, or need help with anything, everyone in [our Discord](https://discord.com/invite/PNxh7cwKfQ) would be more than happy to give you some pointers!
+
+Also remember to read the documentation! The [Starlight](https://starlight.astro.build/) and [Astro docs](https://docs.astro.build/en/getting-started/) have a ton of information about how to build wiki pages.
