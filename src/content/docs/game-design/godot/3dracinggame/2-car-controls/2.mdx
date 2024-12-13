@@ -25,14 +25,18 @@ import { Steps } from '@astrojs/starlight/components';
     
     Turn the **Current** checkbox on, as the car always starts with the front facing camera.
 3. In the pivoting angle node:
-    
+    :::note[Car Placement]
+    If you have placed your car in the world scene in a different spot than what you want, move your car to the **start / finish line**, because we will set the camera pivot node to the top level (and cause the cameras to not move with the car in the `world.tscn` scene).
+
+    If have already done this, move the car to the **start / finish line** and copy those (x y, z) coordinates into your `car.tscn` scene into the pivot camera control nodes coordaintes and on your car.
+    :::
     Turn the **Top Level** checkbox on, so it doesn't inherit the cars' transformations (the positioning).
 4. We now need the front and back cameras to be facing both ends of the car.
     Use the position and rotation under the **Transform** tab to do this, with the end result looking something like the photo above.
 5. Inside your car.gd script, you will need to adjust what the cameras look at as the car is running.
 
     *Add* this code to your exisiting script.
-    ```python title="car.gd"
+    ```gdscript title="car.gd"
     # You can drag/drop the node into the script to get the references.
     @onready var camera_pivot = $Node3DCameraPivot
     @onready var camera_3d = $Node3DCameraPivot/Camera3D # Forward-facing camera.

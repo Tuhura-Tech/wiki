@@ -72,7 +72,7 @@ Godot Documentation for nodes discussed in this section:
     To do this, you need to go in **Node > Signals** tab on the right, press `body_exited(body: Node3D)`, and click `Connect` down the bottom.
 
 4. Inside our newly created script, add this code to update the laps each time. Make sure to read and understand the code!
-    ```python title="track_1.gd"
+    ```gdscript title="track_1.gd"
     # Variables to manage laps
     var maxLaps = 3     # Total laps to complete the race
     var currentLap = 1  # Current lap the vehicle is on
@@ -114,7 +114,7 @@ We will need more precise lap counting than just checking if the car is facing f
 
     These checkpoints will be invisible. You will need to put them around the track. For the sake of time, I have only added one 'halfway' checkpoint, but it is recommended to do more.
 2. Then add this code to the connected function from the signal you made.
-    ```python title="track_1.gd"
+    ```gdscript title="track_1.gd"
     var passed_checkpoint = false # Flag to ensure vehicle passes a checkpoint before completing a lap
     # (exisiting code here)
 
@@ -144,7 +144,7 @@ We will need more precise lap counting than just checking if the car is facing f
     Set the text to `Time: 00:00.000`.
 3. Add this code to your existing code.
     If you understand the comments, feel free to delete them to reduce script clutter.
-    ```python title="track_1.gd"
+    ```gdscript title="track_1.gd"
     # Variables for timer
     var time = 0.0   # Total time elapsed since the start of the race in seconds
     var minutes = 0  # Minutes component of the time display
@@ -180,7 +180,7 @@ We will need more precise lap counting than just checking if the car is facing f
     Set the colour to red.
     Uncheck the **Visible** (or the eye icon), as we only want it to show up when we reverse.
 3. In our `car.gd` script, we will be able to put this label inside the script using our global group `labels`.
-    ```python title="car.gd"
+    ```gdscript title="car.gd"
     var labels
     var reverse_label
     # (existing variables)
@@ -215,7 +215,7 @@ We will need more precise lap counting than just checking if the car is facing f
     - Add a **Label** as a child of **ColorRect** and set the text to `You've finished the track!`. Set the **scale** to 3.
 3. Inside our `track_1.gd`, make some changes to our `_on_finish_line_body_exited` function, and add in a `stop` function.
 
-    ```python title="track_1.gd"
+    ```gdscript title="track_1.gd"
         func _on_finish_line_body_exited(body: Node3D) -> void:
             if body is VehicleBody3D: # Check if the body that exited is the vehicle
                 # Check if the main camera is active and checkpoint has been passed
@@ -247,10 +247,10 @@ We will need more precise lap counting than just checking if the car is facing f
     - Change the colour to transparent(ish) red.
     - Uncheck the **Visible** (or the eye icon), as we only want it to show up when we crash.
     - Add it to the `labels` global group (in **Node > Signals**).
-    - Add a **Label** as a child of **ColorRect** and set the text to `You crashed!`. Set the **scale** to 3.
+    - Add a **Label** as a child of **ColorRect** and set the text to `You crashed! Restart the game.`. Set the **scale** to 3.
 3. Inside our `car.gd`, make some changes to our `_physics_process` and `_ready` functions.
 
-    ```python title="car.gd"
+    ```gdscript title="car.gd"
     var crash_timer = 0.0
     var crash_threshold = 3.0 # Time in seconds before considering it crashed
     var crash_screen
