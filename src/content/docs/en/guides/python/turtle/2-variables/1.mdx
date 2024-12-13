@@ -1,0 +1,118 @@
+---
+type: tutorial
+title: Variables
+description: This is how to use the Turtle extension in python.
+---
+
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+
+## Turtle Variables
+
+:::tip[A Variable]
+Is  like a box with a label. The label tells us what's inside the box.
+Coders use variables (labels) to store and remember information in a program.
+:::
+
+``` python
+t = Turtle()
+u = Turtle()
+r = Turtle()
+t = Turtle()
+l = Turtle()
+e = Turtle()
+```
+
+By naming your turtle you can make multiple instances, giving each unique attributes.
+In other words, the code above makes several turtles which are the same, but each turtle has a different name (or label).
+You can then change each turtle using functions -- making each of them different!
+When coming up with a name, make them short and to the point as you will be repeating these.
+
+
+## Using Turtle Functions
+:::tip[A function]
+A function is like a set of instructions you can use again and again in a program.
+Instead of writing the same steps over and over, you can put them in a function and just use that
+function whenever you need it!
+When we use `t.penup()`, we're actually using a special set of instructions that someone else wrote. 
+This set of instructions is called a function. Inside that function, there are lines of code that we can't
+ see directly, but they do important work.
+:::
+
+
+### Some Interesting Functions:
+```python
+pendown() # By default the pen is down, and it will draw the line behind the turtle.
+penup() # Bringing the pen up will remove this line.
+width() # Width changes the thickness of the line the pen draws (in pixels).
+turtlesize() # It changes the size of the turtle drawing the line.
+color() # Color will change the colour of both the line and turtle.
+fillcolor() #  This will change the colour inside the lines but must be used with:
+    begin_fill()
+    end_fill()
+speed() # The speed of the turtle drawing. It ranges from 1 (slowest) up to 10 (which you can write as 0).
+shape("circle"). # Changes the look of your turtle to a circle. 
+# You can also change it to a: square, triangle, arrow and turtle.
+```
+#### Examples
+
+``` python
+t.penup()
+t.width(30)
+r.width(10)
+l.shape("circle")
+e.speed(0)
+u.speed(9)
+u.color("green")
+```
+
+:::note
+Once your turtle has been named its name must be used to register code to that turtle.
+Without spaces the turtles name is followed by a fullstop and then the syntax for your required code.
+Instances such as the turtle and screen require capitals like pronouns in english.
+:::
+
+## Window Setup / Control
+Setting up a window can help you understand parameters.
+For example knowing the edges of your screen means knowing how far you can draw.
+Screen/window set up also allows for adding background colours and clearing the canvas.
+:::tip[A parameter]
+A parameter is a special kind of variable in a function that stands for the information you give to that function.
+When you call the function, the values you provide are called arguments, and the parameter helps the function
+know what to do with those values.
+:::
+
+### But First: Let's Assign Screen to a Variable
+
+This will make your life easier in the long run: writing long names instead of your own label over and over can get tedious.
+So we can do something like this:
+```python
+s = Screen()
+# So instead of having to write this
+Screen.bgcolor("black")
+# You can do this
+s.bgcolor("black")
+```
+:::note[One screen at a time]
+When calling the s = Screen() you create an instance. This can be the only instance active at a time.
+:::
+
+#### Some useful functions:
+```python
+s.setup(600, 600, 0, 0) # This dictates the screens width, height, x position and y position.
+# This can also be done without setting the starting x, y positions.
+s.setup(600, 600)
+s.resetscreen() # Clears everything on the screen and brings the turtle back to its starting position.
+s.bgcolor("")
+```
+
+<Box>
+## Checklist
+
+<Checklist>
+- [ ] I have made multiple turtles.
+- [ ] I have named and changed my turtles to do different things.
+- [ ] I have named and changed my screen.
+</Checklist>
+</Box>

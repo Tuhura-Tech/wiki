@@ -1,0 +1,72 @@
+---
+title: Setting up C# for Godot
+description: This page works through setting up Godot to be used with C#
+sidebar:
+    order: 6
+---
+
+
+This is a guide to setting up [Godot](https://godotengine.org/) to be used with C# instead of GDScript. If you are unfamiliar with Godot, check out the [Godot basics](/game-dev/godot/basics) doc.
+
+**This Guide will cover setting up Godot to be used with C#, but not C# development. To learn more about C# Development with Godot, consult the [Godot C# Docs](https://docs.godotengine.org/en/stable/tutorials/scripting/c_sharp/index.html)**
+:::note[Version]
+This guide is up-to-date with Godot the 4.2 stable official release but will most likely work with any 4.x release.
+:::
+
+## First things first
+
+While using Godot with C# works fantastic, there is some setup to be done first!
+
+First off, we'll need to download a couple of things:
+
+1. [Visual Studio Code](https://code.visualstudio.com/)
+2. [The Version of Godot with C# Support](https://godotengine.org/download/windows/) (The one that says "Godot Engine - .NET")
+
+![Godot .Net Download](/src/assets/godot/dotNet/GDDownload.png)
+
+Once these are downloaded, we'll need to get the C# Dev kit. Thankfully Visual Studio makes this easy for us.
+Open up Visual Studio, navigate to the extensions tab, and download the C# Dev Kit.
+
+![C# Dev Kit Download](/src/assets/godot/dotNet/DevKit.png)
+
+And that's everything we need to install.
+## Inside Godot
+
+Now, we'll need to do some quick one-time setup within Godot.
+
+Let's create a new Project in Godot. Once the project is open, you'll want to click:
+
+**Project -> Tools -> C# -> Create C# Solution.**
+
+You'll also want to open: 
+
+**Editor -> Editor Settings.**
+
+and Find the **Editor** tab within the **Dotnet** Section.
+
+Here, you'll want to click **On** and set the "Exec Path" to the Location of your Visual Studio install.
+
+![Setting the path for VS Code](/src/assets/godot/dotNet/editor.png)
+
+### Development differences
+
+The C# development pipeline has a few minor differences to the GDScript one! but once you're used to them, you'll barely notice.
+
+First of all, when adding a script, we'll need to make sure we select the Language as **C#**
+
+you'll notice that your C# Scripts open in visual studio when you go to edit them!
+
+![Selecting C# When creating a script](/src/assets/godot/dotNet/typeSelect.png)
+
+:::note[Mix and Match]
+While you've set up your project to work with C#, you can still use GDScript! You can even mix and match the two within a project if you wish.
+:::
+
+The other **Important** thing to note is that each time you've made changes to your code you want to test, make sure you **Save** with CTRL + S (Or File -> Save). As well as **Build** the code within Godot. This can be done easily using the hammer button in the top right.
+
+![Build Button in Godot](/src/assets/godot/dotNet/godotbuild.png)
+
+And that's it! Your project is all set up and good to go using C#!
+
+
+

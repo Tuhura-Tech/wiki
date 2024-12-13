@@ -1,0 +1,47 @@
+---
+type: tutorial
+title: 'Challenge: Putting it all together'
+description: Go further with a challenge.
+---
+
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+In this challenge, you will use for loops, variables, and lists to draw a colourful pattern with Turtle. 
+Let’s see if you can create a fun pattern or shape using everything you’ve learned!
+
+## Make a Pattern
+Try to:
+ - Draws 5 squares in different colours.
+ - Each square should get a little bigger than the last one.
+ - The Turtle should move to a different place before drawing the next square.
+
+:::note[Remember the functions]
+```python
+t.color() # to change the turtle’s colour
+t.forward() # to move the turtle forward
+t.left() # to turn the turtle
+t.penup() # and t.pendown() to move without drawing
+t.bgcolor() # to set a background colour
+```
+:::
+
+<details>
+  <summary>Hints</summary>
+  - Use a for loop to repeat the drawing of squares.
+  - Store your colours in a list so the Turtle can change colours for each square.
+  - Use variables to change the size of each square.
+  - Try using turtle.penup() and turtle.pendown() to move the Turtle without drawing a line between squares.
+</details>
+
+## Bonus Challenge:
+Can you make the turtle rotate a little more each time it draws a square?
+Try using the modulo symbol to repeat some behavior after a few loops!
+
+<Box icon="check-list">
+## Checklist
+
+<Checklist>
+- [ ] I have made a cool pattern
+</Checklist>
+</Box>
