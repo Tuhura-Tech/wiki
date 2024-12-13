@@ -98,7 +98,10 @@ export default defineConfig({
           },{
             label: "Setting up C# For Godot",
             link: "game-design/godot/projectsetup"
-            }],
+          },{
+            label: "Procedural Generation",
+            link: "game-design/godot/proceduralgeneration/0-intro/"
+          }],
           collapsed: true
         }],
       },
