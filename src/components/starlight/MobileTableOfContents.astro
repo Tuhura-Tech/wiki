@@ -22,7 +22,7 @@ const { toc } = Astro.props;
 					</summary>
 					<div class="dropdown">
 						{isTutorial ? (
-							<TutorialNav id="mobile" />
+							<TutorialNav {...Astro.props} mobile={true} />
 						) : (
 							<TableOfContentsList toc={toc.items} isMobile />
 						)}
