@@ -1,39 +1,40 @@
 ---
 import Default from '@astrojs/starlight/components/Pagination.astro';
 import type { Props } from '@astrojs/starlight/props';
-import { isTutorialEntry } from '../../content/config';
+import { tutorialPages as pages } from '~/content';
 import { getTutorialPages } from '../../util/getTutorialPages';
-import { allPages } from '../tutorial/TutorialNav.astro';
+import { getLangFromSlug, stripLangFromSlug } from '~/util/path-utils';
 
-const { entry, pagination, id } = Astro.props;
-const { type } = Astro.props.entry.data;
+const { entry, slug, pagination } = Astro.props;
+
+// @ts-expect-error type isn't specific enough, but we know it's correct
+const lang = getLangFromSlug(slug);
 let { prev, next } = pagination;
 
-const pages = allPages.filter((page) => isTutorialEntry(page, id));
-const tutorialPages = getTutorialPages(pages);
+const tutorialPages = getTutorialPages(pages, lang.toLowerCase());
 
-if (type === 'tutorial') {
+if (Astro.props.entry.slug.split('/')[1] === 'tutorial') {
 	const i = tutorialPages.findIndex((p) => p.slug === entry.slug);
 	if (tutorialPages[i - 1]) {
 		const prevPage = tutorialPages[i - 1];
+
+		// @ts-expect-error type is incorrect?
 		prev = {
-			href: `/${prevPage.slug}/`,
+			href: `/${lang}/${stripLangFromSlug(prevPage.slug)}/`,
 			isCurrent: false,
 			label: prevPage.data.title,
 			type: 'link',
-            badge: undefined,
-            attrs: {}
 		};
 	}
 	if (tutorialPages[i + 1]) {
 		const nextPage = tutorialPages[i + 1];
+
+		// @ts-expect-error type is incorrect?
 		next = {
-			href: `/${nextPage.slug}/`,
+			href: `/${lang}/${stripLangFromSlug(nextPage.slug)}/`,
 			isCurrent: false,
 			label: nextPage.data.title,
 			type: 'link',
-            badge: undefined,
-            attrs: {}
 		};
 	}
 }

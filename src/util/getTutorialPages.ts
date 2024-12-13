@@ -1,10 +1,20 @@
 import path from 'node:path';
-import type { TutorialEntry } from '../content/config';
+import type { TutorialEntry } from '~/content/config';
+import { stripLangFromSlug } from '~/util/path-utils';
+import { groupPagesByLang } from './groupPagesByLang';
 
-/** Get a full list of pages for the tutorial. */
-export function getTutorialPages(allPages: TutorialEntry[]) {
-	const pages = allPages.map((page) => {
-			return {...(page as TutorialEntry)};
+/** Get a full list of pages for the tutorial in the current language, falling back to English if not available. */
+export function getTutorialPages(allPages: TutorialEntry[], lang: string) {
+	const pagesByLang = groupPagesByLang(allPages);
+	/** Pages */
+	const pages = pagesByLang['en']
+		.map((englishPage) => {
+			const enSlug = stripLangFromSlug(englishPage.slug);
+			const langPage = pagesByLang[lang]?.find((page) => stripLangFromSlug(page.slug) === enSlug);
+			return {
+				...((langPage as TutorialEntry) || (englishPage as TutorialEntry)),
+				isFallback: !langPage,
+			};
 		})
 		.sort((a, b) => {
 			const aPath = path.parse(a.id);

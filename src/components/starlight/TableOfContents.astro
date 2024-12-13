@@ -1,10 +1,9 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
 import TableOfContentsList from '../../../node_modules/@astrojs/starlight/components/TableOfContents/TableOfContentsList.astro';
+import type { Props } from '@astrojs/starlight/props';
 import TutorialNav from '../tutorial/TutorialNav.astro';
 
-const { type } = Astro.props.entry.data;
-const isTutorial = type === 'tutorial';
+const isTutorial = Astro.props.entry.slug.split('/')[1] === 'tutorial';
 
 const { toc } = Astro.props;
 ---
@@ -15,8 +14,8 @@ const { toc } = Astro.props;
 			<nav aria-labelledby="starlight__on-this-page">
 				<h2 id="starlight__on-this-page">
 					{isTutorial
-						? 'Tutorial Tracker'
-						: "On this page"}
+						? Astro.locals.t('tutorial.trackerLabel')
+						: Astro.locals.t('tableOfContents.onThisPage')}
 				</h2>
 				{isTutorial ? <TutorialNav {...Astro.props} /> : <TableOfContentsList toc={toc.items} />}
 			</nav>

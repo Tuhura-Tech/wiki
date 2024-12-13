@@ -1,145 +1,146 @@
 import type { StarlightUserConfig } from '@astrojs/starlight/types';
+import { group } from './config/sidebar';
 
 /**
- * Starlight sidebar configuration object for the site sidebar.
+ * Starlight sidebar configuration object for the global site sidebar.
+ *
+ * - Top-level groups become tabs.
+ * - Use the `group()` utility function to define groups. This uses labels from our
+ *   `src/content/nav/*.ts` files instead of defining labels and translations inline.
+ *
  */
 export const sidebar = [
-	{
-		label: 'Python',
+	// Guides
+	group('guide', {
 		items: [
-			{
-				label: 'Python Basics',
-				link: 'python',
-			},
-			{
-				label: 'Conditionals and Loops',
-				link: 'python/conditionals-loops',
-			},
-			{
-				label: 'Lists, Tuples, Dictionaries, and Sets',
-				link: 'python/lists-tuples-dicts',
-			},
-			{
-				label: 'Functions and Docstrings',
-				link: 'python/functions',
-			},
-			{
-				label: 'Classes and Object-Oriented Programming (OOP)',
-				link: 'python/classes',
-			},
-			{
-				label: 'Turtle',
-				link: 'python/turtle/0-setup/',
-			},
-			{
-				label: 'Setting Up',
-				link: 'python/setting-up',
-			},
-			{
-				label: 'Flask',
-				autogenerate: {
-					directory: 'python/flask',
-				},
-				collapsed: true,
-			},
-		],
-	},
-	{
-		label: 'Game Design',
-		items: [
-			{
-				label: 'About',
-				link: 'game-design/index',
-			},
-			{
-				label: 'Godot',
+			'guides',
+			group('guide.game_dev', {
 				items: [
 					{
+						label: 'About',
+						link: 'guides/game-dev',
+					},
+					{
 						label: 'Godot Basics',
-						link: 'game-design/godot/basics',
+						link: 'guides/game-dev/basics',
 					},
 					{
 						label: '2D Platformer',
-						link: 'game-design/godot/2dplatformergame',
+						link: 'guides/game-dev/2dplatformergame',
 					},
 					{
 						label: '2D Racing Game',
-						link: 'game-design/godot/2dracinggame',
+						link: 'guides/game-dev/2dracinggame',
 					},
 					{
 						label: 'Universal Features',
-						link: 'game-design/godot/universal',
+						link: 'guides/game-dev/universal',
 					},
 					{
 						label: 'Survivors-Like',
-						link: 'game-design/godot/survivors',
+						link: 'guides/game-dev/survivors',
 					},
 					{
 						label: 'Top-down Dungeon Crawler',
-						link: 'game-design/godot/dungeoncrawler/0-scenesetup/',
+						link: 'guides/game-dev/dungeoncrawler/0-scenesetup/',
 					},
 					{
 						label: '3D Intro',
-						link: 'game-design/godot/3d',
+						link: 'guides/game-dev/3d',
 					},
 					{
 						label: '3D Game',
-						link: 'game-design/godot/3dgame',
+						link: 'guides/game-dev/3dgame',
 					},
 					{
 						label: 'Setting up C# For Godot',
-						link: 'game-design/godot/projectsetup',
+						link: 'guides/game-dev/projectsetup',
 					},
 				],
-				collapsed: true,
-			},
+			}),
+			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
+			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
+			group('guide.python', {
+				items: [
+					{
+						label: 'Python Basics',
+						link: 'guides/python',
+					},
+					{
+						label: 'Conditionals and Loops',
+						link: 'guides/python/conditionals-loops',
+					},
+					{
+						label: 'Lists, Tuples, Dictionaries, and Sets',
+						link: 'guides/python/lists-tuples-dicts',
+					},
+					{
+						label: 'Functions and Docstrings',
+						link: 'guides/python/functions',
+					},
+					{
+						label: 'Classes and Object-Oriented Programming (OOP)',
+						link: 'guides/python/classes',
+					},
+					{
+						label: 'Turtle',
+						link: 'guides/python/turtle/0-setup/',
+					},
+					{
+						label: 'Setting Up',
+						link: 'guides/python/setting-up',
+					},
+					{
+						label: 'Flask',
+						autogenerate: {
+							directory: 'guides/python/flask',
+						},
+						collapsed: true,
+					},
+				],
+			}),
+			group('guide.javascript', {
+				items: [
+					{
+						label: 'Setting Up',
+						link: 'guides/javascript',
+					},
+					{
+						label: 'Creative Coding',
+						autogenerate: {
+							directory: 'guides/javascript/creative-coding',
+						},
+						collapsed: true,
+					},
+				],
+			}),
+			group('guide.database', { autogenerate: { directory: 'guides/database' } }),
+			group('guide.development', { autogenerate: { directory: 'guides/development' } }),
+			group('guide.contributing', { autogenerate: { directory: 'guides/contribute' } }),
 		],
-	},
-	{
-		label: 'Blender',
-		autogenerate: {
-			directory: 'blender',
-		},
-	},
-	{
-		label: 'Cybersecurity',
+	}),
 
-		autogenerate: {
-			directory: 'cybersecurity',
-		},
-	},
-	{
-		label: 'SQL',
-		autogenerate: {
-			directory: 'sql',
-		},
-	},
-	{
-		label: 'Javascript',
+	// NCEA Resources
+	group('ncea', {
 		items: [
-			{
-				label: 'Setting Up',
-				link: 'javascript/index',
-			},
-			{
-				label: 'Creative Coding',
-				autogenerate: {
-					directory: 'javascript/creative-coding',
-				},
-				collapsed: true,
-			},
+			'ncea',
+			group('ncea.level_1', { autogenerate: { directory: 'ncea/level-1' } }),
+			group('ncea.level_2', { autogenerate: { directory: 'ncea/level-2' } }),
+			group('ncea.level_3', { autogenerate: { directory: 'ncea/level-3' } }),
 		],
-	},
-	{
-		label: 'Git',
-		autogenerate: {
-			directory: 'git',
-		},
-	},
-	{
-		label: 'Tūhura Tech Resources',
-		autogenerate: {
-			directory: 'tuhura-tech',
-		},
-	},
+	}),
+	// Micro Credentials
+	group('microcredentials', {
+		items: [
+			'microcredentials',
+			group('microcredentials.web_dev', { items: [] }),
+			group('microcredentials.security', { items: [] }),
+			group('microcredentials.policy', { items: [] }),
+			group('microcredentials.ai_ml', { items: [] }),
+			group('microcredentials.cloud', { items: [] }),
+			group('microcredentials.electronics', { items: [] }),
+			group('microcredentials.software', { items: [] }),
+			group('microcredentials.game_dev', { items: [] }),
+		],
+	}),
 ] satisfies StarlightUserConfig['sidebar'];
