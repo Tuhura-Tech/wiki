@@ -12,11 +12,11 @@ importers:
         specifier: ^12.0.0
         version: 12.1.0(@types/node@22.10.2)(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(jiti@1.21.6)(yaml@2.6.1)
       '@astrojs/starlight':
-        specifier: ^0.29.0
-        version: 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
+        specifier: ^0.30.0
+        version: 0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
       '@astrojs/starlight-tailwind':
         specifier: ^2.0.1
-        version: 2.0.3(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(@astrojs/tailwind@5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16))(tailwindcss@3.4.16)
+        version: 2.0.3(@astrojs/starlight@0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(@astrojs/tailwind@5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16))(tailwindcss@3.4.16)
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16)
@@ -34,7 +34,7 @@ importers:
         version: 0.33.5
       starlight-links-validator:
         specifier: ^0.13.0
-        version: 0.13.4(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
+        version: 0.13.4(@astrojs/starlight@0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
       tailwindcss:
         specifier: ^3.4.0
         version: 3.4.16
@@ -124,15 +124,22 @@ packages:
   '@astrojs/markdown-remark@5.3.0':
     resolution: {integrity: sha512-r0Ikqr0e6ozPb5bvhup1qdWnSPUvQu6tub4ZLYaKyG50BXZ0ej6FhGz3GpChKpH7kglRFPObJd/bDyf2VM9pkg==}
 
-  '@astrojs/mdx@3.1.9':
-    resolution: {integrity: sha512-3jPD4Bff6lIA20RQoonnZkRtZ9T3i0HFm6fcDF7BMsKIZ+xBP2KXzQWiuGu62lrVCmU612N+SQVGl5e0fI+zWg==}
-    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+  '@astrojs/markdown-remark@6.0.1':
+    resolution: {integrity: sha512-CTSYijj25NfxgZi15TU3CwPwgyD1/7yA3FcdcNmB9p94nydupiUbrIiq3IqeTp2m5kCVzxbPZeC7fTwEOaNyGw==}
+
+  '@astrojs/mdx@4.0.2':
+    resolution: {integrity: sha512-uBoXNSSAUqhf2dVtJWFbSapwNkcnCzbISW98EcybFXvNgYt9g8yPJ7+lYnf+sH5pv0c/JEW8HlBvPSi81AVRlw==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
     peerDependencies:
-      astro: ^4.8.0
+      astro: ^5.0.0
 
   '@astrojs/prism@3.1.0':
     resolution: {integrity: sha512-Z9IYjuXSArkAUx3N6xj6+Bnvx8OdUSHA8YoOgyepp3+zJmtVYJIl/I18GozdJVW1p5u/CNpl3Km7/gwTJK85cw==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+
+  '@astrojs/prism@3.2.0':
+    resolution: {integrity: sha512-GilTHKGCW6HMq7y3BUv9Ac7GMe/MO9gi9GW62GzKtth0SwukCu/qp2wLiGpEujhY+VVhaG9v7kv/5vFzvf4NYw==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=22.0.0}
 
   '@astrojs/sitemap@3.2.1':
     resolution: {integrity: sha512-uxMfO8f7pALq0ADL6Lk68UV6dNYjJ2xGUzyjjVj60JLBs5a6smtlkBYv3tQ0DzoqwS7c9n4FUx5lgv0yPo/fgA==}
@@ -144,10 +151,10 @@ packages:
       '@astrojs/tailwind': ^5.0.0
       tailwindcss: ^3.3.3
 
-  '@astrojs/starlight@0.29.3':
-    resolution: {integrity: sha512-dzKuGBA7sodGV2dCzpby6UKMx/4b7WrhcYDYlhfX5Ntxh8DCdGU1hIu8jHso/LeFv/jNAfi7m6C7+w/PNSYRgA==}
+  '@astrojs/starlight@0.30.0':
+    resolution: {integrity: sha512-bRbiIwL1qtRwEysgwFxiY/vxmPvf1qmnVBAL2oa4/2JSmMnUaY7zl8HrLQEdJtq+7GfllrAfjsnMOyLOOClV7w==}
     peerDependencies:
-      astro: ^4.14.0
+      astro: ^5.0.0
 
   '@astrojs/tailwind@5.1.3':
     resolution: {integrity: sha512-XF7WhXRhqEHGvADqc0kDtF7Yv/g4wAWTaj91jBBTBaYnc4+MQLH94duFfFa4NlTkRG40VQd012eF3MhO3Kk+bg==}
@@ -4376,15 +4383,38 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/mdx@3.1.9(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))':
+  '@astrojs/markdown-remark@6.0.1':
     dependencies:
-      '@astrojs/markdown-remark': 5.3.0
+      '@astrojs/prism': 3.2.0
+      github-slugger: 2.0.0
+      hast-util-from-html: 2.0.3
+      hast-util-to-text: 4.0.2
+      import-meta-resolve: 4.1.0
+      js-yaml: 4.1.0
+      mdast-util-definitions: 6.0.0
+      rehype-raw: 7.0.0
+      rehype-stringify: 10.0.1
+      remark-gfm: 4.0.0
+      remark-parse: 11.0.0
+      remark-rehype: 11.1.1
+      remark-smartypants: 3.0.2
+      shiki: 1.24.2
+      unified: 11.0.5
+      unist-util-remove-position: 5.0.0
+      unist-util-visit: 5.0.0
+      unist-util-visit-parents: 6.0.1
+      vfile: 6.0.3
+    transitivePeerDependencies:
+      - supports-color
+
+  '@astrojs/mdx@4.0.2(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))':
+    dependencies:
+      '@astrojs/markdown-remark': 6.0.1
       '@mdx-js/mdx': 3.1.0(acorn@8.14.0)
       acorn: 8.14.0
       astro: 4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)
       es-module-lexer: 1.5.4
       estree-util-visit: 2.0.0
-      gray-matter: 4.0.3
       hast-util-to-html: 9.0.3
       kleur: 4.1.5
       rehype-raw: 7.0.0
@@ -4400,21 +4430,25 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
+  '@astrojs/prism@3.2.0':
+    dependencies:
+      prismjs: 1.29.0
+
   '@astrojs/sitemap@3.2.1':
     dependencies:
       sitemap: 8.0.0
       stream-replace-string: 2.0.0
       zod: 3.24.1
 
-  '@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(@astrojs/tailwind@5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16))(tailwindcss@3.4.16)':
+  '@astrojs/starlight-tailwind@2.0.3(@astrojs/starlight@0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(@astrojs/tailwind@5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16))(tailwindcss@3.4.16)':
     dependencies:
-      '@astrojs/starlight': 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
+      '@astrojs/starlight': 0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
       '@astrojs/tailwind': 5.1.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))(tailwindcss@3.4.16)
       tailwindcss: 3.4.16
 
-  '@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))':
+  '@astrojs/starlight@0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))':
     dependencies:
-      '@astrojs/mdx': 3.1.9(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
+      '@astrojs/mdx': 4.0.2(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
       '@astrojs/sitemap': 3.2.1
       '@pagefind/default-ui': 1.2.0
       '@types/hast': 3.0.4
@@ -5367,7 +5401,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 22.10.2
 
   '@types/unist@2.0.11': {}
 
@@ -7291,7 +7325,7 @@ snapshots:
 
   mdast-util-from-markdown@2.0.0:
     dependencies:
-      '@types/mdast': 4.0.3
+      '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
@@ -7383,7 +7417,7 @@ snapshots:
   mdast-util-math@3.0.0:
     dependencies:
       '@types/hast': 3.0.4
-      '@types/mdast': 4.0.3
+      '@types/mdast': 4.0.4
       devlop: 1.1.0
       longest-streak: 3.1.0
       mdast-util-from-markdown: 2.0.0
@@ -7490,14 +7524,14 @@ snapshots:
       micromark-factory-title: 2.0.0
       micromark-factory-whitespace: 2.0.1
       micromark-util-character: 2.1.1
-      micromark-util-chunked: 2.0.0
+      micromark-util-chunked: 2.0.1
       micromark-util-classify-character: 2.0.1
       micromark-util-html-tag-name: 2.0.0
-      micromark-util-normalize-identifier: 2.0.0
-      micromark-util-resolve-all: 2.0.0
-      micromark-util-subtokenize: 2.0.1
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-normalize-identifier: 2.0.1
+      micromark-util-resolve-all: 2.0.1
+      micromark-util-subtokenize: 2.0.3
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-core-commonmark@2.0.2:
     dependencies:
@@ -7651,8 +7685,8 @@ snapshots:
   micromark-factory-destination@2.0.0:
     dependencies:
       micromark-util-character: 2.1.1
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-factory-destination@2.0.1:
     dependencies:
@@ -7664,8 +7698,8 @@ snapshots:
     dependencies:
       devlop: 1.1.0
       micromark-util-character: 2.1.1
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-factory-label@2.0.1:
     dependencies:
@@ -7700,8 +7734,8 @@ snapshots:
     dependencies:
       micromark-factory-space: 2.0.1
       micromark-util-character: 2.1.1
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-factory-title@2.0.1:
     dependencies:
@@ -7729,7 +7763,7 @@ snapshots:
 
   micromark-util-chunked@2.0.0:
     dependencies:
-      micromark-util-symbol: 2.0.0
+      micromark-util-symbol: 2.0.1
 
   micromark-util-chunked@2.0.1:
     dependencies:
@@ -7743,8 +7777,8 @@ snapshots:
 
   micromark-util-combine-extensions@2.0.0:
     dependencies:
-      micromark-util-chunked: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-chunked: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-util-combine-extensions@2.0.1:
     dependencies:
@@ -7753,7 +7787,7 @@ snapshots:
 
   micromark-util-decode-numeric-character-reference@2.0.1:
     dependencies:
-      micromark-util-symbol: 2.0.0
+      micromark-util-symbol: 2.0.1
 
   micromark-util-decode-numeric-character-reference@2.0.2:
     dependencies:
@@ -7787,7 +7821,7 @@ snapshots:
 
   micromark-util-normalize-identifier@2.0.0:
     dependencies:
-      micromark-util-symbol: 2.0.0
+      micromark-util-symbol: 2.0.1
 
   micromark-util-normalize-identifier@2.0.1:
     dependencies:
@@ -7795,7 +7829,7 @@ snapshots:
 
   micromark-util-resolve-all@2.0.0:
     dependencies:
-      micromark-util-types: 2.0.0
+      micromark-util-types: 2.0.1
 
   micromark-util-resolve-all@2.0.1:
     dependencies:
@@ -7816,9 +7850,9 @@ snapshots:
   micromark-util-subtokenize@2.0.1:
     dependencies:
       devlop: 1.1.0
-      micromark-util-chunked: 2.0.0
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-chunked: 2.0.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
 
   micromark-util-subtokenize@2.0.3:
     dependencies:
@@ -7846,14 +7880,14 @@ snapshots:
       micromark-util-character: 2.1.1
       micromark-util-chunked: 2.0.0
       micromark-util-combine-extensions: 2.0.0
-      micromark-util-decode-numeric-character-reference: 2.0.1
+      micromark-util-decode-numeric-character-reference: 2.0.2
       micromark-util-encode: 2.0.0
-      micromark-util-normalize-identifier: 2.0.0
+      micromark-util-normalize-identifier: 2.0.1
       micromark-util-resolve-all: 2.0.0
       micromark-util-sanitize-uri: 2.0.0
       micromark-util-subtokenize: 2.0.1
-      micromark-util-symbol: 2.0.0
-      micromark-util-types: 2.0.0
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8723,9 +8757,9 @@ snapshots:
       as-table: 1.0.55
       get-source: 2.0.12
 
-  starlight-links-validator@0.13.4(@astrojs/starlight@0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)):
+  starlight-links-validator@0.13.4(@astrojs/starlight@0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)))(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)):
     dependencies:
-      '@astrojs/starlight': 0.29.3(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
+      '@astrojs/starlight': 0.30.0(astro@4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4))
       '@types/picomatch': 2.3.3
       astro: 4.16.17(@types/node@22.10.2)(rollup@4.28.1)(typescript@5.5.4)
       github-slugger: 2.0.0
