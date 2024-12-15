@@ -1,7 +1,7 @@
 ---
 import type { Props } from '@astrojs/starlight/props';
-import { getCollection } from "astro:content";
-import { isTutorialEntry } from '../../content/config';
+import { getCollection } from 'astro:content';
+import { isTutorialEntry } from '../../content.config';
 import { getTutorialPages, getTutorialUnits } from '../../util/getTutorialPages';
 import TabbedContent from '../tabs/TabbedContent.astro';
 import TabListItem from '../tabs/TabListItem.astro';
@@ -18,7 +18,7 @@ const pages = allPages.filter((page) => isTutorialEntry(page, id));
 const tutorialPages = getTutorialPages(pages);
 const units = getTutorialUnits(tutorialPages);
 
-const makeUnitId = (index: number) => `${mobile ? "mobile" : ""}__tutorial-unit-nav-panel-${index}`;
+const makeUnitId = (index: number) => `${mobile ? 'mobile' : ''}__tutorial-unit-nav-panel-${index}`;
 const isCurrentUnit = (unit: (typeof units)[number]) =>
 	unit.lessons.some((lesson) => currentUrl.endsWith(lesson.slug));
 ---

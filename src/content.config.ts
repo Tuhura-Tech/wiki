@@ -1,10 +1,11 @@
-import { docsSchema, i18nSchema } from "@astrojs/starlight/schema";
-import { type CollectionEntry, defineCollection, z } from "astro:content";
+import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
+import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
+import { type CollectionEntry, defineCollection, z } from 'astro:content';
 import path from 'node:path';
 
 // find all tutorial pages
 const baseSchema = z.object({
-	type: z.literal('base').optional().default('base')
+	type: z.literal('base').optional().default('base'),
 });
 
 const tutorialSchema = baseSchema.extend({
@@ -12,15 +13,12 @@ const tutorialSchema = baseSchema.extend({
 	unitTitle: z.string().optional(),
 });
 
-const docsCollectionSchema = z.union([
-	baseSchema,
-	tutorialSchema,
-]);
+const docsCollectionSchema = z.union([baseSchema, tutorialSchema]);
 
 type DocsEntryData = z.infer<typeof docsCollectionSchema>;
 
 export type DocsEntry<T extends DocsEntryType> = CollectionEntry<'docs'> & {
-	data: Extract<DocsEntryData, { type: T}>;
+	data: Extract<DocsEntryData, { type: T }>;
 };
 type DocsEntryType = DocsEntryData['type'];
 
@@ -31,10 +29,10 @@ function createIsDocsEntry<T extends DocsEntryType>(type: T) {
 		}
 		const currentPath = path.parse(id);
 		const currentDir = path.dirname(currentPath.dir);
-		
+
 		const pagePath = path.parse(entry.id);
 		const pageDir = path.dirname(pagePath.dir);
-		
+
 		return pageDir === currentDir;
 	};
 }
@@ -43,6 +41,9 @@ export type TutorialEntry = DocsEntry<'tutorial'>;
 export const isTutorialEntry = createIsDocsEntry<'tutorial'>('tutorial');
 
 export const collections = {
-  docs: defineCollection({ schema: docsSchema({ extend: docsCollectionSchema }) }),
-  i18n: defineCollection({ type: "data", schema: i18nSchema() }),
+	docs: defineCollection({
+		loader: docsLoader(),
+		schema: docsSchema({ extend: docsCollectionSchema }),
+	}),
+	i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
 };
