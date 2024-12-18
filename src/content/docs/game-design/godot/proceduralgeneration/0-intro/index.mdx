@@ -2,22 +2,105 @@
 type: tutorial
 unitTitle: Intro to Procedural Generation
 title: Understanding Concepts
-description: This page works through how procedural generation works
+description: This page goes through how procedural generation works
 ---
 
 import Checklist from '/src/components/tutorial/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
 
-## What is Procedural Generation?
+
+Procedural generation is a technique that uses algorithms to create game content on the fly
+rather than manually. Using rules and randomness inside algorithms, procedural generation enables the
+creation of unique worlds, levels, textures, and assets. This approach is particularly
+useful for games that have expansive environments, replayability, or unpredictable gameplay, such as roguelikes,
+open-world games, or infinite runners.
+
+### What is Procedural Generation?
+
+Procedural generation means letting the computer create parts of the game for you based on a set of rules.
+Instead of designing every level, room, or object yourself, you write instructions in code.
 
 
-## How does it work?
+Even though randomness is used, procedural generation still follows rules to make sure everything works.
+For example, if you’re making a dungeon, the layout can change every time, but the player still needs to find a starting point,
+an exit, and maybe some enemies.
+
+##### Examples of Game Procedural Generation:
+- Making random dungeons, mazes, or terrain in different levels.
+- Creating forests, caves, or even whole planets.
+- Randomly placing trees, enemies, or items.
+- Mixing up enemy behavior, traps, or treasures.
+
+### Using Procedural Generation in Godot
+
+Key features that help with procedural generation:
+- Functions like `randi()` and `randf()` let you add randomness.
+- You can create and position objects (like rooms or platforms) in your game while it’s running, through **Scenes** and **Nodes**.
+- **TileMaps** for 2D games are great for generating levels made of tiles.
+- In 3D, you can place objects like roads, mountains, or buildings with code, using **Meshes** and **3D Objects**.
+- Godot has tools like **Perlin Noise** to make natural-looking terrain or patterns.
+
+### Simple Code Explanation
+
+This code works for 2D or 3D games, like an endless runner or an infinite car race.
+For a **3D car race**, each segment could be a piece of road. For a **2D dungeon**, each segment could be a tile or a room.
+
+```gdscript
+extends Node
+
+# Settings for generation
+var segment_scene = preload("res://your_scene.tscn")  # A platform, track, or room scene
+var segment_length = 10.0  # Length of each segment
+var visible_segments = 10  # How many segments are visible at once
+var segments = []  # List to hold all current segments
+var player_position = $Player.get_position_delta()  # Tracks how far the player or car has gone
+```
+The code starts by creating a set number of segments (like platforms or road pieces) and places them in a straight line.
+```gdscript
+func _ready():
+    # Create the first set of segments
+    for i in range(visible_segments):
+        add_segment(i * segment_length)
+
+func add_segment(position_z):
+    # Add a new segment to the scene
+    var segment = segment_scene.instance()
+    segment.global_position = Vector3(0, 0, position_z) # or Vector2 if it's a 2D game
+    add_child(segment)
+    segments.append(segment)
+```
+As the player moves forward, their position is tracked.
+```gdscript
+func _process(delta):
+    # Replace segments when the player moves forward
+    if player_position.z > segments[0].global_position.z + segment_length * 2:
+        recycle_segment()
+```
+When a segment moves far behind the player, it gets deleted and replaced with a new one in front.
+This makes the game look endless without using too much memory.
+```gdscript
+func recycle_segment():
+    # Remove the oldest segment and add a new one at the end
+    var old_segment = segments.pop_front()
+    old_segment.queue_free()
+    var new_position = segments[-1].global_position.z + segment_length
+    add_segment(new_position)
+```
+
+### Up Next
+
+Feel free to pick and choose what you do next:
+
+1. How to create procedurally generated **2D levels** using TileMaps and GDScript.
+2. How to build **3D worlds** and objects using meshes, noise, and dynamic placement.
+
+
 
 
 <Box>
 ## Checklist
 <Checklist>
-- [ ] I know how procedural generation works!
+- [ ] I have an idea of how procedural generation works!
 </Checklist>
 </Box>
