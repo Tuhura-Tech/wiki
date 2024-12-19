@@ -98,9 +98,16 @@ export default defineConfig({
           },{
             label: "Setting up C# For Godot",
             link: "game-design/godot/projectsetup"
+          }],
+          collapsed: true
+        },
+        {
+          label: "Procedural Generation", items: [{
+            label: "Introduction",
+            link: "game-design/proceduralgeneration/intro"
           },{
-            label: "Procedural Generation",
-            link: "game-design/godot/proceduralgeneration/0-intro/"
+            label: "3D Infinite Racing",
+            link: "game-design/proceduralgeneration/infinite3dtutorial/0-setup/"
           }],
           collapsed: true
         }],
