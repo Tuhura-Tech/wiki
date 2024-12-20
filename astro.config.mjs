@@ -92,6 +92,14 @@ export default defineConfig({
 									link: 'game-design/godot/basics',
 								},
 								{
+									label: "2D Platformer",
+									link: "game-design/godot/2dplatformer/0-making-the-player/"
+								},
+								{
+									label: "2D Racing Game",
+									link: "game-design/godot/2dracing/0-making-the-cars/"
+								},
+								{
 									label: 'Universal Features',
 									link: 'game-design/godot/universal',
 								},

@@ -1,0 +1,49 @@
+---
+type: tutorial
+unitTitle: Making a 2D Platformer
+title: Adding Items
+description: This page is a step by step guide to making a 2D platformer
+sidebar:
+    order: 2
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+## Adding Items
+
+Now let's add a coin pickup. 
+
+<Steps>
+
+1. Create a new scene with an Area2D node and rename it Coin. 
+
+2. Change the collision mask to only have 2 selected. 
+
+3. Give this node a AnimatedSprite2D (rename to AnimatedSprite) and a CollisionShape2D (rename to Collider) as children. Add the coin sprite and animation to the node as before. 
+
+4. Give the Collider a New CircleShape2D and have it cover the coin. 
+
+5. Attach a script to the Coin node and connect the “body_entered” signal to it. Inside the `_on_body_entered` function make it print something so we can test that it's working. If you put the coin in your level, it should print out your message when you run over it. To make the coin disappear when you run over it, add `queue_free()` after the print.
+    ```gdscript
+    extends Area2D
+    ## Coin that can be picked up, only prints +1 coin
+
+
+    ## Print +1 coin and free self
+    func _on_body_entered(_body: Node2D) -> void:
+        print("+1 coin")
+        queue_free()
+    ```
+
+</Steps>
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have added a new scene
+- [ ] I have add the sprite and animations
+- [ ] I have added the script
+</Checklist>
+</Box>
