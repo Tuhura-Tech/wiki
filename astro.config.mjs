@@ -109,7 +109,7 @@ export default defineConfig({
 								},
 								{
 									label: '3D Game',
-									link: 'game-design/godot/3dgame',
+									link: 'game-design/godot/crystalgame/0-setup/',
 								},
 								{
 									label: 'Setting up C# For Godot',
