@@ -47,7 +47,7 @@ Use the chain-looking button next to the **Add Child Node** button in the **Scen
 
 2. Give this script the class name `Enemy` with `class_name Enemy` before `extends CharacterBody2D`.
 
-3. Reduce the speed from `300.0` to something like `100.0` or `150.0`. Enemies need to be slower than the player in survivors-like games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere and you can't do anything to get away from it until your weapons finally take it down.
+3. Reduce the speed from `300.0` to `100.0` or `150.0`. Enemies need to be slower than the player in survivors-like games because the challenge is from avoiding hoards of them while your weapons work. Not from conserving health for when an enemy unfairly tackles you out of nowhere and you can't do anything to get away from it until your weapons finally take it down.
 </Steps>
 
 #### Moving Towards the Player
@@ -59,7 +59,7 @@ Use the chain-looking button next to the **Add Child Node** button in the **Scen
 
     In your player's script, add the built-in `_enter_tree()` function and set the Singleton's player_node variable to the player itself.
 
-    The singleton script should look something like this:
+    The singleton script should look like this:
 
     ```gdscript
     extends Node

@@ -17,7 +17,7 @@ Normally, weapons automatically fire at the closest enemy.
 
 There are a couple ways we could do this.
 
-First, we could put the enemy body in a group called something like "enemy". Then, we'd use a for loop and loop through all the enemies in 		`get_tree().get_nodes_in_group()` and compare them all to find the closest one.
+First, we could put the enemy body in a group called "enemy". Then, we'd use a for loop and loop through all the enemies in 		`get_tree().get_nodes_in_group()` and compare them all to find the closest one.
 
 However, that'll get very slow when you have a lot of enemies. Since you have to go through potentially hundreds of enemies every time you spawn a bullet, which will be happening pretty often if rapid-fire weapons are introduced.
 
