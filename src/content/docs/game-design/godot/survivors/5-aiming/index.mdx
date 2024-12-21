@@ -1,0 +1,78 @@
+---
+type: tutorial
+unitTitle: Aiming system
+title: Automatic Aiming
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+If you've played a survivors-like game before you'll quickly realize what's missing. The bullets move in the same direction as you move.
+
+This is bad for a few reasons. If you stand still the bullets don't fire off. It's awkward and counter-intuitive to move towards your enemies to fire at them. Also, it's not in the survivors-like style.
+
+Normally, weapons automatically fire at the closest enemy.
+
+There are a couple ways we could do this.
+
+First, we could put the enemy body in a group called "enemy". Then, we'd use a for loop and loop through all the enemies in 		`get_tree().get_nodes_in_group()` and compare them all to find the closest one.
+
+However, that'll get very slow when you have a lot of enemies. Since you have to go through potentially hundreds of enemies every time you spawn a bullet, which will be happening pretty often if rapid-fire weapons are introduced.
+
+The best way around this is to limit your calculations to a smaller area. This also provides the benefit of not firing at a random enemy a long distance away for no reason.
+
+<Steps>
+1. Add an **Area2D** node with a collider, and make it a circle that's a bit wider than the camera.
+
+2. Get a reference to that **Area2D** in your projectile spawner. Before instantiating the projectile add:
+
+    ```gdscript
+    var closest_enemy: Enemy
+        for body in fire_radius.get_overlapping_bodies():
+            if body is Enemy:
+                if is_instance_valid(closest_enemy):
+                    if player.global_position.distance_squared_to(body.global_position) < player.global_position.distance_squared_to(closest_enemy.global_position):
+                        closest_enemy = body
+                else:
+                    closest_enemy = body
+        if not is_instance_valid(closest_enemy):
+            return
+    ```
+
+3. Let's break this down.
+
+    We have a `closest_enemy` variable which will be an object of type `Enemy`, this assumes you have named your enemy class `Enemy`.
+
+    We use that and loop through all the overlapping bodies in our **Area2D**, this assumes the name of your **Area2D** variable is `fire_radius`. If the body that we're looping over is not an enemy, don't do anything with it. It might be a wall and we don't want to target walls.
+
+    We need to find the closest enemy. We can't check if the currently looped enemy is closer than `closest_enemy` if `closest_enemy` isn't set to any enemy at all. So if `closest_enemy` isn't a valid instance we just set it to that currently looped enemy. If we only have a single overlapping enemy this is where the loop would end.
+
+    On the next loop, if there are multiple enemies in the area we next need to check if that second looped enemy is closer to the player than `closest_enemy` or not. If it is, it becomes the new `closest_enemy`. We use `distance_squared_to` instead of `distance_to` because it's a lot faster.
+
+    Finally, check if we found an enemy at all. If not, `return` and stop the rest of the function that spawns a bullet.
+
+4. Next, after this block of code, and after you instantiate the bullet, you need to replace `new_projectile.direction = player.velocity.normalized()` with `new_projectile.direction = player.global_position.direction_to(closest_enemy.global_position)`. This will finally set the direction to the enemy. `direction_to` returns a normalized vector already, so we don't need to use `normalized` on it.
+</Steps>
+Play your mystical game after modifying the names of variables to your specific script. If all is well, this will work.
+
+## Multiple weapons
+
+Having many weapons means you'll have a lot of objects you want to change all at once without it being a constant tedious process.
+
+You might end up having over a hundred types of weapons. Even if you only have 2, it's easier to make changes once more than twice. Plus, it lets us demonstrate high level programming concepts like abstraction. Showing off is always fun.
+
+Also, we're going to need something to see if the player has met the requirements for a weapon.
+
+This could be anything from seeing if the player has picked up a weapon, to if they spent money gained from slaying enemies on it.
+
+We'll just be using a simple score counter to see how many enemies the player has defeated.
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've added a range Area2d
+- [ ] My projectiles automatically fire at the nearest enemy
+</Checklist>
+</Box>

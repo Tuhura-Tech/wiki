@@ -97,7 +97,7 @@ export default defineConfig({
 								},
 								{
 									label: 'Survivors-Like',
-									link: 'game-design/godot/survivors',
+									link: 'game-design/godot/survivors/0-settingup/',
 								},
 								{
 									label: 'Top-down Dungeon Crawler',

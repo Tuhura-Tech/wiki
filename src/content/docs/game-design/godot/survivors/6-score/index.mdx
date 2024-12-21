@@ -1,0 +1,54 @@
+---
+type: tutorial
+unitTitle: Score system
+title: Score counter
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+This one is going to be quick, because it's simple.
+<Steps>
+
+1. In your singleton, add a `score` variable and start it at 0.
+
+2. Add the built-in `_exit_tree` function to your enemy, and in it add one to the singleton's score variable.
+
+3. As a child of your camera in your player scene, add a **CanvasLayer** node with a **Label** child. Anchor the **Label** to the top of the screen.
+
+4. Give the **Label** a quick built-in script:
+
+    ```gdscript
+    extends Label
+
+
+    func _process(_delta):
+        text = "Score: " + str(Singleton.score)
+    ```
+
+    This is awfully inefficient since it really doesn't need to check every frame. But, it'll work for now.
+
+</Steps>
+
+:::note[Making it efficient]
+This one is really easy and recommended.
+
+Making it efficient is pretty simple, just not as quick and easy.
+
+Make a function in the singleton that increased score by the passed parameter. Whenever you need to increase score, use that instead. In the function increase the score but then also emit a signal.
+
+In the ready function of the score display label connect that signal to a function that updates the text of the label.
+
+Instead of checking once every frame this only updates whenever it's needed, much better.
+
+The reason this isn't just the guide instead, is for contrast. In the future you should keep as much out of the `_process` and `_physics_process` functions as physically possible.
+:::
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've implemented a score system
+</Checklist>
+</Box>
