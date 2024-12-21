@@ -1,0 +1,223 @@
+---
+type: tutorial
+unitTitle: Enemies
+title: Creating an Enemy
+description: Creating our player scene and scripts
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Material](https://docs.godotengine.org/en/stable/classes/class_material.html) [3D Transforms](https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html) 
+[Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html#class-area3d) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html)
+[Interpolation](https://docs.godotengine.org/en/stable/tutorials/math/interpolation.html)
+
+:::
+
+Let's start making the antagonists of this game, our enemies! 
+As you've hopefully come to expect by now, we'll start by making a scene!
+
+Although as you'll soon find out, this is most important for or enemy, as we'll be creating more instances of this scene through code.
+
+### Enemy Scene
+<Steps>
+1. Let's again give the World root node a new child of a Node3D, right-click it, save as scene. Call it "enemy_a"
+	It's good to get your head around these steps, as you'll be doing them often in any project you make! This is the last time this guide will go over them in detail, but if you get confused, feel free to look
+	back at one of the earlier steps.
+
+2. Take a second to try and think what Nodes we'll likely need for our enemy.
+
+
+	We're going to need:
+	1. Something to visibly represent the enemy.
+	2. Something to allow for our enemy to collide with the objective so that they can deal damage.
+
+	We don't necessarily want our enemy to physically collide with anything however, so we'll skip giving them a Static or Rigid Body.
+
+3. Here's how I've laid out my Enemy Scene, yours should hopefully look similar! If it doesn't don't worry, feel free to change it to look like mine. Don't worry about mine being a different colour, we'll be doing that right now!
+
+	![Enemy Scene](/src/assets/godot/3DGameGuide/enemyscene.png)
+
+	Remember to assign shapes to your **MeshInstance3D** and your **CollisionShape3D**
+
+4. So that the player can differentiate between our enemies and the rest of our level, let's add a material to make the enemy a different colour.
+	Materials can be used to alter the appearance of meshes in our game, from simple materials that just change colour, to advanced materials that apply custom textures, different material types, or even shaders.
+
+	But for now, let's keep it simple. 
+
+	Click on the **MeshInstance3D** and on the right, in the inspector, click on the **Material Surface Override** Button, in the '0' slot, where it says empty, add a new **StandardMaterial3D**
+
+	Click on the white sphere that's appeared. Feel free to experiment with any and all of the settings here, but for the colour, click on **Albedo.** Click on the white Rectangle, and experiment with the colour, i'll be making my enemy red.
+
+	![Materials](/src/assets/godot/3DGameGuide/materials.png)
+</Steps>
+
+### Enemy Script
+
+Great, we have our enemy, it's looking good, now we just need to get it moving! Let's add a script to the root node of the Enemy Scene. Call it 'Enemy.gd'
+
+But let's first think about what we're going to need:
+1. A way to control the health and speed of enemies
+2. A reference to their target (The objective)
+3. To face toward, and then move toward, the objective
+
+<Steps>
+1. The first step should be easy, let's add some variables! Remember the **@export** tag we used on the objective script? We'll be using that here too!
+	Except this time we'll be using it to allow us to easily change the variables on our enemy, without needing to edit the script. 
+
+	```gdscript
+	@export var speed = .5
+	```
+
+	If you save your script, and look in the inspector of the enemy object, you'll notice there is now a new box,'speed' with it's current value set to 0.5.
+	You can think of the value we declared like a default value, and anything we type into it will overwrite it.
+
+2. Let's add two more variables, which we'll use later.
+
+	```gdscript
+	var targetNode
+	var lerp_t = 0
+	var startPosition
+	```
+	These will only be used inside the script, so there's no need for them to be 'exports.'
+
+3. In our **_ready** function, we'll get a reference to our Objective, so that our enemies can target it.
+
+	```gdscript
+	targetNode = get_node("%Objective")
+	startPosition = global_position
+	```
+
+	If you haven't seen it before, the '%' here denotes a unique name, to prevent us from having to put in the complete path for the objective, but this would be equivalent to something like "/root/World/Objective"
+	Using the '%' is great when we know we're only going to have one of something! We'll have to edit our objective slightly to make this work, but we'll do that in a moment.
+
+4. For now, let's focus on our enemy. For this, we're going to be doing something called 'lerping' (Short for Interpolation) lerping is basically a smooth way to move something from one point to another,
+	both in 2D and 3D. All we need for a lerp is that starting position (That's why we got the enemy's position in the **_ready** function) the target position (That's our objective) and a 't' value, which controls how far between the two points or object is.
+	the t value goes from 0 to 1, with 0 being right at the start, and 1 being right at the end. 
+
+	Let's start lerping! In our **_process** function we'll add a few lines.
+
+	```gdscript
+	lerp_t += delta * speed
+	look_at(targetNode.global_position)
+	global_position = lerp(startPosition, targetNode.global_position, lerp_t)
+	```
+
+	First, we increase our 't' value, based on Delta (The amount of time since the last frame) and our speed variable, to allow us to control the rate of the lerp.
+
+	Next, we ensure our enemy is facing toward the objective, this doesn't matter as much for my circle enemy, but if you have a more complex shape, it'll make things look better.
+
+	Then, we set the enemies global_position to the value of the lerp between its starting position, and the objective, based on the 't' value.
+	If you're still confused about Lerps, take a look at the [Godot Docs for Interpolation](https://docs.godotengine.org/en/stable/tutorials/math/interpolation.html)
+
+	Then, let's rap it all in an 'if' statement, to stop the lerp once the 't' value as reached 1.
+
+	```gdscript
+	if(lerp_t < 1):
+	```
+
+5. Giving us a final script that looks like this:
+
+	```gdscript
+	extends Node3D
+
+	@export var health = 1
+	@export var speed = .5
+
+	var targetNode
+	var lerp_t = 0
+	var startPosition
+
+	# Called when the node enters the scene tree for the first time.
+	func _ready():
+		targetNode = get_node("World/%Objective")
+		startPosition = global_position
+		
+	# Called every frame. 'delta' is the elapsed time since the previous frame.
+	func _process(delta):
+		if(lerp_t < 1):
+			
+			lerp_t += delta * speed 
+			look_at(targetNode.global_position)
+			global_position = lerp(startPosition, targetNode.global_position, lerp_t)
+	```
+</Steps>
+
+Before we move on, there's a few more things we need to do.
+
+<Steps>
+
+1. Let's assign that group we were talking about earlier, so that our Objective actually loses health when an enemy reaches it. 
+
+	Go into your Enemy Scene, select the root **Node3D**, click on 'Node' on the right inspector, and open the **Groups** Tab.
+
+	Enter "enemy" (case-sensitive, ensure this matches what you used in your objective script) and click add. Click 'Manage Groups' and move using the 'Add' button, move every node until it's in the 'Nodes in Group' Section.
+
+
+2. You'll also want to go back to your main scene, right-click on the Objective, and select "Access as Unique Name" this will allow for getting the Objective node with ("%Objective"). But make sure the name here matches exactly the name used in the script.
+
+
+3. We probably don't want our enemies to just sit at the objective forever after they reach it, so let's make sure we delete them. Let's go back to our **Objective Script** and after we reduce health, we'll delete the enemy.
+	This can be done by calling **queue_free()** on the parent node of the Enemy. This schedules the node to be deleted at the end of the current frame.
+
+	Because our Objective has a reference to the Area3D, rather than the root node, we'll add:
+
+	```gdscript
+	area.get_parent().queue_free()
+	```
+	To func entered(area: Area3D) after we reduce the health.
+	
+	leaving the function looking like this:
+
+	```gdscript
+	func entered(area: Area3D):
+        if(area.is_in_group("enemy")):
+            health = health - 1
+			area.get_parent().queue_free()
+            if(health <= 0):
+            print("Game Over!")
+	
+	```
+
+
+
+4. Great! Add a couple of copies of your enemy to your game by dragging the scene from the file inspector into the scene. Add at least 3 so we can make sure our lose condition is triggering.
+
+
+5. Test your game, and after three enemies reach the objective we should see the 'Game Over!'
+
+</Steps>
+
+That's our enemies themselves done, next we'll make sure they spawn on their own!
+
+
+ :::note[Global Position vs Position]
+
+You may have noticed us using 'global_position' when moving the enemy. Why not just use 'position'?
+
+This is because 'position' refers to the relative position of a Node to it's root, so modifying this doesn't actually move the 'origin' of the node, it just moves its offset relative to its parent!
+So if we accessed and modified 'position' we might get some unexpected results. Whereas 'global_position' is relative to the entire scenes origin (0,0,0) and allows us to more reliably understand where a node is.
+While there are situations in which we'll want to modify a 'position' in most cases we'll use 'global_position'
+:::
+
+
+#### Some things to try
+
+1. Try messing with the speed on your Enemy (Remember, you can change this in the inspector, you don't need to change the script) until you're happy with how fast they move.
+2. Try creating an 'enemy_2'/'enemy_b' by making a new scene which reuses the enemy script, but has a different material and speed. (Remember to add it to the group)
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created an enemy
+- [ ] It moves toward the objective
+- [ ] and reduces it's health when it gets there
+</Checklist>
+</Box>

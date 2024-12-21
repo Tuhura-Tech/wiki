@@ -1,0 +1,109 @@
+---
+type: tutorial
+unitTitle: Winning
+title: Adding our win Condition
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Singletons (Autoload)](https://docs.godotengine.org/en/stable/tutorials/scripting/singletons_autoload.html) 
+:::
+
+## The Timer
+
+Our game's win condition is going to be surviving until a timer runs out, without losing beforehand. For this, as you may have guessed, we'll use a Timer again, just like we did with the spawners.
+
+However, we don't really need our timer to have its own scene, as we'll only have one in our scene. This makes this an excellent time to talk about **Autoload** scripts! Which are Godot's equivalent to Singletons if you're familiar from other Languages.
+<Steps>
+1. To create an **Autoload** we'll open our **Project Settings** and tab over to the **Autoload** tab. In the **Node Name** Section, call it "game_timer" and confirm to create the script.
+	
+	Clicking on the "res://game_timer.gd" field will open our script.
+
+2. First, let's set up our variables.
+
+	```gdscript
+	var game_length = 60
+	var HUD
+	var timer
+	```
+
+	Our first variable here will determine how many seconds it takes before we win the game. Something to keep in mind, because **Autoload** scripts don't have scenes, we can't use Exported variables.
+
+3. Our other two variables will be assigned in our **_ready()** function, which we'll set up now:
+
+	```gdscript
+	func _ready():
+		HUD = get_tree().root.get_node("World/HUD")
+		timer = get_tree().create_timer(game_length)
+		timer.timeout.connect(win_game)
+	```
+	First, as we did in our Objective, we'll get a reference to our HUD. Then we'll create a timer with a length set by our **game_length** variable. 
+	
+4. Then connect it to a function that we'll create now.
+
+	```gdscript
+	func win_game():
+		HUD.show_win_lose("You Win!")
+		start_close_game()
+	```
+
+	This function displays "You Win!" on our UI, and then calls another function we'll create now, which will close the game after a delay.
+
+5. Let's also create a function to close the game after we lose
+
+	```gdscript
+	func start_close_game():
+		var tq = get_tree().create_timer(2)
+		tq.timeout.connect(get_tree().quit)
+	```
+	Here we again create a new timer, but this time, attach it to a built in Godot function which will close the game. In this case, the game will close after 2 seconds.
+
+6. Finally, we need to update the text on our **time_label** to reflect the amount of time left on our timer. Thankfully, Godot makes this easy for us. We'll do this directly in the **_process(delta)** function.
+
+	first, let's get the remaining time, and covert it to a string.
+	```gdscript
+	var time = str(timer.get_time_left())
+	```
+7. We could just leave our variable here, but it would have a lot of extra characters after the decimal place which will go off the edge of the screen, so let's trim it before we update the label.
+
+
+	```gdscript
+	time = time.erase(5, 15)
+	HUD.update_time(time)
+	```
+	This trims any characters after the 5th (Which keeps two decimal places) and then updates the text.
+</Steps>
+
+## Back to the Objective Script
+
+Our final step is to make sure our game also closes after two seconds when we lose. Because we've made our timer an **Autoload** it can be accessed easily from anywhere! 
+
+Let's go to our **Objective** script.
+
+And simply add
+
+```gdscript
+GameTimer.start_close_game()
+```
+
+Directly after the line where we update the label to say "You Lose!"
+
+And that's it! We have a fully functioning 3D game with gameplay, UI, a win condition, and a lose condition! 
+
+Congratulations, you've just made your very own 3D game!
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created an autoload script
+- [ ] My UI updates
+- [ ] I win when the time runs out!
+</Checklist>
+</Box>

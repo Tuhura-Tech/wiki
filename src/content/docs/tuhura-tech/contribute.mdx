@@ -43,46 +43,8 @@ Modifying existing content is straightforward as it can be done through the GitH
 
 Adding new content is a bit more involved then modifying new content as you have to create the required folder if needed and then add the new files into `astro.config.mjs`.
 
-Check out the [Style Guide](/tuhura-tech/style) for contribution style best practices 
+Check out the [Style Guide](../style) for contribution style best practices as well as how to add new content.
 
-<details>
-  <summary>Adding new <ins>tutorial</ins> content...</summary>
-  File Structure:
-  1. Refer to the python turtle folder.
-      a. You need to make your tutorial into a folder, and add your sub-folder as `0-firstStep`, `1-secondStep`, `2-thirdStep`, etc.
-      b. Inside these sub-folders, you will need one `index.mdx` file, and then 0 or more files named `1.mdx`, `2.mdx`, etc.
-  4. When you add your directory into the `astro.config.mjs` file, the link needs to include your first sub-folder.
-  
-:::note[You are required to add the following to your files]
-At the start of the index file
-```md
-type: tutorial
-unitTitle: 'My Unit Title'
-title: 'My Page Title'
-```
-At the start of the [number].mdx files
-```md
-type: tutorial
-title: 'My Page Title'
-```
-To import necessary modules
-```md
-import Checklist from '/src/components/tutorial/Checklist.astro';
-import Box from '/src/components/tutorial/Box.astro';
-import { Steps } from '@astrojs/starlight/components';
-```
-
-At the end of **every** mdx file
-```md
-<Box icon="check-list">
-## Checklist name
-<Checklist>
-- [ ] Things the user should've done...
-</Checklist>
-</Box>
-```
-:::
-</details>
 
 ### 🧞 Commands
 

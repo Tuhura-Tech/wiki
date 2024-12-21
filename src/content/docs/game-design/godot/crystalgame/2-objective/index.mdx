@@ -1,0 +1,140 @@
+---
+type: tutorial
+unitTitle: Creating an objective
+title: Creating the objective
+
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) [CollisionShape3D](https://docs.godotengine.org/en/stable/tutorials/physics/collision_shapes_3d.html) 
+[Area3D](https://docs.godotengine.org/en/stable/classes/class_area3d.html#class-area3d) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html)
+
+:::
+
+(Almost) Every game needs an objective! Something for the player to work towards, and to keep them playing. For our game, we'll be creating something that the player will defend from waves of enemies. In my version of the game, this will be a Crystal,
+but yours can be anything! 
+
+### Objective Scene
+
+Let's start by going back to our main scene, and giving the root node a new child with the **Node3D** Type. Call it "Objective". Then, like we did with the player, we'll save it as a new scene, and open it.
+
+Our scene will need a few things: 
+1. A **StaticBody3D** Object, with a **CollisionShape3D** to prevent the player walking through it
+2. A **MeshInstance3D** To give the objective a model
+3. An **Area3D** with a **CollisionShape3D** to detect when enemies 'hit' it. You can think of an **Area3D** as a way to detect when an object enters an Area, using the **CollisionShape3D** to define the area 
+
+Your **MeshIstance3D** can be whatever shape you prefer. However make sure your **StaticBody3D** has a **CollisionShape3D** that roughly matches your **MeshInstance3D**.
+
+Leave the **CollisionShape3D** attached the **Area3D** as a circle or square, we'll be coming back to this later.
+
+Your scene hierarchy should look something like this:
+
+![Objective Scene](/src/assets/godot/3DGameGuide/objectivescene.png)
+
+And that's it! Everything else will be handled by our script!
+
+### Health Script
+
+Before we get into our script, let's think about what we need it to do:
+
+1. Detect if an enemy touches the objective
+2. If an enemy does, reduce Health
+3. If health reaches 0, do something
+
+Step 1. Will be the most complicated, but thankfully Godot has a lot of features that'll make it easy for us. 
+
+<Steps>
+
+1. Let's attach a script to the root node of our Objective, calling it "objective_health"
+
+2. Let's first of all declare a new variable to track our health.
+
+    ```gdscript
+    @export var health = 3
+    ```
+
+    Mine starts at 3, but yours can start at anything (Greater than 0)
+
+
+2. Now, let's start detecting if an enemy has collided with us.
+
+    Let's start by declaring a new function that'll be called when something enters the **Area3D** around the Objective.
+
+    ```gdscript
+    func entered(area: Area3D):
+    ```
+
+    Here, 'area' represents the other object that has entered the objective, as Area3Ds only detect collisions with other Area3Ds.
+    Let's check if it's an enemy.
+
+    ```gdscript
+    if(area.is_in_group("enemy")):
+    ```
+
+2. If it is, let's subtract health. To keep things simple, for now we'll just print a message if we've died. We'll expand this to allow for different damage amounts, and an actual lose state, later.
+
+    ```gdscript
+    func entered(area: Area3D):
+        if(area.is_in_group("enemy")):
+            health = health - 1
+            if(health <= 0):
+            print("Game Over!")
+    ```
+
+    Great! Let's save our script, and that's it done for now!
+
+</Steps>
+
+Now, we could have just as easily attached the 'Health' script to our player, but in this game, our player isn't our enemy's target. However, if you want to change that, by the end of this guide, you should be able to figure that out fairly easily!
+
+
+:::note[What's a group?]
+Think of a group as a way to, well, group objects in our game. In this case, if we have multiple types of enemies later, we don't need to check if we've collided with any of them,
+we can simply check if they're in the 'Enemy' group. We'll go over adding things to groups when we create an enemy.
+:::
+
+### Signals
+
+We've created our function, but what calls it? We could create a convoluted way of checking if another object is in the bounds of our objective, but thankfully for us, our **Area3D** already
+registers whenever anything enters it, all we have to do is connect the functions. We'll do this using signals!
+
+If we click our **Area3D** and on the right, change from the **Inspector** to the **Node** Tab. From here we can access the Node's signals.
+Here we have all the Signals this Node can output, we can attach our function to one of these, allowing it to 'listen' for the specific condition. Think of it like
+setting up a radar dish to listen for one very specific sound. 
+
+In this case, we want the **area_entered** signal. You'll notice it outputs an **Area3D** which is why we set up our function to take an **Area3D.**
+Had we not done this, we wouldn't be able to connect the signal.
+
+<Steps>
+1. Double-click on the **area_entered** signal.
+2. Select our 'Objective' root node.
+3. Click 'Pick' on the bottom right
+4. Select our 'entered' function.
+5. Click 'OK'
+6. Click 'Connect'
+
+</Steps>
+
+If our function isn't showing as an option, make sure you've saved the script, and that the variable input for the function is correct.
+
+Great! Now whenever something enters our objective, it'll call this script!
+
+Signals are an amazing way to connect scripts without having to store a Node reference, you can even write your own signal outputs! However that's out of scope for this guide, if you're interested, read over the [Godot Documentation for Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) 
+
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created my objective scene
+- [ ] I've given it a health script
+- [ ] I've conneted a signal
+</Checklist>
+</Box>
