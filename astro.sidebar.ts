@@ -26,11 +26,11 @@ export const sidebar = [
 					},
 					{
 						label: '2D Platformer',
-						link: 'guides/game-dev/2dplatformergame',
+						link: 'guides/game-dev/2dplatformergame/0-making-the-player/',
 					},
 					{
 						label: '2D Racing Game',
-						link: 'guides/game-dev/2dracinggame',
+						link: 'guides/game-dev/2dracinggame/0-making-the-cars/',
 					},
 					{
 						label: 'Universal Features',
@@ -38,7 +38,7 @@ export const sidebar = [
 					},
 					{
 						label: 'Survivors-Like',
-						link: 'guides/game-dev/survivors',
+						link: 'guides/game-dev/survivors/0-settingup',
 					},
 					{
 						label: 'Top-down Dungeon Crawler',
@@ -46,11 +46,7 @@ export const sidebar = [
 					},
 					{
 						label: '3D Intro',
-						link: 'guides/game-dev/3d',
-					},
-					{
-						label: '3D Game',
-						link: 'guides/game-dev/3dgame',
+						link: 'guides/game-dev/3d-intro/0-making-the-project',
 					},
 					{
 						label: 'Setting up C# For Godot',
