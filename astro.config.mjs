@@ -107,7 +107,6 @@ export default defineConfig({
       },
       {
         label: "Cybersecurity",
-
         autogenerate: {
           directory: 'cybersecurity'
         }

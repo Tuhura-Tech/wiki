@@ -1,0 +1,90 @@
+---
+type: tutorial
+unitTitle: Weapon Projectiles
+title: Weapon Projectiles
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+#### Making a Simple Bullet
+
+<Steps>
+
+1. We need a scene to spawn in, quickly setup this in a new scene:
+    - **Area2D**
+        + **CollisionShape2D**
+        + **Sprite2D**
+
+2. Give it a script and connect the **Area2D**'s own `on_body_entered` signal to itself
+
+3. Make a new global variable inside your bullet script called `direction`.
+
+4. Make a new global constant as well, for the `SPEED` of the bullet. Your player moves at speed 300 by default, so try something around 500-700.
+
+5. In a `_physics_process(delta)` function, add `direction * speed * delta` to `position`. We multiply by `delta` because we're manually moving the position instead of using **CharacterBody2D**'s `move_and_slide()` function which does that for you. `delta` is the time between the last physics frame and this one.
+
+    :::note[Fast moving bullets]
+    If you increase your bullet's speed by a lot, it might move over the enemy in the span of a frame. This means it won't detect its collision.
+
+    Continuous Collision Detection (CCD) is used to counteract this. With **RigidBody2D** you can enable CCD. To do this, make the root node of your bullet a **RigidBody2D**. Enable **Continuous CD** in **RigidBody2D > Solver** in the inspector.
+
+    You'll have to use **RigidBody2D**'s available methods and signals to form this, which won't be as simple. Also, it won't be as fast.
+
+    If you want fast bullets, a better way would be to add a **RayCast2D** to your player and just see if anything is colliding in its path when firing. Use multiple ray casts for making bullet width. This doesn't come with having any feedback that the player fired a bullet to kill the enemy. If you can make a kill animation or some sort of way to tell the player they fired, it's the best way to make fast firing bullets.
+
+    This is also how hit-scan works in all FPS games, if you are aware of the concept.
+    :::
+
+6. In your function connected to the `on_body_entered` signal, enter:
+
+    ```gdscript
+    if body is Enemy:
+        body.queue_free()
+    ```
+</Steps>
+All in all, these will move the projectile every frame in an unspecified direction, and then when it runs into an enemy it'll delete it.
+
+#### Spawning the Bullet
+
+We don't want to spawn a bullet every frame or physics frame, so we can't use `_process` or `_physics_process` to spawn in a bullet.
+<Steps>
+1. Add a **Timer** node to your player scene.
+
+2. In the **Inspector**, set the wait time to be how long you want between shots. Turn **Autostart** on so it starts when the game plays. Leave **One Shot** off so that it repeats the timer.
+
+    :::note[SRP]
+    Now, we *could* just connect the `timeout` signal to our player script. But as previously mentioned, it's a good idea to split your project up into as many files as possible for every different use.
+
+    The single responsibility principle (SRP) is mentioned several times across Godot's [best practices docs](https://docs.godotengine.org/en/stable/tutorials/best_practices/introduction_best_practices.html).
+
+    In essence, keep scripts/functions/nodes to just one use. In this case, the **Timer** node is purely for spawning and shooting off projectiles.
+    :::
+
+3. Add a script to the projectile spawner **Timer** node and connect its own `timeout` signal to itself.
+
+4. This is very similar to spawning in enemies. Make a new global variable in the script for the main node, in the `_ready` function set that node to your singleton's `main_node`.
+
+5. From the **FileSystem** dock, find and drag your bullet scene into your script, and before you release the mouse, hold ctrl/cmd.
+
+    Instructions for the rest are going to be very general, try to remember how they were implemented.
+
+6. In your function connected to the `timeout` signal, make a new variable set to an instance of the scene.
+
+7. Get your player as a global variable for the script.
+
+8. Back in the function, set that variable's `direction`, or equivalent, value to `player.velocity.normalized()`. Do the same with the projectile's and your player's `global_position`.
+
+9. Then, add it as a child of your main scene's root node.
+
+</Steps>
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created a bullet scene
+- [ ] The bullets are spawned by a timer
+</Checklist>
+</Box>

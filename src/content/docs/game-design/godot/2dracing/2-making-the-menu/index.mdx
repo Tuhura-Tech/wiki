@@ -1,0 +1,78 @@
+---
+type: tutorial
+unitTitle: Making a 2D Racing Game
+title: Making the Menu
+description: This page is a step by step guide to making a 2D Racing game
+sidebar:
+    order: 3
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+## Making the Menu
+
+<Steps>
+
+1. Make a new scene with a Control node. This will be our main menu. Add a Label child node. In the inspector will be a text box - write Racing Game or whatever you want to call it. Attach a script to the menu node, we'll use this later to change between menus. Add some Button child nodes to the Control node. I have 2, one for Start and one for Exit. For each of the buttons, connect the Pressed signal to the menu script. We'll change the code later.
+
+2. In the control section of the inspector there is a dropdown for theme overrides. This is where you can get creative and change the colors, the fonts, outlines etc. Save this scene as main.
+    ![Screenshot showing creative controls](/src/assets/godot/2DRacing/image5.png)
+
+3. Make a new scene and give it a Button node. This will be our button to select tracks. Change the text the same way as the Label in the previous step. You can change the style a similar way to the text with theme overrides, but now there is an extra styles menu. You can customise the button to look however you like.
+
+4. Attach a script to the button. In the node menu, connect the Pressed signal to the script and change the code to this: 
+    ```gdscript
+    extends Button
+
+
+    @export var level : PackedScene
+
+    func _on_pressed() -> void:
+        get_tree().change_scene_to_packed(level)
+
+
+    ```
+
+5. Now make a new scene with a Control node. This will be our track select menu. Add a Label child node and write "Track Select" in the text box.
+
+6. Now in your track select scene, you can add in the button for track one. In the inspector near the top you should see a box for Level. Right click on your track1.tscn and copy the path and paste it into that text box.
+    ![Screenshot showing level variable](/src/assets/godot/2DRacing/image6.png)
+
+7. Change the code in your main menu script to this:
+    ```gdscript
+    extends Control
+
+
+    const TRACK_SELECT = preload("res://Scenes/track_select.tscn")
+
+    func _on_start_pressed() -> void:
+        get_tree().change_scene_to_packed(TRACK_SELECT)
+
+
+    func _on_exit_pressed() -> void:
+        get_tree().quit()
+
+    ```
+
+8. Now when you run the main menu and click the start button, it should load the track select menu, and from here you can select which track you'd like to play. To add more levels, simply add another button and change the path in the Level text box.
+
+</Steps>
+
+## Next Steps
+
+1. Add more levels and connect them to your menu
+2. Add items to pick up 
+3. Make an end screen
+4. Make your menus more sophisticated - how could you add a settings menu?
+5. Make a character selection menu
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have created the scene and added nodes
+- [ ] I have created the button and script
+- [ ] I have added the button to the menu scene
+</Checklist>
+</Box>
