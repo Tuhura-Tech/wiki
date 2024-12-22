@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-// import Houston from '~/assets/houston_astronaut.png';
 import NotFoundSvg from '~/assets/not_found.png';
 
 interface Props {
@@ -11,7 +10,6 @@ const { lang } = Astro.props;
 
 <div class="wrapper">
 	<Image class="galaxy" src={NotFoundSvg} alt="" loading="eager" />
-	<!-- <Image class="houston" src={Houston} alt="" loading="eager" width="192" /> -->
 	<div class="hero-text">
 		<h1>404</h1>
 		<p>{Astro.locals.t('404.content')}</p>

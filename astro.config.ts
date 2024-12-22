@@ -5,19 +5,13 @@ import rehypeSlug from 'rehype-slug';
 import remarkSmartypants from 'remark-smartypants';
 import { sidebar } from './astro.sidebar';
 import { devServerFileWatcher } from './config/integrations/dev-server-file-watcher';
-import starlightLinksValidator from 'starlight-links-validator';
-import sitemap from '@astrojs/sitemap';
-import starlightImageZoom from 'starlight-image-zoom';
+import { sitemap } from './config/integrations/sitemap';
 import { makeLocalesConfig } from './config/locales';
 import { starlightPluginAutolinkHeadings } from './config/plugins/rehype-autolink';
 import { rehypeTasklistEnhancer } from './config/plugins/rehype-tasklist-enhancer';
 import { remarkFallbackLang } from './config/plugins/remark-fallback-lang';
-import rehypeMathjax from 'rehype-mathjax';
-import remarkMath from 'remark-math';
-import starlightDocSearch from '@astrojs/starlight-docsearch';
 
-const docsearchAppId = process.env.AppId || '';
-const docsearchApiKey = process.env.ApiKey || '';
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
@@ -35,9 +29,13 @@ export default defineConfig({
 			expressiveCode: {
 				plugins: [pluginCollapsibleSections()],
 			},
+			customCss: [
+				// Path to your Tailwind base styles:
+				'./src/tailwind.css',
+			],
 			logo: {
-				light: './src/assets/logo-light.png',
-				dark: './src/assets/logo-dark.png',
+				light: './public/assets/full-logo-light.png',
+				dark: './public/assets/full-logo-dark.png',
 				replacesTitle: true,
 			},
 			components: {
@@ -50,10 +48,9 @@ export default defineConfig({
 				PageSidebar: './src/components/starlight/PageSidebar.astro',
 				Pagination: './src/components/starlight/Pagination.astro',
 				Footer: './src/components/starlight/Footer.astro',
-				// Search: './src/components/starlight/Search.astro',
+				Search: './src/components/starlight/Search.astro',
 				Sidebar: './src/components/starlight/Sidebar.astro',
 				MobileMenuFooter: './src/components/starlight/MobileMenuFooter.astro',
-				// PageTitle: './src/components/starlight/PageTitle.astro',
 			},
 			editLink: {
 				baseUrl: 'https://github.com/Tuhura-Tech/Wiki/blob/main/',
@@ -70,6 +67,7 @@ export default defineConfig({
 				linkedin: 'https://www.linkedin.com/company/tuhuratech',
 				email: 'mailto:contact@tuhuratech.org.nz',
 			},
+			pagefind: false,
 			head: [
 				// Add ICO favicon fallback for Safari.
 				{
@@ -81,21 +79,14 @@ export default defineConfig({
 					},
 				},
 			],
-			plugins: [
-				starlightImageZoom(),
-				// starlightLinksValidator({
-				// 	errorOnLocalLinks: false,
-				// }),
-				starlightPluginAutolinkHeadings(),
-				starlightDocSearch({
-					appId: docsearchAppId,
-					apiKey: docsearchApiKey,
-					indexName: 'wiki',
-				}),
-				starlightImageZoom(),
-			],
+			disable404Route: true,
+			plugins: [starlightPluginAutolinkHeadings()],
 		}),
 		sitemap(),
+		tailwind({
+			// Disable the default base styles:
+			applyBaseStyles: false,
+		}),
 	],
 	markdown: {
 		// Override with our own config
@@ -104,13 +95,15 @@ export default defineConfig({
 			[remarkSmartypants, { dashes: false }],
 			// Add our custom plugin that marks links to fallback language pages
 			remarkFallbackLang(),
-			remarkMath,
 		],
 		rehypePlugins: [
 			rehypeSlug,
 			// Tweak GFM task list syntax
 			rehypeTasklistEnhancer(),
-			rehypeMathjax,
 		],
+	},
+	image: {
+		domains: ['avatars.githubusercontent.com'],
+		service: sharpImageService(),
 	},
 });

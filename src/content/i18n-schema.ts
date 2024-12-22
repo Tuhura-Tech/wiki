@@ -63,9 +63,6 @@ export const AstroDocsI18nSchema = z
 		'expressiveCode.copyButtonCopied': z.string(),
 		// Backend Guides vocabulary
 		'backend.navTitle': z.string(),
-		// Starlight banner
-		'starlight.title': z.string(),
-		'starlight.description': z.string(),
 		// `<StudioHeading>` component
 		'studioHeading.label': z.string(),
 

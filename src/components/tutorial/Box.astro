@@ -1,8 +1,5 @@
 ---
 import { getImage } from 'astro:assets';
-// import HoustonGrad from '~/assets/houston_grad.png';
-
-// const { src: houstonGrad } = await getImage({ src: HoustonGrad });
 
 export interface Props {
 	icon?: 'puzzle-piece' | 'question-mark' | 'check-list';
@@ -11,9 +8,7 @@ export interface Props {
 const { icon } = Astro.props;
 ---
 
-<div
-	class={`highlight-box content ${icon}`}
->
+<div class={`highlight-box content ${icon}`}>
 	<section>
 		<slot />
 	</section>

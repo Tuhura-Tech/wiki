@@ -1,5 +1,5 @@
 import type { Document, Element } from 'domhandler';
-import htmlparser2 from 'htmlparser2';
+import { parseDocument, DomUtils } from 'htmlparser2';
 
 export interface AllPagesByPathname {
 	[key: string]: HtmlPage;
@@ -9,13 +9,13 @@ export class HtmlPage {
 	/**
 	 * The full page URL.
 	 *
-	 * Example: `https://docs.astro.build/en/getting-started/`
+	 * Example: `https://wiki.tuhuratech.org.nz/en/landing/`
 	 */
 	readonly href: string;
 	/**
 	 * The `pathname` part of the page's URL.
 	 *
-	 * Example: `/en/getting-started/`
+	 * Example: `/en/landing/`
 	 */
 	readonly pathname: string;
 
@@ -71,12 +71,12 @@ export class HtmlPage {
 
 	constructor({ html, href, pathname }: { html: string; href: string; pathname: string }) {
 		// Attempt to read the HTML file and parse its DOM
-		this.dom = htmlparser2.parseDocument(html);
+		this.dom = parseDocument(html);
 		this.href = href;
 		this.pathname = pathname;
 
 		// Provide commonly used data as properties
-		this.anchors = htmlparser2.DomUtils.getElementsByTagName('a', this.dom, true);
+		this.anchors = DomUtils.getElementsByTagName('a', this.dom, true);
 
 		// Build a list of unique link hrefs on the page
 		this.uniqueLinkHrefs = [...new Set(this.anchors.map((el) => decodeURI(el.attribs.href)))];
@@ -126,18 +126,18 @@ export class HtmlPage {
 	}
 
 	findFirst(test: (elem: Element) => boolean) {
-		return htmlparser2.DomUtils.findOne(test, this.dom.children);
+		return DomUtils.findOne(test, this.dom.children);
 	}
 
 	findAll(test: (elem: Element) => boolean) {
-		return htmlparser2.DomUtils.findAll(test, this.dom.children);
+		return DomUtils.findAll(test, this.dom.children);
 	}
 
 	findParent(start: Element, test: (elem: Element) => boolean) {
 		let el: Element | null = start;
 		while (el) {
 			if (test(el)) return el;
-			el = htmlparser2.DomUtils.getParent(el);
+			el = DomUtils.getParent(el) as Element;
 		}
 		return null;
 	}
