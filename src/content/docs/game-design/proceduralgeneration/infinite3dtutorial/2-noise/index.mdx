@@ -1,6 +1,7 @@
 ---
 type: tutorial
 title: Using Noise Functions
+unitTitle: Infinite track with noise
 description: This page works through how to integrate procedural generation with a 3D game
 ---
 
@@ -10,8 +11,10 @@ import { Steps } from '@astrojs/starlight/components';
 
 :::note[Please Read This Godot Documentation]
 Reading through these nodes is ***highly*** recommended.
-[FastNoiseLite](https://docs.godotengine.org/en/stable/classes/class_fastnoiselite.html),
-[Noise](https://docs.godotengine.org/en/stable/classes/class_noise.html#class-noise)(for the noise Vector3 method).
+
+ - [FastNoiseLite](https://docs.godotengine.org/en/stable/classes/class_fastnoiselite.html),
+
+ - [Noise](https://docs.godotengine.org/en/stable/classes/class_noise.html#class-noise)(for the noise Vector3 method).
 :::
 
 
@@ -25,13 +28,14 @@ The `get_noise_3d(x, y, z)` method generates a noise value based on the provided
 #### How Simplex Noise Works in This Game:
 Simplex noise is a gradient noise algorithm that creates smooth and continuous variations across space. In this case:
 
- - Smoothness: Simplex noise ensures that nearby points in the 3D space have similar noise values, creating a naturally smooth progression for the road.
- - Fractal Detail: By using multiple octaves (fractal_octaves), the algorithm overlays layers of noise with increasing frequencies and decreasing amplitudes.
-    This adds finer details to the base noise, making the road curves more realistic.
- - Directional Influence: The noise is sampled in specific ways (e.g., with offsets in x, y, or z) to introduce controlled randomness. For instance:
-        X-axis noise creates lateral curves.
-        Y-axis noise adds minor vertical undulations.
-        Z-axis noise ensures forward progression with subtle randomness.
+ - Simplex noise ensures that nearby points in the 3D space have **similar noise values**, creating a naturally **smooth progression** for the road.
+ - By using multiple octaves (`fractal_octaves`), the algorithm overlays layers of noise with increasing **frequencies** and decreasing **amplitudes**.
+    
+	This adds finer details to the base noise, making the **road curves more realistic**.
+ - The noise is sampled in specific ways (e.g., with offsets in x, y, or z) to introduce **controlled randomness**. For instance:
+        - `X-axis` noise creates lateral curves.
+        - `Y-axis` noise adds minor vertical undulations.
+        - `Z-axis` noise ensures forward progression with subtle randomness.
 
 
 By combining these characteristics, the `remove_and_add_point_with_noise` function shown down below generates a procedurally curved road with realistic turns and elevations, ensuring smooth transitions between segments.
@@ -103,12 +107,11 @@ func remove_and_add_point_with_noise():
 Run your game and your track and see what your code makes!
 
 #### Experimenting Further
-Increase the Noise Multiplier:
- - Try setting noise.get_noise_3d(...) * 150 or higher to see exaggerated, crazier turns.
-Add Random Tilt:
- - You can add slight randomness to the Y-axis noise to tilt the road slightly.
-Frequency Tuning:
- - Play with values between 0.001 and 0.01 for noise frequency to balance sharpness and smoothness.
+<Steps>
+1. Try setting noise.get_noise_3d(...) * 150 or higher to see exaggerated, crazier turns.
+2. You can add slight randomness to the Y-axis noise to tilt the road slightly.
+3. Play with values between 0.001 and 0.01 for noise frequency to balance sharpness and smoothness.
+</Steps>
 
 <Box>
 ## Checklist

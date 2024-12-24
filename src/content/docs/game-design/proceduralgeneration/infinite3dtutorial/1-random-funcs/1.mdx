@@ -14,14 +14,19 @@ Add a GDScript to your **Node3D** EndlessRacing.
 
 :::note[Please Read This Godot Documentation]
 Reading through these nodes is ***highly*** recommended.
-[Curve3D](https://docs.godotengine.org/en/stable/classes/class_curve3d.html)(to understand how to randomise the paths' curves), [Vector3](https://docs.godotengine.org/en/4.3/classes/class_vector3.html)(the class to make random point positions for the track), [Path3D](https://docs.godotengine.org/en/stable/classes/class_path3d.html)(the reason for the Curve3D).
+
+ - [Curve3D](https://docs.godotengine.org/en/stable/classes/class_curve3d.html) (to understand how to randomise the paths' curves),
+
+ - [Vector3](https://docs.godotengine.org/en/4.3/classes/class_vector3.html) (the class to make random point positions for the track),
+
+ - [Path3D](https://docs.godotengine.org/en/stable/classes/class_path3d.html) (the reason for the Curve3D).
 :::
 
 ### The **Time Label** from the 3D Racing Tutorial
 
 <Tabs>
     <TabItem label="I have the track_1.gd script">
-    If you have added [the timer from the 3D racing tutorial](/src/content/docs/game-design/godot/3dracinggame/3-track-building/2.mdx),
+    If you have added [the timer from the 3D racing tutorial](/game-design/godot/3dracinggame/3-track-building/2),
     move this logic (from `track_1.gd`) into the `endless_racing.gd` script.
     
     This is because only the timer from the old track script will be used in this game.
@@ -157,20 +162,21 @@ func remove_and_add_curvier_point():
 
 	# Update the Path3D node to reflect the updated curve
 	$Path3D.set_curve(path_curve)
-
+```
 
 ### Test it out!
 
 Run your game and your track and see what your code makes!
 
 Change these variables if you want a:
+<Steps>
 1. Curvier or straighter track:
         Consider changing the "In" and "Out" curves to smaller random ranges (for a straighter track), or larger random ranges (for a curvier track).
 2. Longer or shorter track:
         Consider changing the `forward_offset` to smaller random ranges (for a shorter track), or larger random ranges (for a longer track).
 3. More bumps/hills in the road:
         Consider changing the `lateral_offset` to smaller random ranges (for a smooth track), or larger random ranges (for a bumpier/hilly track).
-
+</Steps>
 <Box>
 ## Checklist
 <Checklist>
