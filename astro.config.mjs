@@ -97,6 +97,14 @@ export default defineConfig({
             link: "game-design/godot/3dracinggame/0-main-scene/"
           }],
           collapsed: true
+        },
+        {
+          label: "Procedural Generation", items: [{
+            label: "Infinite 3D Racing",
+            link: "game-design/proceduralgeneration/infinite3dtutorial/0-setup/"
+          },
+        ],
+          collapsed: true
         }],
       },
       {
