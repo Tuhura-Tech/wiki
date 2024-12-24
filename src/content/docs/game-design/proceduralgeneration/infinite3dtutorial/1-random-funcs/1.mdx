@@ -1,0 +1,182 @@
+---
+type: tutorial
+title: Using Random Functions
+description: This page works through how to integrate procedural generation with a 3D game
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
+## The Script
+Add a GDScript to your **Node3D** EndlessRacing.
+
+:::note[Please Read This Godot Documentation]
+Reading through these nodes is ***highly*** recommended.
+[Curve3D](https://docs.godotengine.org/en/stable/classes/class_curve3d.html)(to understand how to randomise the paths' curves), [Vector3](https://docs.godotengine.org/en/4.3/classes/class_vector3.html)(the class to make random point positions for the track), [Path3D](https://docs.godotengine.org/en/stable/classes/class_path3d.html)(the reason for the Curve3D).
+:::
+
+### The **Time Label** from the 3D Racing Tutorial
+
+<Tabs>
+    <TabItem label="I have the track_1.gd script">
+    If you have added [the timer from the 3D racing tutorial](/src/content/docs/game-design/godot/3dracinggame/3-track-building/2.mdx),
+    move this logic (from `track_1.gd`) into the `endless_racing.gd` script.
+    
+    This is because only the timer from the old track script will be used in this game.
+    </TabItem>
+    <TabItem label="I don't have a previous track script">
+    <Steps>
+    1. To make a race car timer, we will need milliseconds, seconds, and minutes.
+    2. *In the `hud.tscn` scene (which is also located in the `car.tscn` scene tree):* Copy and paste the 'Laps' label.
+        Rename it to `Time` and move it to the top right hand corner of the screen.
+        Set the text to `Time: 00:00.000`.
+    3. Add this code to your existing code.
+        If you understand the comments, feel free to delete them to reduce script clutter.
+        ```gdscript title="endless_racing.gd"
+        # Variables for timer
+        var time = 0.0   # Total time elapsed since the start of the race in seconds
+        var minutes = 0  # Minutes component of the time display
+        var seconds = 0  # Seconds component of the time display
+        var msec = 0     # Milliseconds component of the time display
+
+        # Called every frame, where 'delta' is the elapsed time since the previous frame
+        func _process(delta: float) -> void:
+            # Update the total time by adding delta (time since last frame)
+            time += delta
+            
+            # Calculate milliseconds, seconds, and minutes for time display
+            msec = fmod(time, 1) * 100
+            seconds = fmod(time, 60)
+            minutes = fmod(time, 3600) / 60
+
+            # Format the time as a string (MM:SS.mmm) for display
+            var timeString = "%02d:%02d.%03d" % [minutes, seconds, msec]
+
+            # Find the label displaying the time (assumes a label named "Time" is in the labels group)
+            var labelTime = labels.filter(func(label): return label.name == "Time")[0]
+            labelTime.text = timeString
+        ```
+    4. Well done! You now have a working timer for your racing. Now you can see who the fastest race car driver is!
+    </Steps>
+    </TabItem>
+</Tabs>
+
+### Explanation of How To Add a Random Path3D Points
+
+To add another segment onto the track, we will be adding a new point into the Curve3D's list of points.
+For reference, these will be the points we will be deleting and adding onto. 
+
+Notice the "In" and "Out" **Vector3**'s.
+![picture of Curve3D's points](/src/assets/proceduralgeneration/3dinfinitegame/curvesPointsExample.png)
+
+
+Here is another photo explaining what we will be doing via code:
+![picture of randomly adding a Curve3D point explanation](/src/assets/proceduralgeneration/3dinfinitegame/explanationOfAddingANewPoint.png)
+
+### Making a Track Using Randomness
+
+This will be implementing the endless racing concept in code.
+
+
+*Add this code onto your existing code.* Feel free to delete the comments after you've understood the code.
+
+```gdscript title="endless_racing.gd"
+extends Node3D
+
+# Reference to the car object
+@onready var car = $VehicleBody3D as VehicleBody3D
+var path_curve: Curve3D  # The curve that defines the track
+# Tracks if the car has passed halfway through the current road segment
+var passed_road_segment: bool = false
+
+func _ready() -> void:
+	# Get the curve from the Path3D node at the start of the game
+	var starting_path = $Path3D as Path3D
+    # Store the Curve3D object for later modifications
+	path_curve = starting_path.get_curve()
+
+func _process(delta: float) -> void:
+	# Ensure there are points in the curve before processing (this should always be true)
+	if path_curve.get_point_count() == 0:
+		return
+	
+	# Get the position of the second point in the curve
+    # Because we remove the first point in the function below,
+    # this second point in the path curves' list will always change to the next point.
+	var second_point: Vector3 = path_curve.get_point_position(1)
+	# Get the current global position of the car
+	var car_pos: Vector3 = car.global_position
+	
+	# Check if the car is near the second point of the track
+	if second_point.distance_squared_to(car_pos) < 100.0:
+		# Car has passed the segment, set the flag
+		passed_road_segment = true
+	# Check if the car has moved far past the segment and if the flag is set
+    # Because when the segment is removed the car won't be falling, but driving on the newer segment
+	elif second_point.distance_squared_to(car_pos) > 1000.0 && passed_road_segment == true:
+		# Call the function to add a new road segment while removing the old one
+        # Because we are only using random functions, these track segments will be more varied and curvy.
+		remove_and_add_curvier_point()
+		# Reset the flag for the next segment
+		passed_road_segment = false
+
+func remove_and_add_curvier_point():
+	# Remove the first point in the curve to free up memory
+    # This will also change the second_point's point above.
+	if path_curve.get_point_count() > 0:
+		path_curve.remove_point(0)
+
+	# Get the last point's position in the curve
+	var last_index = path_curve.get_point_count() - 1
+	var last_position: Vector3 = path_curve.get_point_position(last_index)
+
+	# Define the offset for the new position:
+	# Forward movement along the Z-axis, with minor random offsets for variety
+	var forward_offset = Vector3(0, 0, randf_range(100, 200))
+	var lateral_offset = Vector3(randf_range(-30, 30), randf_range(-5, 5), 0)
+	var new_position = last_position + forward_offset + lateral_offset
+
+	# Calculate control tangents for a smooth curve
+	var control_length = forward_offset.length() * 0.8  # Length of control handles
+	var direction = (new_position - last_position).normalized()  # Unit vector of movement direction
+
+	# Define the "out" curve (control handle) for the last point
+	var out_curve = direction * control_length
+	out_curve.x += randf_range(-50, 50)  # Add randomness to X for sharp lateral turns
+	out_curve.y += randf_range(-10, 10)  # Optional: slight vertical variation
+	out_curve.z *= randf_range(0.8, 1.2)  # Vary forward movement length slightly
+	path_curve.set_point_out(last_index, out_curve)  # Set the "out" control for the last point
+	
+	# Define the "in" curve (control handle) for the new point
+	var in_curve = -out_curve  # Ensure smooth transitions by mirroring the "out" curve
+
+	# Add the new point to the curve with its control handles
+	path_curve.add_point(new_position, in_curve, out_curve)
+
+	# Update the Path3D node to reflect the updated curve
+	$Path3D.set_curve(path_curve)
+
+
+### Test it out!
+
+Run your game and your track and see what your code makes!
+
+Change these variables if you want a:
+1. Curvier or straighter track:
+        Consider changing the "In" and "Out" curves to smaller random ranges (for a straighter track), or larger random ranges (for a curvier track).
+2. Longer or shorter track:
+        Consider changing the `forward_offset` to smaller random ranges (for a shorter track), or larger random ranges (for a longer track).
+3. More bumps/hills in the road:
+        Consider changing the `lateral_offset` to smaller random ranges (for a smooth track), or larger random ranges (for a bumpier/hilly track).
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have made/put the timer logic into my script, and when I run it, the timer starts.
+- [ ] I put the endless racing concept in code and understand how it works.
+- [ ] I have implemented randomness into dynamic track making and understand how I can change different numbers and elements of the track to get my desired outcome.
+- [ ] My track is driveable (inputting some crazy numbers will make your track too hard to drive on).
+</Checklist>
+</Box>

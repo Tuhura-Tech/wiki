@@ -1,0 +1,120 @@
+---
+type: tutorial
+title: Using Noise Functions
+description: This page works through how to integrate procedural generation with a 3D game
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[Please Read This Godot Documentation]
+Reading through these nodes is ***highly*** recommended.
+[FastNoiseLite](https://docs.godotengine.org/en/stable/classes/class_fastnoiselite.html),
+[Noise](https://docs.godotengine.org/en/stable/classes/class_noise.html#class-noise)(for the noise Vector3 method).
+:::
+
+
+## Explanation of `get_noise_3d` and Simplex Noise
+The `get_noise_3d(x, y, z)` method generates a noise value based on the provided 3D coordinates. In this case:
+
+ - The input coordinates (x, y, z) correspond to positions in the virtual space, modified slightly with an offset for each axis to create variation.
+ - The method returns a noise value between -1 and 1. This value determines how much deviation is applied to the respective axis (e.g., lateral deviation for x, vertical deviation for y, and forward progression for z).
+ - The returned noise is multiplied by scaling factors (e.g., 150 for X, 10 for Y) to control the range of variations in each direction.
+
+#### How Simplex Noise Works in This Game:
+Simplex noise is a gradient noise algorithm that creates smooth and continuous variations across space. In this case:
+
+ - Smoothness: Simplex noise ensures that nearby points in the 3D space have similar noise values, creating a naturally smooth progression for the road.
+ - Fractal Detail: By using multiple octaves (fractal_octaves), the algorithm overlays layers of noise with increasing frequencies and decreasing amplitudes.
+    This adds finer details to the base noise, making the road curves more realistic.
+ - Directional Influence: The noise is sampled in specific ways (e.g., with offsets in x, y, or z) to introduce controlled randomness. For instance:
+        X-axis noise creates lateral curves.
+        Y-axis noise adds minor vertical undulations.
+        Z-axis noise ensures forward progression with subtle randomness.
+
+
+By combining these characteristics, the `remove_and_add_point_with_noise` function shown down below generates a procedurally curved road with realistic turns and elevations, ensuring smooth transitions between segments.
+
+
+### Making a Track Using Noise
+
+*Add this code onto your existing code.* Feel free to delete the comments after you've understood the code.
+
+```gdscript title="endless_racing.gd"
+var noise = FastNoiseLite.new()  # Create a new instance of FastNoiseLite for procedural noise generation
+
+func _ready() -> void:
+	# Initialize the noise generator
+	noise.seed = randi()  # Randomize the seed for unique noise patterns
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX  # Use Simplex noise for smooth procedural variation
+	noise.frequency = 0.0005  # Set a low frequency for long-wavelength noise
+	noise.fractal_octaves = 4  # Add layers of detail to the noise using fractal octaves
+	noise.fractal_gain = 0.5  # Adjust the contribution of higher octaves
+
+func _process(delta: float) -> void:
+	# Check if the car is near the second point of the track
+	if second_point.distance_squared_to(car_pos) < 100.0:
+		passed_road_segment = true
+	elif second_point.distance_squared_to(car_pos) > 1000.0 && passed_road_segment == true:
+		# Randomly decide which method to use for extending the track
+        # You can change this if you want, but this works best for straighter tracks with sharper tracks inbetween.
+		if randf_range(0, 1) > 0.5:
+			remove_and_add_point_with_noise()
+		else:
+			remove_and_add_curvier_point()
+		passed_road_segment = false
+
+func remove_and_add_point_with_noise():
+	# Remove the first point to save memory
+	if path_curve.get_point_count() > 0:
+		path_curve.remove_point(0)
+
+	# Get the position of the last point in the curve
+	var last_index = path_curve.get_point_count() - 1
+	var last_position: Vector3 = path_curve.get_point_position(last_index)
+
+	# Use FastNoiseLite to calculate an offset for the new point
+	var noise_offset = Vector3(
+		noise.get_noise_3d(last_position.x + 10, last_position.y, last_position.z) * 150,
+		noise.get_noise_3d(last_position.x, last_position.y + 10, last_position.z) * 10,
+		100 + noise.get_noise_3d(last_position.x, last_position.y, last_position.z + 10) * 100  # Z-axis (forward movement)
+	)
+	var new_position = noise_offset + last_position  # Add the noise offset to the last position to generate the new point
+
+	# Calculate control tangents for smoother and sharper curves
+	var out_curve = noise_offset * 0.9  # Out curve aligns with the noise offset
+	var in_curve = -noise_offset * 0.9  # In curve is the opposite direction for smooth transitions
+
+	# Add the new point to the curve
+	path_curve.add_point(new_position, in_curve, out_curve)
+
+	# Adjust the Out curve of the previous point to maintain continuity
+	if last_index >= 0:
+		path_curve.set_point_out(last_index, -in_curve)
+
+	# Update the Path3D with the new curve
+	$Path3D.set_curve(path_curve)
+```
+
+
+### Test it out!
+
+Run your game and your track and see what your code makes!
+
+#### Experimenting Further
+Increase the Noise Multiplier:
+ - Try setting noise.get_noise_3d(...) * 150 or higher to see exaggerated, crazier turns.
+Add Random Tilt:
+ - You can add slight randomness to the Y-axis noise to tilt the road slightly.
+Frequency Tuning:
+ - Play with values between 0.001 and 0.01 for noise frequency to balance sharpness and smoothness.
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I understand how Simplex Noise works.
+- [ ] I understand how the noise function works on the car track.
+- [ ] My track is still driveable, with straighter tracks inbetween the curvier tracks.
+</Checklist>
+</Box>

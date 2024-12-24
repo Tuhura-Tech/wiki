@@ -1,0 +1,63 @@
+---
+type: tutorial
+unitTitle: Infinite track with randomness
+title: Putting it all together
+description: This page works through how to integrate procedural generation with a 3D game
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+## The Infinite Concept
+
+In order to make an endless track, the process goes like this:
+1. Start off with a section of the original track, preferably a straight line.
+2. Each time the car gets halfway through the current track section it's driving on, add another section to the end of the current track. This added on piece of track will be procedurally generated.
+3. After it has gone to the next section of the track, delete the previous section (to save memory).
+4. Update the track and repeat steps 2 and 3 endlessly!
+
+Everything apart from step 1 will be done through GDScript (code) as this is a dynamic generation of the track (you make the track during run time).
+
+## Making the Starting Scene
+
+We will need to set up our scene before we can begin coding the procedurally generated track.
+
+<Steps>
+1. Firstly, make a new scene and call it `infinite_racing.tscn`. Add a new **Node3D**, named "EndlessRacing".
+    Copy and paste from your other track that you've made the **Path3D** and all it's child nodes.
+    You will not be needing the Area3D checkpoint/s or finish line because this is an endless track.
+2. Then, in each **Path3D** node, turn **OFF** `Path Joined`.
+2. In your **Path3D** node, delete your previous "Points" and make 3 points which end up turning or facing the **Z direction**.
+    Your road should look something like this:
+    ![picture of road turning to face the Z direction](/src/assets/proceduralgeneration/3dinfinitegame/pathPointingToZ.png)
+
+    We are making the road turn to face the Z direction because we will be coding the track to 'move forward' in the Z direction.
+3. Add in a **DirectionalLight3D** as a child of your "EndlessRacing" node. Adjust the height and rotation so you are able to see the road.
+4. From your **FileSystem**, drag in your `car.tscn` scene as a child to your "EndlessRacing" node. Adjust the cars coordinates so the car is placed at the start of your track.
+
+    :::note[Remember: Car Camera Placement]
+    If you have made a follow camera, read this.
+
+    If you move your car, you will notice the top level cameras don't follow the car. This is because the cameras are placed at the top level of the scene and need to be manually moved.
+
+    To do this:
+    <Steps>
+    1. Move the car to the designated area you want.
+    2. Copy those (x y, z) coordinates into your `car.tscn` scene into the pivot camera control nodes coordaintes and on your car.
+    </Steps>
+    :::
+    
+    Your scene should now look something like this:
+    [picture of scene tree for endless racing.](/src/assets/proceduralgeneration/3dinfinitegame/sceneTreeAndPerspective.png)
+</Steps>
+
+You're now ready to start the script!
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have a ready made endless racing scene.
+</Checklist>
+</Box>
