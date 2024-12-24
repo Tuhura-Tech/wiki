@@ -1,0 +1,108 @@
+---
+type: tutorial
+unitTitle: Spawning Enemies
+title: Enemy Spawning
+
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+Spawning in objects is a crucial part of a great deal of games.
+
+In Godot, we first need a scene to instantiate. Instantiating something means making a copy of it, AKA making an instance of it.
+
+Next, we need to set any variables it might need.
+
+Finally, add it to the scene tree so it's actually in the game world.  
+This will be when the `@onready` variables and the `_ready` function finally run, since they run when a node is added to the scene tree. After those run, it'll begin `_physics_process` and `_process`.
+
+### Enemies
+
+The way we spawn enemies is ultimately up to you. You could spawn them at random points around the map but not on the player, you could make a bunch of spawners that continuously spew enemies, perhaps make it a goal for the player to close all the spawners.
+
+For now, we're just going to spawn enemies around the player, but just outside their camera.
+
+<Steps>
+
+1. Make a **Path2D** node as a child of **Camera2D** in your player scene, then a **PathFollow2D** node and a **Timer** node as a child of **Path2D**.
+
+    The Godot docs have [a perfect example of doing this](https://docs.godotengine.org/en/stable/getting_started/first_2d_game/05.the_main_game_scene.html#spawning-mobs), it's recommended you go through the **Spawning Mobs** section there to make the points on your **Path2D**, but we'll go through it quickly too.
+
+2. Select **Path2D** and use the green tool in the toolbar's **Path2D** tools, **Add Point**. This tool is used to add points to the path. Also, toggle on the **Use Smart Snap** and **Use Grid Snap** options in the toolbar.
+
+    In clockwise order, use the **Add Point** tool and select just outside all four corners of the camera's pink boundary to create a path. After doing the final corner, use the final **Path2D** tool that comes before **Options**, **Close Curve**, to connect the path back to the beginning. You'll want to have the points be outside of the camera, otherwise the enemies will spawn half-way on screen.
+
+</Steps>
+
+:::danger[Resizing Screen]
+The Godot docs don't mention this at the time of making this **Path2D** way, but this doesn't scale with the screen. If you even maximize the window that Godot makes for the game, it won't scale.
+
+To fix this go to **Project > Project Settings... > General** (tab) **> Display** (category) **> Window > Stretch** (section). Change **Mode** to `canvas_items` and **Aspect** to `keep`.
+
+This will make it so you see the exact same window and aspect ratio as everyone else. It also means that people with different aspect ratio monitors will get ugly and awful black bars to fit it into their monitor.
+
+If you're really confident in your programming skills, try using the `size_changed` signal on `get_tree().root` to move the points of the **Path2D** when the window is resized.
+:::
+
+#### Script
+<Steps>
+1. Add a script to your **Path2D**. 
+
+2. Turn **Autostart** on for the **Timer** and set its wait time to 5 seconds., then connect its `timeout()` signal to the mob spawner (your **Path2D**).
+
+3. Get both the spawn location (**PathFollow2D**) and the spawn timer as variables by dragging the nodes into the script and holding ctrl/cmd before releasing click. Do the same thing with the enemy scene in your **FileSystem** dock.
+
+4. At the top of your global variables in the script, add the line:
+
+    ```gdscript
+    @export_range(0.0, 1.0, 0.01) var respawn_delta: float = 0.99
+    ```
+
+    All this does is make a custom property appear on the node that can be changed in the editor without having to go into the script. This lets us quickly and easily change how quickly the spawn timer's wait time decreases. It's good to keep this close to 1 since it's exponential.
+
+5. In the function connected to the timer's `timeout()` signal, write the following:
+
+    ```gdscript
+    var new_enemy: Enemy = ENEMY.instantiate()
+    spawn_location.progress_ratio = randf()
+    new_enemy.global_position  = spawn_location.global_position
+    get_tree().root.add_child(new_enemy)
+
+    spawn_timer.wait_time *= respawn_delta
+    ```
+
+    This script assumes you renamed your **NodeFollow2D** to **SpawnLocation** and your **Timer** to **SpawnTimer** before generating the variables for them by dragging them in. You can also just rename the variables to `spawn_location` and `spawn_timer`.
+
+6. This script has an issue. I doubt you'll be able to find it without playing the game for a few runs. But otherwise, this should work! Try playing your magical game a few times.
+
+    Have you noticed the problem yet?
+
+    Enemies don't disappear when the player dies!
+
+    Go back through and try to figure out what's causing this, there will be no explanation, just a solution. Hint: you may want to think about how the singleton doesn't reset, either.
+
+    Add this code:
+
+    ```gdscript
+    var main_node: Node2D
+
+    func _ready():
+        main_node = get_node("/root/Main")
+    ```
+
+    Replace `Main` with the name of your main scene's root node.
+
+    Replace `get_tree().root.add_child(new_enemy)` with `main_node.add_child(new_enemy)` in the connected `timeout()` function.
+</Steps>
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created the Path2D
+- [ ] Enemies spawn along the Path
+- [ ] Enemies dissapear when the player dies
+</Checklist>
+</Box>
