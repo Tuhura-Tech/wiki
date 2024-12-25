@@ -91,7 +91,7 @@ export const starlightPluginAutolinkHeadings = () =>
 				// TODO: Replace this hack with Starlight’s own translation system once it’s exposed here.
 				const useTranslationsForLang = createTranslationSystemFromFs(
 					{
-						defaultLocale: { lang: 'en', locale: 'en', label: 'English' },
+						defaultLocale: { lang: 'en', locale: 'en', label: 'English', dir: 'ltr' },
 						// In theory user-configured locales might not include `dir` properties (or be undefined).
 						// But we provide `locales` and always set `dir` currently.
 						locales: config.locales as TranslationSystemLocales,

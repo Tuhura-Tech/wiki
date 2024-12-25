@@ -5,7 +5,6 @@ import { getPageCategory } from './getPageCategory';
  * Pages in these categories are not visible in the sidebar, so we highlight the parent instead.
  */
 const categoryParents: Partial<Record<ReturnType<typeof getPageCategory>, string>> = {
-	'Error Reference': 'reference/error-reference',
 	Tutorials: 'tutorial/0-introduction',
 };
 

@@ -25,7 +25,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
 		return page.id + '.webp';
 	},
 
-	getImageOptions: async (_, { data, id }: (typeof pages)[string]): Promise<OGImageOptions> => {
+	getImageOptions: async (_, { data }: (typeof pages)[string]): Promise<OGImageOptions> => {
 		return {
 			format: 'WEBP',
 			quality: 90,
