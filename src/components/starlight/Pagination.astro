@@ -12,7 +12,7 @@ let { prev, next } = pagination;
 
 const tutorialPages = getTutorialPages(pages, lang.toLowerCase());
 
-if (Astro.props.entry.id.split('/')[1] === 'tutorial') {
+if (Astro.props.entry.data.type === 'tutorial') {
 	const i = tutorialPages.findIndex((p) => p.id === entry.id);
 	if (tutorialPages[i - 1]) {
 		const prevPage = tutorialPages[i - 1];
