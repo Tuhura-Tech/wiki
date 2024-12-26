@@ -26,11 +26,11 @@ export const sidebar = [
 					},
 					{
 						label: '2D Platformer',
-						link: 'guides/game-dev/2dplatformergame/0-making-the-player/',
+						link: 'guides/game-dev/2dplatformer/0-making-the-player',
 					},
 					{
 						label: '2D Racing Game',
-						link: 'guides/game-dev/2dracinggame/0-making-the-cars/',
+						link: 'guides/game-dev/2dracing/0-making-the-cars',
 					},
 					{
 						label: 'Universal Features',
@@ -46,7 +46,7 @@ export const sidebar = [
 					},
 					{
 						label: '3D Intro',
-						link: 'guides/game-dev/3d-intro/0-making-the-project',
+						link: 'guides/game-dev/3d-intro/0-making-project',
 					},
 					{
 						label: 'Setting up C# For Godot',
