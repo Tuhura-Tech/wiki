@@ -68,13 +68,23 @@ This does not mean these tools are the best nor the ony way to do it, often you 
 
 ### Base Website
 
+This project goes over the basics of HTML, CSS and FastAPI to build a basic website.
+
 ### Databases
+
+This adds a database to our website enabling us to show and query data
 
 ### Testing
 
+Taking our existing website we extend it to add automated testing.
+
 ### Building a Blog
 
+Using all of our skills we design and build a blog.
+
 ### Making a Portfolio Site
+
+Using all of our skills we design and build a portfolio site.
 
 ### Capstone Internal Project
 
