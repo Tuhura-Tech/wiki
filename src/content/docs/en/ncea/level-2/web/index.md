@@ -2,7 +2,7 @@
 title: Level 2 Web Internals
 description: Overview of Level 2 Resources
 sidebar:
-  order: 2
+  order: 1
 ---
 
 This exists as a base resource for covering NCEA Digitech at level 2 with 3 chosen Internals which is enough to pass. These resources are freely available under a Creative Commons License and provide resources for students and teachers. This is an opinionated delivery process based on our experience and supported by those who contribute to this Wiki.
@@ -89,3 +89,5 @@ Using all of our skills we design and build a portfolio site.
 ### Capstone Internal Project
 
 This project is the one used for assessment to the NCEA Internal standards and builds on the concepts covered throughout these resource. It is designed so that you can design 
+
+
