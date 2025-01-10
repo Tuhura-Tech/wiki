@@ -7,7 +7,7 @@ For our project we will be using Python with [Uv](https://docs.astral.sh/uv/) as
 
 ## Setting Up Python
 
-### Instlaling UV
+### Installing UV
 
 To install UV, we can follow the instructions on the [official documentation](https://docs.astral.sh/uv/).
 
