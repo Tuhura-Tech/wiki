@@ -6,12 +6,12 @@ sidebar:
 ---
 
 
-Section will cover:
+Installing FaspAPI/Jinja2
 
-HTML/CSS
+Setting up directories
 
-Jinja
+Create main.py that will get us a server response
 
-Fast API
+run server, see server response
 
-Creating a basic web page
+Cover Jinja templating and tags (Seperate page to cover Jinja content?)

@@ -5,6 +5,14 @@ sidebar:
   order: 1
 ---
 
+TODO:
+- Fix ordering of pages
+- Page creating basic FastAPI and Jinja page
+
+Order:
+Dev Environment -> Web Development -> Version Control -> Database -> Testing
+
+
 This exists as a base resource for covering NCEA Digitech at level 2 with 3 chosen Internals which is enough to pass. These resources are freely available under a Creative Commons License and provide resources for students and teachers. This is an opinionated delivery process based on our experience and supported by those who contribute to this Wiki.
 
 The design of this resource is based on project work to teach concepts instead of pure theory with three explore projects, two design projects and the final capstone project which will be used for the internals. These resources are designed with someone with little to no programming experience required but also have escape hatches built in to cover more complex topics.
