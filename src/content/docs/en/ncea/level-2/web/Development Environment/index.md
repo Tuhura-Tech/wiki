@@ -20,8 +20,6 @@ These options are not mutually exclusive, and you can use both in conjunction wi
 
 ---
 
-
-
 ## VSCode
 
 To setup a development environment for web development, we will be using [Visual Studio Code (VSCode)](https://code.visualstudio.com/) as our code editor.
@@ -47,5 +45,21 @@ The file browser can be found in the left side navigation menu by click the two 
 When creating a new file, make sure to end the filename with the type of file you want. For example, a python script must end with ".py" or a text file with ".txt"
 
 Don't worry if creating a python script doesn't work right now, we'll be setting up Python in the Python page.
+
+## The Terminal
+
+The Terminal can be found at the bottom of VSCode, and allows you to input commands to do things like install packages, or run scripts. 
+
+If you're asked to input a command into the terminal, navigate to the tab, click in the window, type your command, and hit enter.
+
+![Terminal Location](/src/assets/ncea2web/terminallocation.PNG)
+
+If you encounter any problems with the terminal instance, or it gets stuck in any kind of loop, you can kill the process using the icon on the right.
+
+![Terminal Kill](/src/assets/ncea2web/terminalkill.PNG)
+
+Then, you can create a new terminal instance using the top menu bar.
+
+![New Terminal](/src/assets/ncea2web/terminalnew.PNG)
 
 ## GitHub Codespaces

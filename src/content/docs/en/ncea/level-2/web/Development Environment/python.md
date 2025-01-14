@@ -21,15 +21,16 @@ Search "Python" and install the Python package. This will add support for the Py
 
 To install UV, we can follow the instructions on the [official documentation](https://docs.astral.sh/uv/).
 
-Then we can create our projects
+Then we can create our project by typing
 
 ```sh
 uv init my_project
 ```
+in the terminal 
 
 ### Virtual ENv
 
-We can create a virtual environment using the following command
+We can create a virtual environment using the following terminal command
 
 ```sh
 uv venv
@@ -37,7 +38,7 @@ uv venv
 
 ### Running scripts
 
-Instead of interacting with the Virtual Env directly it is easier to run scripts using the following command
+Instead of interacting with the Virtual Env directly it is easier to run scripts using the following command in the terminal
 
 ```sh
 uv run my_script.py
@@ -47,7 +48,7 @@ uv run my_script.py
 
 ### Style
 
-For style we will be using [Ruff](https://docs.astral.sh/ruffle/)
+For code style and formatting we will be using [Ruff](https://docs.astral.sh/ruff/) which can be installed using the following command in the terminal
 
 ```sh
 uv add ruff
