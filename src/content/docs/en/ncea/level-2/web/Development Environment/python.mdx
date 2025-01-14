@@ -1,0 +1,91 @@
+---
+title: Setting Up Python
+description: Overview of Level 2 Resources
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+For our project we will be using Python with [Uv](https://docs.astral.sh/uv/) as the package manager.
+
+## Setting Up Python
+
+If it wasn't installed during your installation of VSCode, Python is most easily added using the built in extensions manager in VSCode.
+
+The extension manager can be found on the sidebar to the left, with the image of four boxes.
+
+Search "Python" and install the Python package. This will add support for the Python Language. If the install button isn't visible, you'll already have it installed and can move on.
+
+![Installing Python](/src/assets/ncea2web/pythonInstall.png)
+
+
+### Installing UV
+<Steps>
+
+1. To install UV, we can follow the instructions on the [official documentation](https://docs.astral.sh/uv/).
+
+    this will likely mean running
+
+    ```sh
+    Set-ExecutionPolicy RemoteSigned -scope CurrentUser
+    ```
+
+    followed by 
+
+    ```sh
+    powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
+    ```
+
+    In the Terminal.
+
+2. Next, to ensure UV installed correctly, run
+
+    ```sh
+    uv
+    ```
+    in the terminal. If you get an error, you'll likely need to restart your device to ensure UV is installed correctly. If you get an output showing different commands, you can move on.
+
+
+3. Then we can create our project by typing
+
+    ```sh
+    uv init my_project
+    ```
+    in the terminal.
+
+    This will create a folder in which your project will sit. All files you add to your project should sit inside this folder.
+
+</Steps>
+
+### Virtual ENv
+
+We can create a virtual environment using the following terminal command
+
+```sh
+uv venv
+```
+
+to make the Virtual Environment active, you'll want to run 
+
+```sh
+uv run .venv\Scripts\activate_this.py
+```
+
+For more information about what a virtual environment is and how it works, you can look at the [official python docs](https://docs.python.org/3/library/venv.html#how-venvs-work)
+
+### Running scripts
+
+Instead of interacting with the Virtual Env directly it is easier to run scripts using the following command in the terminal
+
+```sh
+uv run my_script.py
+```
+
+## Adding dependencies
+
+### Style
+
+For code style and formatting we will be using [Ruff](https://docs.astral.sh/ruff/) which can be installed using the following command in the terminal
+
+```sh
+uv add ruff
+```
