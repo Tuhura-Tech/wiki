@@ -26,6 +26,8 @@ To setup a development environment for web development, we will be using [Visual
 
 ### Creating a project in VSCode
 
+todo: it may be easier to not create a project this way, and to simply do it using UV in the terminal, as otherwise student must cd to the directory created by UV every time a new terminal instance is created
+
 To create a new project in VSCode, it's easiest to create a new folder outside of VSCode. You'll want a folder that holds all your projects, with each project having an individual folder inside this.
 
 Once you have a new empty folder, you can right click inside, and "Open with Visual Studio Code"

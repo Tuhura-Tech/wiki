@@ -29,6 +29,32 @@ Which should leave you with a project that looks something like this:
 
 ## Getting a server response
 
+Creating a FastAPI app that'll get us a response and allow us to test that we're set up correctly only requires us to add two lines to **main.py** 
+
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+```
+
+in the terminal we can now launch a dev server by running
+
+```sh
+fastapi dev
+```
+
+You'll notice that fastAPI has now launched a dev server, and given us two links:
+
+**Server started at http://127.0.0.1:8000**
+**Documentation at http://127.0.0.1:8000/docs**
+
+We'll want to click the server link, it should open up a JSON file in your browser, that simply displays: "detail: not found"
+
+That's fine as we just wanted to test! 
+
+Great! You can shut the development server down by returning to the terminal and pressing CTRL + C
+
+
 ## Creating a simple blog page using Jina templates
 
 ## Adding style using CSS
