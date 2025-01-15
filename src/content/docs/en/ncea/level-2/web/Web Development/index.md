@@ -55,7 +55,61 @@ That's fine as we just wanted to test!
 Great! You can shut the development server down by returning to the terminal and pressing CTRL + C
 
 
-## Creating a simple blog page using Jina templates
+## Creating a simple html page
+
+Great! we now know how to run the Dev Server. Let's start by creating a very basic HTML page, and then integrating Jinja templating!
+
+In your **Templates** folder, create a new file called "blog.html"
+
+Set it up something like this, an extremely basic html page: 
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>This is my blog</title>
+</head>
+<body>
+    <h1>This is my blog</h1>
+    Here is where my posts will go
+</body>
+</html>
+```
+
+Back in our **main.py** we'll need a few more import statements, altogether your imports should be:
+
+```python
+from fastapi import FastAPI
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+```
+
+Everything that follows should be written *below* **app = FastAPI()**
+
+Finally, we'll write the code that loads our page. 
+
+First, let's load the templates directory we created
+
+```python
+templates = Jinja2Templates(directory="templates")
+```
+
+Then, let's load the page we created earlier:
+
+```python
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request})
+```
+
+Run the Dev server, and you should now have a very *very* simple page loaded! 
+
+
+## Integrating Jinja templates
+
+
 
 ## Adding style using CSS
 
