@@ -5,6 +5,9 @@ sidebar:
     order: 3
 ---
 
+
+Todo: add steps, better organise page
+
 This page will walk you through setting up a basic webpage using Jinja2 templating and FastAPI
 
 You should already have installed UV, created a project directory, CD'd into the directory, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages todo: link
@@ -53,6 +56,11 @@ We'll want to click the server link, it should open up a JSON file in your brows
 That's fine as we just wanted to test! 
 
 Great! You can shut the development server down by returning to the terminal and pressing CTRL + C
+
+
+:::note[Dev Server]
+Note that you don't need to stop and restart the dev server whenever you make changes. It will automatically watch for changes, and update as you make them. So once you've started the Dev server, you don't need to start it again unless it crashes.
+:::
 
 
 ## Creating a simple html page
@@ -108,6 +116,77 @@ Run the Dev server, and you should now have a very *very* simple page loaded!
 
 
 ## Integrating Jinja templates
+
+What we've just created works, but it could done more easily by just making a .html file. So let's integrate Jinja and see the power of templating!
+
+Jinja allows us to create reusable templates that can easily be slotted into pages, without the need to rewrite the html. Jinja can do much much more than this (Which we'll get to) but at its core, it allows us to create resuable and dynamically filled templates for our pages.
+
+Think of how this might apply to a blog! We don't want to have to manually edit the html for each new blog post, instead our site should dynamically populate the site with blog posts stored in a database!
+
+To start with, let's turn our current html into something reusable. Create a new file called **base.html** and copy the content from **blog.html** to it.
+
+Instead of having this manually typed text, let's replace it with fields that Jinja can populate!
+
+Jinja fields are written like this:
+
+```html
+{% block title %}
+
+{% endblock %}
+
+```
+with **title** being replaced with the name of the content block!
+
+So we can convert **base.html** to something that looks like this:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <h1>{% block head %}{% endblock %}</h1>
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>
+
+```
+This will now serve as the *base* from which our pages can *extend*
+
+Speaking of, let's go to **blog.html** and delete our old work, as it's now replaced by **base.html.** this should leave us with an empty file.
+
+To extend our **base.html** we'll start with 
+
+
+```html
+{% extends "base.html" %}
+```
+
+This tells Jinja that we're building on this as a template, and we can then refer to the fields within that page.
+
+We can then refer to the *title* and *head* fields to populate them with what we want.
+
+```html
+{% block title %}My Blog{% endblock %}
+
+{% block head %}My Blog{% endblock %}
+
+```
+
+Take a look at your site, and you should now see these fields filled by "My Blog" 
+
+This is the power of Templating, once we've created a template, we don't need to write it again. If a template is used in multiple pages, we only need to edit it in one place!
+
+### Blog posts
+
+
+Filling the content block is slightly more complicated, as there's two things we need: 1. Blog posts to load 2. Interpreting and displaying of these posts using Jinja.
+
+Generally your blog posts would be in something like an SQL database, which is something you'll be shown how to set up later. But for now, we'll just store them in our Python script using a list.
 
 
 
