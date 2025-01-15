@@ -12,6 +12,8 @@ This page will walk you through setting up a basic webpage using Jinja2 templati
 
 You should already have installed UV, created a project directory, CD'd into the directory, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages todo: link
 
+For more information, and help with Jinja, take a look at the [Official Documenation](https://jinja.palletsprojects.com/en/stable/)
+
 ## Installing FastAPI/Jinja2
 
 The first thing we'll want to do is install FastAPI so we can use it in our project, which will also install Jinja2
@@ -183,12 +185,146 @@ This is the power of Templating, once we've created a template, we don't need to
 
 ### Blog posts
 
-
 Filling the content block is slightly more complicated, as there's two things we need: 1. Blog posts to load 2. Interpreting and displaying of these posts using Jinja.
 
-Generally your blog posts would be in something like an SQL database, which is something you'll be shown how to set up later. But for now, we'll just store them in our Python script using a list.
+Generally your blog posts would be in something like an SQL database, which is something you'll be shown how to set up later. But for now, we'll just store them in our Python script using a list of dictionaries.
+
+Let's go back to **main.py** and create some dummy blog posts in a temporary "database" that we can load.
+
+There's a few things we'll want in a blog post: 
+
+1. A title
+2. The content of the blog post itself
+3. The date the post was made
+
+We'll define it like this, creating three fake posts:
+
+```python
+post_database = [{
+    'title': 'First post on my blog',
+    'content': 'Welcome to my blog! This is my first post!',
+    'publication_date': '10/01/2025'
+},{
+    'title': 'Second post on my blog',
+    'content': 'This is the second post im making on my new blog!',
+    'publication_date': '12/01/2025'
+},{
+    'title': 'Third post on my blog',
+    'content': 'This is the third post on my blog',
+    'publication_date': '15/01/2025'
+}]
+
+```
+We'll send this List of posts to our page by modifying the **load_blog** function to this:
+
+``` python
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": post_database})
+
+```
+This will pass the list as a variable that our template can use to populate its fields dynamically.
+
+our **main.py** should look like this: 
+
+``` python
+
+from fastapi import FastAPI
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+
+app = FastAPI()
+templates = Jinja2Templates(directory="templates")
+
+post_database = [{
+    'title': 'First post on my blog',
+    'content': 'Welcome to my blog! This is my first post!',
+    'date_posted': '10/01/2025'
+},{
+    'title': 'Second post on my blog',
+    'content': 'This is the second post im making on my new blog!',
+    'date_posted': '12/01/2025'
+},{
+    'title': 'Third post on my blog',
+    'content': 'This is the third post on my blog',
+    'date_posted': '15/01/2025'
+}]
+
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": post_database})
+
+```
+
+### Loading the posts
+
+A lot can be done with Jinja statements, which is covered in it's own page. For now, we'll just use what we need to create our blog.
+
+Now we'll return to our **blog.html** and populate the **Content block**
+
+Let's tell Jinja that we want to fill the Content block, and start iterating through the Posts
+
+``` html
+{% block content %}
+
+    {% for post in posts %}
+
+```
+Let's create a "post" div to allow us to style the posts later using css.
+
+```html
+<div class="post">
+```
+
+Then, let's get the title and the date of posdting of the blog post from the python dictionary:
+
+``` html
+<h2>{{ post.title }}</h2>
+<p>Originally posted: {{ post.date_posted }}</p>
+```
+
+Then let's get the content of the post:
+
+```html
+<p>
+{{ post.content }}</p>
+```
+
+and finally close out our statements
 
 
+```html
+</div>
+    {% endfor %}
+{% endblock %}
+
+```
+giving us a file that looks like this:
+
+``` html
+
+{% extends "base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block head %}My Blog{% endblock %}
+
+{% block content %}
+
+    {% for post in posts %}
+        <div class="post">
+                <h2>{{ post.title }}</h2>
+                <p>Originally posted: {{ post.date_posted }}</p>
+                <p>{{ post.content }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+```
+
+Take a look at the page on the Dev Server, and you'll notice now that all three blog posts should be displayed dynamically!
 
 ## Adding style using CSS
 

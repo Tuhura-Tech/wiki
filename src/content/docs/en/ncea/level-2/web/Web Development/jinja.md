@@ -6,4 +6,4 @@ sidebar:
 ---
 
 
-todo: provides an overview of Jinja2
+todo: provides an overview of Jinja2 and what can be done with
