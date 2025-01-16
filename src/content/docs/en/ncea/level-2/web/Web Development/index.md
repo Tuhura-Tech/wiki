@@ -328,3 +328,71 @@ Take a look at the page on the Dev Server, and you'll notice now that all three 
 
 ## Adding style using CSS
 
+Adding CSS to our page is fairly simply, though slightly different then how we'd normally do it 
+
+Create a file inside the **static** directory you created earlier called **style.css** which will be the stylesheet for our blog.
+
+Then, we'll need to tell Jinja where to find this. Let's head back to **base.html** (This will also mean this style is used by anything that extends the base)
+
+in our <head> tag, we'll add a new line
+
+```html
+<link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+```
+
+giving us a <head> that looks like this
+
+``` html
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
+</head>
+
+```
+Before our stylesheet will work, we'll need to mount the static directory so that it can be accessed at runtime. Head back to **main.py**  and below where we return the Templates, we'll add a new line
+
+``` python
+app.mount("/static", StaticFiles(directory="static"), name="static")
+```
+
+meaning the bottom of **main.py** should look like this:
+
+
+```python
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": post_database})
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+```
+
+Now we can go ahead and add a simple style to our website! Though it's a good idea to run the site now and make sure it works.
+
+I made a very simple stylesheet that makes the website look a little nicer, use it to test that your stylesheet works, but afterwards, feel free to make your blog look however you wish!
+
+```css
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: #423a3a;
+}
+
+h1, h2, h3, h4 {
+    color: #e45353;
+}
+
+.post {
+    background-color: #382424;
+    color: #b9adad;
+    font-size: large;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+```
+
+If everything has been set up correctly, your site should look something like this:
+
+
+![Site with CSS](/src/assets/ncea2web/sitecss.PNG)
+
