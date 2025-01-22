@@ -5,4 +5,41 @@ sidebar:
     order: 4
 ---
 
-Section will cover adding an SQL database to the site created in the Web Design Section
+In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, you can find the instructions here. (link)
+
+
+### Setting up
+
+The first thing you'll want to do is install SQL model, after making sure your Virtual Env is activated
+
+```sh
+uv add sqlmodel
+```
+
+next we'll want to add imports to the top of **main.py** 
+
+```python
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+```
+
+
+### Database structure
+
+Next, we'll want to define the structure of our database. If we consider the types of the items we have in our 'fake' database, we have:
+
+- title (String)
+- content (String)
+- Date (String)
+
+We'll also want to have a unique ID for each post, which will be an int.
+
+When we define this in our script, i'll look like this:
+
+```python
+class Post(SQLModel, table = True):
+    id: int | None = Field(default = None, primary_key= True)
+    title: str = Field(index= True)
+    content: str
+    date_posted: str
+
+```
