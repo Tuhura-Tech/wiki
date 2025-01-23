@@ -8,7 +8,7 @@ sidebar:
 We can install pytest inside our Python virtual environment using
 
 ```python
-pip install -U pytest
+uv pip install pytest
 ```
 
 We'll then want to create a new folder called "tests"
@@ -20,3 +20,27 @@ Pytest looks for files with names that either start with test_ or end with _test
 :::
 
 https://fastapi.tiangolo.com/tutorial/testing/
+
+
+### Writing a simple test
+
+Once you've created a test file, you can begin writing tests. Say you have a function in your main file called multiplyfour, that takes an input of a number, and returns it multiplied by 4.
+
+We would test that it's actually multiplying by four like this:
+
+```python
+def test_multiply():
+    assert multiplyfour(4) == 16
+```
+
+When our tests are run, we'll be told how many have passed and how many have failed, and be given specific information on the tests which failed.
+
+### Running the tests
+
+To run your tests, you can simply run 
+
+```sh
+pytest
+```
+
+in the terminal.
