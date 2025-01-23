@@ -37,4 +37,26 @@ After the user has attempted to complete each task, you can ask for their feedba
 It's also a good idea to, rather than build a final version of your whole application, is to make a mockup, even in something as simple as paint and ask the user things like "Where would you click to login"
 
 
-## Accesibility
+## Accessibility
+
+Another important factor to consider when designing your UX, is the accessibility of your website/application. You should be designing to ensure that the most people are able to use and engage with your website. This means designing for disability accessibility, as well as ensuring your website is not generally "uncomfortable" to use.
+
+Some changes that are easily implemented, and can vastly improve accessibility:
+
+1. Avoiding colours that are too similar, using colours with good contrast, and that don't cause eyestrain. Tools like [Coolors](https://coolors.co/) make this easy, allowing testing for colourblindness.
+
+2. Ensuring text is large enough to be easily read. While small text can let you fit more on the screen, it can make things hard to read depending on device and user.
+
+3. Ensuring all images have alt-text, especially those that are necessary for navigation. The alt text should describe the content of the image. For images with links, the alt text should describe where the link goes. Alt text is necesarry for those who use screen readers to navigate your website. While this may not be a concern for your project website. It's a good thing to get into the habit of, especially if something you design ends up on the internet.
+
+Alt text can be added like this:
+
+```html
+<img src="img.jpg" alt = "Here you describe the image" >
+```
+
+For more information on writing good alt text, take a look at the guide by [Web Accessibility In Mind](https://webaim.org/techniques/alttext/)
+
+4. Your buttons and interface should not require perfect precision to click, and should be large enough that someone with limited fine motor control would still be able to click it.
+
+There are of course more things to consider and impliment, and this is only a short list of particularly easy changes that can be made to increase accessibility. This is also why testing UX with people that have a wide variety of backgrounds is vital to ensuring good UX.
