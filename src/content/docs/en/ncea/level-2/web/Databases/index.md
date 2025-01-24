@@ -5,6 +5,8 @@ sidebar:
     order: 4
 ---
 
+NOTE: SQL and web is far from my expertise, so there are likely better ways to do all this, if so, please feel free to change
+
 In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, you can find the instructions here. (link)
 
 
@@ -42,7 +44,7 @@ class Post(SQLModel, table = True):
     id: int | None = Field(default = None, primary_key= True)
     title: str = Field(index= True)
     content: str
-    date_posted: str
+    date: str
 
 ```
 
@@ -85,7 +87,35 @@ async def lifespan(app: FastAPI):
     yield
 ```
 
-Our fastAPI app now launches with a defined SQLModel database! However it's completely empty, and there's not really any way to interact with it.\
+Our fastAPI app now launches with a defined SQLModel database! However it's completely empty, and there's not really any way to interact with it.
 
 
 ### Interacting with our database
+
+To interact with our Database, we'll need to set up some functions that allow us to do things like add a post, and get all posts, or an individual post.
+
+Let's first create a function that adds a post to the database.
+
+```python
+@app.post("/posts/")
+def add_post(post_title: str, post_content: str, post_date: str) -> Post:
+    post = Post(title=post_title, content = post_content, date = post_date)
+
+    session = get_session()
+    session.add(post)
+    session.commit()
+    session.refresh(post)
+
+    return post
+```
+
+Let's also create a function that gets all the posts (This is something we'll want to display the posts on our blog)
+
+```python
+@app.get("/posts/")
+def get_posts() -> list[Post]:
+    session = get_session()
+    posts = session.exec(select(Post).offset(0).limit(100)).all()
+    
+    return posts
+'''
