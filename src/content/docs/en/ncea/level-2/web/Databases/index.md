@@ -116,6 +116,17 @@ Let's also create a function that gets all the posts (This is something we'll wa
 def get_posts() -> list[Post]:
     session = get_session()
     posts = session.exec(select(Post).offset(0).limit(100)).all()
-    
+
     return posts
-'''
+```
+
+If you want to add test posts to your database(The same way we've done using the python dictionary) we can do that easily:
+
+```python
+post_1 = Post(title="this is the title", content="this is the post content", date="01/01/01")
+post_2 = Post(title="this is the otherr title", content="this is the other post content", date="02/02/02")
+session = get_session()
+session.add(post_1)
+session.add(post_2)
+session.commit()
+```
