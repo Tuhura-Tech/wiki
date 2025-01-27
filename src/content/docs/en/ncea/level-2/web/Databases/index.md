@@ -44,7 +44,7 @@ class Post(SQLModel, table = True):
     id: int | None = Field(default = None, primary_key= True)
     title: str = Field(index= True)
     content: str
-    date: str
+    date_posted: str
 
 ```
 
@@ -68,6 +68,8 @@ def create_table():
 ```
 
 We *then* want to create a function that creates a **Session** when we want to request the database. A session stores the changes we want to make to the database, and used the engine to communicate them.
+
+TODO: likely not needed as we're just going to do this in the functions
 
 ```python
 def get_session():
@@ -112,12 +114,12 @@ Let's first create a function that adds a post to the database.
 
 ```python
 @app.post("/posts/")
-def add_post(post_title: str, post_content: str, post_date: str, session: SessionDep) -> Post:
-    post = Post(title=post_title, content = post_content, date = post_date)
-
-    session.add(post)
-    session.commit()
-    session.refresh(post)
+def add_post(post_title: str, post_content: str, post_date: str) -> Post:
+    post = Post(title=post_title, content = post_content, date_posted = post_date)
+    with Session(engine) as session:
+        session.add(post)
+        session.commit()
+        session.refresh(post)
 
     return post
 ```
@@ -126,8 +128,9 @@ Let's also create a function that gets all the posts (This is something we'll wa
 
 ```python
 @app.get("/posts/")
-def get_posts(session: SessionDep) -> list[Post]:
-    posts = session.exec(select(Post).offset(0).limit(100)).all()
+def get_posts() -> list[Post]:
+    with Session(engine) as session:
+        posts = session.exec(select(Post).offset(0).limit(100)).all()
 
     return posts
 ```
@@ -137,6 +140,7 @@ def get_posts(session: SessionDep) -> list[Post]:
 Here's is how the script is looking altogether at this point:
 
 ```python
+
 
 from typing import Annotated
 from contextlib import asynccontextmanager
@@ -199,26 +203,64 @@ app = FastAPI(lifespan= lifespan)
 
 @app.get("/", response_class=HTMLResponse)
 async def load_blog(request: Request):
-    return templates.TemplateResponse("blog.html", {"request": request, "posts": fakePosts})
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": get_posts()})
 
 
 
 @app.post("/posts/")
-def add_post(post_title: str, post_content: str, post_date: str, session = SessionDep) -> Post:
-    post = Post(title=post_title, content = post_content, date = post_date)
+def add_post(post_title: str, post_content: str, post_date: str) -> Post:
+    post = Post(title=post_title, content = post_content, date_posted = post_date)
 
-    session.add(post)
-    session.commit()
-    session.refresh(post)
+    with Session(engine) as session:
+        session.add(post)
+        session.commit()
+        session.refresh(post)
 
     return post
 
 @app.get("/posts/")
-def get_posts(session = SessionDep) -> list[Post]:
-    posts = session.exec(select(Post).offset(0).limit(100)).all()
+def get_posts() -> list[Post]:
+    with Session(engine) as session:
+        posts = session.exec(select(Post).offset(0).limit(100)).all()
 
     return posts
 
+
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
 ```
+
+### Adding test posts and displaying them on our page
+
+To fully switch over to using our fancy new SQL databse, rather than our fake python 'database' we'll need to create a test post, and pass our SQL database to our Jinja template.
+
+Thankfully both of these are super easy!
+
+To create a test post, we can add a line underneath
+
+```python
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+```
+
+and before
+
+```python
+yield
+```
+
+that's simply 
+
+```python
+add_post("test title", "test content", "test date")
+```
+or whatever you want it to say 
+
+TODO: Discuss opening the documentation side and viewing the database from there
+
+TODO: clearing database on project close, adding test posts and passing the databse through to be displayed (all easy)
+
+mention that if students are having errors with things like "contains no coloumn with name" to delete database.db and let it be recreated
