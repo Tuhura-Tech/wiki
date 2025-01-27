@@ -87,6 +87,20 @@ async def lifespan(app: FastAPI):
     yield
 ```
 
+We'll also want to modify 
+
+```python 
+app = FastAPI()
+```
+
+to be 
+
+```python
+app = FastAPI(lifespan= lifespan)
+```
+
+moving the lifespan() function we just created to be above it.
+
 Our fastAPI app now launches with a defined SQLModel database! However it's completely empty, and there's not really any way to interact with it.
 
 
@@ -98,10 +112,9 @@ Let's first create a function that adds a post to the database.
 
 ```python
 @app.post("/posts/")
-def add_post(post_title: str, post_content: str, post_date: str) -> Post:
+def add_post(post_title: str, post_content: str, post_date: str, session: SessionDep) -> Post:
     post = Post(title=post_title, content = post_content, date = post_date)
 
-    session = get_session()
     session.add(post)
     session.commit()
     session.refresh(post)
@@ -113,20 +126,99 @@ Let's also create a function that gets all the posts (This is something we'll wa
 
 ```python
 @app.get("/posts/")
-def get_posts() -> list[Post]:
-    session = get_session()
+def get_posts(session: SessionDep) -> list[Post]:
     posts = session.exec(select(Post).offset(0).limit(100)).all()
 
     return posts
 ```
 
-If you want to add test posts to your database(The same way we've done using the python dictionary) we can do that easily:
+### The Script so far
+
+Here's is how the script is looking altogether at this point:
 
 ```python
-post_1 = Post(title="this is the title", content="this is the post content", date="01/01/01")
-post_2 = Post(title="this is the otherr title", content="this is the other post content", date="02/02/02")
-session = get_session()
-session.add(post_1)
-session.add(post_2)
-session.commit()
+
+from typing import Annotated
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Depends
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+
+
+
+templates = Jinja2Templates(directory="templates")
+
+class Post(SQLModel, table = True):
+    id: int | None = Field(default = None, primary_key= True)
+    title: str = Field(index= True)
+    content: str
+    date_posted: str
+    
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, connect_args=connect_args)
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+
+
+SessionDep = Annotated[Session, Depends(get_session)]
+
+
+fakePosts = [{
+    'title': 'First post on my blog',
+    'content': 'Welcome to my blog! This is my first post!',
+    'date_posted': '10/01/2025'
+},{
+    'title': 'Second post on my blog',
+    'content': 'This is the second post im making on my new blog!',
+    'date_posted': '12/01/2025'
+},{
+    'title': 'Third post on my blog',
+    'content': 'This is the third post on my blog',
+    'date_posted': '15/01/2025'
+}]
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
+
+app = FastAPI(lifespan= lifespan)
+
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": fakePosts})
+
+
+
+@app.post("/posts/")
+def add_post(post_title: str, post_content: str, post_date: str, session = SessionDep) -> Post:
+    post = Post(title=post_title, content = post_content, date = post_date)
+
+    session.add(post)
+    session.commit()
+    session.refresh(post)
+
+    return post
+
+@app.get("/posts/")
+def get_posts(session = SessionDep) -> list[Post]:
+    posts = session.exec(select(Post).offset(0).limit(100)).all()
+
+    return posts
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 ```
