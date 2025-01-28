@@ -108,6 +108,10 @@ Our fastAPI app now launches with a defined SQLModel database! However it's comp
 
 ### Interacting with our database
 
+:::Note[SQL Errors]
+If at any point in the following steps, you're having errors like "contains no coloumn with *name*" even though you've definitely named the coloumn that when defining your database, try deleting the Database.SQL file in your project files. Then run the dev server again and the database will be automatically created again with the updated names.
+:::
+
 To interact with our Database, we'll need to set up some functions that allow us to do things like add a post, and get all posts, or an individual post.
 
 Let's first create a function that adds a post to the database.
@@ -268,7 +272,7 @@ Open that section, click **Try it out** and then **Execute** and you should see 
 
 Finally, to have your blog page display your created test posts, rather than the fake database, simply replace where the fake database is being passed to the Jinja templates.
 
-This would mean changing
+This would mean simply changing
 
 ```python
 @app.get("/", response_class=HTMLResponse)
@@ -283,6 +287,12 @@ to
 async def load_blog(request: Request):
     return templates.TemplateResponse("blog.html", {"request": request, "posts": get_posts()})
 ```
+
+Thankfully we named the fields in our SQL Database the same as those in our fake database, so we don't need to change our Jinja template at all!
+
+This also means we can delete our fakePosts database, as it's no longer used.
+
+
 
 TODO: clearing database on project close,
 
