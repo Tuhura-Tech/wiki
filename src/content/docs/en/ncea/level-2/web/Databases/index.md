@@ -292,8 +292,119 @@ Thankfully we named the fields in our SQL Database the same as those in our fake
 
 This also means we can delete our fakePosts database, as it's no longer used.
 
+### Clearing posts
+
+:::Note[Clearing posts]
+This step is entirely optional, and should only be done if you want your database to be cleared each time your app is shut down. This is useful to stop test posts clogging your database, but shouldn't be used when you want your database to remain between running your app.
+:::
+
+To clear your database without deleting it, we can add the following to the **lifespan** function beneath yield:
+
+```python
+with Session(engine) as session:
+        for p in get_posts():
+            session.delete(p)
+            session.commit()
+```
+
+making the function look like this: 
+
+```python
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    add_post("test title", "test content", "test date")
+    yield
+    with Session(engine) as session:
+        for p in get_posts():
+            session.delete(p)
+            session.commit()
+```
+
+The code before the **yield** is run as the app starts, and the code after the **yield** is run as it quits.
 
 
-TODO: clearing database on project close,
+At this point, the code for your main.py should look like this:
 
-mention that if students are having errors with things like "contains no coloumn with name" to delete database.db and let it be recreated
+```python
+
+from typing import Annotated
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, Depends
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse
+
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+
+
+templates = Jinja2Templates(directory="templates")
+
+class Post(SQLModel, table = True):
+    id: int | None = Field(default = None, primary_key= True)
+    title: str = Field(index= True)
+    content: str
+    date_posted: str
+    
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, connect_args=connect_args)
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+def get_session():
+    with Session(engine) as session:
+        yield session
+    
+
+
+SessionDep = Annotated[Session, Depends(get_session)]
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    add_post("test title", "test content", "test date")
+    yield
+    with Session(engine) as session:
+        for p in get_posts():
+            session.delete(p)
+            session.commit()
+
+app = FastAPI(lifespan= lifespan)
+
+@app.get("/", response_class=HTMLResponse)
+async def load_blog(request: Request):
+    return templates.TemplateResponse("blog.html", {"request": request, "posts": get_posts()})
+
+
+
+@app.post("/posts/")
+def add_post(post_title: str, post_content: str, post_date: str) -> Post:
+    post = Post(title=post_title, content = post_content, date_posted = post_date)
+
+    with Session(engine) as session:
+        session.add(post)
+        session.commit()
+        session.refresh(post)
+
+    return post
+
+@app.get("/posts/")
+def get_posts() -> list[Post]:
+    with Session(engine) as session:
+        posts = session.exec(select(Post).offset(0).limit(100)).all()
+
+    return posts
+
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+
+
+```
