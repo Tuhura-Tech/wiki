@@ -60,10 +60,22 @@ We use "main" here because that's what our main python file is called, if yours 
 ```python
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
-
+import pytest
 from main import app, get_session 
 
 ```
+
+Then, we'll create a **fixture** function. This will ensure that all of our tests are using an entirely fresh database, and that the database data doesn't persist between tests, which could cause problems for certain tests.
+
+```python
+@pytest.fixture()
+def test_db():
+    SQLModel.metadata.create_all(engine)
+    yield
+    SQLModel.metadata.drop_all(engine)
+```
+
+This function will ensure that whenever we pass it as a reference to a test, that test starts with an empty db, and that the db is cleared afterward, even if the test fails.
 
 Then, let's create a new function to see if a post is added to the database correctly.
 
