@@ -117,7 +117,65 @@ def test_create_post():
         "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
     )
     
+    
     data = response.json()
     assert data["title"] == "test"
+    assert data["content"] == "test"
+    assert data["data_posted"] == "test"
     assert data["id"] is not None
+```
+
+Let's also create a test that checks to see if posts are read from the database correctly. We'll add two dummy posts the same way we did in the previous test, and then run our **get** function, and then check the length.
+
+Adding the posts to the database is easy, as we've just done that.
+
+```python
+def test_read_posts(test_db):
+    client = TestClient(app)
+
+    client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+
+    client.post(
+        "/posts/", params = {"post_title": "test2", "post_content": "test2", "post_date": "test2"}
+    )
+```
+
+Then, let's run that **get** function and store the return value as **response**
+
+```python
+ response = client.get(
+        "/posts/"
+    )
+
+    data = response.json()
+```
+
+and then check the length
+
+```python
+    assert len(data) == 2
+```
+
+For a test function that looks like this:
+
+```python
+def test_read_posts(test_db):
+    client = TestClient(app)
+
+    client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+
+    client.post(
+        "/posts/", params = {"post_title": "test2", "post_content": "test2", "post_date": "test2"}
+    )
+
+    response = client.get(
+        "/posts/"
+    )
+
+    data = response.json()
+    assert len(data) == 2
 ```
