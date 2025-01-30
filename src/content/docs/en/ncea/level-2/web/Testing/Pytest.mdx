@@ -5,10 +5,10 @@ sidebar:
     order: 2
 ---
 
-We can install pytest inside our Python virtual environment using
+We can install pytest and requests inside our Python virtual environment using
 
 ```python
-uv pip install pytest
+uv pip install requests pytest
 ```
 
 We'll then want to create a new folder called "tests"
@@ -44,3 +44,68 @@ pytest
 ```
 
 in the terminal.
+
+
+### Testing your SQL Database
+
+Testing our SQL database using Pytest is thankfully nice and easy using fastapi and pytest.
+
+First, we'll want to add some more imports to our test file
+
+:::Note[naming]
+We use "main" here because that's what our main python file is called, if yours is called something else, you'll have to use that name.
+:::
+
+
+```python
+from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine
+
+from main import app, get_session 
+
+```
+
+Then, let's create a new function to see if a post is added to the database correctly.
+
+First we create a new testing function and then a testclient, based on our app.
+
+```python
+def test_create_post():
+    client = testClient(app)
+
+```
+
+Then, we use that testclient to invoke the function where we create a new post and pass it through some test parameters.
+
+```python
+    response = client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+```
+
+Then, we extra the returned data (In this case, it should be a post) and check if the data matches what we'd expect using **assert**
+
+
+```python
+data = response.json()
+assert data["title"] == "test"
+assert data["content"] == "test"
+assert data["data_posted"] == "test"
+assert data["id"] is not None
+```
+
+
+for a full test function that looks like this:
+
+```python
+def test_create_post():
+    client = TestClient(app)
+
+    response = client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+    
+    data = response.json()
+    assert data["title"] == "test"
+    assert data["id"] is not None
+```
