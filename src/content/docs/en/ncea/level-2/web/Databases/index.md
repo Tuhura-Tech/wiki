@@ -76,8 +76,6 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-
-SessionDep = Annotated[Session, Depends(get_session)]
 ```
 
 Finally, we actually call the function to create the table when we start our FastAPI app:
@@ -180,8 +178,6 @@ def get_session():
     with Session(engine) as session:
         yield session
 
-
-SessionDep = Annotated[Session, Depends(get_session)]
 
 
 fakePosts = [{
@@ -361,8 +357,6 @@ def get_session():
         yield session
     
 
-
-SessionDep = Annotated[Session, Depends(get_session)]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
