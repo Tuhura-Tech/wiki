@@ -30,7 +30,7 @@ You can also delete **hello.py** and replace it with a new file called **main.py
 
 Which should leave you with a project that looks something like this:
 
-![Project Structure](/src/assets/ncea2web/projectstruct.PNG)
+![Project Structure](/src/assets/ncea2web/projectstruct.png)
 
 ## Getting a server response
 
@@ -394,5 +394,5 @@ h1, h2, h3, h4 {
 If everything has been set up correctly, your site should look something like this:
 
 
-![Site with CSS](/src/assets/ncea2web/sitecss.PNG)
+![Site with CSS](/src/assets/ncea2web/sitecss.png)
 

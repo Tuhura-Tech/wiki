@@ -263,8 +263,8 @@ To test that your database has been populated with your test posts, when you lau
 
 Open that section, click **Try it out** and then **Execute** and you should see the raw data of your database. 
 
-![Image displaying try it out button on documentation](src\assets\ncea2web\tryitout.png)
-![Image displaying execute button on documentation](src\assets\ncea2web\execute.png)
+![Image displaying try it out button on documentation](/src/assets/ncea2web/tryitout.png)
+![Image displaying execute button on documentation](/src/assets/ncea2web/execute.png)
 
 Finally, to have your blog page display your created test posts, rather than the fake database, simply replace where the fake database is being passed to the Jinja templates.
 

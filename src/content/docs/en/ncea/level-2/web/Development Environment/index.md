@@ -42,7 +42,7 @@ You can add new folders and files to your project by right-clicking in the file 
 
 The file browser can be found in the left side navigation menu by click the two overlapped pieces of paper.
 
-![File Browser](/src/assets/ncea2web/filebrowser.PNG)
+![File Browser](/src/assets/ncea2web/filebrowser.png)
 
 When creating a new file, make sure to end the filename with the type of file you want. For example, a python script must end with ".py" or a text file with ".txt"
 
@@ -54,14 +54,14 @@ The Terminal can be found at the bottom of VSCode, and allows you to input comma
 
 If you're asked to input a command into the terminal, navigate to the tab, click in the window, type your command, and hit enter.
 
-![Terminal Location](/src/assets/ncea2web/terminallocation.PNG)
+![Terminal Location](/src/assets/ncea2web/terminallocation.png)
 
 If you encounter any problems with the terminal instance, or it gets stuck in any kind of loop, you can kill the process using the icon on the right.
 
-![Terminal Kill](/src/assets/ncea2web/terminalkill.PNG)
+![Terminal Kill](/src/assets/ncea2web/terminalkill.png)
 
 Then, you can create a new terminal instance using the top menu bar.
 
-![New Terminal](/src/assets/ncea2web/terminalnew.PNG)
+![New Terminal](/src/assets/ncea2web/terminalnew.png)
 
 ## GitHub Codespaces
