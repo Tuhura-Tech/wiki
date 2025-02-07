@@ -33,3 +33,40 @@ from playwright.sync_api import Page, expect
 And we're good to start writing tests!
 
 ### Playwright tests
+
+Playwright test functions should be formatted the same way as other tests you've been writing, starting with **test_**
+
+Generally, the first thing we want to do in a playwright test is navigate to a page, we do this using
+
+```python
+page.goto("url")
+```
+
+So for our development server we would use
+
+```python
+page.goto("http://127.0.0.1:8000/")
+```
+
+We can then check if the page has the title we would expect it to (For our blog, this would me "My Blog")
+
+```python
+expect(page).to_have_title(re.compile("My Blog"))
+```
+
+We can also use Playwright to click a link. Say for example we had a link with the text "Click here" which leads us to a page with the title "Secret Page"
+writing a test for this page would look like this:
+
+
+```python
+
+def test_secret_page(page: Page):
+    page.goto("http://127.0.0.1:8000/")
+
+    page.get_by_role("link", name="Click Here").click()
+
+    expect(page).to_have_title(re.compile("Secret Page"))
+
+    
+
+
