@@ -67,6 +67,6 @@ def test_secret_page(page: Page):
 
     expect(page).to_have_title(re.compile("Secret Page"))
 
-    
+```
 
 
