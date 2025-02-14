@@ -45,18 +45,45 @@ We'll also create a list of Errors which we'll use to determine if the users inp
 class NewPost:
     def __init__(self, request: Request):
         self.request: Request = request
+        self.errors: List = []
         self.post_title: Optional[str] = None
         self.post_date: Optional[str] = None
         self.post_content: Optional[str] = None
 ```
 
-Next let's create a function to define if what the user has input into our form is valid or not
+Next let's create a function to define if what the user has input into our form is valid or not.
 
 ```python
 def valid_input(self):
     
 ```
 
+We'll check to see if the user as input a value inside the field, and then we'll check if it fits whatever criteria we want it to.
+
+For example, for our post title, we might do something like:
+
+```python
+    if not self.post_title or not len(self.post_title) >=3:
+        self.errors.append("Please provide a title")
+```
+
+We can then continue on with our other fields.
+
+```python
+def valid_input(self):
+    if not self.post_title or not len(self.post_title) >=3:
+        self.errors.append("Please provide a title")
+    if not self.post_date or not len(self.post_date) >=9:
+        self.errors.append("Please provide a date in format DD/MM/YYYY")
+    if not self.post_content or not len(self.post_content) >=15:
+        self.errors.append("Please provide valid post content")
+
+    if not self.errors:
+        return true
+    else return false
+```
+
+If all our inputs are valid, we can continue, otherwise, we can display the relevant error messages.
 
 
 
