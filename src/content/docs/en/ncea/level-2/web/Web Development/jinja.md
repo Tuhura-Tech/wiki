@@ -56,7 +56,7 @@ async def load_other_page(request: Request):
 in one of your pages, you would link to this page like this:
 
 ```html
-<a href="{{url_for('otherpage')}}">Link to the other page</a>
+<a href="{{url_for('load_other_page')}}">Link to the other page</a>
 ```
 
 What if we want to pass a variable to the page? We would define the function like this:
@@ -67,4 +67,27 @@ async def load_page_with_variable(request: Request):
     return templates.TemplateResponse("otherpage.html", {"request": request, "variableName": variable})
 ```
 
+and we would link to this like this:
+
+```html
+<a href="{{url_for('load_page_with_variable')}}">Link to the other page</a>
+
+```
+
+
+What if we want to pass a variable to our Fastapi function using a link?
+
+Here's an example function:
+
+```python
+@app.get("/otherpage", response_class=HTMLResponse)
+async def recieve_variable_from_page(request: Request, variableinput):
+    return templates.TemplateResponse("otherpage.html", {"request": request})
+```
+
+And link to it like this:
+
+```html
+<a href="{{url_for('recieve_variable_from_page', 'variableinput = varValue')}}">Link to the other page</a>
+```
 
