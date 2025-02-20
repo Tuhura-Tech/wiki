@@ -13,10 +13,73 @@ access form from main page,
 add to DB using button, 
 reload DB
 
+### Blog post Form
+
+First, let's create the page to display the form, and link to it from our main page. We won't be doing any CSS for this page, btu you're welcome to add some yourself if you wish.
+
+Inside our **templates** folder lets create a new file called **form.html**
+
+As with our main page, we'll first want to tell Jinja that we're using our base page using:
+
+```html
+{% extends "base.html" %}
+```
+
+Let's also do our header and title quickly 
+
+```html
+{% block title %} Create a post {% endblock %}
+{% block head %} Create a new post {% endblock %}
+```
+
+Let's then start on the form itself, we'll create a series of fields, one for the title, one for the date, and one for the content. As well as a button to submit the post.
+
+**Maybe break this up into multiple steps?**
+
+```html
+{% block content %}
+<div class="container">
+    <div class="post_form">
+        <form method="POST">
+
+          <div class="input_field">
+            <input type="text" placeholder="Post Title" name="post_title" class="form-control" value="{{post_title}}" >
+          </div>
+          <div class="input_field">
+            <input type="text" placeholder="Post Date" name="post_date" class="form-control" value="{{post_date}}" >
+          </div>
+          <div class="input_field">
+            <textarea  placeholder="Post Content" name="post_content" class="form-control" value="{{post_content}}" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="submit_button">Submit</button>
+        </form>
+      </div>
+</div>
+
+{% endblock %}
+```
+
+We'll also need to go to our main.py file and add a binding to access this page. This will also allow us to get and pass variables to the form later.
+
+```python
+@app.get("/form")
+async def load_other_page(request: Request): 
+    return templates.TemplateResponse("form.html", {"request" : request})
+```
+
+Finally, as the last line in our **blog.html** file we'll add a link to the page as the last line in the content block.
+
+```html
+<a href="{{url_for('load_other_page')}}">Add a blog post</a>
+```
+
+Run your dev server, and make sure you're able to access the page. If you wish, add some nice CSS!
+
+### Validating the input
 
 
-
-We'll start by creating a class that validates the form, and ensures all the inputs are as we want them to be.
+Next we'll create a class that validates the form, and ensures all the inputs are as we want them to be.
 As a reminder, our inputs for a blog post are:
 
 1. Post title
