@@ -23,7 +23,14 @@ next we'll want to add imports to the top of **main.py**
 ```python
 from typing import Annotated
 from contextlib import asynccontextmanager
+from fastapi import FastAPI, Depends
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from fastapi import FastAPI, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
+
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+
 ```
 
 
@@ -149,8 +156,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 
@@ -329,10 +336,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Depends
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Request, status
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+
 
 
 templates = Jinja2Templates(directory="templates")
