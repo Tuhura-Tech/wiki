@@ -64,14 +64,14 @@ We'll also need to go to our main.py file and add a binding to access this page.
 
 ```python
 @app.get("/form")
-async def load_other_page(request: Request): 
+def add_post(request: Request): 
     return templates.TemplateResponse("form.html", {"request" : request})
 ```
 
 Finally, as the last line in our **blog.html** file we'll add a link to the page as the last line in the content block.
 
 ```html
-<a href="{{url_for('load_other_page')}}">Add a blog post</a>
+<a href="{{url_for('add_post')}}">Add a blog post</a>
 ```
 
 Run your dev server, and make sure you're able to access the page. If you wish, add some nice CSS!
