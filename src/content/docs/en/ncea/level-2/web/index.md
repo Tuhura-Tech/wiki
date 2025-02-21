@@ -7,7 +7,6 @@ sidebar:
 
 TODO:
 - Fix ordering of pages
-- Page creating basic FastAPI and Jinja page
 
 Order:
 Dev Environment -> Web Development -> Version Control -> Database -> Testing

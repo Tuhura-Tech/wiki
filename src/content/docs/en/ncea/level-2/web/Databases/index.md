@@ -4,11 +4,8 @@ description: Overview of Level 2 Resources
 sidebar:
     order: 4
 ---
-
-NOTE: SQL and web is far from my expertise, so there are likely better ways to do all this, if so, please feel free to change
-
-In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, you can find the instructions here. (link)
-
+**todo: link**
+In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, you can find the [instructions here]().
 
 ### Setting up
 
@@ -72,17 +69,6 @@ Then we can create a function that uses the engine and creates a table for the m
 ```python
 def create_table():
     SQLModel.metadata.create_all(engine)
-```
-
-We *then* want to create a function that creates a **Session** when we want to request the database. A session stores the changes we want to make to the database, and used the engine to communicate them.
-
-TODO: likely not needed as we're just going to do this in the functions
-
-```python
-def get_session():
-    with Session(engine) as session:
-        yield session
-
 ```
 
 Finally, we actually call the function to create the table when we start our FastAPI app:
@@ -180,11 +166,6 @@ engine = create_engine(sqlite_url, connect_args=connect_args)
 
 def create_db_and_tables():
     SQLModel.metadata.create_all(engine)
-
-def get_session():
-    with Session(engine) as session:
-        yield session
-
 
 
 fakePosts = [{

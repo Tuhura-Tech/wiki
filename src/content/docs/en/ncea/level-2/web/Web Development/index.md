@@ -6,11 +6,9 @@ sidebar:
 ---
 
 
-Todo: add steps, better organise page
-
 This page will walk you through setting up a basic webpage using Jinja2 templating and FastAPI
 
-You should already have installed UV, created a project directory, CD'd into the directory, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages todo: link
+You should already have installed UV, created a project directory, CD'd into the directory, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages **todo: link**
 
 For more information, and help with Jinja, take a look at the [Official Documenation](https://jinja.palletsprojects.com/en/stable/)
 
