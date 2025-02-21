@@ -5,14 +5,6 @@ sidebar:
     order: 5
 ---
 
-**Page will cover adding content to the database using a page created using Jina templating. This is the page that will need the most looking over to ensure it's accurate and follow best practice.**
-
-TODO: 
-Create form, 
-access form from main page, 
-add to DB using button, 
-reload DB
-
 ### Blog post Form
 
 First, let's create the page to display the form, and link to it from our main page. We won't be doing any CSS for this page, btu you're welcome to add some yourself if you wish.
@@ -34,8 +26,6 @@ Let's also do our header and title quickly
 
 Let's then start on the form itself, we'll create a series of fields, one for the title, one for the date, and one for the content. As well as a button to submit the post.
 
-**Maybe break this up into multiple steps?**
-
 ```html
 {% block content %}
 <div class="container">
@@ -55,6 +45,65 @@ Let's then start on the form itself, we'll create a series of fields, one for th
           <button type="submit" class="submit_button">Submit</button>
         </form>
       </div>
+</div>
+
+{% endblock %}
+```
+
+
+Before our final closing **</div>** tag, let's also add a place where any errors will appear if the users input is invalid (We'll set these up later) But we'll assume they're in a list. So all we need to do is display every item in that list.
+
+```html
+<div class = "row">
+    <div class = "error text">
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </div>
+</div>
+
+```
+
+Meaning our full Jinja page looks like this:
+
+```html
+{% extends "base.html" %}
+
+{% block title %} Create a post {% endblock %}
+{% block head %} Create a new post {% endblock %}
+
+{% block content %}
+<div class="container">
+  
+
+
+
+    <div class="post_form">
+        <form method="POST">
+
+          <div class="input_field">
+            <input type="text" placeholder="Post Title" name="post_title" class="form-control" value="{{post_title}}" >
+          </div>
+          <div class="input_field">
+            <input type="text" placeholder="Post Date" name="post_date" class="form-control" value="{{post_date}}" >
+          </div>
+          <div class="input_field">
+            <textarea  placeholder="Post Content" name="post_content" class="form-control" value="{{post_content}}" rows="4"></textarea>
+          </div>
+
+          <button type="submit" class="submit_button">Submit</button>
+        </form>
+      </div>
+
+      <div class = "row">
+        <div class = "error text">
+          {% for error in errors %}
+          <li>{{error}}</li>
+          {% endfor %}
+        </div>
+      </div>
+
+
 </div>
 
 {% endblock %}
@@ -131,8 +180,6 @@ For example, for our post title, we might do something like:
 ```
 
 We can then continue on with our other fields.
-
-**May end up opting to not do input validation. We'll see**
 
 ```python
 def valid_input(self):
@@ -228,15 +275,21 @@ Then, let's confirm the post is valid, if it is, let's extract the data from the
 
 
 ```python
-if form.valid_input:
+if form.valid_input():
         post = form.__dict__
         add_post(post["post_title"], post["post_content"], post["post_date"])
 ```
 
-Finally, let's redirect back to our home page.
+Then, let's redirect back to our home page so we can see our new post.
 
 ```python
 return RedirectResponse(request.url_for('load_blog'), status_code=status.HTTP_303_SEE_OTHER)
+```
+However, if our input **isn't** valid (Doesn't meet the conditions we set up in valid_input()) we want to return to our input form page, and display the error messages.
+So we'll redirect to the form page, except we'll pass it the output of the NewPost() class. Which we can do like this:
+
+```python
+return templates.TemplateResponse("form.html", form.__dict__)
 ```
 
 Meaning our two functions should look like this:
@@ -250,12 +303,20 @@ def new_post(request: Request):
 async def new_post(request: Request):
     form = NewPost(request)
     await form.load_data()
-    if form.valid_input:
+    if form.valid_input():
         post = form.__dict__
         add_post(post["post_title"], post["post_content"], post["post_date"])
         return RedirectResponse(request.url_for('load_blog'), status_code=status.HTTP_303_SEE_OTHER)
+    return templates.TemplateResponse("form.html", form.__dict__)
 ```
 
+Test your post sumbition page! See if you can add a new post, check that the redirect works, and try submitting invalid posts!
+
+If everything works, congratulations! You've:
+
+1. Create a blog page using FastAPI and Jinja
+2. Connected it to an SQL database
+3. Added to that database using an input form
 
 
 
