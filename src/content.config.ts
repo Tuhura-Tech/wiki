@@ -1,49 +1,50 @@
-import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
 import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
-import { type CollectionEntry, defineCollection, z } from 'astro:content';
-import path from 'node:path';
+import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
+import { defineCollection, z, type CollectionEntry } from 'astro:content';
+import { AstroDocsI18nSchema } from './content/i18n-schema';
 
-// find all tutorial pages
-const baseSchema = z.object({
+export const baseSchema = z.object({
 	type: z.literal('base').optional().default('base'),
+	i18nReady: z.boolean().default(false),
+	githubURL: z.string().url().optional(),
+	hasREADME: z.boolean().optional(),
 });
-
-const tutorialSchema = baseSchema.extend({
+export const tutorialSchema = baseSchema.extend({
 	type: z.literal('tutorial'),
 	unitTitle: z.string().optional(),
 });
 
-const docsCollectionSchema = z.union([baseSchema, tutorialSchema]);
+export const docsCollectionSchema = z.union([baseSchema, tutorialSchema]);
 
-type DocsEntryData = z.infer<typeof docsCollectionSchema>;
+export type DocsEntryData = z.infer<typeof docsCollectionSchema>;
+
+export type DocsEntryType = DocsEntryData['type'];
 
 export type DocsEntry<T extends DocsEntryType> = CollectionEntry<'docs'> & {
 	data: Extract<DocsEntryData, { type: T }>;
 };
-type DocsEntryType = DocsEntryData['type'];
 
-function createIsDocsEntry<T extends DocsEntryType>(type: T) {
-	return (entry: CollectionEntry<'docs'>, id: string): entry is DocsEntry<T> => {
-		if (entry.data.type !== type) {
-			return false;
-		}
-		const currentPath = path.parse(id);
-		const currentDir = path.dirname(currentPath.dir);
-
-		const pagePath = path.parse(entry.id);
-		const pageDir = path.dirname(pagePath.dir);
-
-		return pageDir === currentDir;
-	};
+export function createIsDocsEntry<T extends DocsEntryType>(type: T) {
+	return (entry: CollectionEntry<'docs'>): entry is DocsEntry<T> => entry.data.type === type;
 }
 
 export type TutorialEntry = DocsEntry<'tutorial'>;
-export const isTutorialEntry = createIsDocsEntry<'tutorial'>('tutorial');
+
+export const isTutorialEntry = createIsDocsEntry('tutorial');
+
+export function createIsLangEntry(lang: string) {
+	return (entry: CollectionEntry<'docs'>): boolean => entry.id.startsWith(lang + '/');
+}
+
+export const isEnglishEntry = createIsLangEntry('en');
 
 export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
 		schema: docsSchema({ extend: docsCollectionSchema }),
 	}),
-	i18n: defineCollection({ loader: i18nLoader(), schema: i18nSchema() }),
+	i18n: defineCollection({
+		loader: i18nLoader(),
+		schema: i18nSchema({ extend: AstroDocsI18nSchema }),
+	}),
 };

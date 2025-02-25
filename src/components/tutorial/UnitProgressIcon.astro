@@ -34,10 +34,10 @@ const size = 32;
 
 <unit-progress-icon data-paths={JSON.stringify(paths)}>
 	<span class="sr-only">
-		{'tutorial.unit'}
+		{Astro.locals.t('tutorial.unit')}
 		{unitNumber}
-		 (<span class="sr-done-count">0</span>/{numberOfLessons}
-		{'progress.done'})
+		(<span class="sr-done-count">0</span>/{numberOfLessons}
+		{Astro.locals.t('progress.done')})
 	</span>
 	<svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
 		{segments.map(({ d }) => <path d={d} class="segment" />)}
@@ -52,7 +52,6 @@ const size = 32;
 		private readonly loaded: boolean;
 		private readonly paths: string[];
 		private readonly doneCount: HTMLSpanElement;
-		// eslint-disable-next-line no-undef
 		private readonly segments: NodeListOf<SVGPathElement>;
 
 		constructor() {

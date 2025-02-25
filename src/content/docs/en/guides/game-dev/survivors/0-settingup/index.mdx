@@ -1,0 +1,134 @@
+---
+type: tutorial
+unitTitle: Setting up our character
+title: Character setup
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+**This guide assumes you've gone through the basics guide.**
+
+Survivors-like games are games that are similar to the massively popular *Vampire **Survivors***.
+
+Another popular name for the genre is Bullet Heaven. Bullet heaven games are the opposite of the ever-popular bullet hell genre. 
+
+If you are aware of the much more popular bullet hell genre but not of the bullet heaven/survivors-like genre then think of it like this: bullet hell games are you avoiding an insane amount of projectiles from a limited amount of enemies or a singular boss enemy. Survivors-like games, on the other hand, are where you have an oncoming horde of enemies but this time you're the one unleashing volley after volley of projectiles.
+
+The player slowly accumulates a variety of abilities that activate automatically and fire an absurd amount of bullets at an equally absurd amount of enemies that slowly advance towards the player.
+
+Survivors-like games are usually from a top-down perspective.
+
+The genre initially got popular from the Unity game *Vampire Survivors*.  
+Although one of the most well-known Godot games, *Brotato*, has seen a good amount of fame after the popularity of Vampire Survivors brought attention to the concept of a survivors-like.
+
+For this we will make a simple 2D top-down character controller. A selection of abilities that fire projectiles periodically. Enemies that spawn outside the screen and then slowly advance towards the player. Along the way, we'll also need a health and score system.
+
+## Top-Down 2D Character Controller
+
+As seen in the [basics guide](/game-design/godot/basics), the built-in Godot **CharacterBody2D** template is a side-on character controller.
+
+Survivors-like games are typically top-down, so let's make a top-down 2D character controller.
+
+### Setting Up
+<Steps>
+1. The player doesn't need a floor to stand on, so we don't need to make a 2D scene. You can just start with making a scene with the root node **CharacterBody2D**.
+
+2. Make the following scene:
+    - **CharacterBody2D**
+        + **CollisionShape2D** - Set shape to **New RectangleShape2D**
+        + **Sprite2D** - Set texture to **New PlaceholderTexture2D**
+        + **Camera2D**
+
+3. Make the player's collider and sprite about an eighth the size of the camera's size, and a square. You want enough room between your player and the edge of the screen so they have time to react to enemies.
+
+4. Set the **CharacterBody2D**'s **Motion Mode** property to **Floating** in the inspector. Grounded is for 2D side-on games, floating is for top-down.
+
+5. Enable the camera's **Position Smoothing** property so it's clear if the player is moving or not.
+
+6. Add up, down, left, and right to the **Input Map**. (Found in **Project -> Project Settings -> Input Map**)
+
+7. Give the player the default **CharacterBody2D** script, we'll modify it.
+
+</Steps>
+
+Since we're editing the player scene instead of the main scene the actual game is going to run in, when you want to run your game use **F6** instead of **F5**, or the **Run Current Scene** button instead of the **Run Project** button.
+
+#### Changing the Script
+
+<Steps>
+
+1. Before anything else give this script the class name **Player**. The enemies will also be **CharacterBody2D** so later when we make checks if we check a body against **CharacterBody2D** it'll return true for players and enemies, when we might only want enemies or the player.  
+    To give the script the class name, before `extends CharacterBody2D`, add `class_name Player`.
+
+2. Then, delete the `gravity` variable from the top of the script and then the section changing the y velocity based on gravity and jumping. There is no traditional gravity or jumping in top-down games.
+
+3. The default script for a **CharacterBody2D** has this section to move the player:
+
+    ```gdscript
+    # Get the input direction and handle the movement/deceleration.
+    # As good practice, you should replace UI actions with custom gameplay actions.
+    var direction = Input.get_axis("ui_left", "ui_right")
+
+    if direction:
+        velocity.x = direction * SPEED
+    else:
+        velocity.x = move_toward(velocity.x, 0, SPEED)
+
+    move_and_slide()
+    ```
+
+    The `Input.get_axis` function is essentially a shorthand for getting the action strength of each action and taking it away from one another. So it says in the documentation if we hold ctrl/cmd and click on `get_axis`:
+
+    ```
+    float get_axis(negative_action: StringName, positive_action: StringName) const
+
+    Get axis input by specifying two actions, one negative and one positive.
+
+    This is a shorthand for writing Input.get_action_strength("positive_action") - Input.get_action_strength("negative_action").
+    ```
+
+    The action strength is calculated by how far down an action is pressed. Typical keyboards will not have action strength being sent. It's useful for joysticks, Hall Effect keyboards, and a few other niche use-cases. There is no four-directional `get_axis` so we'll have to use `get_axis` twice, once for the x and once for the y-axis.
+
+    Change the `direction` variable to `x_direction`, and replace the UI actions, like the template suggests, with your own left and right actions.
+    Make a second `y_direction` variable with your up and down actions.
+
+    Change the default if-else statement to use `x_direction` instead of `direction`, and then copy paste it so that there's also one for `y_direction`.
+
+4. Your script should look like this:
+
+    ```gdscript
+    func _physics_process(_delta):
+        var x_direction = Input.get_axis("left", "right")
+        var y_direction = Input.get_axis("up", "down")
+        
+        if x_direction:
+            velocity.x = x_direction * SPEED
+        else:
+            velocity.x = move_toward(velocity.x, 0, SPEED)
+        
+        if y_direction:
+            velocity.y = y_direction * SPEED
+        else:
+            velocity.y = move_toward(velocity.y, 0, SPEED)
+        
+        move_and_slide()
+    ```
+
+5. Run your game with **F6** or **Run Current Scene** since this isn't the main game scene.
+
+</Steps>
+
+If you've done all correctly, it should look like your player is moving. Make sure the camera's position smoothing is enabled. Otherwise, when your player moves, the camera also moves perfectly with them. It results in looking like the player is perfectly still.
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've created my player scene
+- [ ] I've attached the player script
+- [ ] I can move around!
+</Checklist>
+</Box>

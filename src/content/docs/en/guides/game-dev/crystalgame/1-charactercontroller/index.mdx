@@ -1,0 +1,181 @@
+---
+type: tutorial
+unitTitle: Character controller improvement
+title: Improving our Character
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Input Map](https://docs.godotengine.org/en/stable/classes/class_inputmap.html) [Input Examples](https://docs.godotengine.org/en/stable/tutorials/inputs/input_examples.html) 
+[Camera3D](https://docs.godotengine.org/en/stable/classes/class_camera3d.html) [Exports](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html)
+:::
+### Changing the Controls
+
+First, let's fix our control scheme. If you want, you can leave your controls as the arrowkeys, or make them whatever you like. But it's a good idea to understand how to change them.
+Thankfully, Godot has a robust Input System. 
+<Steps>
+
+1. Let's open our input settings by going to **Project > Project Settings... > Input Map** from the top left menu. Using the 'Add new Action' field, add five actions. 'Forward', 'Backward', 'Left', 'Right', and 'Jump'
+
+2. Using the '+' button next to each direction, simple press the key you want to assign for each. Let's do 'W', 'S', 'A', 'D', and 'Space' respectively. Makes sure you're not holding shift or control, otherwise these will become part of the input.
+
+</Steps>
+
+Great! But if you hit play now, you'll notice nothing has changed. This is because we need to tell our controller script to listen for these inputs. 
+
+Let's go back to our character controller script and change out the default inputs, to our new ones.
+
+:::note[Case sensitivity]
+The names of these inputs are case sensitive, so make sure they match exactly what you called them!
+:::
+
+<Steps>
+
+1. We'll change
+
+    ```gdscript
+    var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+    ```
+
+    to
+
+    ```gdscript
+    var input_dir = Input.get_vector("Left", "Right", "Forward", "Backward")
+    ```
+2. and we'll change 
+
+    ```gdscript
+    if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+    ```
+
+    to 
+
+    ```gdscript
+    if Input.is_action_just_pressed("Jump") and is_on_floor():
+    ```
+3. Great! Run your game and test these changes, make sure every movement input, and jump works, and double-check any that don't.
+</Steps>
+
+In the future, if you want to change the controls, all you'll have to do is change the assigned inputs under the Input Map.
+
+### Fixing the Camera
+
+The final thing we need to do to have a fully functional Character controller, is to get our camera moving!
+
+If we were working on a large long-term project we would likely want to make this its own script, but let's keep things simple for now and just add it to our character controller script.
+
+<Steps>
+1. Let's open our character controller script by clicking on the CharacterBody3D node and opening the script tab.
+
+2. Below the existing variable declarations, let's add a new line.
+
+    ```gdscript
+    @export var camera:Camera3D
+    ```
+    The export tag allows us to assign variables/nodes from within the inspector. If you've used unity, this works the same as [SerializeField] We'll take another look at this soon.
+
+3. We'll need two variables to keep track of our rotation, and control our mouse sensitivity, add these underneath the other variable declarations.
+
+    ```gdscript
+    var camera_rotation = Vector2(0, 0)
+    var mouse_sensitivity := 0.005
+    ```
+4. You've probably noticed by now, that when launching the game, the mouse stays visible, when most games 'capture' the mouse. Thankfully this is an easy addition using godots Input system. 
+
+    ```gdscript
+    func _ready() -> void:
+    Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+    ```
+
+    The **_ready()** function is called by godot when the object is first instantiated, so its a great place to do things like this.
+
+5. Trying running the game now, you'll notice your mouse is gone! To quit you can alt+tab out, and press stop in the top right menu.
+
+    But let's make sure we can get our mouse back.
+
+    ```gdscript
+    func _input(event) -> void:
+      # If escape is pressed reveal the mouse
+      if event.is_action_pressed("ui_cancel"):
+        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+    ```
+    The **_input(event)** function is called by godot whenever input is detected, this let's us check what was pressed. In this case we'll be checking for 'ui_cancel'. You may notice that we didn't create any input called 'ui_cancel'
+    This is another one of Godot's default inputs, and is bound to 'esc'
+
+    Great! Let's try running our game again, using Esc to get our mouse back.
+
+6. Because this function checks for input, we can use it to tell if our mouse has moved, as Godot considers this input.
+
+    Let's add some more to the **_input(event)** function.
+
+    ```gdscript
+    if event is InputEventMouseMotion:
+      # Get how much the mouse has moved and pass it on to the camera_look function
+      var relative_position = event.relative * mouse_sensitivity
+      camera_look(relative_position)
+    ```
+
+7. meaning the full function would look like this:
+
+    ```gdscript
+    func _input(event) -> void:
+      # If escape is pressed reveal the mouse
+      if event.is_action_pressed("ui_cancel"):
+        Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+      # Get the mouse movement
+      if event is InputEventMouseMotion:
+        # Get how much the mouse has moved and pass it on to the camera_look function
+        var relative_position = event.relative * mouse_sensitivity
+        camera_look(relative_position)
+    ```
+
+    The **event.relative** variable tracks the difference in the position of the mouse from the last frame, which tells us how much the mouse has moved. We then multiply this by our sensitivity value.
+
+8. You'll notice we've called a method called **camera_look()** that doesn't exist, we'll create this now.
+
+    ```gdscript
+    func camera_look(movement: Vector2) -> void:
+      # Add how much the camera has moved to the camera rotation
+      camera_rotation += movement
+      # Stop the player from making the camera go upside down by looking too far up and down
+      camera_rotation.y = clamp(camera_rotation.y, deg_to_rad(-90), deg_to_rad(90))
+
+      # Reset the transform basis
+      transform.basis = Basis()
+      main_camera.transform.basis = Basis()
+
+      #The player and camera needs to rotate on the x and only the camera should rotate on the y
+      rotate_object_local(Vector3.UP, -camera_rotation.x)
+      main_camera.rotate_object_local(Vector3.RIGHT, -camera_rotation.y)
+    ```
+
+    This looks complicated, but really what's happening is:
+    1. We keep track of the total amount the player is rotated by
+    2. We ensure that the Y rotation can't go over a certain value, to prevent us doing flips with the camera (In this case the value has to stay between -90 and 90 degrees)
+    3. We zero the basis' of the camera and player, to making adding rotation easy
+    4. We rotate the Player on the X-axis, and the Camera on the Y-axis. These are separated. as if we simply rotated our player, as we looked up, our player would lean backwards until it falls over.
+
+9. Finally, we need to revisit that ***@export*** statement. make sure you save your script, then go back to our Player scene. Click on the CharacterBody3D and you'll notice that over on the right in the inspector, is a slot called 'Camera'
+    Just drag and drop our Character's camera from the left panel, over into the inspector, and our camera is assigned!
+
+</Steps>
+When we play our game, we can properly walk and look around! Now it's time to get some gameplay in our game!
+
+#### Some things to try
+
+1. Try increasing and decreasing the Camera sensitivity, change it to a value that feels best for you.
+2. See if you can change the button we use to get our mouse back to something else
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've changed my inputs
+- [ ] My camera is controllable with the mouse
+</Checklist>
+</Box>

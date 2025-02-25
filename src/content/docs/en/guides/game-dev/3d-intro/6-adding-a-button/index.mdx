@@ -1,0 +1,47 @@
+---
+type: tutorial
+unitTitle: "Adding a button"
+title: "Adding Interaction"
+description: Making the basic player nodes.
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+Pressing a button is a little tricky, there's more that goes into pressing a button in a 3D environment than you thought, and more than you will have to do.
+
+Let's make a simple button that makes some text appear on the screen.
+
+## The text
+
+First, the text. As a child of **Camera3D**, add **Label**.
+Give the label some text and move it to the center of the feint camera box.
+
+It should look something like this:
+![Label](/src/assets/godot/3D/Label.png)
+Feel free to change the label to a **RichTextLabel** and mess around with making it look pretty.
+
+After making your text, select your label and, in the inspector, go to **CanvasItem > Visibility** and turn **Visible** off, we will be making it visible with code.
+
+## The button and raycast
+
+Add a new **StaticBody3D**, with a mesh and collider.
+The only difference this time is to make it a floating cube instead of a plane.
+
+Select your new static body and go to the **Node** tab, which is found next to the inspector tab.
+Go to groups and type in "Button" and press **Add**.
+
+Add a **RayCast3D** as a child of your **Camera3D** and move it to aim in the same direction as the camera and move it to the same position as where the camera originates.  
+Your button and ray cast should look something like this:
+![Button and ray cast](/src/assets/godot/3D/RayCastButton.png)
+Then, decrease the ray cast's target position's y to -3 or lower.
+
+<Box>
+## Interaction
+<Checklist>
+- [ ] Added an invisible Label with text.
+- [ ] Added a StaticBody3D cube for a button.
+- [ ] Gave the button the "Button" group.
+- [ ] Added a ray cast.
+</Checklist>
+</Box>
