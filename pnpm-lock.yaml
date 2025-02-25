@@ -79,8 +79,8 @@ importers:
         specifier: 3.0.4
         version: 3.0.4
       '@types/html-escaper':
-        specifier: 3.0.2
-        version: 3.0.2
+        specifier: 3.0.4
+        version: 3.0.4
       '@types/mdast':
         specifier: 4.0.4
         version: 4.0.4
@@ -1406,8 +1406,8 @@ packages:
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
 
-  '@types/html-escaper@3.0.2':
-    resolution: {integrity: sha512-A8vk09eyYzk8J/lFO4OUMKCmRN0rRzfZf4n3Olwapgox/PtTiU8zPYlL1UEkJ/WeHvV6v9Xnj3o/705PKz9r4Q==}
+  '@types/html-escaper@3.0.4':
+    resolution: {integrity: sha512-UKSaMPMXXKnq1jDj74seVikfdq5pWvoXcIgOUbwYzHuAEGiv8/juom1i/MsWBF8boFSI0uHQCSZauzr5OYnnJA==}
 
   '@types/js-yaml@4.0.9':
     resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
@@ -5387,7 +5387,7 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.2
 
-  '@types/html-escaper@3.0.2': {}
+  '@types/html-escaper@3.0.4': {}
 
   '@types/js-yaml@4.0.9': {}
 
