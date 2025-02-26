@@ -21,7 +21,7 @@
   "devDependencies": {
     "@11ty/eleventy-fetch": "5.0.2",
     "@actions/core": "1.11.1",
-    "@docsearch/css": "3.8.2",
+    "@docsearch/css": "3.9.0",
     "@docsearch/js": "3.8.2",
     "@eslint/js": "9.17.0",
     "@types/canvas-confetti": "1.6.0",
