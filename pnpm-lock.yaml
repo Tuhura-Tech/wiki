@@ -73,8 +73,8 @@ importers:
         specifier: 9.17.0
         version: 9.17.0
       '@types/canvas-confetti':
-        specifier: 1.6.0
-        version: 1.6.0
+        specifier: 1.9.0
+        version: 1.9.0
       '@types/hast':
         specifier: 3.0.4
         version: 3.0.4
@@ -1331,8 +1331,8 @@ packages:
   '@types/acorn@4.0.6':
     resolution: {integrity: sha512-veQTnWP+1D/xbxVrPC3zHnCZRjSrKfhbMUlEA43iMZLu7EsnTtkJklIuwrCPbOi8YkvDQAiW05VQQFvvz9oieQ==}
 
-  '@types/canvas-confetti@1.6.0':
-    resolution: {integrity: sha512-Yq6rIccwcco0TLD5SMUrIM7Fk7Fe/C0jmNRxJJCLtAF6gebDkPuUjK5EHedxecm69Pi/aA+It39Ux4OHmFhjRw==}
+  '@types/canvas-confetti@1.9.0':
+    resolution: {integrity: sha512-aBGj/dULrimR1XDZLtG9JwxX1b4HPRF6CX9Yfwh3NvstZEm1ZL7RBnel4keCPSqs1ANRu1u2Aoz9R+VmtjYuTg==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -5261,7 +5261,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.6
 
-  '@types/canvas-confetti@1.6.0': {}
+  '@types/canvas-confetti@1.9.0': {}
 
   '@types/cookie@0.6.0': {}
 
