@@ -33,7 +33,7 @@
     "astro": "5.3.1",
     "astro-auto-import": "0.4.4",
     "astro-eslint-parser": "1.2.1",
-    "astro-og-canvas": "0.5.5",
+    "astro-og-canvas": "0.7.0",
     "canvaskit-wasm": "0.39.1",
     "dedent-js": "1.0.1",
     "domhandler": "5.0.3",
