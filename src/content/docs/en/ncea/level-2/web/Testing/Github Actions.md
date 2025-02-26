@@ -15,4 +15,23 @@ To start setting up Github actions, we'll need to create a new directory in our 
 .github/workflows/github-actions.yml
 ```
 
-This file is where we'll specify and configure the actions we want Github to execute.
+This file is where we'll specify and configure the actions we want Github to execute whenever a new commit is made!
+
+In your local version of the repository, make sure to **pull** the changes so that they appear on your local device.
+
+This new .yml file is where we'll write our actions. In its simplest form, our actions will basically tell Github to run console commands, the same way we run console commands to build and test our project.
+
+For now, lets create a test action to make sure everything is set up correctly.
+
+The first thing we'll want to do is give our actions a name, we do this simply by typing something like this:
+
+```yml
+name: Github actions
+run-name: testing out Github actions!
+```
+
+Then, we tell Github when we want the actions to be run. In this case, we want them to run when a new Push is recieved.
+
+```yml
+on: [push]
+```
