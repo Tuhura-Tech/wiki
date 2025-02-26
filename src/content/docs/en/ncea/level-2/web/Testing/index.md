@@ -5,17 +5,16 @@ sidebar:
     order: 5
 ---
 
-Section will cover how to set up testing files, when and why testing should be done, and how to execute tests (Manualy, as well as with GH actions)
+**Testing** is an important practice used in development. It allows us to ensure that code is doing what it's meant to, and giving the results we expect without having to manually test ourselves. Manual testing would involve doing something putting a print statement at the end of a function to see what it's doing. This is an apprroach to testing most of us have used. The problem with this is that it has very poor coverage (Wht's actually being tested) and doesn't scale to larger projects. (It also clogs your output!)
+Proper testing becomes more important as our projects become more complicated. As more variables and functions are introduced, so are chances for bugs and errors, with an increased time to track them down using methods like print. When our projects have large amounts of moving parts, it's imporant to know exactly what's working and what's not, so we can pinpoint the error!
 
-
-**Testing** is an important practice used in development. It allows us to ensure that code is doing what it's meant to, and giving the results we expect, without having to manually test ourselves. Testing becomes more important as our projects become more complicated, as more variables and functions are introduces, so are more chances for bugs and errors, with an icreased time to track them down.
+Most testing libraries allow us to test something for an expected outcome. Say we have a function, we can test its correctness in isolation. We'd specify inputs, and specify the output we'd expect. When we run our test file *all* test files will run at once. Any that fail will tell us what the *actual* output they recieved was. So we want to build up a robust list of tests with different combinations of input and expected outputs, to make sure everything is working correctly!
 
 As a very simple example, if we have a function that capitalises a String, we could have a test that passes this function a string, with an expected result of that string capitalised. If we don't get that expected result, our tests will tell us. 
-
  
-Using a testing library, like Pytest (link), allows us to automate this process, and allows us to easily and quickly run many different tests at the same time.
+To do this, we use a testing library like [Pytest.](https://docs.pytest.org/en/stable/) Take a look at their documentation for some more examples of tests, and how to write effective tests!
 
-We'll be covering a few different testing libraries for Python:
+We'll be covering a few different ways of testing our code:
 
 Pytest, which allows us to execute tests on our python scripts, checking if things like function return values, and variable values, are what we expect them to be.
 
