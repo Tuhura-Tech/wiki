@@ -32,7 +32,7 @@
     "@typescript-eslint/parser": "8.25.0",
     "astro": "5.3.1",
     "astro-auto-import": "0.4.4",
-    "astro-eslint-parser": "1.1.0",
+    "astro-eslint-parser": "1.2.1",
     "astro-og-canvas": "0.5.5",
     "canvaskit-wasm": "0.39.1",
     "dedent-js": "1.0.1",
