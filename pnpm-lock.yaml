@@ -64,8 +64,8 @@ importers:
         specifier: 1.11.1
         version: 1.11.1
       '@docsearch/css':
-        specifier: 3.8.2
-        version: 3.8.2
+        specifier: 3.9.0
+        version: 3.9.0
       '@docsearch/js':
         specifier: 3.8.2
         version: 3.8.2(@algolia/client-search@5.18.0)(search-insights@2.13.0)
@@ -410,6 +410,9 @@ packages:
 
   '@docsearch/css@3.8.2':
     resolution: {integrity: sha512-y05ayQFyUmCXze79+56v/4HpycYF3uFqB78pLPrSV5ZKAlDuIAAJNhaRi8tTdRNXh05yxX/TyNnzD6LwSM89vQ==}
+
+  '@docsearch/css@3.9.0':
+    resolution: {integrity: sha512-cQbnVbq0rrBwNAKegIac/t6a8nWoUAn8frnkLFW6YARaRmAQr5/Eoe6Ln2fqkUCZ40KpdrKbpSAmgrkviOxuWA==}
 
   '@docsearch/js@3.8.2':
     resolution: {integrity: sha512-Q5wY66qHn0SwA7Taa0aDbHiJvaFJLOJyHmooQ7y8hlwwQLQ/5WwCcoX0g7ii04Qi2DJlHsd0XXzJ8Ypw9+9YmQ==}
@@ -4557,6 +4560,8 @@ snapshots:
   '@ctrl/tinycolor@4.1.0': {}
 
   '@docsearch/css@3.8.2': {}
+
+  '@docsearch/css@3.9.0': {}
 
   '@docsearch/js@3.8.2(@algolia/client-search@5.18.0)(search-insights@2.13.0)':
     dependencies:
