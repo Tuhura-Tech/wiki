@@ -12,7 +12,7 @@ In this section, we'll be adding an SQL database to the blog site created previo
 The first thing you'll want to do is install SQL model, after making sure your Virtual Env is activated
 
 ```sh
-uv add sqlmodel
+uv pip install sqlmodel
 ```
 
 next we'll want to add imports to the top of **main.py** 

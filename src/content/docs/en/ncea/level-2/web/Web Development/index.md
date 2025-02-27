@@ -17,7 +17,7 @@ For more information, and help with Jinja, take a look at the [Official Documena
 The first thing we'll want to do is install FastAPI so we can use it in our project, which will also install Jinja2
 
 ```sh
-uv add "fastapi[standard]"
+uv pip install "fastapi[standard]"
 ```
 
 ## Setting up directories
