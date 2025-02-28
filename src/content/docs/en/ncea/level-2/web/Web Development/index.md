@@ -8,13 +8,13 @@ sidebar:
 
 This page will walk you through setting up a basic webpage using Jinja2 templating and FastAPI
 
-You should already have installed UV, created a project directory, CD'd into the directory, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages **todo: link**
+You should already have installed UV, created a project directory, CD'd into the directory if needed, and setup a Virtual Env. If you haven't, take a look at the Development Environment pages 
 
-For more information, and help with Jinja, take a look at the [Official Documenation](https://jinja.palletsprojects.com/en/stable/)
+For more information, and help with Jinja, take a look at the [Official Documenation.](https://jinja.palletsprojects.com/en/stable/) For more information about FastAPI take a look at its [Offical Documentation](https://fastapi.tiangolo.com/)
 
 ## Installing FastAPI/Jinja2
 
-The first thing we'll want to do is install FastAPI so we can use it in our project, which will also install Jinja2
+The first thing we'll want to do is install FastAPI so we can use it in our project, which will also install Jinja2. Ensuring our venv is active we'll run:
 
 ```sh
 uv pip install "fastapi[standard]"
@@ -40,11 +40,12 @@ from fastapi import FastAPI
 app = FastAPI()
 ```
 
-in the terminal we can now launch a dev server by running
+in the terminal we can now launch a dev server by running:
 
 ```sh
 fastapi dev
 ```
+You'll want to get used to this command as you'll be using it a lot!
 
 You'll notice that fastAPI has now launched a dev server, and given us two links:
 
@@ -55,7 +56,7 @@ We'll want to click the server link, it should open up a JSON file in your brows
 
 That's fine as we just wanted to test! 
 
-Great! You can shut the development server down by returning to the terminal and pressing CTRL + C
+Great! You can shut the development server down by returning to the terminal and pressing CTRL + C though you don't need to do this now.
 
 
 :::note[Dev Server]
@@ -98,13 +99,13 @@ Everything that follows should be written *below* **app = FastAPI()**
 
 Finally, we'll write the code that loads our page. 
 
-First, let's load the templates directory we created
+First, let's load the templates directory we created so FastAPI knows where to find it.
 
 ```python
 templates = Jinja2Templates(directory="templates")
 ```
 
-Then, let's load the page we created earlier:
+Then, let's load the page we created earlier and then pass the page to our app to display:
 
 ```python
 @app.get("/", response_class=HTMLResponse)
@@ -179,13 +180,13 @@ We can then refer to the *title* and *head* fields to populate them with what we
 
 Take a look at your site, and you should now see these fields filled by "My Blog" 
 
-This is the power of Templating, once we've created a template, we don't need to write it again. If a template is used in multiple pages, we only need to edit it in one place!
+This is the power of Templating, once we've created a template, we don't need to write it again. If a template is used in multiple pages, we only need to edit it in one place! Like editing a base class that other classes inherit from, or changing a function used in many places!
 
 ### Blog posts
 
 Filling the content block is slightly more complicated, as there's two things we need: 1. Blog posts to load 2. Interpreting and displaying of these posts using Jinja.
 
-Generally your blog posts would be in something like an SQL database, which is something you'll be shown how to set up later. But for now, we'll just store them in our Python script using a list of dictionaries.
+Generally your blog posts would be in something like an SQL database, which is something you'll be shown how to set up later. But for now, we'll just store them in our Python script using a list of dictionaries. This will be our 'fake database' until we make an SQL one!
 
 Let's go back to **main.py** and create some dummy blog posts in a temporary "database" that we can load.
 
@@ -221,7 +222,7 @@ async def load_blog(request: Request):
     return templates.TemplateResponse("blog.html", {"request": request, "posts": post_database})
 
 ```
-This will pass the list as a variable that our template can use to populate its fields dynamically.
+This will pass the list as a variable that our template can use to populate its fields dynamically. It's similar to passing things as inputs to a function!
 
 our **main.py** should look like this: 
 
