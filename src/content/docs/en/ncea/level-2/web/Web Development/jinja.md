@@ -2,7 +2,7 @@
 title: Jinja
 description: Jinja Reference
 sidebar:
-    order: 3
+    order: 4
 ---
 
 This page will provide a brief overview of some of the most commonly used features of Jinja, however will not cover everything. For more information, read the [official Jinja documentation](https://jinja.palletsprojects.com/en/stable/)

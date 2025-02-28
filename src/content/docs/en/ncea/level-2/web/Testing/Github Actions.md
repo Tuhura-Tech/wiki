@@ -2,7 +2,7 @@
 title: Github Actions
 description: Overview of Level 2 Resources
 sidebar:
-    order: 4
+    order: 8
 ---
 
 Github Actions is an extremely powerful tool that directly integrates into your Github repository! It allows us to automate many things, though we're going to be focusing on the automation of Testing. Github actions are run each time a new commit is made to your repository, so it's a great way to make sure everything is **actually** working after the changes you made! (This again, is especially important in bigger projects, who knows what side-effects your small change may have had!)

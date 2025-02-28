@@ -2,7 +2,7 @@
 title: PlayWright
 description: Overview of Level 2 Resources
 sidebar:
-    order: 3
+    order: 7
 ---
 
 Playwright is another powerful testing tool that works as part of pytest, which we can use to test the content of a webpage itself. This can include clicking links, checking the heading of a page, and reading the text of (As well as much more)

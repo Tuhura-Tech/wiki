@@ -2,7 +2,7 @@
 title: Teaching Delivery
 description: Delivery process for teachers
 sidebar:
-  order: 2
+  order: 1
 ---
 
 These resources are written as if a student is reading them and it is encouraged that this resource is made available to them and they are encouraged to use it (a requirement of the license these resources are available under is you disclose the source). This is not intended to be a resource that teaches students all concepts merely a reference and resource, you are still expected to deliver this content. Throughout these resources asides will exist with specific teaching notes, resources or other materials that will be useful for delivery.
