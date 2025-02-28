@@ -25,7 +25,13 @@ Search "Python" and install the Python package. This will add support for the Py
 
 1. To install UV, we can follow the instructions on the [official documentation](https://docs.astral.sh/uv/).
 
-    this will likely mean running
+    this will likely mean simply running:
+
+    ```sh
+    pip install uv
+    ```
+
+    However, if for whatever reason that doesn't work for you, try doing the following: (Only do this if pip **didn't** work)
 
     ```sh
     Set-ExecutionPolicy RemoteSigned -scope CurrentUser
@@ -44,31 +50,21 @@ Search "Python" and install the Python package. This will add support for the Py
     ```sh
     uv
     ```
-    in the terminal. If you get an error, you'll likely need to restart your device to ensure UV is installed correctly. If you get an output showing different commands, you can move on.
+    in the terminal. 
+    
+    If you get an error, you'll likely need to restart your device to ensure UV is installed correctly. If you get an output showing different commands, you can move on.
 
 
 3. Then we can create our project by typing
 
     ```sh
-    uv init my_project
+    uv init 
     ```
     in the terminal.
 
-    This will create a folder in which your project will sit. All files you add to your project should sit inside this folder.
-
-4. You'll then want to make sure you move to make this directory the active directory, by doing
-
-    ```sh
-    cd my_project
-    ```
-
-    Which will ensure any further commands are run inside this directory.
 
 </Steps>
 
-:::note[Project name]
-You can replace "my_project" with whatever you want to name your project, just make sure you also use this name whenever we've used "my_project"
-:::
 
 ### Virtual ENv
 
