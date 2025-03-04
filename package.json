@@ -29,7 +29,7 @@
     "@types/html-escaper": "3.0.4",
     "@types/mdast": "4.0.4",
     "@types/node": "22.13.9",
-    "@typescript-eslint/parser": "8.25.0",
+    "@typescript-eslint/parser": "8.26.0",
     "astro": "5.4.1",
     "astro-auto-import": "0.4.4",
     "astro-eslint-parser": "1.2.1",
@@ -54,7 +54,7 @@
     "rehype": "13.0.2",
     "tsm": "2.3.0",
     "typescript": "5.8.2",
-    "typescript-eslint": "8.25.0",
+    "typescript-eslint": "8.26.0",
     "unified": "11.0.5",
     "unist-util-visit": "5.0.0"
   },
