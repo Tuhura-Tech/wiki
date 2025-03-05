@@ -319,5 +319,5 @@ If everything works, congratulations! You've:
 3. Added to that database using an input form
 
 
-
+You can find a repository of this project on our github [Here.](https://github.com/Tuhura-Tech/ncea-level-2-web-tutorial) If anything in your project isn't working, take a look at our version of the project.
 

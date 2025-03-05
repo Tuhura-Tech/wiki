@@ -66,6 +66,8 @@ This does not mean these tools are the best nor the ony way to do it, often you 
 
 ## Projects
 
+A repository of the final result of these guides can be found on our github [Here](https://github.com/Tuhura-Tech/ncea-level-2-web-tutorial) if at any point you get completely stuck, take a look at our code!
+
 ### Base Website
 
 This project goes over the basics of HTML, CSS and FastAPI to build a basic blog.
