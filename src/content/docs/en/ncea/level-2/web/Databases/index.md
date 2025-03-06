@@ -5,7 +5,7 @@ sidebar:
     order: 4
 ---
 **todo: link**
-In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, you can find the [instructions here]().
+In this section, we'll be adding an SQL database to the blog site created previously, if you haven't done that, take a look at the **Web Development** section
 
 ### Setting up
 
@@ -52,9 +52,9 @@ class Post(SQLModel, table = True):
 
 ```
 
-Though you should keep your current fake databse for testing purposes. 
+For now we should keep our current fake 'database' for testing purposes. 
 
-We then want to create an engine. Think of this as the intimediary between our database and our functions.
+We then want to create an engine. Think of this as the intermediary between our database and our functions.
 
 ```python
 sqlite_file_name = "database.db"
@@ -92,7 +92,7 @@ to be
 app = FastAPI(lifespan= lifespan)
 ```
 
-moving the lifespan() function we just created to be above it.
+make sure the lifespan() function we just created is above the app creation.
 
 Our fastAPI app now launches with a defined SQLModel database! However it's completely empty, and there's not really any way to interact with it.
 
@@ -101,11 +101,17 @@ Our fastAPI app now launches with a defined SQLModel database! However it's comp
 
 :::Note[SQL Errors]
 If at any point in the following steps, you're having errors like "contains no coloumn with *name*" even though you've definitely named the coloumn that when defining your database, try deleting the Database.SQL file in your project files. Then run the dev server again and the database will be automatically created again with the updated names.
+
+Deleting the database file is totally fine, as a new one will be created automatically if it doesn't exist. So we should be doing this every time we make changes to the structure of our Database.
 :::
 
-To interact with our Database, we'll need to set up some functions that allow us to do things like add a post, and get all posts, or an individual post.
+To interact with our Database, we'll need to set up some functions that allow us to do things like add a post, get all posts, or get an individual post.
 
 Let's first create a function that adds a post to the database.
+
+It'll take, as an input, data to fill all the fields we defined earlier. (except for ID as this is generated automatically.) 
+
+We'll then create a new post object, create a session, add it to our database, and then refresh it.
 
 ```python
 @app.post("/posts/")
@@ -120,6 +126,8 @@ def add_post(post_title: str, post_content: str, post_date: str) -> Post:
 ```
 
 Let's also create a function that gets all the posts (This is something we'll want to display the posts on our blog)
+
+This function will get all of the posts starting from an index of 0, up to a maximum index of 100. If we wanted to limit the posts per page, this is how we would do that. We'd set the starting index higher, and have a lower limit, based on what page we're on.
 
 ```python
 @app.get("/posts/")
@@ -279,10 +287,10 @@ This also means we can delete our fakePosts database, as it's no longer used.
 ### Clearing posts
 
 :::Note[Clearing posts]
-This step is entirely optional, and should only be done if you want your database to be cleared each time your app is shut down. This is useful to stop test posts clogging your database, but shouldn't be used when you want your database to remain between running your app.
+This step is entirely optional, and should only be done if you want your database to be cleared each time your app is shut down. This is useful to stop test posts clogging your database, but shouldn't be used when you want your database to remain between running your app. While we're adding posts manually using our script, we'll want to clear it. But once we're adding posts from our website itself, we'll want the post databse to remain between runs.
 :::
 
-To clear your database without deleting it, we can add the following to the **lifespan** function beneath yield:
+To clear your database without deleting the file itself, we can add the following to the **lifespan** function beneath yield:
 
 ```python
 with Session(engine) as session:
@@ -305,7 +313,7 @@ async def lifespan(app: FastAPI):
             session.commit()
 ```
 
-The code before the **yield** is run as the app starts, and the code after the **yield** is run as it quits.
+The code before the **yield** is run as the app starts, and the code after the **yield** is run as it shuts down.
 
 
 At this point, the code for your main.py should look like this:

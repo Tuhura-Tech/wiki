@@ -310,7 +310,7 @@ async def new_post(request: Request):
     return templates.TemplateResponse("form.html", form.__dict__)
 ```
 
-Test your post sumbition page! See if you can add a new post, check that the redirect works, and try submitting invalid posts!
+Test your add post page! See if you can add a new post, check that the redirect works, and also try submitting invalid posts to see what happens!
 
 If everything works, congratulations! You've:
 

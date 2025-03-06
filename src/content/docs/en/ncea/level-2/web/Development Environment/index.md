@@ -26,9 +26,9 @@ To setup a development environment for web development, we will be using [Visual
 
 ### Creating a project in VSCode
 
-To create a new project in VSCode, it's easiest to create a new folder outside of VSCode. You'll want a folder that holds all your projects, with each project having an individual folder inside this.
+To create a new project in VSCode, it's easiest to create a new folder outside of VSCode. Ideally you'll want a folder that holds all your projects called something like "projects", with each project having an individual folder inside this.
 
-Once you have a new empty folder, you can right click inside, and "Open with Visual Studio Code"
+Once you have a new empty folder for your project, you can right click inside, and "Open with Visual Studio Code"
 
 This will open a blank project from inside that folder, any files you create and save will be saved inside this folder.
 
