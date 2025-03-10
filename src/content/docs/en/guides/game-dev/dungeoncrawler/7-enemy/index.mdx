@@ -156,7 +156,7 @@ Head to your Weapon Scene and open the **weapon.gd** script. We'll just need to 
 1. First, let's get a reference to the **Area2D** node.
 
 	```gdscript
-	@onready var area_2d = $Sprite2D/Area2D
+	@onready var area_2d = $Movement/Area2D
 	```
 2. Then, in our **_process()** function, if we're attacking, we'll want to get all the bodies we're colliding with and check if they're enemies.
 
