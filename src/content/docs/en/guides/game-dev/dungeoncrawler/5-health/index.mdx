@@ -363,17 +363,15 @@ Great! You now have an autoload scene, to learn more about these check out the o
 ### Getting things connected
 
 <Steps>
-1. Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that the UI 'sticks' to the camera, rather than existing within the game)
+1. *Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
 
-2. *Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
-
-3. First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations. Thankfully, because it's an autoload, this is really easy!
+2. First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations. Thankfully, because it's an autoload, this is really easy!
 
 	```gdscript
 	@onready var ui : Control = UIGlobal
 	```
 
-4. Then, finally, before we call the signal the first time, connect the signal with:
+3. Then, finally, before we call the signal the first time, connect the signal with:
 
 	```gdscript
 	on_health_changed.connect(ui.changed_health)
@@ -394,7 +392,7 @@ Run your game! And you should have 3 hearts! Great!
 - [ ] I've given the player a hitbox
 - [ ] I've created the health UI
 - [ ] I've created the UI script
-- [ ] I've added the UI scene to the World scene, as a child of a CanvasLayer
+- [ ] I've added the UI scene as an Autoload in my project settings
 - [ ] My health displays!
 </Checklist>
 </Box>
