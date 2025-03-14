@@ -61,7 +61,7 @@ Don't worry, we've done all the hard work of connecting signals earlier! This'll
 
 <Steps>
 
-1. Let's head to our UI Scene. To the root node, add a new child, of type **HBoxContainer** call it "pointContainer"
+1. Let's head to our UI Scene. To the **CanvasLayer**, add a new child, of type **HBoxContainer** call it "pointContainer"
 
 2. Give it two children, a **TextureRect** and a **Label,** name the label "pointsLabel"
 
@@ -74,7 +74,7 @@ Don't worry, we've done all the hard work of connecting signals earlier! This'll
 	First, a reference to our label, same way we've been doing, this should be second nature by now!
 
 	```gdscript
-	@onready var points_label = $pointContainer/pointsLabel
+	@onready var points_label: Label = $CanvasLayer/pointContainer/pointsLabel
 	```
 
 	then, we'll finish the function we created earlier.
