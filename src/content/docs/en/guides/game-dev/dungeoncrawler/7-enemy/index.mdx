@@ -52,13 +52,11 @@ Let's get to making the scene!
 Now let's get the enemy moving!
 <Steps>
 1. Let's create some variables: 
-	1. a boolean to keep track of if the player is in range
 	2. a reference to the player
 	3. a variable to control our speed
 
 	It should look something like this, again getting the reference to the **AnimatedSprite2D** the usual way:
 	```gdscript
-	var in_range : bool = false
 	var target
 
 	@export var speed : float = 50.0
@@ -67,12 +65,13 @@ Now let's get the enemy moving!
 
 2. Then, we'll want to connect two signals from the "range" **Area2D** node, we'll want to connect both the "on_body_entered" and "on_body_exited" signals to the script we created!
 
-	Let's write those functions. When the player enters the range, we'll want to set our **in_range** boolean, and play our move animation
+	If you've forgetten how to do this. Select the **Area2D** node, and at the top of the inspector, switch to the **Node** tab, then select the signal you want and click **Connect**
+
+	Let's write those functions. When the player enters the range, we'll want to assign it as the target.
 
 	``` gdscript
 	func _on_range_body_entered(body):
 		if(body.is_in_group("player")):
-			in_range = true
 			target = body
 			animated_sprite_2d.play("move")
 	```
@@ -82,15 +81,14 @@ Now let's get the enemy moving!
 	```gdscript
 	func _on_range_body_exited(body):
 		if(body.is_in_group("player")):
-			in_range = false
 			animated_sprite_2d.play("idle")
 	```
 
-4. Now, in the **_process()** function, we'll want to check if our player is in range, if they are, move toward them. We'll also want to flip our sprite based on where the player is in relation to the enemy.
+4. Now, in the **_process()** function, we'll want to check if our target variable is not null (Nothing). We'll also want to flip our sprite based on where the player is in relation to the enemy.
 
 	```gdscript
 	func _process(delta):
-		if(in_range):
+		if(target != null):
 
 			velocity = (target.global_position - global_position).normalized() * speed
 
@@ -108,7 +106,6 @@ Now let's get the enemy moving!
 
 	extends CharacterBody2D
 
-	var in_range : bool = false
 	var target
 
 	@export var speed : float = 50.0
@@ -116,7 +113,7 @@ Now let's get the enemy moving!
 
 	# Called every frame. 'delta' is the elapsed time since the previous frame.
 	func _process(delta):
-		if(in_range):
+		if(target != null):
 			
 			velocity = (target.global_position - global_position).normalized() * speed
 			
@@ -129,13 +126,11 @@ Now let's get the enemy moving!
 		
 	func _on_range_body_entered(body):
 		if(body.is_in_group("player")):
-			in_range = true
 			target = body
 			animated_sprite_2d.play("move")
 
 	func _on_range_body_exited(body):
 		if(body.is_in_group("player")):
-			in_range = false
 			animated_sprite_2d.play("idle")
 
 
