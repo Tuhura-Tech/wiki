@@ -13,13 +13,16 @@ import { Steps } from '@astrojs/starlight/components';
 :::note[Godot Documentation]
 Godot Documentation for nodes discussed in this section: 
 
-[Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html) [Timer](https://docs.godotengine.org/en/stable/classes/class_timer.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html)
+[Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html) [Timer](https://docs.godotengine.org/en/stable/classes/class_timer.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [Singletons (Autoload)](https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html)
 :::
 
+
+This section is going to be quite complicated, but once it's done, we'll have laid the groundwork for a lot of the later features of our game! (Like pickups!)
 
 ## Giving our player Health
 
 Let's start setting up our health system on the player side!
+
 <Steps>
 1. We'll start by adding a new Node to our player Scene, as a child of the root **CharacterBody2D** node. The node should be of type **Area2D** 
 	give the **Area2D** a child of type **CollisionShape2D** rename the Area2D to "Hitbox." 
@@ -27,6 +30,8 @@ Let's start setting up our health system on the player side!
 	In the **Inspector** of the **Area2D** Navigate to the **Collision** section. Deselect all numbers under the **Layer** Section, and ensure *only* 2 is selected under the **Mask** Section.
 
 	Give the **CollisionShape2D** a shape, ideally a rectangle or circle, and make it *slightly* bigger than the shape for the **CharacterBody2D's** **CollisionShape2D**
+
+	This is so that things can actually overlap with our hitbox, as if it was smaller, they would impact the characters physical body before overlapping the hitbox.
 
 2. Let's give the **Area2D** one more child of type **Timer** and name it "damageTimer" this timer will be used to determine how quickly we can take damage again after being hurt, think of it as invulnerability time!
 	In the timer's inspector, set its **Wait Time** field to 0.5s
@@ -79,8 +84,8 @@ Let's start setting up our health system on the player side!
 		health = max_health
 		emit_signal("on_health_changed", health)
 	```
-
 </Steps>
+
 <Steps>
 1. Right, let's get onto the most complicated function in the script, the function for taking damage! In this function, there'll be a few different possible outcomes.
 
@@ -88,6 +93,8 @@ Let's start setting up our health system on the player side!
 	2. Otherwise we'll take damage. Emitting the signal to change the UI.
 	3. If we do take damage, we might be reduced to 0 hitpoints
 	4. If we are, we die! If we're not. We start our immunity timer.
+
+	It can be helpful to visualise things like this in a flowchart, if you're having trouble understanding the function, try drawing out how it works!
 
 2. Great! Let's write that in gdscript:
 
@@ -113,6 +120,8 @@ Let's start setting up our health system on the player side!
 
 3. Next we'll do healing! This one is *much* easier. We just need to check if we have room to be healed (Our health is less than our max health). If we do, increase our health by 1. Then emit the signal to update the UI! We'll also want to delete the potion, so it can no longer be used.
 
+	If you wanted, you could get edit this to take an input of an int to allow for variable healing. But for now we'll just assume all healing is 1 health. 
+
 	```gdscript
 	func heal(body):
 		if health < max_health:
@@ -121,7 +130,10 @@ Let's start setting up our health system on the player side!
 			body.queue_free()
 	```
 
-4. Finally, we need a function that calls our **heal** and **damage** functions based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
+
+
+
+4. Finally, we need a function that calls heals us and gives us points based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
 
 	To check if something has collided with us, we'll need to the **on_body_entered** signal! To connect this, swap to the **Node** tab of the **Inspector** and click on the **Area2D** node in the **SceneTree** again. You'll see a list of all the signals we have available to us!
 	Click the **on_body_entered** signal and press **Connect** select the **Area2D (hitbox)** node and click **Connect** 
@@ -132,15 +144,26 @@ Let's start setting up our health system on the player side!
 
 	```gdscript
 	func _on_body_entered(body):
-		if body.is_in_group("enemy"):
-			take_damage()
-		elif body.is_in_group("health"):
+		if body.is_in_group("health"):
 			heal(body)
 		elif body.is_in_group("coin"):
 			emit_signal("on_point_gained")
 			body.queue_free()
 
 	```
+
+5. Next, let's take damage from any enemies touching us! Now, we could do this based on enemies entering our hitbox as in the above step, but what if an enemy **remains** inside our hitbox? It should keep damaging us! So we need a different approach using the **_process** function.
+
+	We'll want to: get any bodies overlapping our hitbox, check if any are enemies, if they are, we'll take damage! Dont' worry that we're running this code every frame, our **damageTimer** will prevent us from taking extra damage!
+
+	```gdscript
+	func _process(delta):
+	for body in get_overlapping_bodies():
+		if body.is_in_group("enemy"):
+			take_damage()
+	```
+
+
 5. that's it! Giving us a full script that looks something like this:
 
 	```gdscript
@@ -159,15 +182,17 @@ Let's start setting up our health system on the player side!
 		health = max_health
 		emit_signal("on_health_changed", health)
 
-	func _on_body_entered():
-		if body.is_in_group("enemy"):
-			take_damage()
-		elif body.is_in_group("health"):
+	func _on_body_entered(body):
+		if body.is_in_group("health"):
 			heal(body)
 		elif body.is_in_group("coin"):
 			emit_signal("on_point_gained")
 			body.queue_free()
-			
+		
+	func _process(delta):
+		for body in get_overlapping_bodies():
+			if body.is_in_group("enemy"):
+				take_damage()
 
 	func take_damage():
 		if can_take_damage:
@@ -203,20 +228,27 @@ And that's the player side of health done! Let's move onto the UI side!
 ### UI Setup
 
 Time to start making some UI!
+
+For our UI, we're going to use something called an **Autoload** node (This is similar to a singleton in other languages)
+
+This, as the name suggests, automatically loads independent of our other scenes, and can also be easily accessed from **any** other node!
+
 <Steps>
 1. Let's make a new scene, of, as you may have guessed, type **User Interface.** call the Root node "UI" 
 
-2. Add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
+2. As a child of this node, add a new **CanvasLayer** Node.
+
+3. To the **CanvasLayer** Add a child of type **HBoxContainer** This is a UI element that will neatly arrange our UI elements, in this case our hearts, horizontally!
 
 	Let's open its inspector, navigate to the **Layout** tab and change it to "Anchors." Then change the **Anchor Preset** to "top left." This will make sure that whatever the size of our screen is, the health will always be pinned to the top left!
 
-	Rename the node to "healthContainer." When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
+	Rename the node to "healthContainer" When we add hearts, this will be their parent Node, controlling their position on the screen and in relation to one another. (Like making sure they don't overlap)
 
-3. Let's also, to the **Root** node, and a child of type **Label** call it "diedLabel"
+4. Let's also, to the **CanvasLayer** node, and a child of type **Label** call it "diedLabel"
 
 	In the inspector for this label, in the **Text** box, write "You Died!" then look for the **Theme Overrides** section, open this, find **Font Size** and change this to about 35px. 
 
-4. Next, in the 2D view of the UI, move the Text so that it's where you want it, I placed mine in the middle of the screen. Then, as we want this to be hidden by default, click the little 'eye' icon next to the label in the **SceneTree** to hide it!
+5. Next, in the 2D view of the UI, move the Text so that it's where you want it, I placed mine in the middle of the screen. Then, as we want this to be hidden by default, click the little 'eye' icon next to the label in the **SceneTree** to hide it!
 </Steps>
 
 Great! That's all the UI setup we'll need to do for now (Though we'll come back to it later for points)
@@ -244,11 +276,11 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 	```
 
 3. Let's also get a reference to our **healthContainer** node, our **diedLabel** node, and create a variable to keep track of the most health we've had so far (This lets us know how many empty hearts to have!)
-	We won't set this variable here, as it'll be set by whatever the most health we've had so far has been.
+	We won't set this variable here, as it'll be set by whatever the most health we've had so far has been. We'll again use the **Drag + Ctrl + Release** technique.
 
 	```gdscript
-	@onready var health_cont = $healthContainer
-	@onready var died_label = $diedLabel
+	@onready var health_container = $CanvasLayer/healthContainer
+	@onready var died_label = $CanvasLayer/diedLabel
 	var maxHealth : int = 0
 	```
 4. Next will be the function that our signal will call, where most of the logic will happen, so let's think about what we need it to do!
@@ -267,8 +299,8 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 5. We'll want to check if we have enough hearts currently to represent that, if we don't, we'll need to add some more. (We'll create the function for this last)
 
 	```gdscript
-		if(maxHealth/2 > health_cont.get_child_count()):
-			for h in (maxHealth/2) - health_cont.get_child_count():
+		if(maxHealth/2 > healthContainer.get_child_count()):
+			for h in (maxHealth/2) - healthContainer.get_child_count():
 				add_heart()
 	```
 
@@ -278,13 +310,13 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 	When I was figuring out how to program this, I found it useful to draw out the hearts on paper, at different levels of health!
 
 	```gdscript
-	for i in health_cont.get_child_count():
+	for i in healthContainer.get_child_count():
 			if (i * 2) + 1 < newHealth:
-				health_cont.get_child(i).texture = UI_HEART_FULL
+				healthContainer.get_child(i).texture = UI_HEART_FULL
 			elif (i * 2) < newHealth:
-				health_cont.get_child(i).texture = UI_HEART_HALF
+				healthContainer.get_child(i).texture = UI_HEART_HALF
 			else:
-				health_cont.get_child(i).texture = UI_HEART_EMPTY
+				healthContainer.get_child(i).texture = UI_HEART_EMPTY
 	```
 
 7. Giving us a full **changed_health** function that looks like this:
@@ -294,20 +326,20 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 		if newHealth > maxHealth:
 			maxHealth = newHealth
 			
-		if(maxHealth/2 > health_cont.get_child_count()):
-			for h in (maxHealth/2) - health_cont.get_child_count():
+		if(maxHealth/2 > healthContainer.get_child_count()):
+			for h in (maxHealth/2) - healthContainer.get_child_count():
 				add_heart()
 		
-		for i in health_cont.get_child_count():
+		for i in healthContainer.get_child_count():
 			if (i * 2) + 1 < newHealth:
-				health_cont.get_child(i).texture = UI_HEART_FULL
+				healthContainer.get_child(i).texture = UI_HEART_FULL
 			elif (i * 2) < newHealth:
-				health_cont.get_child(i).texture = UI_HEART_HALF
+				healthContainer.get_child(i).texture = UI_HEART_HALF
 			else:
-				health_cont.get_child(i).texture = UI_HEART_EMPTY
+				healthContainer.get_child(i).texture = UI_HEART_EMPTY
 	```
 
-	Not too bad!
+	Some slightly complex math, but not too bad!
 
 8. Let's add that **add_heart** function, which just creates and configures another child if we need one.
 
@@ -315,7 +347,7 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 	func add_heart():
 		var img : TextureRect = TextureRect.new()
 		img.expand_mode = TextureRect.EXPAND_FIT_WIDTH
-		health_cont.add_child(img)
+		healthContainer.add_child(img)
 	```
 
 9. Let's also while we're here, add an empty function for our point system, which we'll come back to later!
@@ -329,20 +361,33 @@ Great! That's all the UI setup we'll need to do for now (Though we'll come back 
 
 </Steps>
 
+Finally, we need to add the scene as an Autoload! To do this, using the top left Menu Bar, we'll navigate to **Project -> Project Settings**
+
+Then, in this window, navigate to the **Globals** tab.
+
+Here, click the folder icon next to the "Path" field, and find your UI.tscn scene and open it.
+
+Change the name to be "UIGlobal"
+
+It should look something like this:
+
+![Globals tab in Godot project settings](/src/assets/godot/dungeonCrawler/autoloads.png)
+
+Great! You now have an autoload scene, to learn more about these check out the official [Godot Docs on Singletons](https://docs.godotengine.org/en/latest/tutorials/scripting/singletons_autoload.html)
+
+
 ### Getting things connected
 
 <Steps>
-1. Go back to your main level scene. Add a new child of type **CanvasLayer** and add your new UI scene as a child of this! (This ensures that the UI 'sticks' to the camera, rather than existing within the game)
+1. *Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
 
-2. *Finally,* to get everything hooked up, we just need to connect that signal! Open up **hitbox.gd**
-
-3. First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations.
+2. First, we'll get a reference to our new **UI** scene. Put this with the other variable declarations. Thankfully, because it's an autoload, this is really easy!
 
 	```gdscript
-	@onready var ui : Control = $"../../CanvasLayer/UI"
+	@onready var ui : Control = UIGlobal
 	```
 
-4. Then, finally, before we call the signal the first time, connect the signal with:
+3. Then, finally, before we call the signal the first time, connect the signal with:
 
 	```gdscript
 	on_health_changed.connect(ui.changed_health)
@@ -363,7 +408,7 @@ Run your game! And you should have 3 hearts! Great!
 - [ ] I've given the player a hitbox
 - [ ] I've created the health UI
 - [ ] I've created the UI script
-- [ ] I've added the UI scene to the World scene, as a child of a CanvasLayer
+- [ ] I've added the UI scene as an Autoload in my project settings
 - [ ] My health displays!
 </Checklist>
 </Box>

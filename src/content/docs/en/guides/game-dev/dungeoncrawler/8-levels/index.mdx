@@ -25,7 +25,7 @@ Let's get straight into it!
 
 ## Creating Multiple Levels
 
-To create multiple levels, we'll want to save each level and *everything* in the level, as a **Scene.** A level should contain **Everything** that we want to be part of the level, such as enemies, coins, and potions. However we *don't* want the player or the UI to be saved in the level.
+To create multiple levels, we'll want to save each level and *everything* in the level, as a **Scene.** A level should contain **Everything** that we want to be part of the level, such as enemies, coins, and potions. However we *don't* want the player to be saved to the level.
 
 An easy way to remember what we want to store in a level, is by thinking of what we want to *belong* or exist as part of the level!
 
@@ -62,7 +62,7 @@ Here's an example of a level I made, take note of the order of the nodes in the 
 
 The very last step for our game, is creating something to actually transition us between levels! 
 <Steps>
-1. But first, let's quickly clean up our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** and the **CanvasLayer** that holds the **UI** (And obviously keeping the root node)
+1. But first, let's quickly clean up our main "World" scene. We'll want to delete everything from this scene *except* for the **Player & Camera2D** (And obviously keeping the root node)
 
 2. We'll add one additional node as a child of the **root** node called "levelHolder"
 

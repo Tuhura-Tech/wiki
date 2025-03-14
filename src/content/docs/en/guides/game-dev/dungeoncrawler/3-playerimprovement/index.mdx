@@ -45,7 +45,7 @@ We'll also be implementing attacking, but we'll do that in its own section!
 
 	If you're happy with your inputs, you can then hit **Close** at the bottom of the screen. Let's navigate back to our **player_movement.gd** script. This can be done by opening our **player** scene, clicking on the **CharacterBody2D** and clicking the **Script** tab at the top of the screen.
 
-5. To change our inputs, all we need to do is change the predefined inputs to what we called ours!
+5. To change our inputs in our script, all we need to do is change the predefined inputs to what we called ours!
 
 	:::Note[Case Sensitivity] 
 	What you named your input actions *is* case sensitive
@@ -62,7 +62,7 @@ We'll also be implementing attacking, but we'll do that in its own section!
 </Steps>
 if you run your game, you'll notice your inputs are now changed!
 
-We won't assign our Attack option just yet, but it's good we've created it already.
+We won't use our Attack input just yet, but it's good we've created it already.
 
 
 ## Animation switching
@@ -78,35 +78,35 @@ We'll want to drop it below the speed variable declaration
 @onready var animated_sprite_2d = $AnimatedSprite2D
 ```
 
-if it doesn't look like this, delete the line and try again, making sure you're holding **Ctrl** on your keyboard after picking it up.
+if it doesn't look like this, delete the line and try again, making sure you're holding **Ctrl** on your keyboard after picking it up, and before letting go of left click.
 
 Great! Let's get to changing our animation!
 
 <Steps>
 
-1. Under where we set our velocity, we'll simply add a check to see if our velocity is anything other than 0 and change our animation based on that!
+1. Under where we set our velocity, we'll simply add a check to see if our velocity is 0 and change our animation based on that! If it's 0, we'll idle, if not, we'll do our movement animation!
 
 	We can check this simply with:
 
 	```gdscript
-	if velocity != Vector2.ZERO:
+	if velocity == Vector2.ZERO:
 	```
 	:::note[Vector2s] 
-	Why can't we just do velocity != 0? This is because velocity actually contains both our X (Horizontal) and Y (Vertical) velocity, so we need to make sure **Both** aren't zero.
+	Why can't we just do velocity == 0? This is because velocity actually contains both our X (Horizontal) and Y (Vertical) velocity, so we need to make sure **Both** are zero.
 	:::
 
-2. Then, we can play our run animation!
+2. Then, we can play our idle animation!
 
 	```gdscript
-	if velocity != Vector2.ZERO:
-    	animated_sprite_2d.play("walk")
+	if velocity == Vector2.ZERO:
+    	animated_sprite_2d.play("idle")
 	```
 
-3. If we're not moving, let's play our idle
+3. If we're moving, let's play our walk animation
 
 	```gdscript
 	else:
-		animated_sprite_2d.play("idle")
+		animated_sprite_2d.play("walk")
 	```
 
 4. Giving us a movement script that looks like this:
@@ -120,12 +120,15 @@ Great! Let's get to changing our animation!
 	func _physics_process(delta):
 		var direction = Input.get_vector("Left", "Right", "Up", "Down")
 		velocity = direction * speed
-		if velocity != Vector2.ZERO:
-			animated_sprite_2d.play("walk")
-		else:
-			animated_sprite_2d.play("idle")
 
 		move_and_slide()
+
+		if velocity == Vector2.ZERO:
+			animated_sprite_2d.play("idle")
+		else:
+			animated_sprite_2d.play("walk")
+
+		
 	```
 </Steps>	
 
@@ -135,7 +138,7 @@ Play your game, and you'll notice your animation changes when you move!
 
 To flip our player based on the direction we're moving, all we really need to do is add another If to check only the **Horizontal** part of our velocity, as thankfully the **AnimatedSprite2D** node has a built-in way to flip our sprite!
 
-I'll be adding this section **beneath** the animation section, but before the **move_and_slide()** function call.
+I'll be adding this section **beneath** the animation section.
 
 <Steps>
 
@@ -168,18 +171,20 @@ I'll be adding this section **beneath** the animation section, but before the **
 	func _physics_process(delta):
 		var direction = Input.get_vector("Left", "Right", "Up", "Down")
 		velocity = direction * speed 
+
+		move_and_slide()
 		
-		if velocity != Vector2.ZERO:
-			animated_sprite_2d.play("walk")
-		else:
+		if velocity == Vector2.ZERO:
 			animated_sprite_2d.play("idle")
+		else:
+			animated_sprite_2d.play("walk")
 			
 		if(velocity.x < 0):
 			animated_sprite_2d.flip_h = true
 		elif(velocity.x > 0):
 			animated_sprite_2d.flip_h = false
 
-		move_and_slide()
+		
 	```
 	:::note[Flipping]
 	Why didn't we juse use **else:**? - If we'd just used **Else:** our sprite would have jarringly flipped to face left whenever we stopped moving, or if we were just moving up and down. 
