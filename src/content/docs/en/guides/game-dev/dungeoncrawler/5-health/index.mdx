@@ -130,7 +130,10 @@ Let's start setting up our health system on the player side!
 			body.queue_free()
 	```
 
-4. Finally, we need a function that calls our **heal** and **damage** functions based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
+
+
+
+4. Finally, we need a function that calls heals us and gives us points based on what we've collided with. To check what type of object we've collided with, we'll be using **Groups!** These are something we'll assign to our enemies/potions/coins later.
 
 	To check if something has collided with us, we'll need to the **on_body_entered** signal! To connect this, swap to the **Node** tab of the **Inspector** and click on the **Area2D** node in the **SceneTree** again. You'll see a list of all the signals we have available to us!
 	Click the **on_body_entered** signal and press **Connect** select the **Area2D (hitbox)** node and click **Connect** 
@@ -141,15 +144,26 @@ Let's start setting up our health system on the player side!
 
 	```gdscript
 	func _on_body_entered(body):
-		if body.is_in_group("enemy"):
-			take_damage()
-		elif body.is_in_group("health"):
+		if body.is_in_group("health"):
 			heal(body)
 		elif body.is_in_group("coin"):
 			emit_signal("on_point_gained")
 			body.queue_free()
 
 	```
+
+5. Next, let's take damage from any enemies touching us! Now, we could do this based on enemies entering our hitbox as in the above step, but what if an enemy **remains** inside our hitbox? It should keep damaging us! So we need a different approach using the **_process** function.
+
+	We'll want to: get any bodies overlapping our hitbox, check if any are enemies, if they are, we'll take damage! Dont' worry that we're running this code every frame, our **damageTimer** will prevent us from taking extra damage!
+
+	```gdscript
+	func _process(delta):
+	for body in get_overlapping_bodies():
+		if body.is_in_group("enemy"):
+			take_damage()
+	```
+
+
 5. that's it! Giving us a full script that looks something like this:
 
 	```gdscript
@@ -168,15 +182,17 @@ Let's start setting up our health system on the player side!
 		health = max_health
 		emit_signal("on_health_changed", health)
 
-	func _on_body_entered():
-		if body.is_in_group("enemy"):
-			take_damage()
-		elif body.is_in_group("health"):
+	func _on_body_entered(body):
+		if body.is_in_group("health"):
 			heal(body)
 		elif body.is_in_group("coin"):
 			emit_signal("on_point_gained")
 			body.queue_free()
-			
+		
+	func _process(delta):
+		for body in get_overlapping_bodies():
+			if body.is_in_group("enemy"):
+				take_damage()
 
 	func take_damage():
 		if can_take_damage:
