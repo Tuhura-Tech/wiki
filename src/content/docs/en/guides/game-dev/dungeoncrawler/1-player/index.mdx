@@ -82,7 +82,7 @@ Now that we have something to look at, let's give our player a hitbox.
     ![CollissionShape](/src/assets/godot/dungeonCrawler/collshapeimg.png)
 
 2. Great! Our player now has collision. We'll do one more thing while we're here, which is give our player a script to handle movement. Right click on the **CharacterBody2D** and Attach a script. Call it something like "player.gd" and make sure we're saving it in our Scripts folder.
- We also need to make sure we **untick** the **template** box as we will not be using the template! This is because the template is designed for gravity based platformers.
+ We also need to switch the template to be **Node: Default** as we won't be using the **CharacterBody2D** Template! This is because that template is designed for gravity based platformers.
 </Steps>
 
 With our script created and attached, let's get to programming our movement!
@@ -99,7 +99,7 @@ With our script created and attached, let's get to programming our movement!
     @export var speed = 200
     ```
 
-    The **\@export** tag will allow us to easily edit our speed variable, without needing to open the script!
+    The **\@export** tag will allow us to easily edit our speed variable, without needing to open the script! We can edit the value of the variable directly from the inspector!
 
 2. Then, we'll want to use Godots built-in **_physics_process(delta):** function for our movement logic. Inside that we'll want to get the combined vector of all the inputs the player is pressing.
 
@@ -108,7 +108,12 @@ With our script created and attached, let's get to programming our movement!
         var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
     ```
 
+    A vector represents two numbers. In this case, our x and y inputs. If we're not pressing left or right, our X will be 0. If we're pressing left it'll be -1, and 1 if we're pressing right.
+    The same goes for our Y value and up/down. So pressing left and down will result in a value of 1,-1
+
 3. We'll then add some lines to multiply this vector by our speed, and then invoke Godots built-in **move_and_slide()** function, which actually does the moving!
+
+    This turns our example of 1,-1 into 200,-200
 
     ```gdscript
      func _physics_process(delta):
