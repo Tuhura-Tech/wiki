@@ -5,7 +5,6 @@ sidebar:
     order: 6
 ---
 
-import Checklist from '/src/components/Checklist.astro';
 import Box from '/src/components/tutorial/Box.astro';
 import { Steps } from '@astrojs/starlight/components';
 
@@ -35,7 +34,7 @@ Your player scene only needs to contain the basics for movement and collision. A
 
 My player scene looks like this:
 
-[todo]
+![Initial player scene](/src/assets/godot/tilemapnav/navplayerscene.png)
 
 With a script that looks like this:
 
@@ -71,7 +70,7 @@ This is done in the **Node** tab of the **Inspector**
 
 The initial enemy scene will be equally simple. Mine looks like this:
 
-[todo]
+![Initial enemy scene](/src/assets/godot/tilemapnav/naenemyscene.png)
 
 With the **Area2D** and its **CollisionShape2D** representing its "Detection range" or the range in which it will begin to pursue the player.
 
@@ -120,7 +119,7 @@ Our initial level scene will also be quite simple, consisting of two **TileMapLa
 
 My scene looks like this, I've created a small maze for the enemies to navigate:
 
-[todo]
+![Initial level scene](/src/assets/godot/tilemapnav/navlevelscene.png)
 
 Will want to make sure our **Walls** layer has had a **Physics Layer** added, and has collision painted onto the tiles.
 
@@ -130,7 +129,7 @@ Collision can be added under the **Tileset** Tab at the bottom of the screen, us
 
 My collision looks like this:
 
-[todo]
+![Tilemap collision](/src/assets/godot/tilemapnav/navtilemapcoll.png)
 
 Great! That's all the setup we need, now we can move on to actually adding the ability for our enemies to navigate our level!
 
@@ -146,17 +145,15 @@ Adding the level side of our navigation is easy! We'll want to add a new **Navig
 
 It should look like this:
 
-[todo]
+![Level scenetree with nav region](/src/assets/godot/tilemapnav/navnavigationregion.png)
 
 In the inspector of the **NavigationRegion2D** we'll then want to create a new **Navigation Polygon**
-
-[todo]
 
 Then, using the **Create Points** tool, selected from the top bar (This should be selected by default) we'll want to add points, to create a shape that covers our entire level.
 
 Don't worry, you can change this later if your level changes! You can also use the **Delete Points** tool if you make a mistake.
 
-[todo]
+![Nav region top bar](/src/assets/godot/tilemapnav/navregiontopba.png)
 
 Make sure you close the shape by connecting your last line back to your first point. Once you've done this, if you've done everything correctly you should see it automatically generates navigation polygons!
 
@@ -164,7 +161,7 @@ This should cover the region of your level that **Doesn't** contain walls, which
 
 Mine looks like this:
 
-[todo]
+![Nav region polygons](/src/assets/godot/tilemapnav/navpolygons.png)
 
 And that's all we need to do for the level! Note that if you have multiple levels, they'll **all** need a **NavigationRegion2D**
 
@@ -176,7 +173,7 @@ First, we'll want to add a new **NavigationAgent2D** node to the Scene, as a chi
 
 Leaving the Enemy scene looking like this:
 
-[todo]
+![updated enemy scene](/src/assets/godot/tilemapnav/navenemyscene2.png)
 
 Let's also change some settings on the root **CharacterBody2D** Node.
 
@@ -220,7 +217,7 @@ Then, finally, we'll assign our velocity to be the direction to this position, m
 velocity = global_position.direction_to(next_position) * speed
 ```
 
-Giving us a final script that, at its most basic form, looks like this:
+Giving us a final script that looks like this:
 
 ```gdscript
 extends CharacterBody2D
@@ -239,7 +236,25 @@ func _physics_process(delta):
 		var next_position = navigation_agent_2d.get_next_path_position()
 		velocity = global_position.direction_to(next_position) * speed
 		
+		
+		if(target.global_position.x < global_position.x):
+			animated_sprite_2d.flip_h = true
+		else:
+			animated_sprite_2d.flip_h = false
+			
 		move_and_slide()
+		
+	
+func _on_range_body_entered(body):
+	if(body.is_in_group("player")):
+		target = body
+		animated_sprite_2d.play("walk")
+
+func _on_range_body_exited(body):
+	if(body.is_in_group("player")):
+		target = null
+		animated_sprite_2d.play("idle")
+
 ```
 
 
