@@ -178,5 +178,68 @@ Leaving the Enemy scene looking like this:
 
 [todo]
 
+Let's also change some settings on the root **CharacterBody2D** Node.
+
+At the very top we'll change the **Motion Mode** to **Floating**
+
+and the **Wall Min Slide** to **0**
+
+These will help stop our Enemy from getting stuck on corners!
+
+Then, let's move on to the script! 
+
+We'll first want to get a reference to the **NavigationAgent2D** using the CTRL + Drag trick!
+
+Which should give us something like this, up with the other variable declarations:
+
+```gdscript
+@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+```
+
+Then, in the **_physics_process** function, we'll want to set the target of the NavigationAgent2D to be our target's global position. (How you assign your target is up to you!) 
+
+Though we'll first want to check we have a target!
+
+```gdscript
+func _physics_process(delta):
+	if(target != null):
+		
+		navigation_agent_2d.target_position = target.global_position
+```
+
+Then, we'll want to get the next *path position* from our **NavigationAgent2D** (This is the next position our agent targets, on itss route to its final goal)
+
+
+```gdscript
+var next_position = navigation_agent_2d.get_next_path_position()
+```
+
+Then, finally, we'll assign our velocity to be the direction to this position, multiplied by our speed!
+
+```gdscript
+velocity = global_position.direction_to(next_position) * speed
+```
+
+Giving us a final script that, at its most basic form, looks like this:
+
+```gdscript
+extends CharacterBody2D
+
+var target
+
+@export var speed : float = 50.0
+@onready var animated_sprite_2d = $AnimatedSprite2D
+@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+
+func _physics_process(delta):
+	if(target != null):
+		
+		navigation_agent_2d.target_position = target.global_position
+		
+		var next_position = navigation_agent_2d.get_next_path_position()
+		velocity = global_position.direction_to(next_position) * speed
+		
+		move_and_slide()
+```
 
 
