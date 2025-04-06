@@ -78,6 +78,14 @@ export default defineConfig({
 						sizes: '32x32',
 					},
 				},
+				{
+      		tag: 'script',
+      		attrs: {
+           src: 'https://plausible.tuhuratech.org.nz/js/script.js',
+           'data-domain': 'wiki.tuhuratech.org.nz',
+           defer: true,
+          },
+       },
 			],
 			disable404Route: true,
 			plugins: [starlightPluginAutolinkHeadings()],
