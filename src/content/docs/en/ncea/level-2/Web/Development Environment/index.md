@@ -6,11 +6,6 @@ sidebar:
 ---
 
 
----
-title: Development Environment
-description: Overview of Level 2 Resources
----
-
 We have two options for setting up a development environment for web development:
 
 1. [VSCode](#VSCode)
@@ -62,4 +57,3 @@ Then, you can create a new terminal instance using the top menu bar.
 
 ![New Terminal](/src/assets/ncea2web/terminalnew.png)
 
-## GitHub Codespaces
