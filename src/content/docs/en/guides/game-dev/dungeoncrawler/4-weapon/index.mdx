@@ -24,9 +24,11 @@ Let's make our weapon!
 <Steps>
 1. Create a new scene for our weapon!
 	Give it a Root node of a **Node2D** and name it "Weapon"  
+
+2. Give this a child of **Node2D** and name it "Movement"
 	
-2. Give it two children, a **Sprite2D** and a **Animationplayer** 
-	Give the **Sprite2D** a child of type **Area2D** and give the **Area2D** a child of **CollisionShape2D**
+3. Give **Movement** there children, a **Sprite2D,** an **Animationplayer** and an **Area2D**
+	Give the **Area2D** a child of **CollisionShape2D**
 
 	Here's how my scenetree looks:
 
@@ -42,7 +44,7 @@ Let's make our weapon!
 4. Let's open the **CollisionShape2D** node and assign a shape, you'll probably just want to use a rectangle shape. This will be the hitbox of the sword, and determine whether an enemy has been hit! Adjust its bounds so that it vaguely matches the sprite. 
 	Although you'll likely want to make it a little bigger than the sprite, as we don't want our game to feel like the player has to be too precise.
 
-5. let's rotate the **Sprite2D** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
+5. let's rotate the **Movement** node. Do this by selecting the node in the scenetree, navigating to the inspector, opening the **Transform** tab and changing the rotation to **90**
 
 	Let's also offset it's position a little, to help it rotate around our player smoothly. Set its x-position to **20px**
 
@@ -55,7 +57,7 @@ Let's make our weapon!
 </Steps>
 ## Weapon Script
 <Steps>
-1. Let's create a script to control our weapon, create it using the default template and attach it to the **root node2d,** call it "weapon.gd"
+1. Let's create a script to control our weapon, create it using the default template and attach it to the **root Node2d,** call it "weapon.gd"
 
 	We'll need this script to do two things:
 
@@ -77,7 +79,7 @@ Let's make our weapon!
 	```gdscript
 	extends Node2D
 
-	@onready var animation_player = $AnimationPlayer
+	@onready var animation_player: AnimationPlayer = $Movement/AnimationPlayer
 	@export var attacking : bool = false
 
 	func _process(delta):
@@ -114,13 +116,13 @@ Now, let's start creating our attack animation!
 
 	We want to animation the **Position** of our weapon, this is a **Property** so we'll create a **Property** Track. 
 
-	Then, when prompted, we'll select the **Sprite2D** as this is what we want to change the position of!
+	Then, when prompted, we'll select the **Movement** node as this is what we want to change the position of!
 
 	Finally, scroll until you see the **Position** property. 
 
 	Phew! That was quite a few steps, but our animation track is created!
 
-3. Now we need to determine the keyframes our sword will animate between. We'll need three: The first being the start position, the second being the extent of the attack, and the third being returning to the start position.
+3. Now we need to determine the keyframes our sword will animate between. We'll need at least three: The first being the start position, the second being the extent of the attack, and the third being returning to the start position.
 
 	To add a keyframe, right click on the animation track. (In the **Position** Row) and press **Insert Key** do this until you have three keyframes. If we select each keyframe, we can modify their values!
 
@@ -138,6 +140,8 @@ Now, let's start creating our attack animation!
 
 	Add a new animation track, select property, and you should see "attacking" right at the top! Add two keyframes, one right at the start, and one right at the end. The first we'll want to set the value to "on" (as we're now attacking) and the one at the end will set the property back to "off" (or unticked)
 
+6. **Optional step:** If you want, you can also add rotation to your weapon! This is added the same way as the position animation: Create a new property animation track, but this time modifying the rotation property. Also making sure it's the same length as the other animations.
+
 </Steps>
 And that's it! We'll come back later to add the code for destroying enemies.
 
@@ -150,7 +154,7 @@ Navigate to your player scene. From the filesystem, drag in your weapon scene (c
 
 Play your game, and you should hopefully have a weapon that rotates around the player and stabs when you click it! If it doesn't seem to be rotating around the middle of the player sprite, feel free to adjust its position within the Player scene.
 
-You're also welcome to adjust the size of the weapon (Although, you're best to do this within the weapon scene itself) it's your game after all!
+You're also welcome to adjust the size of the weapon (you're best to do this within the weapon scene itself, by modifying the size of the **Movement** node) it's your game after all!
 
 
 <Box>
