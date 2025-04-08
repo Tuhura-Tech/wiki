@@ -1,0 +1,98 @@
+---
+title: Version Control
+description: Overview of Level 2 Resources
+sidebar:
+    order: 2
+---
+
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+
+Obligatory [xkcd](https://www.xkcd.com/1597/).
+
+Version Control is an extremely important and powerful tool used in every kind of development. In simple terms it, as the name suggests, allows us to keep track of and control the different versions of our project. Think of it as saving a snapshot of your project as it stands. 
+
+## Commits
+
+Saving a state using Version Control is called a **Commit.** If something goes wrong, or you accidently save something after breaking things, you can rollback to any of those snapshots you've created.
+
+When you make a **Commit** you'll add a message that describes what was changed, this helps keeps track of what you did when! And makes it easier to rollback to the correct version if needed. 
+
+
+### When should you make a **Commit?**
+
+A commit should be made whenever something major is changed in your project, or if a new feature is added. A commit's message is limited to 72 characters, but a good rule of thumb is that the changes made in a commit should *easily* fit in this limit. If you find yourself struggling for room, it likely should be multiple commits!
+
+A commit should also generally **work.** This doesn't mean it needs to be feature complete, or be perfect, or 100% bug free. But if the code doesn't function at all, there'd be little reason to want to rollback to this version. 
+
+For information on writing good commit messages, check out (Conventional Commits)[https://www.conventionalcommits.org/en/v1.0.0/]
+
+Your commits for this project should almost always start with either "feat:" (For new additions) or "Fix:" (For fixes) There are of course exceptions to this, which Conventional Commits covers.
+
+
+## Branches
+
+Version Control also allows for lower risk experimentation, allowing you create a **Branch** based on the current state of your project, any changes made to this branch, won't effect the main branch. This branch has it's own **Commits** totally seperate from the main branch. If you decide the changes on the branch are ready for the main project, you can merge the Branch into your main project. If the branch breaks everything, you can just discard the changes and go back to your main branch!
+
+### When should you add a branch? 
+
+You should create a branch whenever you want to make **major** overhauls, or changes that could potentially totally break the functionality of the project, or if you just want to experiment risk free while also allowing for commits to be made.
+
+A branch is a seperate instance of the codespace based on how it looked when the branch was created. Any commits made to the Main branch will not effect the branch, and vice verse.
+
+However, you're able to **merge** the changes made in the branch into the main branch at any point, once you feel like your changes are ready. This makes branches completely safe, and unable to break the main branch! (Unless of course you choose to merge changes that break things!)
+
+
+## How to set up Version Control in VSCode
+
+You may have heard people talk about **Git** or **Github** 
+
+**Git** is the most commonly used Version Control System, and is primarily used directly from the command line. **Github** is website that hosts your **Git** Repositories, storing them, and providing bunch of extra features and web based UI. So when using **Github** you're using **Git** through **Github.**  
+
+Generally, you'd still use the commandline to commit to **Github** but thankfully VSCode provides us with built in integration, so we can use a UI. (There's also [Github desktop](https://github.com/apps/desktop), but we won't be covering that)
+
+Here's how to get Github setup so you can start using Version Control:
+
+<Steps>
+1. Signup for a [GitHub Account](https://github.com/)
+
+2. In VSCode, Navigate to the Version Control button
+    ![Version Control Button](/src/assets//ncea2web/button.png)
+
+3. Click "Publish to Github" and follow the prompts, this will create a new repository
+
+4. If you open Github in your browser, you should now be able to see it!
+
+5. Just to practice making a commit, make some changes to your project in VScode, it can be anything, you can even delete them later. Use Ctrl + S to save your changes.
+
+6. Navigate back to the Version Control tab in VSCode, and you'll notice it's identified you've made changes to the file.
+
+7. If you however over the file name, you'll notice you have a few options, the main two are "Discard Changes" and "Stage Changes." Discard changes will get rid of our edits, which isn't likely to be what we want. Stage changes tells Git we wan't to include this file in our commit.
+
+    You can also "Stage All" by hovering over "Changes" and clicking the plus, this is useful when you've changed multiple files.
+
+8. Stage the changes to your file, type a commit message in the box, like "feat: Added a comment to test commits" and press "Commit"
+
+9. Commit only stores our changes locally, to upload them to Github, we then want to press "Sync" in the same place we pressed commit, which will publish our changes to our repository
+
+10. Try clicking around on the "Version Control Graph." if you click the commit you just made, you'll see the changes that were made and where! It'll show if anything was deleted, or if anything was added.
+
+11. Congratulations! You've just posted your first commit to Github.
+
+</Steps>
+
+## Further Reading
+
+for more about Git and Github, you can read Github's own documentation, found [Here](https://docs.github.com/en/get-started/using-git/about-git)
+
+Or, if you're interested in learning more about using git from the commandline, you can find a cheat sheet [Here](https://education.github.com/git-cheat-sheet-education.pdf)
+
+Everything we've done here, and much much more, can all be done directly from the Terminal in VSCode.
+
+
+https://antonz.org/git-by-example/
+
+https://rogerdudler.github.io/git-guide/
