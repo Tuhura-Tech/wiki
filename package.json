@@ -28,7 +28,7 @@
     "@types/hast": "3.0.4",
     "@types/html-escaper": "3.0.4",
     "@types/mdast": "4.0.4",
-    "@types/node": "22.14.0",
+    "@types/node": "22.14.1",
     "@typescript-eslint/parser": "8.29.1",
     "astro": "5.6.1",
     "astro-auto-import": "0.4.4",
