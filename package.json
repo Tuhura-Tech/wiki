@@ -64,7 +64,7 @@
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/starlight": "^0.30.3",
     "@astrojs/starlight-tailwind": "^3.0.0",
-    "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/tailwind": "^6.0.0",
     "@expressive-code/plugin-collapsible-sections": "^0.41.0",
     "@lunariajs/core": "https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@62a858f",
     "canvas-confetti": "^1.6.0",
