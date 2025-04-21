@@ -44,3 +44,88 @@ Contained in this payload are two unique sections which are of note:
 
 This works as our example website is including the value of the `message` parameter directly in the HTML response. If the content was instead used in an HTML tag or another more complicated way we would need to first break out of that before providing our malicious payloads. Example's of more complicated XSS attacks will be discussed later in this document.
 
+### Stored Cross-Site Scripting
+
+Stored Cross-Site Scripting (XSS) is a form of XSS which is persistent, usually through storage in the server's database. As our malicious payload is going to be stored and served directly from the server's database, any user who navigates to a page which loads the malicious payload from the database will automatically fall victim to the malicious JavaScript.
+
+For this scenario, let's imagine we have a website with the following functionality:
+- Firstly, the website allows user's to modify their username at any time via a settings page.
+- Secondly, there is a page on the website (`/users`) which displays a list of all users who have an account on the website. Each user in the list contains their username as well as a link to navigate to the users profile page.
+
+In order to exploit this vulnerability, a malicious user may be able to set their username to the same payload used for [Reflected Cross-Site Scripting](#reflected-cross-site-scripting) (`<script>alert(1)</script>`). If the website does not sanitize or reject the username change, any legitimate user who now navigates to `/users` will receive a pop-up containing the content `1`.
+
+When comparing Reflected XSS and Stored XSS, we can recap that the primary differences are as follows:
+- Reflected XSS often comes directly from an input source such as the URL clicked and is non-persistent.
+- Stored XSS is often a multistep process where malicious payloads are first stored on server before being returned on URL's which otherwise appear legitimate until loaded. Further, as this is stored on the server it will persist between users and page views without requiring user input.
+
+### DOM Based Cross-Site Scripting
+
+TODO
+
+## Alternative Example Malicious Payloads
+
+Among XSS attacks, the following types of payloads are common to enable JavaScript execution. We use these various types of payloads as some websites may prevent XSS via one type, but still be vulnerable to another.
+
+### Payloads Within HTML Page Responses
+
+The following payloads are all common first indicators of vulnerability which would then be later built upon. In this first payload we are inserting an [HTML script tag](https://www.w3schools.com/tags/tag_script.asp). This tag tells the browser that the content contained within the tags is JavaScript and should be executed. 
+```html
+<script>alert(1)</script>
+```
+
+If this does not work, another payload we can try is as follows:
+```html
+<img src="x" onerror="alert(1)"/>
+```
+In this payload we are using an [HTML img tag](https://www.w3schools.com/tags/tag_img.asp) which will attempt to load an image located at a given location. In this tag we have provided the location as `src="x"`, which is an image that does not exist. As this image does not exist, the browser will throw an error while attempting to load the tag which will result in the `onerror` handler being called. As we have specified the `onerror` attribute in our `img` tag, the victims browser will call this and execute our malicious JavaScript.
+
+---
+
+Alternatively, when reviewing websites for XSS vulnerabilities we may sometimes notice that our user input is being reflected inside an existing HTML tag. A common example of this is when a website renders an [HTML form](https://www.w3schools.com/html/html_forms.asp) which contains the current URL and all provided parameters. An example excerpt of this can be seen below:
+```html
+ <form action="/my_custom_page?parameter=value">
+  <!-- [...] -->
+  <input type="submit" value="Submit">
+</form> 
+```
+
+In order to execute malicious JavaScript we will first need to break out of the `form` tag before we can provide our own malicious input. To do this we simply need to prefix our malicious payload with `">` in order to break out of the `form` tag. As such, an example exploitation of the provided form would look as follows. Note we aren’t URL encoding this in order to make reading it easier.
+```text
+https://example.com/my_custom_page?paramter="><script>alert(1)</script>
+```
+
+If a victim were to navigate to this URL they would observe a popup containing the content `1`.
+
+### Payloads Within Images
+
+Images are an often overlooked area of websites which may be vulnerable to XSS. While not always possible, sometimes websites will allow users to upload images which could contain malicious JavaScript when viewed. 
+
+Typically, websites will allow the following file formats when allowing images:
+- [PNG](https://en.wikipedia.org/wiki/PNG)
+- [JPEG](https://en.wikipedia.org/wiki/JPEG)
+- [SVG](https://en.wikipedia.org/wiki/SVG)
+
+TODO: Example SVG, when exploitable and when not (img tag vs embed tag)
+
+## Limitations
+
+Often our ability to find and exploit an XSS vulnerability in a given website will not be as straight forward as outlined above. The following subsections outline some common mitigations that websites employ in an attempt to ensure XSS is not possible.
+
+### Handling A Content Security Policy
+
+Exploiting XSS in the wild often comes with further drawbacks which must be worked around. One such mitigation is addition of a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)(CSP) in server responses. When configured, this response header tells browser explicitly which JavaScript can and cannot be executed.
+
+When confronted with a CSP, a common first step is using a tool such as [Google's CSP Evaluator](https://csp-evaluator.withgoogle.com/) to review the configuration specified in the websites CSP. Through this we will be able to determine what attack avenues are available before tailoring our payloads to exploit those attack avenues.
+
+### Handling When Special Characters Are Escaped
+
+TODO
+
+## Further Reading
+
+This guide has covered the basics of XSS within websites. If your interested in furthering your knowledge on the topic we would recommend the following URL's. These URL's contain things such as handy cheatsheets, learning resources as well as vulnerable labs to practice against:
+- [PortSwigger: Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting)
+- [HackTricks: XSS (Cross Site Scripting)](https://book.hacktricks.wiki/en/pentesting-web/xss-cross-site-scripting/index.html)
+- [Hack The Box: Cross-Site Scripting Module](https://academy.hackthebox.com/course/preview/cross-site-scripting-xss)
+
+
