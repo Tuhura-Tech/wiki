@@ -30,3 +30,17 @@ https://example.com?message=Your%20username%20or%20password%20was%20incorrect.
 :::note[URL encoding]
 Note that the value of the message parameter has been [URL encoded](https://www.w3schools.com/tags/ref_urlencode.ASP) so that special characters can be transmitted without interrupting the expected browser flow. This would be displayed to the end user as the following string: `Your username or password was incorrect.`
 :::
+
+As a malicious user, we could construct a payload which when included in the URL looks as follows. If a victim were to click on this link, their browser would pop up with an alert that contained the content `1`. Note we aren't URL encoding this in order to make reading it easier.
+
+```text
+https://example.com?message=<script>alert(1)</script>
+```
+
+Contained in this payload are two unique sections which are of note:
+- The tags `<script>` and `</script>` are used to tell the victims web browser that the text contained between the tags is actually JavaScript and requires execution.
+- The value between the script tags, `alert(1)` in this case, is the JavaScript which the web browser will execute.
+  - We often use simple payloads such as `alert(1)` to prove that XSS is present before crafting website specific payloads to achieve goals such as the retrieval of a CTF flag or the victim's cookies.
+
+This works as our example website is including the value of the `message` parameter directly in the HTML response. If the content was instead used in an HTML tag or another more complicated way we would need to first break out of that before providing our malicious payloads. Example's of more complicated XSS attacks will be discussed later in this document.
+
