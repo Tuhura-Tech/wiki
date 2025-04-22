@@ -50,7 +50,7 @@ Stored Cross-Site Scripting (XSS) is a form of XSS which is persistent, usually 
 
 For this scenario, let's imagine we have a website with the following functionality:
 - Firstly, the website allows user's to modify their username at any time via a settings page.
-- Secondly, there is a page on the website (`/users`) which displays a list of all users who have an account on the website. Each user in the list contains their username as well as a link to navigate to the users profile page.
+- Secondly, there is a page on the website (`/users`) which displays a list of all users who have an account on the website. Each entry in the list contains a users username as well as a link to navigate to their profile page.
 
 In order to exploit this vulnerability, a malicious user may be able to set their username to the same payload used for [Reflected Cross-Site Scripting](#reflected-cross-site-scripting) (`<script>alert(1)</script>`). If the website does not sanitize or reject the username change, any legitimate user who now navigates to `/users` will receive a pop-up containing the content `1`.
 
@@ -60,7 +60,36 @@ When comparing Reflected XSS and Stored XSS, we can recap that the primary diffe
 
 ### DOM Based Cross-Site Scripting
 
-TODO
+In the previous two categories we have discussed what occurs when an attacker can provide malicious input to an HTML response served by the server through the usage of content such as `script` tags. DOM based XSS takes a different approach to this by instead exploiting the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) for a given website. 
+
+In short, the DOM for a website provides a JavaScript API which lets us interact with the web page programmatically. If you are able to identify an area of the website that uses the DOM to write user input to an area of the website then this may be vulnerable to DOM based XSS.
+
+For example, the following code taken from the [OWASP Dom Based XSS](https://owasp.org/www-community/attacks/DOM_Based_XSS) page provides a form which allows users to choose their preferred language. As a part of this functionality, a default language is provided in the URL as a query string as the parameter `default`.
+```html
+Select your language:
+
+<select>
+  <script>
+  document.write("<OPTION value=1>"+decodeURIComponent(document.location.href.substring(document.location.href.indexOf("default=")+8))+"</OPTION>");
+  document.write("<OPTION value=2>English</OPTION>");
+  </script>
+</select>
+```
+
+A legitimate usage of this page can be seen in the URL below:
+```text
+https://example.com/languages?default=Māori
+```
+
+In contrast to the legitimate usage, the following URL when loaded by the victims browser would achieve XSS as our malicious payload is written into the document as is.
+```text
+https://example.com/languages?default=<script>alert(1)</script>
+```
+In the example provided above, the server does see our malicious payload as a part of the URL requested however it is not written into the HTML response by the server. Instead, the earlier code block is returned as HTML content, which then loads our malicious payload client-side.
+
+As payloads are loaded client-side, we may be able to use parts of the URL such as [URI fragment's](https://developer.mozilla.org/en-US/docs/Web/URI/Reference/Fragment) to conduct Dom based XSS attacks where the server never sees our malicious payloads, effectively bypassing all server-side implemented mitigations and controls. 
+
+
 
 ## Alternative Example Malicious Payloads
 
@@ -77,7 +106,9 @@ If this does not work, another payload we can try is as follows:
 ```html
 <img src="x" onerror="alert(1)"/>
 ```
-In this payload we are using an [HTML img tag](https://www.w3schools.com/tags/tag_img.asp) which will attempt to load an image located at a given location. In this tag we have provided the location as `src="x"`, which is an image that does not exist. As this image does not exist, the browser will throw an error while attempting to load the tag which will result in the `onerror` handler being called. As we have specified the `onerror` attribute in our `img` tag, the victims browser will call this and execute our malicious JavaScript.
+In this payload we are using an [HTML img tag](https://www.w3schools.com/tags/tag_img.asp) which will attempt to load an image located at a given location. 
+
+In this tag we have provided the location as `src="x"`, which is an image which does not exist and will cause the victims browser to throw an error. As our `img` tag defines an `onerror` attribute, the browser will then call this content resulting in the execution of our malicious JavaScript.
 
 ---
 
@@ -105,7 +136,21 @@ Typically, websites will allow the following file formats when allowing images:
 - [JPEG](https://en.wikipedia.org/wiki/JPEG)
 - [SVG](https://en.wikipedia.org/wiki/SVG)
 
-TODO: Example SVG, when exploitable and when not (img tag vs embed tag)
+If the website allows SVG file uploads, then it is potentially vulnerable to XSS. This occurs because SVG files can contain JavaScript which the victims web browser will execute. 
+
+Assuming certain criteria is met, this can often be just as powerful as the standard methods of XSS we've already covered in this guide. Some common limitations with this type of XSS can also be found in this guides limitation section which is located at [Limitations: Handling embedded SVG images](#handling-embedded-svg-images).
+
+A simple SVG file which will execute malicious JavaScript can be seen below:
+```svg
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg version="1.1" baseProfile="full" xmlns="http://www.w3.org/2000/svg">
+   <script type="text/javascript">
+      alert(1);
+   </script>
+</svg>
+```
 
 ## Limitations
 
@@ -113,19 +158,55 @@ Often our ability to find and exploit an XSS vulnerability in a given website wi
 
 ### Handling A Content Security Policy
 
-Exploiting XSS in the wild often comes with further drawbacks which must be worked around. One such mitigation is addition of a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)(CSP) in server responses. When configured, this response header tells browser explicitly which JavaScript can and cannot be executed.
+Exploiting XSS in the wild often comes with further drawbacks which must be worked around. One such mitigation is addition of a [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP) (CSP) in server responses. When configured, this response header tells browser explicitly which JavaScript can and cannot be executed.
 
 When confronted with a CSP, a common first step is using a tool such as [Google's CSP Evaluator](https://csp-evaluator.withgoogle.com/) to review the configuration specified in the websites CSP. Through this we will be able to determine what attack avenues are available before tailoring our payloads to exploit those attack avenues.
 
+Alternatively, a simple way to check if the CSP is blocking your payloads is to open your browsers console window ([Chrome](https://developer.chrome.com/docs/devtools/console/reference#open), [Firefox](https://firefox-source-docs.mozilla.org/devtools-user/web_console/index.html)). If the CSP is the reason your XSS is not executing, an error message will be displayed here mentioning it has been blocked and by which part of the CSP.
+
 ### Handling When Special Characters Are Escaped
 
-TODO
+When attempting to get XSS on a website, you may sometimes observe that your payload appears within the HTML as expected but is not executing as expected. One cause of this may be that the website is sanitizing your input and replacing special characters such as `<` with `&lt;`. When viewed in a web browser, these characters appear the same however functionally they are different which means you will be unable to get XSS via this method.
+
+An easy way to confirm if your payload is being sanitized is to use a tool such as [Burp Suite Community](https://portswigger.net/burp/communitydownload) to intercept all requests between yourself and the website in question. While using this tool, you will be able to view the raw responses before your web browser has rendered the content. In doing this, you will be able to easily confirm if your payloads are being sanitized before being returned within HTML responses.
+
+---
+
+It is worth noting that even if characters such as `<`, `>`, `"` and `'` are escaped it may still be possible to get XSS within a website. For example, lets imagine that the previously mentioned characters are correctly escaped by our website and the website returns the following HTML response:
+```html
+<a href="USER_INPUT">Click Me</a>
+```
+
+In this example where we control what is provided to the `href` attribute of the `a` tag, we are still able to achieve XSS using the [JavaScript URI Scheme](https://en.wikipedia.org/wiki/List_of_URI_schemes). For example, if we provide the payload `javascript:alert(1)` to the prior example, our malicious JavaScript will be executed when the victim clicks the text "Click Me".
+
+### Handling Embedded SVG Images
+
+When attempting to gain XSS using SVG images, there are a few considerations which we must consider on top of typical attack vectors. Generally these considerations relate to how the website is using SVGs as only certain methods of loading SVGs will result in XSS. 
+
+If the website we are attempting to find an XSS vulnerability in only loads SVGs within `img` tags, then XSS will not be possible. This is because when a web browser attempts to load images within an `img` tag, only image data is parsed and used. As such, any JavaScript present is not executed. An example HTML excerpt which showcases this is as follows:
+```html
+<img src="https://example.com/xss.svg">
+```
+
+As an alternative to `img` tags, if you wish to embed an SVG within a page and have it execute then the following HTML tags are applicable replacements. These tags function differently to an `img` tag and will execute any JavaScript present provided other mitigating controls are not in place.
+```html
+<embed src="https://example.com/xss.svg">
+Or:
+<object data="https://example.com/xss.svg">
+```
+
+---
+
+If the prior steps are not possible, but the website serves the uploaded SVG from within the same domain then XSS is still possible. By directly navigating to the link of the SVG, we will still be able to load the SVG and execute any malicious JavaScript present within the file. 
+
+The common and easiest way to test this functionality is to right-click your uploaded SVG and click "Open Image in New Tab". If the domain for this image is the same as the websites domain, then XSS will be possible in the context of the website and will only require a victim to click the link to your uploaded SVG file.
+
 
 ## Further Reading
 
-This guide has covered the basics of XSS within websites. If your interested in furthering your knowledge on the topic we would recommend the following URL's. These URL's contain things such as handy cheatsheets, learning resources as well as vulnerable labs to practice against:
+While this guide has covered the basics of XSS within websites, there are many other techniques and types of payloads used to conduct XSS attacks within websites. If your interested in furthering your knowledge on the topic we recommend the following content as a starting point. These URLs contain content such as handy cheatsheets, learning resources as well as vulnerable labs to practice against:
 - [PortSwigger: Cross-site scripting](https://portswigger.net/web-security/cross-site-scripting)
 - [HackTricks: XSS (Cross Site Scripting)](https://book.hacktricks.wiki/en/pentesting-web/xss-cross-site-scripting/index.html)
 - [Hack The Box: Cross-Site Scripting Module](https://academy.hackthebox.com/course/preview/cross-site-scripting-xss)
-
+- [MDN Web Docs: Cross-site scripting (XSS)](https://developer.mozilla.org/en-US/docs/Web/Security/Attacks/XSS)
 
