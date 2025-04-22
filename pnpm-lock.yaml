@@ -28,7 +28,7 @@ importers:
         version: 6.0.2(astro@5.7.4(@types/node@22.14.1)(jiti@2.3.3)(rollup@4.39.0)(typescript@5.8.3)(yaml@2.7.1))(tailwindcss@3.4.17)
       '@expressive-code/plugin-collapsible-sections':
         specifier: ^0.41.0
-        version: 0.41.1
+        version: 0.41.2
       '@lunariajs/core':
         specifier: https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@62a858f
         version: https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@62a858f
@@ -667,11 +667,11 @@ packages:
   '@expressive-code/core@0.38.3':
     resolution: {integrity: sha512-s0/OtdRpBONwcn23O8nVwDNQqpBGKscysejkeBkwlIeHRLZWgiTVrusT5Idrdz1d8cW5wRk9iGsAIQmwDPXgJg==}
 
-  '@expressive-code/core@0.41.1':
-    resolution: {integrity: sha512-mG2IrN4t/NGPmEeeswmttsW7W7c96sz3ASjo1psQnOqU5QWAF61HpnBu3lPxHI8iQJyZI8wfAroo9FFpwlkvAQ==}
+  '@expressive-code/core@0.41.2':
+    resolution: {integrity: sha512-AJW5Tp9czbLqKMzwudL9Rv4js9afXBxkSGLmCNPq1iRgAYcx9NkTPJiSNCesjKRWoVC328AdSu6fqrD22zDgDg==}
 
-  '@expressive-code/plugin-collapsible-sections@0.41.1':
-    resolution: {integrity: sha512-/sF6maDwv71GoLPP3WcvGQuJ0ew47gG3vmpV7nzq3I2jxUtGl7NKcMfT87bMkT7Hrp0FvaHe8s7WHpQEu5vlAg==}
+  '@expressive-code/plugin-collapsible-sections@0.41.2':
+    resolution: {integrity: sha512-gyg864xlkLFYLDlOoO5wyZVmuFOc2vi6b/tJjEfXDj/xc8//ttuRLZ0EjuLIkch1hEhEQc9XF6agmiNYUCzeww==}
 
   '@expressive-code/plugin-frames@0.38.3':
     resolution: {integrity: sha512-qL2oC6FplmHNQfZ8ZkTR64/wKo9x0c8uP2WDftR/ydwN/yhe1ed7ZWYb8r3dezxsls+tDokCnN4zYR594jbpvg==}
@@ -4358,7 +4358,7 @@ snapshots:
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
 
-  '@expressive-code/core@0.41.1':
+  '@expressive-code/core@0.41.2':
     dependencies:
       '@ctrl/tinycolor': 4.1.0
       hast-util-select: 6.0.4
@@ -4370,9 +4370,9 @@ snapshots:
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
 
-  '@expressive-code/plugin-collapsible-sections@0.41.1':
+  '@expressive-code/plugin-collapsible-sections@0.41.2':
     dependencies:
-      '@expressive-code/core': 0.41.1
+      '@expressive-code/core': 0.41.2
 
   '@expressive-code/plugin-frames@0.38.3':
     dependencies:
