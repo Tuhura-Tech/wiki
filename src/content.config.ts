@@ -1,13 +1,17 @@
-import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
-import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
-import { defineCollection, z, type CollectionEntry } from 'astro:content';
-import { AstroDocsI18nSchema } from './content/i18n-schema';
+// import { defineCollection } from 'astro:content';
+// import { docsLoader } from '@astrojs/starlight/loaders';
+// import { docsSchema } from '@astrojs/starlight/schema';
+
+// export const collections = {
+// 	docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
+// };
+
+import { defineCollection, z } from 'astro:content';
+import { docsLoader } from '@astrojs/starlight/loaders';
+import { docsSchema } from '@astrojs/starlight/schema';
 
 export const baseSchema = z.object({
 	type: z.literal('base').optional().default('base'),
-	i18nReady: z.boolean().default(false),
-	githubURL: z.string().url().optional(),
-	hasREADME: z.boolean().optional(),
 });
 export const tutorialSchema = baseSchema.extend({
 	type: z.literal('tutorial'),
@@ -32,19 +36,9 @@ export type TutorialEntry = DocsEntry<'tutorial'>;
 
 export const isTutorialEntry = createIsDocsEntry('tutorial');
 
-export function createIsLangEntry(lang: string) {
-	return (entry: CollectionEntry<'docs'>): boolean => entry.id.startsWith(lang + '/');
-}
-
-export const isEnglishEntry = createIsLangEntry('en');
-
 export const collections = {
 	docs: defineCollection({
 		loader: docsLoader(),
 		schema: docsSchema({ extend: docsCollectionSchema }),
-	}),
-	i18n: defineCollection({
-		loader: i18nLoader(),
-		schema: i18nSchema({ extend: AstroDocsI18nSchema }),
-	}),
+	})
 };

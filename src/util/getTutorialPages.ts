@@ -1,21 +1,9 @@
 import type { TutorialEntry } from '~/content.config';
-import { stripLangFromSlug } from '~/util/path-utils';
-import { groupPagesByLang } from './groupPagesByLang';
 
 /** Get a full list of pages for the tutorial in the current language, falling back to English if not available. */
-export function getTutorialPages(allPages: TutorialEntry[], lang: string) {
-	const pagesByLang = groupPagesByLang(allPages);
+export function getTutorialPages(allPages: TutorialEntry[]) {
 	/** Pages */
-	const pages = pagesByLang['en']
-		.map((englishPage) => {
-			const enSlug = stripLangFromSlug(englishPage.id);
-			const langPage = pagesByLang[lang]?.find((page) => stripLangFromSlug(page.id) === enSlug);
-			return {
-				...((langPage as TutorialEntry) || (englishPage as TutorialEntry)),
-				isFallback: !langPage,
-			};
-		})
-		.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
+	const pages = allPages.sort((a, b) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
 	return pages;
 }
 

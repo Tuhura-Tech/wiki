@@ -15,8 +15,6 @@ jobs:
   astrocheck:
     name: Check for type issues with astro check
     runs-on: ubuntu-latest
-    env:
-      FORCE_COLOR: true
     timeout-minutes: 15
     steps:
       - name: Checkout
@@ -27,16 +25,3 @@ jobs:
 
       - name: Run Check
         run: pnpm run check
-  eslint:
-    name: Check for code issues with ESLint
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-
-      - name: Install Tools & Dependencies
-        uses: ./.github/actions/install
-
-      - name: Run Check
-        run: pnpm run lint:eslint

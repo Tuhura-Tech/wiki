@@ -1,0 +1,55 @@
+---
+title: Tūhura Tech Wiki
+description: Free and public resources from Tūhura Tech for NZ Students.
+template: splash
+editUrl: false
+lastUpdated: false
+hero:
+  title: Tūhura Tech Wiki
+  tagline: Starlight plugin to split your documentation into different sections, each with its own sidebar.
+  # image:
+  #   alt: Tūhura Tech Logo
+  #   file: /src/assets/logo.svg
+  actions:
+    - text: About Us
+      link: https://tuhuratech.org.nz
+      icon: external
+    - text: Donate
+      link: https://givealittle.co.nz/org/tuhura-tech
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components'
+import ListCard from '/src/components/card/ListCard.astro'
+import SplitCard from '/src/components/card/SplitCard.astro'
+
+
+<CardGrid>
+   <ListCard title="Learn" icon="open-book">
+     - [Python](/guides/python)
+     - [Javascript](/guides/javascript)
+     - [Game Development](/guides/game-design)
+     - [CyberSecurity](/guides/cybersecurity)
+   </ListCard>
+
+   <Card title="Contribute" icon="star">
+     Anyone can contribute to the resources whether you are a student, teacher or industry professional. We are always looking for new resources to add to the wiki. If you would like to contribute please visit our [Contributing Guide](/guides/contributing).
+   </Card>
+
+   <SplitCard title="Open Source, Industry Standards, For You" icon="rocket">
+     All of our resources are free and open source. We aim to provide the best resources for students in Aotearoa. They are licenced under a [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0.en.html) ensuring they are free for all and never behind a paywall.
+   </SplitCard>
+ </CardGrid>
+
+
+
+## What is this Wiki for?
+
+This Wiki is a collection of resources and guides for ākonga (students) and kura (schools) in Aotearoa. We aim to provide free and open source resources for students to learn about technology. Our resources are designed to be used by students in their own time or by teachers in the classroom. It covers introductory guides, NCEA resources and is kept up to date by our staff and all the volunteer contributors.
+
+## About Us
+
+At [Tūhura Tech](https://tuhuratech.org.nz), our mission is to provide free technology education to rangatahi in the Wellington region. We believe that every rangatahi should have the opportunity to learn about and engage with technology, regardless of their background or financial situation. As part of that we maintain a collection of public resources.
+
+
+
