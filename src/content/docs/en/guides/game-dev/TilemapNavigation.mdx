@@ -1,6 +1,6 @@
 ---
-title: Tilemap Navigation in Godot
-description: This page covers adding pathfinding to your project, using tilemap
+title: Tilemap Navigation
+description: This page covers adding pathfinding to your project, using tilemaps
 sidebar:
     order: 6
 ---
@@ -14,14 +14,14 @@ This guide will cover adding intelligent pathfinding to a [Godot](https://godote
 
 This project can be used in conjunction with the **Dungeon Crawler** Tutorial to add pathfinding to the enemies
 
-This project uses ![Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) by Ox72, generously available for free under the CC-0 licence.
+This project uses the [Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) tileset by Ox72, generously available for free under the CC-0 licence.
 
 :::note[Version]
 This guide is up-to-date with Godot 4.4 stable official release, and will likely work with any version of Godot newer than 4.3. Due to the use of **TileMapLayers** which were introduced in 4.3, this tutorial isn't compatible with any version pre 4.3
 :::
 
 :::note[Docs]
-Links to the official Godot docs for topics covered in the section for further clarification: 
+Links to the official Godot docs for topics covered in this section for further clarification: 
 [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationregion2d.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationagent2d.html) [TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html) [Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html)
 :::
 
@@ -82,7 +82,7 @@ The initial enemy scene will be equally simple. Mine looks like this:
 With the **Area2D** and its **CollisionShape2D** representing its "Detection range" or the range in which it will begin to pursue the player.
 
 :::note[Signals]
-This script uses signals, connected from the **Area2D** Node, if you copy and paste the code be sure to connect the signals yourself, or the script won't work.
+This script uses signals, connected from the **Area2D** Node, if you copy and paste the code be sure to connect the signals yourself in the **Node** tab of the inspector, or the script won't work.
 :::
 
 
@@ -128,7 +128,7 @@ My scene looks like this, I've created a small maze for the enemies to navigate:
 
 ![Initial level scene](/src/assets/godot/tilemapnav/navlevelscene.png)
 
-Will want to make sure our **Walls** layer has had a **Physics Layer** added, and has collision painted onto the tiles.
+We'll want to make sure our **Walls** layer has had a **Physics Layer** added, and has collision painted onto the tiles.
 
 A physics layer can be added in the inspector of the **TileMapLayer** under the **Physics Layers** tab (Making sure to first click on the **TileSet** object in the inspector)
 
@@ -148,27 +148,31 @@ Then, we'll need to allow our enemy to read this, and use it to navigate. Let's 
 
 ### Changes to the Level
 
-Adding the level side of our navigation is easy! We'll want to add a new **NavigationRegion2D** node as a child of the root node, and reparent the walls to be a child of this node.
+Adding the level side of our navigation is easy! 
+<Steps>
+1. We'll want to add a new **NavigationRegion2D** node as a child of the root node, and reparent the walls to be a child of this node.
 
-It should look like this:
+	It should look like this:
 
-![Level scenetree with nav region](/src/assets/godot/tilemapnav/navnavigationregion.png)
+	![Level scenetree with nav region](/src/assets/godot/tilemapnav/navnavigationregion.png)
 
-In the inspector of the **NavigationRegion2D** we'll then want to create a new **Navigation Polygon**
+2. In the inspector of the **NavigationRegion2D** we'll then want to create a new **Navigation Polygon**
 
-Then, using the **Create Points** tool, selected from the top bar (This should be selected by default) we'll want to add points, to create a shape that covers our entire level.
+3. Then, using the **Create Points** tool, selected from the top bar (This should be selected by default) we'll want to add points, to create a shape that covers our entire level.
 
-Don't worry, you can change this later if your level changes! You can also use the **Delete Points** tool if you make a mistake.
+	Don't worry, you can change this later if your level changes! You can also use the **Delete Points** tool if you make a mistake.
 
-![Nav region top bar](/src/assets/godot/tilemapnav/navregiontopba.png)
+	![Nav region top bar](/src/assets/godot/tilemapnav/navregiontopba.png)
 
-Make sure you close the shape by connecting your last line back to your first point. Once you've done this, if you've done everything correctly you should see it automatically generates navigation polygons!
+4. Make sure you close the shape by connecting your last line back to your first point. Once you've done this, if you've done everything correctly you should see it automatically generates navigation polygons!
 
-This should cover the region of your level that **Doesn't** contain walls, which is where your enemies will walk!
+	This should cover the region of your level that **Doesn't** contain walls, which is where your enemies will walk!
 
-Mine looks like this:
+	Mine looks like this:
 
-![Nav region polygons](/src/assets/godot/tilemapnav/navpolygons.png)
+	![Nav region polygons](/src/assets/godot/tilemapnav/navpolygons.png)
+
+</Steps>
 
 And that's all we need to do for the level! Note that if you have multiple levels, they'll **all** need a **NavigationRegion2D**
 
@@ -176,93 +180,96 @@ And that's all we need to do for the level! Note that if you have multiple level
 
 The changes we need to make to our enemy scene are **slightly** more complicated, but only because we need to change the script a little.
 
-First, we'll want to add a new **NavigationAgent2D** node to the Scene, as a child of the root node.
+<Steps>
 
-Leaving the Enemy scene looking like this:
+1. First, we'll want to add a new **NavigationAgent2D** node to the Scene, as a child of the root node.
 
-![updated enemy scene](/src/assets/godot/tilemapnav/navenemyscene2.png)
+	Leaving the Enemy scene looking like this:
 
-Let's also change some settings on the root **CharacterBody2D** Node.
+	![updated enemy scene](/src/assets/godot/tilemapnav/navenemyscene2.png)
 
-At the very top we'll change the **Motion Mode** to **Floating**
+2. Let's also change some settings on the root **CharacterBody2D** Node.
 
-and the **Wall Min Slide** to **0**
+	At the very top we'll change the **Motion Mode** to **Floating**
 
-These will help stop our Enemy from getting stuck on corners!
+	and the **Wall Min Slide** to **0**
 
-Then, let's move on to the script! 
+	These will help stop our Enemy from getting stuck on corners!
 
-We'll first want to get a reference to the **NavigationAgent2D** using the CTRL + Drag trick!
+3. Then, let's move on to the script! 
 
-Which should give us something like this, up with the other variable declarations:
+	We'll first want to get a reference to the **NavigationAgent2D** using the CTRL + Drag trick!
 
-```gdscript
-@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
-```
+	Which should give us something like this, up with the other variable declarations:
 
-Then, in the **_physics_process** function, we'll want to set the target of the NavigationAgent2D to be our target's global position. (How you assign your target is up to you!) 
+	```gdscript
+	@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+	```
 
-Though we'll first want to check we have a target!
+4. Then, in the **_physics_process** function, we'll want to set the target of the NavigationAgent2D to be our target's global position. (How you assign your target is up to you!) 
 
-```gdscript
-func _physics_process(delta):
-	if(target != null):
-		
-		navigation_agent_2d.target_position = target.global_position
-```
+	Though we'll first want to check we have a target!
 
-Then, we'll want to get the next **path position** from our **NavigationAgent2D** (This is the next position our agent targets, on itss route to its final goal)
-
-
-```gdscript
-var next_position = navigation_agent_2d.get_next_path_position()
-```
-
-Then, finally, we'll assign our velocity to be the direction to this position, multiplied by our speed!
-
-```gdscript
-velocity = global_position.direction_to(next_position) * speed
-```
-
-Giving us a final script that looks like this:
-
-```gdscript
-extends CharacterBody2D
-
-var target
-
-@export var speed : float = 50.0
-@onready var animated_sprite_2d = $AnimatedSprite2D
-@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
-
-func _physics_process(delta):
-	if(target != null):
-		
-		navigation_agent_2d.target_position = target.global_position
-		
-		var next_position = navigation_agent_2d.get_next_path_position()
-		velocity = global_position.direction_to(next_position) * speed
-		
-		
-		if(target.global_position.x < global_position.x):
-			animated_sprite_2d.flip_h = true
-		else:
-			animated_sprite_2d.flip_h = false
+	```gdscript
+	func _physics_process(delta):
+		if(target != null):
 			
-		move_and_slide()
+			navigation_agent_2d.target_position = target.global_position
+	```
+
+5. Then, we'll want to get the next **path position** from our **NavigationAgent2D** (This is the next position our agent targets, on itss route to its final goal)
+
+
+	```gdscript
+	var next_position = navigation_agent_2d.get_next_path_position()
+	```
+
+6. Then, finally, we'll assign our velocity to be the direction to this position, multiplied by our speed!
+
+	```gdscript
+	velocity = global_position.direction_to(next_position) * speed
+	```
+
+7. Giving us a final script that looks like this:
+
+	```gdscript
+	extends CharacterBody2D
+
+	var target
+
+	@export var speed : float = 50.0
+	@onready var animated_sprite_2d = $AnimatedSprite2D
+	@onready var navigation_agent_2d: NavigationAgent2D = $NavigationAgent2D
+
+	func _physics_process(delta):
+		if(target != null):
+			
+			navigation_agent_2d.target_position = target.global_position
+			
+			var next_position = navigation_agent_2d.get_next_path_position()
+			velocity = global_position.direction_to(next_position) * speed
+			
+			
+			if(target.global_position.x < global_position.x):
+				animated_sprite_2d.flip_h = true
+			else:
+				animated_sprite_2d.flip_h = false
+				
+			move_and_slide()
+			
 		
-	
-func _on_range_body_entered(body):
-	if(body.is_in_group("player")):
-		target = body
-		animated_sprite_2d.play("walk")
+	func _on_range_body_entered(body):
+		if(body.is_in_group("player")):
+			target = body
+			animated_sprite_2d.play("walk")
 
-func _on_range_body_exited(body):
-	if(body.is_in_group("player")):
-		target = null
-		animated_sprite_2d.play("idle")
+	func _on_range_body_exited(body):
+		if(body.is_in_group("player")):
+			target = null
+			animated_sprite_2d.play("idle")
 
-```
+	```
+</Steps>
 
 Now, if we add everything to a scene together, and make sure all our groups are assigned, we should see our enemies pathfinding toward the player after we enter the detection range!
 
