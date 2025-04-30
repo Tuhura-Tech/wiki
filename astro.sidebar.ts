@@ -52,6 +52,10 @@ export const sidebar = [
 						label: 'Setting up C# For Godot',
 						link: 'guides/game-dev/projectsetup',
 					},
+					{
+						label: 'Tilemap Navigation',
+						link: 'guides/game-dev/tilemapnavigation',
+					},
 				],
 			}),
 			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
