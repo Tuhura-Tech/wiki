@@ -22,6 +22,7 @@ This guide is up-to-date with Godot 4.4 stable official release, and will likely
 
 :::note[Docs]
 Links to the official Godot docs for topics covered in this section for further clarification: 
+
 [Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationregion2d.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationagent2d.html) [TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html) [Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html)
 :::
 
@@ -69,8 +70,6 @@ func _physics_process(delta):
 We'll also want to add the **Root node** of the player scene to a group called **player** as this is how the enemies will detect the player.
 
 This is done in the **Node** tab of the **Inspector**
-
-Importantly the player scene should also be in a **Group** called "player"
 
 
 ### Enemy Scene
@@ -128,15 +127,19 @@ My scene looks like this, I've created a small maze for the enemies to navigate:
 
 ![Initial level scene](/src/assets/godot/tilemapnav/navlevelscene.png)
 
-We'll want to make sure our **Walls** layer has had a **Physics Layer** added, and has collision painted onto the tiles.
+<Steps>
 
-A physics layer can be added in the inspector of the **TileMapLayer** under the **Physics Layers** tab (Making sure to first click on the **TileSet** object in the inspector)
+1. We'll want to make sure our **Walls** layer has had a **Physics Layer** added, and has collision painted onto the tiles.
 
-Collision can be added under the **Tileset** Tab at the bottom of the screen, using the **Paint** option. Then selecting **Collision Layer 0**
+	A physics layer can be added in the inspector of the **TileMapLayer** under the **Physics Layers** tab (Making sure to first click on the **TileSet** object in the inspector)
 
-My collision looks like this:
+2. Collision can be added under the **Tileset** Tab at the bottom of the screen, using the **Paint** option. Then selecting **Collision Layer 0**
 
-![Tilemap collision](/src/assets/godot/tilemapnav/navtilemapcoll.png)
+	My collision looks like this:
+
+	![Tilemap collision](/src/assets/godot/tilemapnav/navtilemapcoll.png)
+
+</Steps>
 
 Great! That's all the setup we need, now we can move on to actually adding the ability for our enemies to navigate our level!
 
