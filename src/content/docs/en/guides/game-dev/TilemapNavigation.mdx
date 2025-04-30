@@ -22,14 +22,14 @@ This guide is up-to-date with Godot 4.4 stable official release, and will likely
 
 :::note[Docs]
 Links to the official Godot docs for topics covered in the section for further clarification: 
-[Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationregion2d.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationagent2d.html) [TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html)
+[Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationregion2d.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationagent2d.html) [TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html) [Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html)
 :::
 
 ## Setup
 
 This guide assumes you have some knowledge of working in Godot, and will only briefly cover setting up an initial scene before getting into TileMap Navigation. 
 
-If you are confused at any point, all of the skills required to complete this guide are covered in the [**Dungeon Crawler** Tutorial.](/game-dev/godot/)
+If you are confused at any point, all of the skills required to complete this guide are covered in the [**Dungeon Crawler** Tutorial](/game-dev/godot/) which is a great way to get started with Godot.
 
 If you have an existing project, or feel confident with Godot, feel free to skip to the **Navigation** section.
 
@@ -69,6 +69,8 @@ func _physics_process(delta):
 We'll also want to add the **Root node** of the player scene to a group called **player** as this is how the enemies will detect the player.
 
 This is done in the **Node** tab of the **Inspector**
+
+Importantly the player scene should also be in a **Group** called "player"
 
 
 ### Enemy Scene
@@ -130,7 +132,7 @@ Will want to make sure our **Walls** layer has had a **Physics Layer** added, an
 
 A physics layer can be added in the inspector of the **TileMapLayer** under the **Physics Layers** tab (Making sure to first click on the **TileSet** object in the inspector)
 
-Collision can be added under the **Tileset** Tab at the bottom of the screen, using the **Paint** option.
+Collision can be added under the **Tileset** Tab at the bottom of the screen, using the **Paint** option. Then selecting **Collision Layer 0**
 
 My collision looks like this:
 
@@ -209,7 +211,7 @@ func _physics_process(delta):
 		navigation_agent_2d.target_position = target.global_position
 ```
 
-Then, we'll want to get the next *path position* from our **NavigationAgent2D** (This is the next position our agent targets, on itss route to its final goal)
+Then, we'll want to get the next **path position** from our **NavigationAgent2D** (This is the next position our agent targets, on itss route to its final goal)
 
 
 ```gdscript
@@ -266,5 +268,7 @@ Now, if we add everything to a scene together, and make sure all our groups are 
 
 Try to set up a maze for your enemies to navigate! See how they deal with splits in the path, or if you can trick them into getting stuck!
 
-Congratulations! You've added pathfinding to your enemies! If they don't work, make sure your groups are set up correctly (That the player is assigned to a group called "player")
+If they don't work, make sure your groups are set up correctly (That the player is assigned to a group called "player") and make sure that your signals are connected if you copy and pasted the code!
+
+Congratulations! You've added pathfinding to your enemies! We can't wait to see what you use these skills for!
 
