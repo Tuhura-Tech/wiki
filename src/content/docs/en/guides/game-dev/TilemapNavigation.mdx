@@ -20,11 +20,16 @@ This project uses ![Dungeon Tileset II](https://0x72.itch.io/dungeontileset-ii) 
 This guide is up-to-date with Godot 4.4 stable official release, and will likely work with any version of Godot newer than 4.3. Due to the use of **TileMapLayers** which were introduced in 4.3, this tutorial isn't compatible with any version pre 4.3
 :::
 
+:::note[Docs]
+Links to the official Godot docs for topics covered in the section for further clarification: 
+[Groups](https://docs.godotengine.org/en/stable/tutorials/scripting/groups.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationregion2d.html) [NavigationRegion2D](https://docs.godotengine.org/en/stable/classes/class_navigationagent2d.html) [TileMapLayer](https://docs.godotengine.org/en/stable/classes/class_tilemaplayer.html)
+:::
+
 ## Setup
 
 This guide assumes you have some knowledge of working in Godot, and will only briefly cover setting up an initial scene before getting into TileMap Navigation. 
 
-If you are confused at any point, all of the skills required to complete this guide are covered in the **Dungeon Crawler** Tutorial.
+If you are confused at any point, all of the skills required to complete this guide are covered in the [**Dungeon Crawler** Tutorial.](/game-dev/godot/)
 
 If you have an existing project, or feel confident with Godot, feel free to skip to the **Navigation** section.
 
@@ -257,4 +262,9 @@ func _on_range_body_exited(body):
 
 ```
 
+Now, if we add everything to a scene together, and make sure all our groups are assigned, we should see our enemies pathfinding toward the player after we enter the detection range!
+
+Try to set up a maze for your enemies to navigate! See how they deal with splits in the path, or if you can trick them into getting stuck!
+
+Congratulations! You've added pathfinding to your enemies! If they don't work, make sure your groups are set up correctly (That the player is assigned to a group called "player")
 
