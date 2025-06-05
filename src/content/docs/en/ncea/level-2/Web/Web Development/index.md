@@ -395,3 +395,32 @@ If everything has been set up correctly, your site should look something like th
 
 ![Site with CSS](/src/assets/ncea2web/sitecss.png)
 
+## FastAPI Autodocumentation
+
+You may have noticed that when we run our Dev server, we also get a link to access the documentation. This is a page that FastAPI generates for us, and allows us to easily get info about what our application is doing without needing to run the actual website.
+
+However, we can very easily modify these docs to provide more information about what our application does! This is great for us in the future, especially when working on a large project, but is *vital* when working collaboratively. We want our collaboraters to be able to understand what our code is and what it does as fast as possible!
+
+We can start by, at the top of our **main.py** (under our imports,) creating a *description* of our application.
+
+```python
+description = """
+This application recieves and displays blog posts for a blog website.
+
+## Posts
+
+Users will be able to:
+
+* **Create posts**
+* **See created posts**
+
+Todo:
+* **Search Bar**
+* **User login**
+"""
+```
+
+We can then add this info, as well as other additional info, when we initially create the FastAPI app.
+
+
+
