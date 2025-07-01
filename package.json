@@ -30,7 +30,7 @@
     "@types/mdast": "4.0.4",
     "@types/node": "22.15.34",
     "@typescript-eslint/parser": "8.35.1",
-    "astro": "5.10.1",
+    "astro": "5.10.2",
     "astro-auto-import": "0.4.4",
     "astro-eslint-parser": "1.2.2",
     "astro-og-canvas": "0.7.0",
