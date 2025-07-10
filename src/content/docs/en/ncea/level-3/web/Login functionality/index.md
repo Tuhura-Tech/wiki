@@ -123,7 +123,7 @@ from typing import Optional
 Then we'll start by defining our variables
 
 ```python
-class NewLogin:
+class NewSignup:
     def __init__(self, request: Request):
       self.request: Request = request
       self.errors: List = []
@@ -162,12 +162,12 @@ from fastapi import Request
 from typing import List
 from typing import Optional
 
-class NewLogin:
+class NewSignup:
     def __init__(self, request: Request):
       self.request: Request = request
       self.errors: List = []
-      self.email: Optional[str] = none
-      self.password: Optional[str] = none
+      self.email: Optional[str] = None
+      self.password: Optional[str] = None
 
 
   def valid_input(self):
@@ -182,7 +182,12 @@ class NewLogin:
       return False
 
   async def load_data(self):
-    login = await self.request.form()
+    form = await self.request.form()
     self.email = form.get("email")
     self.password = form.get("password")
 ```
+## Storing our users
+
+Now, we have a form where users can signup, and basic processing of their input. Let's set up the communication between these aspects, and actually storing our signups in our Database.
+
+
