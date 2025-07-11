@@ -5,6 +5,11 @@ sidebar:
     order: 3
 ---
 
+Todo: 
+- Add username? Could use it to display who posted a post.
+- Update organisation/project structure
+
+
 Adding login functionality to our blog is going to be significantly more complicated than adding a search. But it'll use pretty similar things to what we've already done!
 
 The primary new considerations will be:
@@ -186,8 +191,107 @@ class NewSignup:
     self.email = form.get("email")
     self.password = form.get("password")
 ```
-## Storing our users
+## User Schema
 
 Now, we have a form where users can signup, and basic processing of their input. Let's set up the communication between these aspects, and actually storing our signups in our Database.
 
+Let's first create a schema for our users, so that we can store them in our Database.
 
+This'll look pretty similar to how we defined our Post schema, where we think about what we need it to contain, and any special properties we want the data to have!
+
+The one special thing to take into account here, is that we want our email field to be **unique** i.e we don't want people to be able to register twice with the same email.
+
+So our schema should look something like this:
+
+```python
+class User(SQLModel, table = True):
+    id: int | None = Field(default = None, primary_key= True)
+    email: str = Field(unique= True, nullable=False)
+    password_hash: str = Field(nullable = False)
+```
+
+This is also where we could define whether a user is an admin or not, if you wanted to do something like this, you'd add a line like:
+
+```python
+is_admin: bool = Field(default= False)
+```
+
+You may notice our password field is called **password_hash.** This is because we don't want to store the plaintext of a users password! This would be *very* poor design and make much easier for someone to access users passwords from our database. Instead we store a **Hash** where the password is run through an algorithm that creates a unique string based on the output. The same input will *always* result in the same output, but it's impossible to take the output and get the input! This allows us to check that a users password is correct, and store it, in a way that is secure! 
+
+
+If you want to learn more about hashing, you can read more [Here](https://en.wikipedia.org/wiki/Cryptographic_hash_function)
+
+For our Hashing, we'll use python's built in [hashlib](https://docs.python.org/3/library/hashlib.html)
+
+As this is a default python library, we can add this to our project by adding 
+
+```python
+import hashlib
+```
+To our **main.py**
+
+## Storing Users
+
+Lets create a new function in **main.py** create an instance of the schema.
+
+```python
+def create_user(new_email: str, new_password : str):
+```
+
+The first thing we'll want to do, is hash the password.
+
+```python
+    hasher = hashlib.sha256()
+    hasher.update(new_password)
+    hashed = hasher.hexdigest()
+```
+Here we've created a new instance of the [sha256](https://en.wikipedia.org/wiki/SHA-2) hasher, passed it the raw password, and gotten the ouput.
+
+Then we can create an instance of the schema,
+
+```python
+    user = User(
+        email = new_email,
+        password_hash = hashed
+    )
+```
+and store it in the database
+
+```python
+    with Session(engine) as session:
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+
+    return user
+```
+
+For a full function that looks like this:
+
+```python
+def create_user(new_email : str, new_password : str):
+
+    hasher = hashlib.sha256()
+    hasher.update(new_password)
+    hashed = hasher.hexdigest()
+
+    user = User(
+        email = new_email,
+        password_hash = hashed
+    )
+
+    with Session(engine) as session:
+        session.add(user)
+        session.commit()
+        session.refresh(user)
+    
+    return user
+```
+
+Now we have a way for the user to input signup data, and a way to store that data! All that's left to do is connect it via FastAPI Requests.
+
+## Connecting everything
+
+## Cookies
+
+## Signing in 
