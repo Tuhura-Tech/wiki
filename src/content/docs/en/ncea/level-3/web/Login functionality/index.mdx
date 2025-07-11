@@ -8,6 +8,10 @@ sidebar:
 Todo: 
 - Add username? Could use it to display who posted a post.
 - Update organisation/project structure
+- Add formatting for this page and search page, steps etc
+- rename form.html to be a more fitting/clear name like "add_post.html" or something
+- Clarity in earlier content about FastAPI requests, and the way pages are linked etc - Explain POST vs GET properly
+
 
 
 Adding login functionality to our blog is going to be significantly more complicated than adding a search. But it'll use pretty similar things to what we've already done!
@@ -109,6 +113,14 @@ Giving us a **register.html** that looks like this:
 </div>
 {% endblock %}
 ```
+Let's also quickly edit our **blog.html** to add a link to our new form (Though not it won't work until we've created the FastAPI Request)
+I'll just be putting mine at the top, below the searchbar.
+
+```html
+<a href="{{url_for('signup')}}">Register</a>
+```
+
+
 ## Verifying the data
 
 Next, similarly to what we did for the post creation form, we should verify the data and ensure that it's been filled out correctly, and display return errors to be displayed by our form otherwise.
@@ -291,6 +303,44 @@ def create_user(new_email : str, new_password : str):
 Now we have a way for the user to input signup data, and a way to store that data! All that's left to do is connect it via FastAPI Requests.
 
 ## Connecting everything
+
+To connect everything we just need to set up our FastAPI requests!
+
+The first one, to access our new signup page, is easy.
+
+```python
+@app.get("/signup/")
+def signup(request: Request):
+    return templates.TemplateResponse("signup.html", {"request": request})
+```
+Keep in mind, the name of this function needs to match your link on your **blog.html** and the filename needs to match the name of your signup page.
+
+Our other function (a **Post** function, as we're modifying data) Will be slightly more complicated!
+
+We need it to:
+1. Retrieve data from the form
+2. Create a new User
+3. Check that the User is valid
+4. Redirect to the home page
+
+todo: break this down into step by step
+
+```python
+@app.post("/signup/")
+async def signup(request: Request):
+    signup = NewSignup(request)
+    await signup.load_data()
+    if await signup.valid_input():
+        try:
+            user = create_user(signup.email, signup.password)
+            return RedirectResponse("blog.html", status_code=status.HTTP_302_FOUND)
+        except IntegrityError:
+            signup.__dict__.get("errors").append("An account with this email already exists")
+
+            return templates.TemplateResponse("signup.html", signup.__dict__)
+        
+    return templates.TemplateResponse("signup.html", signup.__dict__)
+```
 
 ## Cookies
 

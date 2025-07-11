@@ -115,6 +115,11 @@ async def load_blog(request: Request):
 
 Run the Dev server, and you should now have a very *very* simple page loaded! 
 
+:::note[GET vs POST]
+You'll notice that all of the functions that directly interact with our FastAPI app are either **get** or **post.**
+An easy way to think of these, is that we use **Get** to get information, wheras a **Post** is used to modify/send/update information.
+:::
+
 
 ## Integrating Jinja templates
 
@@ -333,13 +338,13 @@ Create a file inside the **static** directory you created earlier called **style
 
 Then, we'll need to tell Jinja where to find this. Let's head back to **base.html** (This will also mean this style is used by anything that extends the base)
 
-in our <head> tag, we'll add a new line
+in our \<head> tag, we'll add a new line
 
 ```html
 <link href="{{ url_for('static', path='/style.css') }}" rel="stylesheet">
 ```
 
-giving us a <head> that looks like this
+giving us a \<head> that looks like this
 
 ``` html
 <head>
