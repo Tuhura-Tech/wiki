@@ -23,7 +23,7 @@
     "@actions/core": "1.11.1",
     "@docsearch/css": "3.9.0",
     "@docsearch/js": "3.9.0",
-    "@eslint/js": "9.31.0",
+    "@eslint/js": "9.32.0",
     "@types/canvas-confetti": "1.9.0",
     "@types/hast": "3.0.4",
     "@types/html-escaper": "3.0.4",
