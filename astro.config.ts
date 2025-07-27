@@ -66,6 +66,7 @@ export default defineConfig({
 				facebook: 'https://www.facebook.com/p/T%C5%ABhura-Tech-100083052084710/',
 				linkedin: 'https://www.linkedin.com/company/tuhuratech',
 				email: 'mailto:contact@tuhuratech.org.nz',
+				matrix: 'https://matrix.to/#/#home:tuhuratech.org.nz',
 			},
 			pagefind: false,
 			head: [
