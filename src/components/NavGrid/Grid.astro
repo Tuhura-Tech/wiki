@@ -3,7 +3,7 @@ export interface Props {
 	minimal?: boolean;
 }
 
-const { minimal } = Astro.props as Props;
+const { minimal } = Astro.locals.starlightRoute as Props;
 ---
 
 <ul class:list={['fluid-grid', { 'fluid-grid--minimal': minimal }]}>

@@ -5,7 +5,7 @@ export interface Props {
 	contributors: Contributor[];
 }
 
-const { contributors } = Astro.props as Props;
+const { contributors } = Astro.locals.starlightRoute as Props;
 ---
 
 <!-- Thanks to @5t3ph for https://smolcss.dev/#smol-avatar-list! -->

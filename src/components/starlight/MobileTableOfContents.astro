@@ -1,12 +1,12 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
 import TableOfContentsList from '../../../node_modules/@astrojs/starlight/components/TableOfContents/TableOfContentsList.astro';
-import type { Props } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import TutorialNav from '../tutorial/TutorialNav.astro';
 
-const isTutorial = Astro.props.entry.data.type === 'tutorial';
+const isTutorial = Astro.locals.starlightRoute.entry.data.type === 'tutorial';
 
-const { toc } = Astro.props;
+const { toc } = Astro.locals.starlightRoute;
 ---
 
 {

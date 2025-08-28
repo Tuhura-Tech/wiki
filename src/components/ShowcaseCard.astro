@@ -7,14 +7,14 @@ interface Props {
 	title: string;
 	thumbnail: string;
 }
-const { href, title } = Astro.props;
+const { href, title } = Astro.locals.starlightRoute;
 
 const thumbnails = import.meta.glob<{ default: ImageMetadata }>(
 	'../assets/thumbnails/*{.png,.jpg,.jpeg,.webp,.avif}'
 );
-const thumbnail = thumbnails[`../assets/thumbnails/${Astro.props.thumbnail}`];
+const thumbnail = thumbnails[`../assets/thumbnails/${Astro.locals.starlightRoute.thumbnail}`];
 if (!thumbnail) {
-	throw new Error(`Could not resolve showcase thumbnail: ${Astro.props.thumbnail}`);
+	throw new Error(`Could not resolve showcase thumbnail: ${Astro.locals.starlightRoute.thumbnail}`);
 }
 const src = (await thumbnail()).default;
 ---

@@ -3,7 +3,7 @@ export interface Props {
 	isCorrect?: boolean;
 }
 
-const { isCorrect } = Astro.props as Props;
+const { isCorrect } = Astro.locals.starlightRoute as Props;
 ---
 
 <li>

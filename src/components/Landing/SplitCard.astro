@@ -5,7 +5,7 @@ export type Props = Parameters<typeof Card>[0];
 ---
 
 <div class="card--fullwidth">
-	<Card {...Astro.props}>
+	<Card {...Astro.locals.starlightRoute}>
 		<div class="split">
 			<slot />
 		</div>

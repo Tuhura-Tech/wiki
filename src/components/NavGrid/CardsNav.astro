@@ -17,7 +17,7 @@ export interface Props {
 	class?: string;
 }
 
-const { links, minimal = false, class: classes } = Astro.props as Props;
+const { links, minimal = false, class: classes } = Astro.locals.starlightRoute as Props;
 
 const currentPage = new URL(Astro.request.url).pathname;
 ---

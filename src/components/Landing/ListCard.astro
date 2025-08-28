@@ -3,7 +3,7 @@ import Card from './Card.astro';
 export type Props = Parameters<typeof Card>[0];
 ---
 
-<Card {...Astro.props}>
+<Card {...Astro.locals.starlightRoute}>
 	<div class="link-list">
 		<slot />
 	</div>

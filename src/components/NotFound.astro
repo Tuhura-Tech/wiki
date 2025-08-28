@@ -5,7 +5,7 @@ import NotFoundSvg from '~/assets/not_found.png';
 interface Props {
 	lang: string;
 }
-const { lang } = Astro.props;
+const { lang } = Astro.locals.starlightRoute;
 ---
 
 <div class="wrapper">

@@ -1,12 +1,12 @@
 ---
-import type { Props } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import Default from '@astrojs/starlight/components/MobileMenuFooter.astro';
 import Sponsors from '../LeftSidebar/Sponsors.astro';
 ---
 
 <div class="sl-flex">
 	<Sponsors />
-	<Default {...Astro.props}><slot /></Default>
+	<Default {...Astro.locals.starlightRoute}><slot /></Default>
 </div>
 
 <style>

@@ -15,11 +15,11 @@ export interface Props {
 	class?: string;
 }
 
-const { tabs, styled } = Astro.props as Props;
+const { tabs, styled } = Astro.locals.starlightRoute as Props;
 ---
 
 <tabbed-content>
-	<ul class:list={['tab-list', Astro.props.class, { 'tab-list--styled': styled }]}>
+	<ul class:list={['tab-list', Astro.locals.starlightRoute.class, { 'tab-list--styled': styled }]}>
 		<slot name="tab-list">
 			{
 				tabs?.map((tab) => (
@@ -31,7 +31,7 @@ const { tabs, styled } = Astro.props as Props;
 		</slot>
 	</ul>
 
-	<div class:list={['panels', Astro.props.class, { 'panels--styled': styled }]}>
+	<div class:list={['panels', Astro.locals.starlightRoute.class, { 'panels--styled': styled }]}>
 		<slot />
 	</div>
 </tabbed-content>

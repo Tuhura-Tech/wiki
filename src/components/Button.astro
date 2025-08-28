@@ -11,7 +11,7 @@ interface Props {
 
 const propsSchema = z.object({
 	variant: z.enum(['primary', 'secondary', 'minimal']).default('primary'),
-	link: z.string(),
+	link: z.string().nullish(),
 	icon: z
 		.union([
 			z.object({ type: z.literal('icon'), name: z.custom<IconName>(z.string().parse) }),
@@ -20,7 +20,7 @@ const propsSchema = z.object({
 		.optional(),
 });
 
-const { link, variant, icon } = propsSchema.parse(Astro.props);
+const { link, variant, icon } = propsSchema.parse(Astro.locals.starlightRoute);
 ---
 
 <a class:list={['sl-flex action', variant]} href={link}>

@@ -3,7 +3,7 @@ export interface Props {
 	key?: string;
 }
 
-const { key = 'default' } = Astro.props as Props;
+const { key = 'default' } = Astro.locals.starlightRoute as Props;
 ---
 
 <check-list data-key={key}>

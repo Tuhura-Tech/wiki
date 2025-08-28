@@ -1,8 +1,8 @@
 ---
 import DefaultFooter from '@astrojs/starlight/components/Footer.astro';
 import FooterLinks from '../FooterLinks.astro';
-import type { Props } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 ---
 
-<DefaultFooter {...Astro.props} />
+<DefaultFooter {...Astro.locals.starlightRoute} />
 <FooterLinks />

@@ -4,7 +4,7 @@ export type Props = Parameters<typeof StarlightCard>[0];
 ---
 
 <div class="landing-card">
-	<StarlightCard {...Astro.props}><slot /></StarlightCard>
+	<StarlightCard {...Astro.locals.starlightRoute}><slot /></StarlightCard>
 </div>
 
 <style>

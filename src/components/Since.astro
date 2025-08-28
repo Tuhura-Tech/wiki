@@ -6,7 +6,7 @@ export interface Props {
 	v: string;
 }
 
-const { v, pkg = 'astro' } = Astro.props as Props;
+const { v, pkg = 'astro' } = Astro.locals.starlightRoute as Props;
 
 /**
  * Split a semantic version string like `0.23.3` into a tuple of `[major, minor, patch]`.

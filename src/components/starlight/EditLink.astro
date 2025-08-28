@@ -1,8 +1,8 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
-import type { Props } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 
-const { editUrl, entry, locale, isFallback } = Astro.props;
+const { editUrl, entry, locale, isFallback } = Astro.locals.starlightRoute;
 
 const githubEditUrl =
 	entry.data.githubURL && (locale === 'en' || isFallback)

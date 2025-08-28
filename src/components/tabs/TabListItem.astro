@@ -10,13 +10,13 @@ export interface Props {
 	class?: string;
 }
 
-const { id, initial } = Astro.props;
+const { id, initial } = Astro.locals.starlightRoute;
 const linkAttributes: HTMLAttributes<'a'> = initial
 	? { 'data-initial': 'true', 'aria-selected': 'true' }
 	: {};
 ---
 
-<li class:list={Astro.props.class}>
+<li class:list={Astro.locals.starlightRoute.class}>
 	<a href={'#' + id} class="tab-link" {...linkAttributes}>
 		<slot />
 	</a>

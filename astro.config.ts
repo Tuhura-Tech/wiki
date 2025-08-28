@@ -11,7 +11,8 @@ import { starlightPluginAutolinkHeadings } from './config/plugins/rehype-autolin
 import { rehypeTasklistEnhancer } from './config/plugins/rehype-tasklist-enhancer';
 import { remarkFallbackLang } from './config/plugins/remark-fallback-lang';
 
-import tailwind from '@astrojs/tailwind';
+//import tailwind from '@astrojs/tailwind';
+import tailwind from '@astrojs/starlight-tailwind'
 
 // https://astro.build/config
 export default defineConfig({
@@ -30,7 +31,7 @@ export default defineConfig({
 				plugins: [pluginCollapsibleSections()],
 			},
 			customCss: [
-				// Path to your Tailwind base styles:
+				 //Path to your Tailwind base styles:
 				'./src/tailwind.css',
 			],
 			logo: {
@@ -58,16 +59,16 @@ export default defineConfig({
 			defaultLocale: 'en',
 			locales: makeLocalesConfig(),
 			sidebar,
-			social: {
-				discord: 'https://discord.gg/PNxh7cwKfQ',
-				github: 'https://github.com/Tuhura-Tech/Wiki',
-				mastodon: 'https://mastodon.nzoss.nz/@tuhuratech',
-				instagram: 'https://www.instagram.com/tuhura_tech',
-				facebook: 'https://www.facebook.com/p/T%C5%ABhura-Tech-100083052084710/',
-				linkedin: 'https://www.linkedin.com/company/tuhuratech',
-				email: 'mailto:contact@tuhuratech.org.nz',
-				matrix: 'https://matrix.to/#/#home:tuhuratech.org.nz',
-			},
+			social: [
+				{icon: 'discord', label: 'Discord', href: 'https://discord.gg/PNxh7cwKfQ'},
+				{icon: 'github', label: 'GitHub', href: 'https://github.com/Tuhura-Tech/Wiki'},
+				{icon: 'mastodon', label: 'Mastodon', href: 'https://mastodon.nzoss.nz/@tuhuratech'},
+				{icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/tuhura_tech'},
+				{icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/p/T%C5%ABhura-Tech-100083052084710/'},
+				{icon: 'linkedin', label: 'Linkedin', href: 'https://www.linkedin.com/company/tuhuratech'},
+				{icon: 'email', label: 'Email', href: 'mailto:contact@tuhuratech.org.nz'},
+				{icon: 'matrix', label: 'Matrix', href: 'https://matrix.to/#/#home:tuhuratech.org.nz'},
+			],
 			pagefind: false,
 			head: [
 				// Add ICO favicon fallback for Safari.
@@ -92,10 +93,10 @@ export default defineConfig({
 			plugins: [starlightPluginAutolinkHeadings()],
 		}),
 		sitemap(),
-		tailwind({
+		//tailwind({
 			// Disable the default base styles:
-			applyBaseStyles: false,
-		}),
+			//applyBaseStyles: false,
+		//}),
 	],
 	markdown: {
 		// Override with our own config

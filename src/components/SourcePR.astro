@@ -1,6 +1,6 @@
 ---
 import { Icon } from '@astrojs/starlight/components';
-const { number, title } = Astro.props;
+const { number, title } = Astro.locals.starlightRoute;
 ---
 
 <div class="source">

@@ -3,7 +3,7 @@ import { Badge as StarlightBadge } from '@astrojs/starlight/components';
 export type Props = Parameters<typeof StarlightBadge>[0];
 ---
 
-<StarlightBadge {...Astro.props} />
+<StarlightBadge {...Astro.locals.starlightRoute} />
 
 <style is:global>
 	.neutral-badge {

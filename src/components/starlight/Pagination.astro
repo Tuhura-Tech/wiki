@@ -1,18 +1,18 @@
 ---
 import Default from '@astrojs/starlight/components/Pagination.astro';
-import type { Props } from '@astrojs/starlight/props';
+import type { StarlightRouteData } from '@astrojs/starlight/route-data';
 import { tutorialPages as pages } from '~/content';
 import { getTutorialPages } from '../../util/getTutorialPages';
 import { getLangFromSlug, stripLangFromSlug } from '~/util/path-utils';
 
-const { entry, id, pagination } = Astro.props;
+const { entry, id, pagination } = Astro.locals.starlightRoute;
 
 const lang = getLangFromSlug(id);
 let { prev, next } = pagination;
 
 const tutorialPages = getTutorialPages(pages, lang.toLowerCase());
 
-if (Astro.props.entry.data.type === 'tutorial') {
+if (Astro.locals.starlightRoute.entry.data.type === 'tutorial') {
 	const i = tutorialPages.findIndex((p) => p.id === entry.id);
 	if (tutorialPages[i - 1]) {
 		const prevPage = tutorialPages[i - 1];
@@ -39,4 +39,4 @@ if (Astro.props.entry.data.type === 'tutorial') {
 }
 ---
 
-<Default {...{ ...Astro.props, ...{ pagination: { prev, next } } }} />
+<Default {...{ ...Astro.locals.starlightRoute, ...{ pagination: { prev, next } } }} />

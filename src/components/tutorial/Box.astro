@@ -3,7 +3,7 @@ export interface Props {
 	icon?: 'puzzle-piece' | 'question-mark' | 'check-list';
 }
 
-const { icon } = Astro.props;
+const { icon } = Astro.locals.starlightRoute;
 ---
 
 <div class={`highlight-box content ${icon}`}>

@@ -6,7 +6,7 @@ export interface Props {
 	githubRepo?: `${string}/${string}`;
 }
 
-const { githubRepo = 'Tuhura-Tech/wiki' } = Astro.props as Props;
+const { githubRepo = 'Tuhura-Tech/wiki' } = Astro.locals.starlightRoute as Props;
 
 const contributors = await getAllContributors(githubRepo);
 ---
