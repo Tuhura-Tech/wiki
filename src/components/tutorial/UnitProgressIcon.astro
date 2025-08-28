@@ -10,7 +10,7 @@ export interface Props {
 	 */
 	paths: string[];
 }
-const { unitNumber, paths } = Astro.locals.starlightRoute as Props;
+const { unitNumber, paths } = Astro.props as Props;
 const numberOfLessons = paths.length;
 
 let segments = [];
