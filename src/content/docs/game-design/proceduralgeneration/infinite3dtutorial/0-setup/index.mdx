@@ -1,0 +1,78 @@
+---
+type: tutorial
+unitTitle: Infinite 3D Procedural Generation
+title: Catching up
+description: This page works through how to integrate procedural generation with a 3D game
+---
+
+import Checklist from '/src/components/tutorial/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[If you're a beginner...]
+Read through and implement [3D Intro](/game-design/godot/3d-intro/0-making-project/) until you know the basics of how 3D works in Godot.
+:::
+
+:::note[Another Note]
+If you have already done the [3D Racing Game](/game-design/godot/3dracinggame/0-main-scene/), you can skip this page!
+:::
+
+## What you'll be making
+
+![Screenshot preview of the game](/src/assets/proceduralgeneration/3dinfinitegame/finalProductRunning.png)
+
+In this tutorial, you'll work step by step through creating your very own infinite 3D racing game! In this game, the car will navigate across windy roads, straight roads, and bumpy roads infinitely!
+
+You'll learn to:
+- Create a car (through a previous tutorial)
+- Create a track (also through a previous tutorial)
+- Then, a neverending track
+- Code randomness into track making
+- And code procedural noise into your track!
+
+<details>
+<summary>What is procedural noise?</summary>
+**Procedural noise** is a way to create natural-looking patterns for things like textures, animations, and 3D models in computer graphics.
+
+It uses math to make patterns that look random but can be repeated exactly when needed. These patterns are smooth, work well in any
+direction, and can be made at different levels of detail using powerful computers.
+
+Two common types of procedural noise are **Perlin noise** and **Simplex noise**, both invented by Ken Perlin. 
+
+ - Perlin noise, made in 1983, creates smooth patterns using a grid but can sometimes show unwanted lines in complex designs.
+ - Simplex noise, created later in 2001, fixes these problems by using triangles instead of squares, making it faster and
+ better for more detailed or high-dimensional projects.
+ 
+Both are great for creating things like clouds, landscapes, and other realistic effects in games and movies.
+</details>
+
+## Catching up
+
+### Creating a car
+
+As we are following straight from another tutorial, you will need to create a car. If you want to go through the whole tutorial in detail, [go through this 3D racing tutorial](/game-design/godot/3dracinggame/0-main-scene/).
+
+
+If you want to quickly make a car, go through:
+<Steps>
+1. [Making The Car section](/game-design/godot/3dracinggame/1-making-the-car/)
+2. [Car Controls first page](/game-design/godot/3dracinggame/2-car-controls/)
+3. The second page of "Car Controls": [Driving the Car](/game-design/godot/3dracinggame/2-car-controls/1)
+</Steps>
+Then, you've made your car!
+
+
+### Creating a track
+
+This tutorial also assumes you have made at least one track from the 3D racing game tutorial.
+To make your track, follow [these steps to catch up.](/game-design/godot/3dracinggame/3-track-building/)
+You do not need to implement the last page (the Extra: Boost page) if you don't want to.
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have gone through the other tutorials.
+- [ ] I know what procedural noise is.
+</Checklist>
+</Box>
