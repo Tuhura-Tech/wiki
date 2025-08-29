@@ -44,8 +44,4 @@ export type Props = Parameters<typeof Card>[0];
 		mask-size: 100%;
 		-webkit-mask-size: 100%;
 	}
-	/* Mirror arrow in RTL layouts */
-	:global([dir='rtl']) .link-list :global(a::after:not(:where([dir='rtl'] [dir='ltr'] *))) {
-		transform: matrix(-1, 0, 0, 1, 0, 0);
-	}
 </style>

@@ -1,0 +1,88 @@
+---
+type: tutorial
+unitTitle: Making a 2D Platformer
+title: Adding Movement
+description: This page is a step by step guide to making a 2D platformer
+sidebar:
+    order: 2
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+## Adding Movement
+
+Now we are going to add gravity and movement to the player. 
+
+<Steps>
+
+1. Go back to your Player scene and attach a script by right clicking the player node and clicking “Attach Script”. Click “Create” as the defaults are what we want. Now if you run your game, you should be able to run around. 
+	:::tip
+	You may want to reduce your speed and jump height, depending on how you want the game to feel (I recommend a speed of 150 and a jump velocity of -300). 
+	:::
+
+2. In Project > Project Settings > Input Map, we will create other keys for the player to use. In the "add new action" box, type in something like left and then click add.
+
+3. On the right, click the plus button and and then press a key to represent it. E.g. for left you could use the left arrow key. Repeat the steps for right and jump.
+
+4. Now go into the Player script and change the `"ui_left"`, `"ui_right"` etc. to the inputs you made before.
+
+5. You may notice that your player doesn't flip when going to the left, nor does the animation change from idle to run when you're moving. To solve this, change your Player script to this:
+	```gdscript
+	extends CharacterBody2D
+	## Class for the player, controlled by the user
+
+
+	# Constants
+	const SPEED = 150.0
+	const JUMP_VELOCITY = -300.0
+
+	# In-scene nodes
+	@onready var sprite_node = $AnimatedSprite
+
+
+	# Runs consistently as much as possible, for physics
+	func _physics_process(delta: float) -> void:
+		# Add the gravity.
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+		
+		# Handle jump.
+		if Input.is_action_just_pressed("jump") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		
+		# Get the input direction and handle the movement/deceleration.
+		var direction := Input.get_axis("left", "right")
+		if direction:
+			velocity.x = direction * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+		
+		# Move the player
+		move_and_slide()
+
+
+	# Runs every frame, for anything non-physics like visual things
+	func _process(_delta: float) -> void:
+		if velocity.x > 0:
+			sprite_node.flip_h = false
+		elif velocity.x < 0:
+			sprite_node.flip_h = true
+		if abs(velocity.x) > 0:
+			sprite_node.animation = "run"
+		else:
+			sprite_node.animation = "idle"
+
+	```
+
+</Steps>
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have added a script to the player scene
+- [ ] I have added sprite flipping
+- [ ] My player can move
+</Checklist>
+</Box>

@@ -1,0 +1,181 @@
+---
+title: Pytest
+description: Overview of Level 2 Resources
+sidebar:
+    order: 6
+---
+
+We can install pytest and requests inside our Python virtual environment using
+
+```python
+uv pip install requests pytest
+```
+
+We'll then want to create a new folder called "tests"
+
+and inside that, create a new file called 'test_pytest.py'
+
+:::[File names]
+Pytest looks for files with names that either start with test_ or end with _test, so it's important that this file is named correctly
+:::
+
+https://fastapi.tiangolo.com/tutorial/testing/
+
+
+### Writing a simple test
+
+Once you've created a test file, you can begin writing tests. Say you have a function in your main file called multiplyfour, that takes an input of a number, and returns it multiplied by 4.
+
+We would test that it's actually multiplying by four like this:
+
+```python
+def test_multiply():
+    assert multiplyfour(4) == 16
+```
+
+When our tests are run, we'll be told how many have passed and how many have failed, and be given specific information on the tests which failed.
+
+### Running the tests
+
+To run your tests, you can simply run 
+
+```sh
+pytest
+```
+
+in the terminal.
+
+
+### Testing your SQL Database
+
+Testing our SQL database using Pytest is thankfully nice and easy using fastapi and pytest.
+
+First, we'll want to add some more imports to our test file
+
+:::Note[naming]
+We use "main" here because that's what our main python file is called, if yours is called something else, you'll have to use that name.
+:::
+
+
+```python
+from fastapi.testclient import TestClient
+from sqlmodel import Session, SQLModel, create_engine
+import pytest
+from main import app, get_session 
+
+```
+
+Then, we'll create a **fixture** function. This will ensure that all of our tests are using an entirely fresh database, and that the database data doesn't persist between tests, which could cause problems for certain tests.
+
+```python
+@pytest.fixture()
+def test_db():
+    SQLModel.metadata.create_all(engine)
+    yield
+    SQLModel.metadata.drop_all(engine)
+```
+
+This function will ensure that whenever we pass it as a reference to a test, that test starts with an empty db, and that the db is cleared afterward, even if the test fails.
+
+Then, let's create a new function to see if a post is added to the database correctly.
+
+First we create a new testing function and then a testclient, based on our app.
+
+```python
+def test_create_post():
+    client = testClient(app)
+
+```
+
+Then, we use that testclient to invoke the function where we create a new post and pass it through some test parameters.
+
+```python
+    response = client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+```
+
+Then, we extra the returned data (In this case, it should be a post) and check if the data matches what we'd expect using **assert**
+
+
+```python
+data = response.json()
+assert data["title"] == "test"
+assert data["content"] == "test"
+assert data["data_posted"] == "test"
+assert data["id"] is not None
+```
+
+
+for a full test function that looks like this:
+
+```python
+def test_create_post():
+    client = TestClient(app)
+
+    response = client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+    
+    
+    data = response.json()
+    assert data["title"] == "test"
+    assert data["content"] == "test"
+    assert data["data_posted"] == "test"
+    assert data["id"] is not None
+```
+
+Let's also create a test that checks to see if posts are read from the database correctly. We'll add two dummy posts the same way we did in the previous test, and then run our **get** function, and then check the length.
+
+Adding the posts to the database is easy, as we've just done that.
+
+```python
+def test_read_posts(test_db):
+    client = TestClient(app)
+
+    client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+
+    client.post(
+        "/posts/", params = {"post_title": "test2", "post_content": "test2", "post_date": "test2"}
+    )
+```
+
+Then, let's run that **get** function and store the return value as **response**
+
+```python
+ response = client.get(
+        "/posts/"
+    )
+
+    data = response.json()
+```
+
+and then check the length
+
+```python
+    assert len(data) == 2
+```
+
+For a test function that looks like this:
+
+```python
+def test_read_posts(test_db):
+    client = TestClient(app)
+
+    client.post(
+        "/posts/", params = {"post_title": "test", "post_content": "test", "post_date": "test"}
+    )
+
+    client.post(
+        "/posts/", params = {"post_title": "test2", "post_content": "test2", "post_date": "test2"}
+    )
+
+    response = client.get(
+        "/posts/"
+    )
+
+    data = response.json()
+    assert len(data) == 2
+```

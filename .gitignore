@@ -33,9 +33,9 @@ sandbox.config.json
 # macOS-specific files
 .DS_Store
 
-# Local Netlify folder
-.netlify
-
 # Cached requests
 .cache
 **/_fonts/brand/
+
+# Wranger folder
+.wrangler

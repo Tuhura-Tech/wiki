@@ -1,0 +1,64 @@
+---
+type: tutorial
+unitTitle: Making a 2D Platformer
+title: Connecting Levels
+description: This page is a step by step guide to making a 2D platformer
+sidebar:
+    order: 2
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+## Connecting Levels
+
+Now let's create a trigger to load the next level. 
+
+<Steps>
+
+1. In Level1 add a new Area2D node (rename to EndArea) and give it a CollisionShape2D as a child (rename to Collider). 
+
+2. On the EndArea node, change the collision mask to only have 2 selected. 
+
+3. Give the Collider a shape and place it where you'd like the end of the level to be.
+
+4. Attach a script to the Level1 node, then click on the new Area2D node you just made and connect the “body_entered” signal to Level1. Change the code to this:
+	```gdscript
+	extends Node2D
+	## Base level 1 script
+
+
+	const LEVEL2 = preload("res://Scenes/level_2.tscn")
+
+	# Change to next level when player finishes the level by reaching the EndArea area
+	func _on_end_area_body_entered(_body: Node2D) -> void:
+		get_tree().change_scene_to_packed(LEVEL2)
+
+	```
+
+5. You can make another scene called Level2 and create a new level with different platforms, enemies, items, and maybe different tiles. Once you've done that, when you reach the end of Level1, it will load Level2 and you can play it.
+	:::tip
+	If you want to add further levels, don't forget to add a script for Level2 to load in the next level. If you want to have a level select menu, you'll need to change the level loading code to use a game manager.
+	:::
+
+</Steps>
+
+## Next Steps
+
+Congratulations, you now have a working 2D platformer. Here is a list of possible extensions you might want to add to your game:
+1. Investigate adding moving platforms using AnimationPlayers
+2. Killing enemies if you jump on them or some form of combat
+3. On screen health or life system
+4. On screen timer or score
+5. Game over screen
+6. Messing with tile collisions to create secret areas
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have added an end of level trigger
+- [ ] I have add the script
+- [ ] My game can change levels
+</Checklist>
+</Box>

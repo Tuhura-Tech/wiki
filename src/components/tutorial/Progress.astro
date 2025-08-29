@@ -5,8 +5,8 @@ export interface Props {
 }
 
 const { path, index } = Astro.props as Props;
-const todoLabel = 'progress.todo';
-const doneLabel = 'progress.done';
+const todoLabel = Astro.locals.t('progress.todo');
+const doneLabel = Astro.locals.t('progress.done');
 ---
 
 <check-mark data-path={path} data-todo-label={todoLabel} data-done-label={doneLabel}>

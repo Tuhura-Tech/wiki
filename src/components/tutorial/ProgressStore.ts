@@ -166,7 +166,7 @@ export class ProgressStore {
 		try {
 			const state = JSON.parse(localStorage.getItem(ProgressStore.key) || '{}');
 			if (ProgressStore.validate(state)) return state;
-		} catch (e) {
+		} catch {
 			/* assume no stored state */
 		}
 		return {};
@@ -185,7 +185,7 @@ export class ProgressStore {
 		ProgressStore.notifySubscribers();
 		try {
 			localStorage.setItem(ProgressStore.key, JSON.stringify(ProgressStore.state));
-		} catch (e) {
+		} catch {
 			/* might be incognito mode, no biggie */
 		}
 	}
@@ -207,6 +207,8 @@ export class ProgressStore {
 	}
 
 	private static slugFromPathname(pathname: string) {
-		return pathname.replace(/\/$/, '');
+		// Remove the language segment from the path,
+		// and strip a trailing slash, if present.
+		return pathname.split('/').slice(2).join('/').replace(/\/$/, '');
 	}
 }

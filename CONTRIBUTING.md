@@ -3,13 +3,13 @@
 
 We welcome contributions of any size and contributors of any skill level. As an open source project, we believe in giving back to our contributors. We are happy to help with guidance on PRs, technical writing, and turning any feature idea into a reality.
 
-> **"[Astro Docs Docs"](https://contribute.wiki.tuhuratech.org.nz)** is the best place to learn how to make a helpful, successful contribution to Astro Docs.
+> **["Contributing to this Wiki" ~ Tūhura Tech Wiki](https://wiki.tuhuratech.org.nz/en/guides/contribute/)** is the best place to learn how to make a helpful, successful contribution to the Tūhura Tech Wiki Guides.
 >
 > There, you'll find all the information below, and so much more!
 
-This document has some basic information to get you started, but we encourage you to visit our [dedicated site for contributing to Astro docs](https://contribute.wiki.tuhuratech.org.nz) for all the information you need!
+This document has some basic information to get you started, but we encourage you to visit our [in depth pages on contributing to this wiki](https://wiki.tuhuratech.org.nz/en/guides/contribute/) for all the information you need!
 
-There, you will find a writing and style guide, instructions on how to make changes and open PRs, guidance for translating the docs, and even information about how to help review Astro Docs PRs.
+There, you will find a writing and style guide, instructions on how to make changes and open PRs, guidance for translating the docs, and even information about how to help review PRs for our Wiki Guides.
 
 > **Tip for new contributors:**
 > Take a look at [GitHub's Docs](https://docs.github.com/en/get-started/quickstart/hello-world) for helpful information on working with GitHub.

@@ -1,0 +1,102 @@
+---
+type: tutorial
+title: 'Lists'
+description: |-
+  Tutorial: Find out how to loop over a list.
+---
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## How to write a list
+
+Name the list and use square brackets, separate the different items out with 
+commas and add quotation marks before and after each word. 
+The list can then be called later in the code. For example, `numList = [1, 2, 3]`.
+
+### A Simple Example
+This code works because the loop goes 6 times, and there are 6 colours in the list.
+
+:::note[Remember]
+Lists start at 0. So, `numList[0] = 1` and `list[0] = "red"`.
+:::
+
+``` python
+list = ["red", "orange", "yellow", "green", "blue", "purple"]
+t = Turtle()
+
+for i in range(6):
+    t.color(list[i])
+    t.forward(100)
+    t.left(360/6)
+```
+
+### A Better Example
+
+If the list has fewer colours than the number of loops, it would stop before the loop finishes.
+To fix that, we use the % symbol. This symbol makes the list repeat itself after it reaches
+ the end, so we never run out of colours.
+
+
+```python
+list = ["red", "orange", "yellow", "green", "blue", "purple"]
+t = Turtle()
+
+for i in range(20):
+    t.color(list[i % len(list)])
+    t.forward(100)
+    t.left(360/20)
+```
+:::tip[How does `list[i % len(list)]` work?]
+If `i % len(list)` is used, it takes i (the current loop number) and divides it by the length of the list.
+The remainder tells you which item in the list to use. So, if i gets bigger than the list, it will just
+start over from the beginning.
+
+For example, if `i = 7` and your list has 6 colours, `7 % 6 = 1`, so it will use the second item in
+the list ("orange"). This way, the list keeps repeating!
+:::
+
+## Colours
+Here’s a little bit about the colour functions in Turtle:
+
+```python
+bgcolor() # This changes the background colour of the whole screen.
+fillcolor() # This sets the colour for filling shapes.
+color() # This changes the turtle’s drawing colour (the outline of the shape).
+```
+
+### A Colour Example
+
+In this example we set the background to light blue, then make the turtle draw a circle outline in red.
+Then circle is filled with yellow inside.
+
+```python
+from turtle import Turtle, Screen
+
+# Set up the screen and turtle
+screen = Screen()
+screen.bgcolor("lightblue")
+
+t = Turtle()
+t.fillcolor("yellow")  # Set the shape's fill colour
+t.color("red")  # Set the turtle's drawing colour
+
+# Draw a filled circle
+t.begin_fill()
+t.circle(50)  # Turtle draws a red circle outline
+t.end_fill()  # Circle is filled with yellow
+```
+
+<Box icon="check-list">
+## Checklist
+
+<Checklist>
+- [ ] I know what a modulo (%) does.
+- [ ] I can create a list.
+- [ ] I can make my turtle draw different colours.
+- [ ] I can use different functions to set what I'm colouring in.
+</Checklist>
+</Box>
+
+
+
+

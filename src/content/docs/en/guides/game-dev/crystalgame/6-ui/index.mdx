@@ -1,0 +1,175 @@
+---
+type: tutorial
+unitTitle: Tying it all together with UI
+title: Adding UI
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[Controls](https://docs.godotengine.org/en/stable/classes/class_control.html) [Labels](https://docs.godotengine.org/en/stable/classes/class_label.html#class-label) [User Interface](https://docs.godotengine.org/en/stable/tutorials/ui/index.html)
+:::
+
+Let's start adding some UI to our game!
+
+First let's think about what we're going to want:
+
+1. A reticule, so we can aim
+2. A way to track how many lives we have still available
+3. How much time is left before we win
+4. A label that says if you've won or lost.
+
+## Making the UI
+
+And that should be all for now, but once we're done you should know how to add anything else you might want 
+<Steps>
+1. In your main scene, add a new **Control** node as a child of the root 'World' Node. Rename it to 'HUD'. Save it as a new scene, call it **HUD_scene** and then open the scene.
+
+2. Click on the root **Control** node, and in the inspector, under the **Layout** section, set its **Anchor Preset** to 'Center'
+
+3. As a child of the root **Control** Node, add a **ColorRect**. This will be our Reticule. Open the inspector, set its colour to whatever you want (Although Ideally not white) 
+
+    **Note: If you have an image you want to use as the reticule instead, use the TextureRect node**
+
+4. Now, in its inspector, under the **Transform** tab, set both **Size** values to 5px, and both **Pivot offset** values to 5px. Finally, under the **Layout** tab, set the **layout mode** to **Anchors** and the **Anchors Preset** to **Center**
+    These will all ensure the reticule is in the exact center of the screen.
+</Steps>
+
+Run the game, and you'll notice aiming is much easier now!
+
+Great, now let's go back to our HUD scene. 
+<Steps>
+1. Add four **Label** nodes, all children of the root node. Name them, 'life_label', 'life_val', 'time_label', and 'time_val' respectively.
+2. Let's put the two 'life' labels in the top left (You can move them just by dragging by entering Move mode by pressing 'W') and the two 'time' labels to the top right.
+
+
+3. Now we'll set the text, this is done in the inspector in the **Text** field.
+
+
+    Make 'life_label' say "Lives:"
+
+
+    Make 'life_val' say "3"
+
+
+    Make 'time_label' say "Time Remaining:"
+
+
+    Make 'time_val' say "000" (We'll set this via scripting later.)
+
+
+4. Now, let's add one final Label, call it 'winlose_label' and make it say "You Lose!" In the inspector, Set its **Anchors Preset** to Center the same way you did for the reticule.
+    Under the **Theme Overrides** section in Inspector, open the font sizes tab, and set the font size to something like 50px. Then, under the **Visibility** Section in the Inspector, untick the **Visible** box to hide it. (We'll make it visible via a script)
+
+5. Now set them up in the scene, mine look like this:
+
+    ![HUD scene](/src/assets/godot/3DGameGuide/hudscene.png)
+</Steps>
+
+Let's create a simple script to let us easily change the values of our labels.
+
+
+## UI Script
+<Steps>
+1. Attach a script to the root **Control** node and call it 'HUD_manager'
+
+2. As you've probably come to expect, let's add some exports to access our 'val' labels
+
+    ```gdscript
+    @export var life_val_lbl:Label
+    @export var time_val_lbl:Label
+    @export var winlose_lbl:Label
+    ```
+
+3. We'll add three simple functions that update these. Because these are so simple, we won't bother going over them line by line.
+
+    For the Life Label: 
+
+    ```gdscript
+    func update_life(life:String):
+        life_val_lbl.text = life
+    ```
+    For the Time Label:
+
+    ```gdscript
+    func update_time(time:String):
+        time_val_lbl.text = time
+    ```
+
+    and for the Win/Lose label:
+
+    ```gdscript
+    func show_win_lose(text:String):
+        winlose_lbl.text = text
+        winlose_lbl.visible = true
+    ```
+
+    With the only real difference here being that we make the Win/Lose label visible when we update it.
+
+</Steps>
+
+**Important:** Before we move on, make sure you set the Export vars in the inspector!
+
+Great! Now let's get these connected. For now we'll just connect the updateLife function and make the text appear when we lose. We'll be adding the timer (and therefore winning) in the next step.
+
+For this, we'll be updating our **objective_health** script.
+
+## Updating the Objective Script
+
+<Steps>
+
+1. First of all, let's add a new variable to store a reference to our HUD, and in the _ready function, assign this.
+    We'll also assign the displayed Health text here based on our Exported health variable, so that the two always match.
+
+    ```gdscript
+    var HUD
+
+    func _ready():
+        HUD = get_tree().root.get_node("World/HUD")
+        HUD.update_life(str(health))
+
+    ```
+
+2. Then, in the **entered()** function we wrote earlier, we'll do two things:
+
+    1. Update the label whenever we take damage, to the new health value
+    2. If we reach 0 health, display "You Lose!" (We can remove the Print() now)
+
+    ```gdscript
+    HUD.update_life(str(health))
+    ```
+
+    ```gdscript
+    HUD.show_win_lose("You Lose!")
+    ```
+
+3. for a function that looks like this all together:
+
+    ```gdscript
+    func entered(area: Area3D):
+        if(area.is_in_group("enemy")):
+            health = health - 1
+            area.get_parent().queue_free()
+            HUD.update_life(str(health))
+            
+            if(health <= 0):
+                HUD.show_win_lose("You Lose!")
+    ```
+</Steps>
+
+If you run the game now, you should see our health decreasing whenever an enemy reaches the object, and the "You lose!" text showing up when our health reaches zero!
+
+Now, let's add a timer so we can actually win!
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've added UI
+- [ ] My health decreases
+- [ ] I lose when my health reaches 0
+</Checklist>
+</Box>

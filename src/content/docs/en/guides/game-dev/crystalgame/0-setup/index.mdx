@@ -1,0 +1,100 @@
+---
+type: tutorial
+unitTitle: Setting up the scene
+title: Scene setup
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+This is a guide to making a 3-dimensional game in [Godot](https://godotengine.org/). If you are unfamiliar with Godot, check out the [Godot basics](/game-design/godot/basics) doc and the [3D fundmentals](/game-design/godot/3d-intro/0-making-project/) doc.
+
+:::note[Version]
+This guide is up-to-date with Godot 4.3 stable official release but will most likely work with any 4.x release.
+:::
+
+We'll be making a game in which the player defends an objective against constantly spawning waves of enemies, with both a lose and win condition. Designed to act as a foundation for your own ideas, allowing for easy expansion and polish.
+
+## Making the project
+Set up a Basic 3D project, using the Forward+ Renderer. Create a Node3D as the root, and call it 'World'
+
+![Godot new project window](/src/assets/godot/3DGameGuide/3dgameprojectsetup.png)
+
+## Working with the 3D Viewport
+
+When working with 2D Space, we work on two axes, X and Y. When working in a 3D space, we add a third, Z. In Godot, Y represents up and down, while X and Y represent the two horizontal axes.
+
+While mousing over the 3D game viewport, holding **right-click** will allow you to fly around the viewport using **WASD**. You can use the **scroll wheel** to control your speed. While not holding **right-click** you can use the **scroll wheel** to zoom in and out.
+
+Now that you know the basics, let's get into making our game!
+
+## Creating a first-person controller
+
+:::note[Godot Documentation]
+Godot Documentation for nodes discussed in this section: 
+
+[StaticBody3D](https://docs.godotengine.org/en/stable/classes/class_staticbody3d.html) [MeshInstance3D](https://docs.godotengine.org/en/stable/classes/class_meshinstance3d.html) [CollisionShape3D](https://docs.godotengine.org/en/stable/classes/class_collisionshape3d.html) 
+[CharacterBody3D](https://docs.godotengine.org/en/stable/classes/class_characterbody3d.html)
+:::
+
+Let's set up a basic character controller. Thankfully, Godot makes this easy for us and actually has a template script that'll let us move around.
+
+## Scene Setup
+
+First, let's give ourselves something to stand on.
+<Steps>
+1. Create a **Node3D** and name it 'World' or 'Level' this'll be the root of our whole scene.
+2. Create a **StaticBody3D** and give it two child nodes, a **MeshInstance3D** and a **CollisionShape3D.** The mesh provides visuals for our floor, while the collisionShape is what we actually stand on. 
+3. Select the **MeshInstance3D** and over on the right, in the inspector, assign its Mesh property to be a **PlaneMesh**
+4. Select the **CollisionShape3D** and set its 'Shape' property to a new **BoxShape3D**
+5. Select **CollisionShape3D** in the scene tree and use the orange dots in the viewport to shape the **BoxShape3D** to the same shape and size as the plane. Although it's good to leave it a little thicker than the plane, to stop us from falling through.
+6. Click on the **StaticBody3D** and find the **Transform** over on the right. Increase any of the Scale values to something like 20. They'll all increase as they're 'linked' (Denoted by the chain on the right)
+</Steps>
+
+Great! Now our player has something to stand on. Let's add our Character.
+
+## Adding the Character
+<Steps>
+1. Create a **CharacterBody3D** as a child of our root world node. right-click on it, and save it as a new scene. This allows us to easily modify our player. Name it 'Player' or 'Character'
+2. Find the newly created scene in the file explorer, or click on the "scene" icon, to open our scene.
+2. Give it a **Camera3D** and a **CollisionShape3D** as children. Given the collisionShape a capsule shape using the inspector. The CollisionShape is what'll allow us to collide with the floor.
+3. right-click on the **CharacterBody3D** and assign a script, leave everything as default and hit load. This is because we're using the script Godot provides for us. For now we won't be messing with this, you can click 3D at the top to return to the scene view.
+5. Let's click on the **Camera3D** over on the left, and use the green arrow in the viewport to move it on the Y-axis to wherever you think the 'eyes' of your character should be, based on the capsule.
+6. Make sure you save the scene, using **CTRL + S** or using the File menu in the top left.
+7. Let's go back to our main scene now, using the tab with the name you used for your 'World' Scene. You'll probably notice that the player is halfway in the floor, which is not ideal. Just click on the root **CharacterBody3D** Node and move to up on the Y-Axis
+8. As a final touch, let's add a **DirectionalLight3D** and rotate it to face downwards so that we can see!
+</Steps>
+
+Great! Let's test our game! Hit the **Run Project** Button and try moving around!
+You'll probably notice two things:
+
+1. We can't look around
+2. The default controls use the arrow keys to move, when WASD is generally standard.
+
+Don't worry, we'll fix these issues shortly.
+
+
+:::note[StaticBody vs RigidBody?]
+You may have noticed we used a **StaticBody3D** Object. If you've ever used a 3D game engine before, you've likely heard of 'Static Bodies' and 'Rigid Bodies' but what's the difference?
+
+Both exist as part of the games Physics simulation, and are capable of physically affecting other objects. The main difference is how they're affected by other objects. 
+
+A Static Body cannot be moved by any other physics object, hence 'static' (Though scripts can still move them) Think a solid wall, or tree. Most objects in a given scene that want a player to collide with, will be Static Bodies.
+
+A Rigid Body is the opposite, and can bounce and fall and move based on collisions. If one rigidbody hits another, it'll make it move, based on things like velocity and gravity. Think a soccer ball colliding with another.
+:::
+### Some things to try
+
+1. Try deleting the collision shape from the ground or the player, what happens?
+
+2. Open up the Script for the character movement, try changing the speed up or down, what happens?
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I have something to stand on
+- [ ] I can move around using the arrow keys
+- [ ] I'm ready to make a game!
+</Checklist>
+</Box>
