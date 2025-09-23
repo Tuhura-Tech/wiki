@@ -3,6 +3,7 @@ export default {
 	'guide.game_dev': 'Game Development',
 	'guide.security': 'Cyber Security',
 	'guide.3d': '3D Modelling and Printing',
+	'guide.web': 'Web Development',
 	'guide.python': 'Python',
 	'guide.javascript': 'JS/TS',
 	'guide.database': 'Databases',

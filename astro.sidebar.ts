@@ -60,6 +60,14 @@ export const sidebar = [
 			}),
 			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
 			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
+			group('guide.web', {
+				items: [
+					{
+						label: 'About',
+						link: 'guides/web',
+					},
+				]
+			}),
 			group('guide.python', {
 				items: [
 					{
