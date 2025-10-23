@@ -60,12 +60,56 @@ export const sidebar = [
 			}),
 			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
 			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
-			group('guide.web', {
+			group('guide.html_css', {
 				items: [
 					{
 						label: 'About',
-						link: 'guides/web',
+						link: 'guides/html-css',
 					},
+					{
+						label: 'Setup',
+						link: 'guides/html-css/setup',
+					},
+					{
+						label: 'HTML Titles and Images',
+						link: 'guides/html-css/titles-images',
+					},
+					{
+						label: 'CSS Basics',
+						link: 'guides/html-css/css-basics',
+					},
+					{
+						label: 'Standard Page Formatting',
+						link: 'guides/html-css/standard-formatting',
+					},
+					{
+						label: 'Background, Borders, Padding',
+						link: 'guides/html-css/background-borders-padding',
+					},
+					{
+						label: 'Divs, IDs, and Classes',
+						link: 'guides/html-css/divs-ids-classes',
+					},
+					{
+						label: 'Fonts',
+						link: 'guides/html-css/fonts',
+					},
+					{
+						label: 'CSS Flexbox',
+						link: 'guides/html-css/flexbox',
+					},
+					{
+						label: 'CSS Grid',
+						link: 'guides/html-css/grid',
+					},
+					{
+						label: 'Text Formatting',
+						link: 'guides/html-css/text-formatting',
+					},
+					{
+						label: 'Cheat Sheet',
+						link: 'guides/html-css/cheat-sheet'
+					}
 				]
 			}),
 			group('guide.python', {
