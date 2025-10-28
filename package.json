@@ -31,7 +31,7 @@
     "@types/node": "22.18.12",
     "@typescript-eslint/parser": "8.40.0",
     "astro": "5.15.1",
-    "astro-auto-import": "0.4.4",
+    "astro-auto-import": "0.4.5",
     "astro-eslint-parser": "1.2.2",
     "astro-og-canvas": "0.7.0",
     "canvaskit-wasm": "0.40.0",
