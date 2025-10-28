@@ -34,7 +34,7 @@ importers:
         version: https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@62a858f
       canvas-confetti:
         specifier: ^1.6.0
-        version: 1.9.3
+        version: 1.9.4
       jsdoc-api:
         specifier: ^9.3.4
         version: 9.3.5
@@ -1597,8 +1597,8 @@ packages:
   caniuse-lite@1.0.30001713:
     resolution: {integrity: sha512-wCIWIg+A4Xr7NfhTuHdX+/FKh3+Op3LBbSp2N5Pfx6T/LhdQy3GTyoTg48BReaW/MyMNZAkTadsBtai3ldWK0Q==}
 
-  canvas-confetti@1.9.3:
-    resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
+  canvas-confetti@1.9.4:
+    resolution: {integrity: sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw==}
 
   canvaskit-wasm@0.40.0:
     resolution: {integrity: sha512-Od2o+ZmoEw9PBdN/yCGvzfu0WVqlufBPEWNG452wY7E9aT8RBE+ChpZF526doOlg7zumO4iCS+RAeht4P0Gbpw==}
@@ -5500,7 +5500,7 @@ snapshots:
 
   caniuse-lite@1.0.30001713: {}
 
-  canvas-confetti@1.9.3: {}
+  canvas-confetti@1.9.4: {}
 
   canvaskit-wasm@0.40.0:
     dependencies:
