@@ -100,8 +100,8 @@ importers:
         specifier: 1.2.2
         version: 1.2.2
       astro-og-canvas:
-        specifier: 0.7.0
-        version: 0.7.0(astro@5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1))
+        specifier: 0.7.2
+        version: 0.7.2(astro@5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1))
       canvaskit-wasm:
         specifier: 0.40.0
         version: 0.40.0
@@ -1521,8 +1521,8 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.7.0:
-    resolution: {integrity: sha512-aamARDNDORPxXlPt+VJakzj4WpNUDjQqUZ06eE82pGMad4aTR/KMm8Ho12qvprgJcM8K7fgSOMg5OHa7KcX0pw==}
+  astro-og-canvas@0.7.2:
+    resolution: {integrity: sha512-i7sWbdpl2MMF7wUZqSfzMnhW4c7GQz6s7T4BUJ7E06MqasZRHjJytn0n6D0JJkGDeTpZnU7E00A6Ffx0pRB4kg==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0 || ^5.0.0
@@ -1628,9 +1628,6 @@ packages:
 
   canvas-confetti@1.9.3:
     resolution: {integrity: sha512-rFfTURMvmVEX1gyXFgn5QMn81bYk70qa0HLzcIOSVEyl57n6o9ItHeBtUSWdvKAPY0xlvBHno4/v3QPrT83q9g==}
-
-  canvaskit-wasm@0.39.1:
-    resolution: {integrity: sha512-Gy3lCmhUdKq+8bvDrs9t8+qf7RvcjuQn+we7vTVVyqgOVO1UVfHpsnBxkTZw+R4ApEJ3D5fKySl9TU11hmjl/A==}
 
   canvaskit-wasm@0.40.0:
     resolution: {integrity: sha512-Od2o+ZmoEw9PBdN/yCGvzfu0WVqlufBPEWNG452wY7E9aT8RBE+ChpZF526doOlg7zumO4iCS+RAeht4P0Gbpw==}
@@ -1870,6 +1867,10 @@ packages:
 
   entities@6.0.0:
     resolution: {integrity: sha512-aKstq2TDOndCn4diEyp9Uq/Flu2i1GlLkc6XIDQSDMuaFE3OPW5OphLCyQ5SpSJZTb4reN+kTcYru5yIfXoRPw==}
+    engines: {node: '>=0.12'}
+
+  entities@7.0.0:
+    resolution: {integrity: sha512-FDWG5cmEYf2Z00IkYRhbFrwIwvdFKH07uV8dvNy0omp/Qb1xcyCWp2UDtcwJF4QZZvk0sLudP6/hAu42TaqVhQ==}
     engines: {node: '>=0.12'}
 
   error-stack-parser-es@1.0.5:
@@ -5396,12 +5397,12 @@ snapshots:
       astro: 5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1)
       rehype-expressive-code: 0.38.3
 
-  astro-og-canvas@0.7.0(astro@5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1)):
+  astro-og-canvas@0.7.2(astro@5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1)):
     dependencies:
       astro: 5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1)
-      canvaskit-wasm: 0.39.1
+      canvaskit-wasm: 0.40.0
       deterministic-object-hash: 2.0.2
-      entities: 4.5.0
+      entities: 7.0.0
 
   astro@5.15.1(@types/node@22.18.12)(jiti@2.3.3)(rollup@4.40.2)(typescript@5.9.2)(yaml@2.8.1):
     dependencies:
@@ -5593,10 +5594,6 @@ snapshots:
   caniuse-lite@1.0.30001713: {}
 
   canvas-confetti@1.9.3: {}
-
-  canvaskit-wasm@0.39.1:
-    dependencies:
-      '@webgpu/types': 0.1.21
 
   canvaskit-wasm@0.40.0:
     dependencies:
@@ -5792,6 +5789,8 @@ snapshots:
   entities@4.5.0: {}
 
   entities@6.0.0: {}
+
+  entities@7.0.0: {}
 
   error-stack-parser-es@1.0.5: {}
 
