@@ -4,3 +4,78 @@ description: Learning about the basics of HTML & CSS
 sidebar:
     order: 7
 ---
+
+## Divs
+
+One of the most versatile tools in web development is the `<div>` element.
+
+The `<div>` element groups HTML elements together. It takes all the width of its parent element and creates empty space before and after itself.
+
+Here is an example of a div.
+```html
+<body>
+    <p>This paragraph is not inside a div.</p>
+    <div> 
+      <p>This paragraph is inside a div.</p>
+    </div>
+    <p> This paragraph is not inside a div.</p>
+</body>
+```
+
+
+By itself, a div is unremarkable. With IDs, classes, and CSS, divs are powerful.
+
+## id Attribute
+
+An id is used to access individual HTML elements in your CSS file.
+
+On a single page, each id must be unique. You can’t have multiple elements with the same id.
+
+To give an element an id in html, you use the id attribute. 
+
+```html
+<div id="mydiv"> </div>
+```
+
+When you give an element an ID you can access it in css by using #. 
+
+```css
+#mydiv {
+/* Some style */
+}
+```
+
+id’s are helpful when you have multiple elements of the same type, but you want to give them different styles. 
+
+
+:::note[Challenge]
+Create 2 paragraphs in your HTML document and give both of them unique id’s. Apply styles to both paragraphs separately by accessing their ids in your CSS file.
+:::
+
+## class Attribute
+A class is similar to id's, however multiple elements may have the same class.
+
+The same element may also have multiple classes!
+
+To give an element a class in html, you use the class attribute. 
+
+```html
+<div class="myclass"> </div>
+```
+
+When you give an element a class you can access all elements of the class in css by using `.`
+```css
+.myclass {
+  /* Some style */
+}
+```
+
+
+Classes are helpful when you have multiple elements that you want to apply the same style to.
+
+You can use classes and ids together. This is helpful if you have multiple elements of the same class but still want to apply different styles to them.
+
+:::note[Summary]
+- divs can be used as a container for other elements.
+- Classes and ids can be used to reference specific elements in our CSS document.
+:::

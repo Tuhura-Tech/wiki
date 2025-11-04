@@ -67,12 +67,8 @@ export const sidebar = [
 						link: 'guides/html-css',
 					},
 					{
-						label: 'Setup',
-						link: 'guides/html-css/setup',
-					},
-					{
-						label: 'HTML Titles and Images',
-						link: 'guides/html-css/titles-images',
+						label: 'HTML Headers and Images',
+						link: 'guides/html-css/headers-images',
 					},
 					{
 						label: 'CSS Basics',
