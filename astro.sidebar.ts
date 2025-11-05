@@ -45,16 +45,31 @@ export const sidebar = [
 						link: 'guides/game-dev/dungeoncrawler/0-scenesetup/',
 					},
 					{
-						label: '3D Intro',
-						link: 'guides/game-dev/3d-intro/0-making-project',
-					},
-					{
 						label: 'Setting up C# For Godot',
 						link: 'guides/game-dev/projectsetup',
 					},
 					{
 						label: 'Tilemap Navigation',
 						link: 'guides/game-dev/tilemapnavigation',
+					},
+					{
+						label: '3D Games',
+						items: [
+							{
+								label: '3D Intro',
+								link: 'guides/game-dev/3d-intro/0-making-project/',
+							},
+							{
+								label: 'Starter 3D Game',
+								link: 'guides/game-dev/crystalgame/0-setup/',
+							},
+							{
+								label: '3D Racing Game',
+								link: 'guides/game-dev/3dracinggame/0-main-scene/',
+							},
+							
+						],
+						collapsed: true,
 					},
 				],
 			}),
@@ -145,8 +160,10 @@ export const sidebar = [
 						},
 						collapsed: true,
 					},
+					
 				],
 			}),
+			group('guide.web', { autogenerate: { directory: 'guides/web' } }),
 			group('guide.javascript', {
 				items: [
 					{
