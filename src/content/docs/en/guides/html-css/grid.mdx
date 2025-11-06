@@ -4,3 +4,80 @@ description: Learning about the basics of HTML & CSS
 sidebar:
     order: 10
 ---
+CSS grid is one of the best tools for making a dynamic website layout.
+
+CSS grid is used to organize HTML elements into rows AND columns. It is similar to flexbox, but in 2 dimensions instead of 1. 
+
+The red lines represent columns and the blue lines represent rows.
+
+![CSS Rows and Columns](/src/assets/html-css/rowsCols.png)
+
+We can use a div as a container, and add the elements we want to organize into a grid inside of it.
+
+```html
+<div id="gridContainer">
+    <p class="gridItem" id="p1">1</p>
+    <p class="gridItem" id="p2">2</p>
+    <p class="gridItem" id="p3">3</p>
+    <p class="gridItem" id="p4">4</p>
+    <p class="gridItem" id="p5">5</p>
+</div>
+```
+
+In CSS, you can set the `display` property of the container to `grid`.
+
+`grid-template-columns` and `grid-template-rows` are used to define the number of columns and number of rows.
+
+```css
+/* Style for the container */
+#gridContainer {
+    display: grid;
+
+    /* Defines 2 columns and 4 rows with automatically adjusting width*/
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto auto auto;
+
+    /* Center container in the screen */
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+
+    /* Define the gap between grid elements */
+    column-gap: 5px; 
+    row-gap: 5px;
+
+    /* Style for grid items */
+    .gridItem {
+        background-color: #6aa469;
+        border-style: solid;
+        border-color: white;
+        width: auto;
+        margin: 4px;
+        text-align: center;
+        font-size: 65px;
+        color: white;
+    }
+}
+```
+
+The auto value is the width of each column/row; you can also use % or px values to define the width. 
+
+Auto is a good choice here because it means the size of each grid cell is dynamic and adjusts to whatever text you put in it.
+
+Now, each paragraph element should take up 1 spot each in the grid. However, an element can also take up more than 1 grid cell.
+
+Below gridItem in your stylesheet, use #p5 to access the fifth paragraph and add the grid-column property.
+
+```css
+#p5 {
+    grid-column: 1 / span 2;
+}
+```
+
+In the `grid-column` property, the 1 defines the start column of this element and the `span 2` defines how many columns the element should take up. 
+
+This allows the 5th element to take up 2 spaces in the grid, resulting in this layout:
+
+![CSS Grid Example](/src/assets/html-css/ExampleGrid.png)
+
+When you use CSS grid effectively, you can use it to organize the layout of the entire website. You may even have grids inside of grids.

@@ -1,6 +1,55 @@
 ---
-title: Formatting Text
+title: Links & Formatting Text
 description: Learning about the basics of HTML & CSS
 sidebar:
     order: 11
 ---
+
+## Links
+You can add a link to a page using the `<a>` element, and the href property.
+
+```html
+<a href=”page2.html”>My second website</a>
+```
+
+The text “My second website” is what will be displayed, and the text inside the quotation marks is the link that the user will be redirected to when they click on it. 
+
+For this link to work on your page, you would need to have a file named `page2.html` located in the same directory as the current document. 
+
+
+## Text formatting
+There’s a few elements that can be used on text in HTML to apply different formatting to them. By surrounding text in these tags, you change how the browser renders the text.
+
+|Tag|Description|Example|
+|-------|---------------------------|----------------|
+| `<i>` | Puts the text in italics. | <i>Example</i> |
+| `<small>` | Makes text smaller. | <small> Example </small> |
+| `<mark>` | Highlights text. | <mark> Example </mark> |
+| `<del>` | Strikes a line through text. | <del> Example </del> |
+| `<ins>` | Underlines text. | <ins> Example </ins> |
+| `<sub>` | Subscript text. Often used for scientific notation. | <sub> Example </sub> |
+| `<sup>` | Superscript text. Often used for scientific notation. | <sup> Example </sup> |
+
+As we talked about earlier, elements can be used inside other elements. So you have free choice to decide which words should have which text formatting features. 
+
+See this example. The page will only render the first sentence in italics. 
+
+```html
+<div><i>This is an HTML element.</i> It is being displayed on the Tūhura Tech Wiki page.</div>
+```
+> <div><i>This is an HTML element.</i> It is being displayed on the Tūhura Tech Wiki page.</div>
+
+In this example, multiple format options are used.
+
+```html
+<div><i>This is an HTML element.</i> <ins>It is being <del>displayed</del></ins> on the <a href="https://wiki.tuhuratech.org.nz">Tūhura Tech wiki page</a>.</div>
+```
+
+> <div><i>This is an HTML element.</i> <ins>It is being <del>displayed</del></ins> on the <a href="https://wiki.tuhuratech.org.nz">Tūhura Tech wiki page</a>.</div>
+
+
+:::tip[Pro Tip]
+Don't format your text like the example above. It doesn't look nice. 
+
+Use text formatting tags sparingly.
+:::
