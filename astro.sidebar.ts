@@ -67,7 +67,7 @@ export const sidebar = [
 								label: '3D Racing Game',
 								link: 'guides/game-dev/3dracinggame/0-main-scene/',
 							},
-							
+
 						],
 						collapsed: true,
 					},
@@ -112,10 +112,64 @@ export const sidebar = [
 						},
 						collapsed: true,
 					},
-					
+
 				],
 			}),
-			group('guide.web', { autogenerate: { directory: 'guides/web' } }),
+			group('guide.web', {
+				items: [
+					{
+						label: 'HTML Reference',
+						link: 'guides/web/',
+					},
+					{
+						label: 'HTML & CSS Intro',
+						items: [
+							{
+								label: 'Intro',
+								link: 'guides/web/html-css-intro/0-intro/',
+							},
+							{
+								label: 'Headers and Images',
+								link: 'guides/web/html-css-intro/1-headers-images/',
+							},
+							{
+								label: 'CSS Basics',
+								link: 'guides/web/html-css-intro/2-css-basics/',
+							},
+							{
+								label: 'Standard Formatting',
+								link: 'guides/web/html-css-intro/3-standard-formatting/',
+							},
+							{
+								label: 'Background, borders, padding',
+								link: 'guides/web/html-css-intro/4-background-borders-padding/',
+							},
+							{
+								label: 'Divs, IDs, Classes',
+								link: 'guides/web/html-css-intro/5-divs-ids-classes/',
+							},
+							{
+								label: 'Fonts',
+								link: 'guides/web/html-css-intro/6-fonts/',
+							},
+							{
+								label: 'Text Formatting',
+								link: 'guides/web/html-css-intro/7-text-formatting/',
+							},
+							{
+								label: 'Flexbox',
+								link: 'guides/web/html-css-intro/8-flexbox/',
+							},
+							{
+								label: 'Grid',
+								link: 'guides/web/html-css-intro/9-grid/',
+							},
+
+						],
+						collapsed: true,
+					},
+				],
+			}),
 			group('guide.javascript', {
 				items: [
 					{

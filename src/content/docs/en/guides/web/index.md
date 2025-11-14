@@ -1,8 +1,7 @@
 ---
-title: Basic HTML
+title: HTML Reference
 description: This is how to set up an html web environment.
 sidebar:
-  # Make this always the first
   order: 1
 
 ---
