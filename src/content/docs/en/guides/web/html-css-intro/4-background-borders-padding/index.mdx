@@ -1,0 +1,64 @@
+---
+title: Background, Borders, Padding
+description: Learning about the basics of HTML & CSS
+---
+
+## Backgrounds
+
+This changes the background colour of the whole document.
+```css
+body {
+    background-color: black;
+}
+```
+
+The `background-color` property can be applied to any type of element, not just the body.
+
+You can also use images as a background with the `background-image` property:
+
+```css
+body {
+    background-image: url("bg_image.jpg");
+    background-size: cover;
+}
+```
+
+The `background-size` property ensures the image takes up the whole width of the element. You can also use percentage values, pixel values, and the `auto` or `contain` keywords as values.
+
+## Borders
+This gives an element a border.
+```css
+img { /* You can apply this to any element, not just img! */
+    border-style: solid;
+    border-width: 4px;
+    border-color: blue;
+    border-radius: 5px;
+}
+```
+
+border-radius is used to make rounded borders. The higher the pixel value the more rounded it is.
+
+You can also define different properties for different sides of the border by stringing multiple values together, like this:
+```css
+border-style: solid dashed dotted double;
+```
+
+In the case of borders, you can string up to 4 values in a row (Since an element has 4 sides). If there is only 1 value applied then all 4 sides will use that style.
+
+## Padding
+
+The `padding` property adds a gap between the element and it's border.
+```css
+img {
+    padding: 20px;
+}
+```
+
+Again, you can add different padding to different sides of an element by stringing multiple values together.
+```css
+img {
+    padding: 20px 10px 10px 20px;
+}
+```
+
+`padding` is a very versatile property and helpful in many different situations. It adds blank space around an element. You can also use percentages instead of pixels, which can help make your website look consistent across different screen sizes.

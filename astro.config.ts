@@ -27,7 +27,8 @@ export default defineConfig({
 			description:
 				'A collection of guides and resources for learning technology targeted towards tamariki and rangatahi in Aotearoa',
 			expressiveCode: {
-				plugins: [pluginCollapsibleSections()],
+				// @ts-expect-error: Temporarily silencing error until full wiki update can resolve
+				plugins: [pluginCollapsibleSections()]
 			},
 			customCss: [
 				// Path to your Tailwind base styles:
@@ -101,6 +102,7 @@ export default defineConfig({
 		// Override with our own config
 		smartypants: false,
 		remarkPlugins: [
+			// @ts-expect-error: Temporarily silencing error until full wiki update can resolve
 			[remarkSmartypants, { dashes: false }],
 			// Add our custom plugin that marks links to fallback language pages
 			remarkFallbackLang(),
