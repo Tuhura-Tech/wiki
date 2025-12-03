@@ -1,0 +1,95 @@
+---
+title: Standard Formatting
+description: Learning about the basics of HTML & CSS
+---
+
+To use CSS to its full potential, you need to reorganize the HTML document first.
+
+Try reorganize your html document so that it looks like this:
+
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel=”stylesheet” href=”style.css”>
+    </head>
+
+    <body>
+        <h1>My first header</h1>
+        <p> Hello, world!</p>
+        <img src=”image.jpg” alt=”A landscape photograph of Wanaka’s lonely willow tree, taken as the sun sets.”>
+    </body>
+</html>
+```
+This is how the vast majority of html pages are formatted. These conventions are used for good reason. 
+
+The DOCTYPE declaration and `html` element ensures the file renders properly on all browsers.
+
+The `head` element contains metadata about the document, including the stylesheet link. This is where you would define the page title, import files, and write scripts.
+
+The `body` element includes the content to be displayed on the page.
+
+With these elements, we can reference them in our stylesheet. If you want to make style changes to the whole page, you could reference the `body` element.
+
+## Comments
+Comments are a way of writing notes in a source file without affecting the output.
+
+In HTML, a comment is denoted by `<!--` and `-->`. They can take up 1 or more lines, and as long as the comment is within the two comment tags it will not be rendered.
+```html
+<!-- This is an HTML comment. Anything between these dashes is not rendered by the browser.
+Comments are very helpful for organising your content. Add comments! -->
+```
+
+In CSS, a comment is denoted by `/*` and `*/`. They can also take up 1 or more lines
+```css
+/* This is a CSS comment. You can read this, but the computer won't! */
+```
+
+## Indentation
+Indents are the blank space in our code at the beginning of lines. 
+
+We use it in both HTML and CSS.
+
+It doesn’t change how your web page looks, but it does make your code much easier to read and understand.
+
+Indentation helps you (and others) quickly see which elements are inside other elements — this is called *nesting*. For example, anything inside the `<body>` tag should be indented one level further than the `<body>` tag itself.
+
+You can indent by pressing the <kbd>tab</kbd> key, and you can remove an indent by pressing <kbd>shift + tab</kbd>.
+
+Take the standard layout we made earlier:
+```html
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <link rel=”stylesheet” href=”style.css”>
+    </head>
+
+    <body>
+        <h1>My first header</h1>
+        <p> Hello, world!</p>
+        <img src=”image.jpg” alt=”A landscape photograph of Wanaka’s lonely willow tree, taken as the sun sets.”>
+    </body>
+</html>
+```
+
+Notice how every time we open a new element inside another, like `<head>` inside `<html>` we add one more level of indentation.
+
+Here's another example of proper indentation:
+```html
+<body>
+    <div>
+        <p>This paragraph is inside a div.</p>
+    </div>
+</body>
+```
+Without indentation, this is harder to follow.
+```html
+<body>
+<div>
+<p>This paragraph is inside a div.</p>
+</div>
+</body>
+```
+
+
+Consistent indentation will make your code more readable, and save you plenty of confusion.
