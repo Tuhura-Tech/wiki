@@ -1,7 +1,9 @@
 ---
-title: HTML and CSS basics
+title: Fonts
 description: Learning about the basics of HTML & CSS
 ---
+
+> Fonts control how text looks on a screen. A font is just a file that contains a bunch of graphics for letters and symbols.
 
 ## Types of fonts
 In CSS, there are 2 types of fonts: web fonts, and system fonts.
@@ -23,7 +25,7 @@ Inside the ids you made in the last section, add the font-family property:
 
 This property specifies the font to be used by this element.
 
-There are 5 generic font families available by default in CSS that you can use as the value, some of which are listed below. Experiment with them and see how they look on your website.
+There are 5 generic font families available by default in CSS that you can use as the value, which are listed below. Experiment with them and see how they look on your website.
 
 | Generic font families | Example |
 | ----------- | -- |
@@ -42,7 +44,9 @@ You then provide a link or file that css will use when this `font-family` is ref
 ### Using Google fonts
 [Google Fonts](https://fonts.google.com/) is a great resource for finding free to use fonts. You can choose to download the font file and put it into the folder containing your website files, or use a link to the font. 
 
-To use a Google font in your website via link, find the font you would like to use and click Get font. Then click Get embed code and copy the provided code into your HTML and CSS files, making sure to follow the instructions. Make sure you change the font-family name to the font-family name provided in the CSS class.
+To use a Google font in your website via link, find the font you would like to use and click Get font. Then click Get embed code and copy the provided code into your HTML and CSS files, making sure to follow the instructions.
+
+Once you've pasted the text provided to you into your CSS file, you can change the property of the font-family style to the name of your newly imported font.
 
 ### Using a local font file
 Font files can come with various different extensions: .WOFF, .WOFF2, .TTF, .OTF, and more. You can download fonts from google fonts for this, or you could use font files that your computer already holds.
@@ -59,7 +63,7 @@ Use the `@font-face` rule to declare a new font family.
 
 #myId {
   font-family: myCustomFont;
-}
+}to
 ```
 
 In the above code font-family sets the name of your font, and src finds the file. 
