@@ -21,7 +21,9 @@ export default defineConfig({
 
 			favicon: '/public/favicon.ico',
 
-
+			customCss: [
+				'./src/tailwind.css',
+			],
 
 			//Locales
 			defaultLocale: 'en',
@@ -30,6 +32,8 @@ export default defineConfig({
 					label: 'English',
 				},
 			},
+
+
 			//Sidebar Config
 			sidebar: [
 				{
@@ -38,6 +42,7 @@ export default defineConfig({
 						// Each item here is one entry in the navigation menu.
 						{ label: 'About', slug: 'guides/game-dev'},
 						{ label: 'Godot Basics', slug: 'guides/game-dev/basics'},
+						{ label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
 					],
 				},
 				{

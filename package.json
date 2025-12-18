@@ -13,6 +13,7 @@
     "@astrojs/starlight": "^0.37.1",
     "@docsearch/js": "^4.3.2",
     "astro": "5.16.6",
+    "path": "link:@astrojs/starlight/utils/path",
     "sharp": "^0.34.2"
   }
 }
