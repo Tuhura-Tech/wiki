@@ -1,0 +1,101 @@
+---
+title: Functions and Docstring
+description: Learning about functions and docstring
+sidebar:
+    order: 4
+---
+
+## Functions
+
+Functions allows you to create a sequence of code that can be called repeatedly so you don't need to write everything out multiple times.
+
+To create a function, you use `def` followed by your name for the function followed by `():`. Then on the next line you'll start your code. If you want you function to give a result at the end, you'll use `return` and then the result you want to return.
+
+```python
+def my_func():
+    x = 5
+    y = 6
+    total = x + y
+    return total
+```
+
+To use a function you've created, it's the same as using `print()`, `input()`, `range()` etc.
+
+```python
+total = my_func()
+```
+
+You can also give a function something called parameters. These are variables that can be used inside the function itself. This allows you to create a general function that can give different results based on what you input. These are put inside the `()` in your function definition.
+
+```python
+def my_func(x, y):
+    total = x + y
+    return total
+
+
+total = my_func(4, 10) # This will return 4 + 10
+```
+
+You can give parameters a default value. This enables the parameter to be used in your function without explicitly needing to give the function a value for that parameter when you call it. To do this, you add `=value` after a parameter, where `value` will be what you want to set as the default. You can override this default when calling the function and replace it with a given value.
+
+```python
+def my_func(x, y=10):
+    total = x + y
+    return total
+
+
+total = my_func(4) # This will return 4 + 10
+total = my_func(4, y=15) # This will return 4 + 15
+```
+
+:::note
+If you do not give a parameter a default value, you must provide a value for it when you call the function. Otherwise you will get an error similar to this: `TypeError: my_func() missing 1 required positional argument: 'x'`
+:::
+
+
+## Type Hints
+
+Variables in Python are dynamically typed. They can change depending on what values you give them. This can be a bit confusing. You can give variables type hints to help Python know what you're intending. It also helps with readability and error detection. The syntax for it requires adding `: type` after your variable name. To do type hinting with more complex structures such as lists, you must also provide what type will be in the list using the syntax `[type]`.
+
+```python
+
+name: str = "Abby"
+age: int = 25
+ages: list[int] = [25, 28, 30, 24]
+
+```
+
+This can also be used within functions and parameters. The syntax for parameters is the same, but you can also use it to hint at what type you want to return using `-> type`
+
+```python
+def my_func(x: int, y: int) -> int:
+    total = x + y
+    return total
+
+```
+
+There is an external package called mypy which will check the static (type hinted) code in your program and tell you if you're using variables of the wrong types, according to your provided type hints. Mypy will be expanded on further in the Setting Up section.
+
+## Docstrings
+
+Docstrings are used to document a function, its parameters, what it does, and its output. These are block comments put at the start of a function, surrounded by `"""`. Visual Studio (and VS Code) use something called Intellisense, which is a code-completion tool. One of the things this does is it will show you what your docstrings look like when rendered properly.
+
+```python
+def my_func(x, y):
+    """Adds 2 numbers and returns the result
+
+    Args:
+        x (int): The first number to be added
+        y (int): The second number to be added
+
+    Returns:
+        int: The sum of x and y
+    """
+    total = x + y
+    return total
+```
+
+The render for this docstring using intellisense looks like this:   
+![Docstring Render](/src/assets/python/docstrings.png)
+
+The docstring style above is a common one called [Google Docstring Style](https://google.github.io/styleguide/pyguide.html#s3.8.1-comments-in-doc-strings). It's an easy docstring format to remember and is quite clear. There are other styles you can use, however. 

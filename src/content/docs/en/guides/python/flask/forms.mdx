@@ -1,0 +1,290 @@
+---
+title: Updating data
+description: A simple website built using flask
+sidebar:
+   order: 4
+---
+
+So far all of this work replicates what can already be done with a simple HTML file. However, the real power of Flask comes from its ability to interact with data.
+
+In this section, we will create a simple website that allows users to update data. We will use a simple list of dictionaries to store the data and eventually this will be converted to use a [database](/python/flask/database).
+
+## Sending data from the webpage to the server
+
+All of our routes use the `GET` method by default. This means that when a user visits a page, the browser sends a `GET` request to the server to retrieve the page. While we don't need to specify the method when defining a route, we can do so by passing it in as an argument to the route decorator.
+
+```python
+@app.route("/", methods=["GET"])
+```
+
+As great as `GET` requests are, they only "get" data from the server and are unable to send data to the server. To send data to the server, we need to use a `POST` request, similar to "posting" the data to the server. We can do this by creating a form in the HTML template and setting the `method` attribute to `POST` and having a route that accepts `POST` requests.
+
+:::note
+There are different types of [HTTP requests](https://http.dev/methods) with each of them having a different purpose.
+:::
+
+HTML forms are used to collect user input and send it to the server. The form element has an `action` attribute that specifies the URL where the form data should be sent, and a `method` attribute that specifies the HTTP method to use when sending the form data, as we are sending data to the server we will use the `POST` method.
+
+```html
+<form action="/update" method="post">
+    <input type="text" name="name" placeholder="Name">
+    <input type="text" name="age" placeholder="Age">
+    <input type="submit" value="Update">
+</form>
+```
+
+In the above form, we have two input fields, one for the name and one for the age. When the user submits the form, the data will be sent to the `/update` route as a `POST` request.
+
+```python
+from flask import Flask, render_template, request
+
+...
+
+data = [
+    {"name": "Alice", "age": 25},
+    {"name": "Bob", "age": 30},
+    {"name": "Charlie", "age": 35},
+]
+
+...
+
+@app.route("/update", methods=["POST"])
+def update():
+    name = request.form["name"]
+    age = request.form["age"]
+    data.append({"name": name, "age": age})
+    return render_template("index.html", data=data)
+```
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Import the `request` object from Flask.
+
+   The `request` object contains the data that the client sends to the server.
+   In this case, we are using the `form` attribute of the `request` object to access the form data sent by the client.
+
+2. Create a list of dictionaries to store the data.
+
+   These dictionaries will have two keys: `name` and `age`.
+   While the data is hard-coded in this example, it could be loaded from a database or an API.
+
+3. Create a route to display the data.
+
+   The route will render an HTML template that displays the data in a table.
+   The template uses a for loop to iterate over the list of dictionaries and display the data in rows.
+
+4. Create a route to update the data.
+
+    The route will receive the updated data from a form submission which happens from an HTTP POST Request.
+    It will update the corresponding dictionary in the list and then render the HTML template to display the updated data.
+
+    :::note
+    Make sure to add the `methods=["POST"]` argument to the route decorator to allow POST requests.
+    :::
+
+</Steps>
+
+:::tip
+You can handle both `GET` and `POST` requests in the same route by checking the request method using `request.method`.
+
+```python
+@app.route("/", methods=["GET", "POST"])
+def index():
+    if request.method == "POST":
+        # Handle the POST request
+    else:
+        # Handle the GET request
+```
+:::
+
+## Using Flask-WTF
+
+The above example works, but it is not very user-friendly. Users have to manually type in the data, and there is no validation to ensure that the data is correct.
+
+A better approach is to use [Flask-WTF](https://flask-wtf.readthedocs.io), which is a Flask extension that makes it easy to work with forms. Flask-WTF uses [WTForms](https://wtforms.readthedocs.io) to define forms in Python and render them in HTML.
+
+### Installing Flask-WTF
+
+To install Flask-WTF, run the following command:
+
+```bash
+pip install Flask-WTF
+```
+
+### Creating a form
+
+There is a lot of boilerplate code involved in creating forms using Flask-WTF, but it is worth it for the added functionality.
+
+<Steps>
+
+1. Firstly we will need to import the necessary classes from `flask_wtf`, `wtforms`, and `wtforms.validators`.
+
+   ```python
+   from flask_wtf import FlaskForm
+   from wtforms import StringField, IntegerField
+   from wtforms.validators import DataRequired, NumberRange
+   ```
+
+2. Next, we will create a form class that inherits from `FlaskForm`.
+
+   This will contains the fields that we want to display in the form and the validation logic for each field.
+
+   ```python
+    class MyForm(FlaskForm):
+         name = StringField('name', validators=[DataRequired()])
+         age = IntegerField('age', [NumberRange(min=0, max=120)])
+    ```
+
+3. We can now use this form in our route to render the form in the HTML template.
+
+    ```python
+    @app.route('/')
+    def submit():
+         form = MyForm()
+         return render_template('index.html', form=form)
+    ```
+
+    This will provide our form to the template, which can be used to render the form fields.
+
+4. We can now update the HTML template to render the form fields.
+
+    ```html
+    <form method="POST" action="/update">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.name.label }}
+            {{ form.name }}
+        </p>
+
+        {% if form.name.errors %}
+            <ul class="errors">
+                {% for error in form.name.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <p>
+            {{ form.age.label }}
+            {{ form.age }}
+        </p>
+
+        {% if form.age.errors %}
+            <ul class="errors">
+                {% for error in form.age.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <input type="submit" value="Update">
+    </form>
+    ```
+
+    The `{{ form.csrf_token }}` is a security feature that prevents [Cross-Site Request Forgery (CSRF)](https://owasp.org/www-community/attacks/csrf) attacks.
+
+    The `{{ form.name.label }}` and `{{ form.name }}` will render the label and input field for the name respectively.
+
+    The `{{ form.name.errors }}` will render any validation errors for the name field.
+
+    The same applies for the age field.
+
+5. Finally, we can update the route to handle the form submission.
+
+    We will validate the form data and if it is valid, we will extract the data from the form and add it to the list of data.
+
+    ```python
+    @app.route('/update', methods=['POST'])
+    def update():
+        form = MyForm()
+        if form.validate_on_submit():
+            name = form.name.data
+            age = form.age.data
+            data.append({"name": name, "age": age})
+        return render_template('index.html', form=form, data=data)
+    ```
+
+    :::note
+    The `validate_on_submit()` method checks if the form has been submitted and if it is valid.
+    :::
+
+</Steps>
+
+Combining all of the above steps, we get the following code:
+
+```python
+// app.py
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField
+from wtforms.validators import DataRequired, NumberRange
+
+class MyForm(FlaskForm):
+    name = StringField('name', validators=[DataRequired()])
+    age = IntegerField('age', [NumberRange(min=0, max=120)])
+
+data = [
+    {"name": "Alice", "age": 25},
+    {"name": "Bob", "age": 30},
+    {"name": "Charlie", "age": 35},
+]
+
+@app.route('/')
+def submit():
+    form = MyForm()
+    return render_template('index.html', form=form)
+
+@app.route('/update', methods=['POST'])
+def update():
+    form = MyForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        age = form.age.data
+        data.append({"name": name, "age": age})
+    return render_template('index.html', form=form, data=data)
+```
+
+:::tip
+Make sure to give each form it's own unique name to avoid conflicts.
+:::
+
+```html
+// templates/index.html
+...
+
+<form method="POST" action="/update">
+    {{ form.csrf_token }}
+    <p>
+        {{ form.name.label }}
+        {{ form.name }}
+    </p>
+
+    {% if form.name.errors %}
+        <ul class="errors">
+            {% for error in form.name.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>
+        {{ form.age.label }}
+        {{ form.age }}
+    </p>
+
+    {% if form.age.errors %}
+        <ul class="errors">
+            {% for error in form.age.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <input type="submit" value="Update">
+</form>
+
+...
+```
+
+With all of the above code, we now have a simple website that allows users to update data. Using Flask-WTF the forms will always match up to the data that is expected, and the validation logic will ensure that the data is correct.

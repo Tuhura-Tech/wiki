@@ -8,17 +8,26 @@ export default defineConfig({
 		starlight({
 			title: 'My Docs',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+
+			defaultLocale: 'en',
+
+			locales: {
+				en: {
+					label: 'English',
+				},
+			},
+
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Gamedev',
 					items: [
 						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{ label: 'About', slug: 'guides/game-dev'},
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Cybersecurity',
+					autogenerate: { directory: 'guides/Cybersecurity' },
 				},
 			],
 		}),

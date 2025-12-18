@@ -1,0 +1,50 @@
+---
+type: tutorial
+unitTitle: Health System
+title: Health and Death
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+### Health Bar
+
+Let's start with a simple health bar.
+<Steps>
+1. In your player scene, add a **ProgressBar** as a child of the root node. Position it above the player and make it wider so you can see the bar's progress.
+
+2. Set the **Value** property of the **ProgressBar** to 100, this is your health bar.
+
+3. Get the health bar in your player's script by opening the player's script, dragging the node to the top of the script where you want the variable, and before you release the left mouse button hold ctrl/cmd. This will make the entire onready variable for you. (If the line doesn't start with '@onready' you'll want to try again)
+
+4. At the beginning of `_physics_process` add a line that sets the **ProgressBar**'s value property to the same value as your singleton's player health value. This is assuming your maximum health is 100. If it's something else you need to change the **Max Value** property on your health bar.
+</Steps>
+### Restarting the Game
+
+Next comes the death.
+<Steps>
+1. In your health singleton, make a new constant for your player's max health. This is just so we can reset the health to this value. It's good practice to not have random numbers lying around your scripts, and instead use constants with descriptive names.
+
+2. Add in the `_physics_process(delta)` function to your singleton.
+
+3. Give it a simple if statement, checking if the player's health is below or equal to 0.
+
+4. Inside that, set your player's health to the max health constant you made before. Then run `get_tree().reload_current_scene()`. It's important you do it in that order, reloading the scene could stop the script from running in other circumstances and not reset the player's health. It shouldn't in this case since this is an autoload script and won't be reset, but it's still best practice to reload or change scenes after doing all other reset or changing operations in case your scene has anything to change in the singleton itself.
+
+5. Since we set the `player_node` variable during the player's `_ready()` function, we don't need to set it again. The player will automatically update the `player_node` variable when the player becomes ready again.
+
+</Steps>
+
+Booyah, the player can now die!
+
+
+
+<Box>
+## Checklist
+<Checklist>
+- [ ] I've added a healthbar
+- [ ] It decreases when I take damage
+- [ ] And the game restarts after I die
+</Checklist>
+</Box>

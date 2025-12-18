@@ -1,0 +1,45 @@
+---
+type: tutorial
+unitTitle: "Scripting the button"
+title: "Scripting The Button"
+description: Making the basic player nodes.
+---
+
+import Checklist from '/src/components/Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+Now, go to the script on your player and add an `@onready` variable for the ray cast and label similar to how the `main_camera` is.
+When you have `@onready var your_var_name =` you can just drag the node from the scene tree into the script, and it will automatically fill in the variable path and add $.
+
+Next add the action for your interact button, like you did for the movement keys. E or F are good buttons for basic world interaction, and name it something like 'interact'.
+
+Finally, somewhere in your `_physics_process(delta)` function, probably after the jumping code, check if the input action "interact" was pressed this frame.
+If it was, get the collider from the ray cast and check if it's a valid instance, then check if it's in the "Button" group, and if it is set the label to visible.
+
+```gdscript
+if Input.is_action_just_pressed("interact"):
+	var object = ray_cast.get_collider()
+	if is_instance_valid(object):
+		if object.is_in_group("Button"):
+			label.visible = true
+```
+
+Boom! Interaction.
+
+<Box>
+## Scripted Button
+<Checklist>
+- [ ] Added raycast variable.
+- [ ] Added label variable.
+- [ ] Add interact action.
+- [ ] Add in script to _physics_process.
+- [ ] Play your game.
+</Checklist>
+</Box>
+
+Now if you play the game, look at the cube, and press your interaction button it should show text on screen.
+This is a game. What you have made is a game. It might not look like it, but if you had beautiful art it would.
+
+If you made some 3D models of platforms, a button, a character, and added a skybox it would look like a real game. That's truly the only difference. Well, that, and maybe a goal.
+
+Next you should go join a [game jam](https://itch.io/jams) or go through our [3D racing game](/src/content/docs/game-design/godot/3dracinggame/0-main-scene/) tutorial!

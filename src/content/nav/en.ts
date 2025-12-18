@@ -1,0 +1,29 @@
+export default {
+	guide: 'Guides and Resources',
+	'guide.game_dev': 'Game Development',
+	'guide.security': 'Cyber Security',
+	'guide.3d': '3D Modelling and Printing',
+	'guide.python': 'Python',
+	'guide.web': 'Web Development',
+	'guide.javascript': 'JS/TS',
+	'guide.database': 'Databases',
+	'guide.development': 'Software Development',
+	'guide.contributing': 'Contribute to this Wiki',
+	'guide.3dgames' : '3D Game Development',
+
+
+	ncea: 'NCEA',
+	'ncea.level_1': 'NCEA Level 1',
+	'ncea.level_2': 'NCEA Level 2',
+	'ncea.level_3': 'NCEA Level 3',
+
+	microcredentials: 'Micro-Credentials',
+	'microcredentials.web_dev': 'Web Development',
+	'microcredentials.security': 'Cyber Security',
+	'microcredentials.policy': 'Policy and Governance',
+	'microcredentials.ai_ml': 'Data Analysis, AI/ML',
+	'microcredentials.cloud': 'Cloud Engineering',
+	'microcredentials.electronics': 'Electronics',
+	'microcredentials.software': 'Software Development',
+	'microcredentials.game_dev': 'Game Development',
+};
