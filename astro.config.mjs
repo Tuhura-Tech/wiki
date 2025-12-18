@@ -25,6 +25,10 @@ export default defineConfig({
 				'./src/tailwind.css',
 			],
 
+			components:{
+				Sidebar: './src/components/starlight/Sidebar.astro',
+			},
+
 			//Locales
 			defaultLocale: 'en',
 			locales: {
