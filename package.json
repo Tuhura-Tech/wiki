@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",
+    "@astrojs/starlight-tailwind": "^4.0.2",
     "@docsearch/js": "^4.3.2",
+    "@tailwindcss/vite": "^4.1.18",
     "astro": "5.16.6",
-    "path": "link:@astrojs/starlight/utils/path",
-    "sharp": "^0.34.2"
+    "sharp": "^0.34.5",
+    "tailwindcss": "^4.1.18",
+    "vite": "^6.4.1"
   }
 }

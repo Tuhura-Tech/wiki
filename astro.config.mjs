@@ -2,74 +2,85 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
+
+import tailwindcss from '@tailwindcss/vite';
+
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://wiki.tuhuratech.org.nz',
+  site: 'https://wiki.tuhuratech.org.nz',
 
-	integrations: [
-		starlight({
+  integrations: [
+      starlight({
 
-			//Site config
-			title: 'Wiki',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+          //Site config
+          title: 'Wiki',
+          social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 
-			logo:{
-				light: './public/assets/full-logo-light.png',
-				dark: './public/assets/full-logo-dark.png',
-				replacesTitle: true,
-			},
+          logo:{
+              light: './public/assets/full-logo-light.png',
+              dark: './public/assets/full-logo-dark.png',
+              replacesTitle: true,
+          },
 
-			favicon: '/public/favicon.ico',
+          favicon: '/public/favicon.ico',
 
-			customCss: [
-				'./src/tailwind.css',
-			],
+          customCss: [
+              './src/styles/global.css',
+          ],
 
-			components:{
-				Sidebar: './src/components/starlight/Sidebar.astro',
-			},
+          components:{
+              Sidebar: './src/components/starlight/Sidebar.astro',
+          },
 
-			//Locales
-			defaultLocale: 'en',
-			locales: {
-				en: {
-					label: 'English',
-				},
-			},
-
-
-			//Sidebar Config
-			sidebar: [
-				{
-					label: 'Guides and Resources',
-					items: [
-						{
-							label: 'Gamedev',
-							items: [
-								// Each item here is one entry in the navigation menu.
-								{ label: 'About', slug: 'guides/game-dev'},
-								{ label: 'Godot Basics', slug: 'guides/game-dev/basics'},
-								{ label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
-							],
-						},
-						{
-							label: 'Cybersecurity',
-							autogenerate: { directory: 'guides/Cybersecurity' },
-						},
-					]
-				},
-				{
-					label: 'NCEA',
-					items: []
-				},
-				{
-					label: 'Micro-Credentials',
-					items: []
-				},
+          //Locales
+          defaultLocale: 'en',
+          locales: {
+              en: {
+                  label: 'English',
+              },
+          },
 
 
-				
-			],
-		}),
+
+          //Sidebar Config
+          sidebar: [
+              {
+                  label: 'Guides and Resources',
+                  items: [
+                      {
+                          label: 'Gamedev',
+                          items: [
+                              // Each item here is one entry in the navigation menu.
+                              { label: 'About', slug: 'guides/game-dev'},
+                              { label: 'Godot Basics', slug: 'guides/game-dev/basics'},
+                              { label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
+                          ],
+                      },
+                      {
+                          label: 'Cybersecurity',
+                          autogenerate: { directory: 'guides/Cybersecurity' },
+                      },
+                  ]
+              },
+              {
+                  label: 'NCEA',
+                  items: []
+              },
+              {
+                  label: 'Micro-Credentials',
+                  items: []
+              },
+
+
+              
+          ],
+      }),
 	],
+
+  vite: {
+    // @ts-expect-error (Known issue with vite versions)
+    plugins: [tailwindcss()],
+  },
+
 });
