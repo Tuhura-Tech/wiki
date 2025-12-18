@@ -4,25 +4,40 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://wiki.tuhuratech.org.nz',
+
 	integrations: [
 		starlight({
-			title: 'My Docs',
+
+			//Site config
+			title: 'Wiki',
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
 
-			defaultLocale: 'en',
+			logo:{
+				light: './public/assets/full-logo-light.png',
+				dark: './public/assets/full-logo-dark.png',
+				replacesTitle: true,
+			},
 
+			favicon: '/public/favicon.ico',
+
+
+
+			//Locales
+			defaultLocale: 'en',
 			locales: {
 				en: {
 					label: 'English',
 				},
 			},
-
+			//Sidebar Config
 			sidebar: [
 				{
 					label: 'Gamedev',
 					items: [
 						// Each item here is one entry in the navigation menu.
 						{ label: 'About', slug: 'guides/game-dev'},
+						{ label: 'Godot Basics', slug: 'guides/game-dev/basics'},
 					],
 				},
 				{
