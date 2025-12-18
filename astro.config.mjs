@@ -41,18 +41,34 @@ export default defineConfig({
 			//Sidebar Config
 			sidebar: [
 				{
-					label: 'Gamedev',
+					label: 'Guides and Resources',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'About', slug: 'guides/game-dev'},
-						{ label: 'Godot Basics', slug: 'guides/game-dev/basics'},
-						{ label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
-					],
+						{
+							label: 'Gamedev',
+							items: [
+								// Each item here is one entry in the navigation menu.
+								{ label: 'About', slug: 'guides/game-dev'},
+								{ label: 'Godot Basics', slug: 'guides/game-dev/basics'},
+								{ label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
+							],
+						},
+						{
+							label: 'Cybersecurity',
+							autogenerate: { directory: 'guides/Cybersecurity' },
+						},
+					]
 				},
 				{
-					label: 'Cybersecurity',
-					autogenerate: { directory: 'guides/Cybersecurity' },
+					label: 'NCEA',
+					items: []
 				},
+				{
+					label: 'Micro-Credentials',
+					items: []
+				},
+
+
+				
 			],
 		}),
 	],
