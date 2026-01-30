@@ -28,7 +28,7 @@ export default defineConfig({
 				'A collection of guides and resources for learning technology targeted towards tamariki and rangatahi in Aotearoa',
 			expressiveCode: {
 				// @ts-expect-error: Temporarily silencing error until full wiki update can resolve
-				plugins: [pluginCollapsibleSections()]
+				plugins: [pluginCollapsibleSections()],
 			},
 			customCss: [
 				// Path to your Tailwind base styles:
@@ -81,13 +81,13 @@ export default defineConfig({
 					},
 				},
 				{
-      		tag: 'script',
-      		attrs: {
-           src: 'https://plausible.tuhuratech.org.nz/js/script.js',
-           'data-domain': 'wiki.tuhuratech.org.nz',
-           defer: true,
-          },
-       },
+					tag: 'script',
+					attrs: {
+						src: 'https://plausible.tuhuratech.org.nz/js/script.js',
+						'data-domain': 'wiki.tuhuratech.org.nz',
+						defer: true,
+					},
+				},
 			],
 			disable404Route: true,
 			plugins: [starlightPluginAutolinkHeadings()],

@@ -1,0 +1,159 @@
+---
+title: CircuitPython
+description: Programming microcontrollers using CircuitPython and VS Code
+sidebar:
+    order: 5
+---
+
+## Overview
+
+<a href="https://circuitpython.org/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><strong>CircuitPython</strong></a> is a programming language designed for microcontrollers.
+is a programming language designed for microcontrollers.
+
+Microcontrollers (such as RP2040-based boards) do not work on their own. They require a program to tell them:
+
+- What components to read  
+- What outputs to control  
+- When and how to respond  
+
+CircuitPython allows this program to be written using Python, a language that is widely used and beginner-friendly.
+
+---
+
+## Why CircuitPython Is Used
+
+CircuitPython is designed to make working with hardware simpler, especially for beginners.
+
+Key characteristics:
+
+- Code is written as plain text files  
+- Changes take effect immediately when files are saved  
+- No complex compilation or flashing process  
+- Easy interaction with components such as LEDs, buttons, sensors, and displays  
+
+This makes it well-suited for learning how software controls hardware.
+
+---
+
+## How CircuitPython Works
+
+CircuitPython runs directly on the microcontroller.
+
+- The microcontroller appears as a removable drive when connected to a computer  
+- Program files are copied to this drive  
+- The main program runs automatically on the board  
+
+The computer is used only to edit files and communicate with the device.
+
+---
+
+## Tools Used in This Guide
+
+To work with CircuitPython, the following tools are used:
+
+- CircuitPython firmware (runs on the microcontroller)
+- <a href="https://code.visualstudio.com/" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><strong>Visual Studio Code</strong></a> (to edit code)
+- the CircuitPython extension for VS Code (to communicate with the board)
+
+Other editors can be used, but this guide standardises on this setup.
+
+---
+
+## Supported Hardware
+
+This guide focuses on RP2040-based microcontroller boards, which are widely used for learning and prototyping.
+
+The same concepts apply to other CircuitPython-compatible boards.
+
+---
+
+
+---
+
+## Install the CircuitPython Extension for VS Code
+
+To work effectively with CircuitPython in Visual Studio Code, the CircuitPython extension must be installed.
+
+<div style="display:flex; align-items:flex-start; gap:1.5rem; margin-bottom:1rem;">
+  <img src="/src/assets/electronics/step2.png" alt="VS Code Extensions tab" style="width:360px;" />
+  <div>
+    Click on the <strong>Extensions</strong> tab in the VS Code sidebar and search for <strong>CircuitPython</strong>.
+  </div>
+</div>
+
+<div style="display:flex; align-items:flex-start; gap:1.5rem; margin-bottom:1rem;">
+  <img src="/src/assets/electronics/step3.png" alt="Search for CircuitPython extension" style="width:360px;" />
+  <div>
+    Click <strong>Install</strong> for <strong>CircuitPython v2 by wmerkens</strong>.
+  </div>
+</div>
+
+<div style="display:flex; align-items:flex-start; gap:1.5rem; margin-bottom:1rem;">
+  <img src="/src/assets/electronics/step4.png" alt="Install CircuitPython extension" style="width:360px;" />
+  <div>
+   When prompted, click <strong>Trust Workspace & Install</strong> to confirm the installation.
+  </div>
+</div>
+
+
+
+You can confirm that the extension is installed by opening the Extensions tab and checking under the <strong>Installed</strong> section.
+
+---
+
+## Connect the Board
+
+1. Connect the CircuitPython-compatible board to your computer using a data-capable USB cable.  
+2. Once connected, the board appears as a removable drive named `CIRCUITPY`.
+
+---
+
+## Open the CIRCUITPY Drive
+
+3. Open Visual Studio Code.  
+4. Open the Explorer panel.  
+5. Select **Open Folder…**  
+6. Choose the `CIRCUITPY` drive.
+
+When the folder is opened, the CircuitPython extension activates automatically.
+
+The following files may be visible:
+
+- `code.py`  
+- `main.py`  
+- `boot_out.txt`  
+
+---
+
+## Select the Serial Port
+
+7. At the bottom of the VS Code window, select the plug icon next to **Choose a board**.  
+8. From the list, select the serial port corresponding to the connected board.
+
+Once selected, the board name appears in the status bar.
+
+---
+
+## Serial Monitor and REPL
+
+9. Open the CircuitPython Serial Monitor from the terminal panel.  
+10. Press `Ctrl + C` to interrupt the running program and access the REPL.
+
+The REPL allows direct interaction with the running CircuitPython environment.
+
+---
+
+## Using the REPL
+
+11. Press `Ctrl + C` again to enter the REPL.  
+12. At the prompt, enter:
+
+    ```python
+    print("hello world")
+    ```
+
+13. Confirm that **hello world** is printed in the Serial Monitor.
+
+The REPL allows direct interaction with the running CircuitPython environment.
+
+

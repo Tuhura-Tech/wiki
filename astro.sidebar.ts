@@ -67,7 +67,6 @@ export const sidebar = [
 								label: '3D Racing Game',
 								link: 'guides/game-dev/3dracinggame/0-main-scene/',
 							},
-
 						],
 						collapsed: true,
 					},
@@ -112,7 +111,6 @@ export const sidebar = [
 						},
 						collapsed: true,
 					},
-
 				],
 			}),
 			group('guide.web', {
@@ -164,12 +162,12 @@ export const sidebar = [
 								label: 'Grid',
 								link: 'guides/web/html-css-intro/9-grid/',
 							},
-
 						],
 						collapsed: true,
 					},
 				],
 			}),
+			group('guide.electronics', { autogenerate: { directory: 'guides/electronics' } }),
 			group('guide.javascript', {
 				items: [
 					{

@@ -1,0 +1,333 @@
+---
+title: Electronic Components
+description: Common electronic components used in physical-computing projects
+sidebar:
+    order: 3
+---
+
+## Overview
+
+This page lists commonly used electronic components found in physical-computing projects.
+
+Components are grouped by function and are frequently used with microcontrollers such as RP2040-based boards and Adafruit development platforms.
+
+---
+
+## Passive Components
+
+
+### Resistor
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 160px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/resistors.png" alt="Resistor" />
+    <div style={{ fontSize: "0.8rem", marginTop: "0.3rem", opacity: 0.8 }}>
+      Typical resistor
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    A resistor limits the flow of current in a circuit. It is commonly used to protect components and to control voltage and current levels.
+  </div>
+</div>
+
+
+---
+
+##### Resistor Colour Coding (Color Bands)
+
+Resistor values are commonly indicated using colored bands printed on the resistor body.  
+Each color represents a numeric value, a multiplier, or a tolerance. Both 4-band and 5-band resistor formats are widely used.
+
+<img
+  src="/src/assets/electronics/Resistor_color_code.png"
+  alt="Resistor color code chart"
+  style={{ width: "100%", maxWidth: "950px", display: "block", margin: "1.25rem auto" }}
+/>
+
+<div style={{ fontSize: "0.85rem", opacity: 0.8, textAlign: "center", marginTop: "-0.5rem" }}>
+  Resistor color code reference (4-band and 5-band)
+</div>
+
+<div
+  style={{
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+    gap: "1.5rem",
+    marginTop: "1.75rem",
+    alignItems: "stretch",
+  }}
+>
+  <div
+    style={{
+      border: "1px solid rgba(0,0,0,0.12)",
+      borderRadius: "12px",
+      padding: "1rem",
+      display: "flex",
+      flexDirection: "column",
+    }}
+  >
+    <strong>4-Band Resistor Format</strong>
+    <p style={{ marginTop: "0.5rem" }}>
+      A 4-band resistor encodes its value using:
+    </p>
+    <ul style={{ marginTop: "0.25rem" }}>
+      <li>first digit</li>
+      <li>second digit</li>
+      <li>multiplier</li>
+      <li>tolerance</li>
+    </ul>
+    <p style={{ marginTop: "auto" }}>
+      The resistance value is calculated by combining the first two digits and multiplying by the multiplier.
+    </p>
+  </div>
+
+  <div
+    style={{
+      border: "1px solid rgba(0,0,0,0.12)",
+      borderRadius: "12px",
+      padding: "1rem",
+      display: "flex",
+      flexDirection: "column",
+    }}
+  >
+    <strong>5-Band Resistor Format</strong>
+    <p style={{ marginTop: "0.5rem" }}>
+      A 5-band resistor provides higher precision and encodes:
+    </p>
+    <ul style={{ marginTop: "0.25rem" }}>
+      <li>first digit</li>
+      <li>second digit</li>
+      <li>third digit</li>
+      <li>multiplier</li>
+      <li>tolerance</li>
+    </ul>
+    <p style={{ marginTop: "auto" }}>
+      The resistance value is calculated by combining the first three digits and multiplying by the multiplier.
+    </p>
+  </div>
+</div>
+
+
+:::note
+**Tip:** If you’re unsure whether a resistor is 4-band or 5-band, count the stripes carefully.  
+The tolerance band is usually slightly separated from the others.
+:::
+---
+
+### Capacitor
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Capacitors.jpg" alt="Capacitors" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Capacitors
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    A capacitor stores and releases electrical energy. It is often used to stabilise power supply lines and to filter signals. Capacitors are available in various types, sizes, and value ranges, depending on their specific application.
+  </div>
+</div>
+
+---
+
+### Diode
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Diode_pinout_en_fr.svg" alt="Diode" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Diode
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    A diode allows current to flow in one direction only. It is used to control current direction and protect circuits. Diodes are polarised components and must be connected in the correct orientation.
+  </div>
+</div>
+
+---
+
+### Light-Emitting Diode (LED)
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/LEDs.png" alt="Light-emitting diode (LED)" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      LED (polarity matters)
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    An LED is a diode that emits light when current flows in the forward direction. LEDs are commonly used as visual indicators and outputs in digital and microcontroller-based projects.
+  </div>
+</div>
+
+---
+
+## Sensors
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/sensors.jpg" alt="Common sensors" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Sensors
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    Sensors detect physical or environmental conditions and convert them into electrical signals that can be processed by a microcontroller.
+    <div style={{ marginTop: "0.75rem" }}>
+      <strong>Common sensor categories</strong>
+      <ul>
+        <li>light sensors</li>
+        <li>temperature sensors</li>
+        <li>motion sensors</li>
+        <li>distance / proximity sensors</li>
+        <li>sound sensors</li>
+        <li>environmental sensors (humidity, pressure, gas)</li>
+      </ul>
+      Different sensor types may use analog or digital signals depending on their design.
+    </div>
+  </div>
+</div>
+
+---
+
+## Display Modules
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Seven_segment_01_Pengo.jpeg" alt="Display modules" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      7-Segment Display
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    Display modules present information visually. They range from simple numeric displays to graphical screens.
+    <div style={{ marginTop: "0.75rem" }}>
+      <strong>Common types</strong>
+      <ul>
+        <li>7-segment displays</li>
+        <li>LED matrix displays</li>
+        <li>OLED displays</li>
+        <li>LCD screens</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+---
+
+## Buzzer / Speaker
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Electromagnetic_buzzer_02.png" alt="Buzzer or speaker" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Buzzer 
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    Buzzers and speakers produce sound output and are often used for alerts or feedback.
+    <div style={{ marginTop: "0.75rem" }}>
+      <strong>Typical uses</strong>
+      <ul>
+        <li>alarms and notifications</li>
+        <li>user feedback</li>
+        <li>simple sound effects</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+---
+
+## Motors and Actuators
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Servo_Motor.jpg" alt="Motors and actuators" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Servo Motor
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    Motors and actuators convert electrical signals into physical movement.
+    <div style={{ marginTop: "0.75rem" }}>
+      <strong>Common types</strong>
+      <ul>
+        <li>DC motors</li>
+        <li>servo motors</li>
+        <li>stepper motors</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+---
+
+## Functional and Prototyping Components
+
+### Breadboard
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/breadboard.png" alt="Breadboard" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Breadboard
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    A breadboard is a reusable prototyping board used to build and test circuits without soldering. It allows components and wires to be easily connected, modified, and reused during development and learning.
+  </div>
+</div>
+
+---
+
+### Integrated Circuit (IC)
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/ic.jpg" alt="Integrated circuit (IC)" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Integrated Circuit (IC)
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    An integrated circuit contains multiple electronic components fabricated onto a single chip. ICs perform specific logic, timing, or control functions.
+  </div>
+</div>
+
+---
+
+### Microcontroller
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 170px", textAlign: "center" }}>
+    {/* Add image here */}
+    <img src="/src/assets/electronics/Raspberry_Pi_Pico_top.jpg" alt="Microcontroller" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      Raspberry Pi Pico
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+    A microcontroller is a programmable device capable of reading inputs, processing logic, and controlling outputs. RP2040-based boards are commonly used for education and prototyping.
+  </div>
+</div>

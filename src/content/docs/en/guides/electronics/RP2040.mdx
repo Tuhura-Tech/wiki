@@ -1,0 +1,365 @@
+---
+title: Practical Circuit Examples
+description: Hands-on circuit examples using simulation and microcontrollers
+sidebar:
+    order: 7
+---
+
+## Overview
+
+This page presents practical circuit examples that demonstrate how electronic components and microcontrollers work together in real applications.
+
+The examples use simulation environments to help visualise connections, behaviour, and program flow before building circuits using physical hardware.
+
+---
+
+## Example 1: LED Blink (Simulation)
+
+This example demonstrates a basic output circuit using an LED.
+
+The circuit is simulated using Tinkercad to familiarise with components, connections, and basic program flow.
+
+##### Required Components
+
+From the available components panel in Tinkercad:
+
+- Arduino Uno R3  
+  (used for simulation; any suitable microcontroller can be used in real-world hardware)
+- LED  
+- resistor (220 Ω or 330 Ω)  
+- breadboard  
+- jumper wires  
+
+##### Connections
+
+- microcontroller GND → breadboard ground rail  
+- LED short leg (cathode) → resistor → ground rail  
+- LED long leg (anode) → digital output pin (e.g. D13 in Tinkercad)  
+
+##### Run the Simulation
+
+- Select **Start Simulation** from the top-right corner.  
+- The LED begins blinking based on the programmed logic.
+
+##### Programming Notes
+
+- Tinkercad supports **Block Code** (Scratch-style) and **Text Code** (C++).
+- Block code can be used to visually construct the logic.
+- Arduino-style C++ code is automatically generated for reference.
+
+##### Simulation Output
+
+<img src="/src/assets/electronics/ledblinking.gif" alt="LED blink simulation output" style="width:100%; max-width:800px; display:block; margin:1.25rem auto;" />
+
+---
+
+## Example 2: 7-Segment Counter
+
+This example demonstrates a numeric counter (0–9) implemented using a single 7-segment LED display and a microcontroller.
+
+The counter increments automatically, displaying each digit in sequence.
+
+##### Components Used
+
+- Arduino Uno R3  
+  (used for simulation support; any compatible microcontroller can be used in hardware)
+- 7-segment LED display (common anode)  
+- current-limiting resistors  
+- breadboard and jumper wires  
+
+##### Display Configuration
+
+- display type: **common anode**  
+- common anode pins are connected to +5 V  
+- the decimal point pin is present but not used in this example  
+- segment pins (a–g) are driven individually via GPIO pins through resistors  
+- segment naming follows the standard 7-segment convention  
+
+##### Segment Reference
+
+```text
+   — a —
+  |       |
+  f       b
+  |       |
+   — g —
+  |       |
+  e       c
+  |       |
+   — d —
+```
+
+##### Counter Logic
+
+Each digit (0–9) is defined by a fixed pattern of active segments.
+
+These patterns are stored in a lookup table and applied sequentially to create the counting effect.  
+The display updates once per second.
+
+##### Arduino C++ Code
+
+```cpp
+// 7-segment Common Anode counter (LOW = ON)
+
+const int A = 13;
+const int B = 12;
+const int C = 2;
+const int D = 5;
+const int E = 4;
+const int F = 8;
+const int G = 9;
+
+const int segPins[7] = {A, B, C, D, E, F, G};
+
+// Segment patterns: A B C D E F G
+const byte digits[10][7] = {
+  {1,1,1,1,1,1,0}, // 0
+  {0,1,1,0,0,0,0}, // 1
+  {1,1,0,1,1,0,1}, // 2
+  {1,1,1,1,0,0,1}, // 3
+  {0,1,1,0,0,1,1}, // 4
+  {1,0,1,1,0,1,1}, // 5
+  {1,0,1,1,1,1,1}, // 6
+  {1,1,1,0,0,0,0}, // 7
+  {1,1,1,1,1,1,1}, // 8
+  {1,1,1,1,0,1,1}  // 9
+};
+
+void setup() {
+  for (int i = 0; i < 7; i++) {
+    pinMode(segPins[i], OUTPUT);
+    digitalWrite(segPins[i], HIGH); // OFF (common anode)
+  }
+}
+
+void writeDigit(int n) {
+  for (int i = 0; i < 7; i++) {
+    digitalWrite(segPins[i], digits[n][i] ? LOW : HIGH);
+  }
+}
+
+void loop() {
+  for (int n = 0; n <= 9; n++) {
+    writeDigit(n);
+    delay(1000);
+  }
+}
+```
+
+##### Simulation Output
+
+<img src="/src/assets/electronics/upcounter.gif" alt="7-segment counter simulation output" style="width:100%; max-width:800px; display:block; margin:1.25rem auto;" />
+---
+
+## Example 3: Traffic Light System
+
+This example demonstrates a basic traffic light system using three LEDs to represent red, yellow, and green signals.
+
+The lights operate in a fixed repeating sequence controlled by a microcontroller.
+
+This example focuses on:
+
+- sequential output control  
+- timing-based state transitions  
+- modelling real-world signalling behaviour  
+
+A simulation of the traffic light sequence is shown below.
+
+##### Components Used
+
+- Arduino Uno R3  
+- Red LED, Yellow LED, Green LED  
+- current-limiting resistors  
+- breadboard and jumper wires  
+
+##### Logic Flow
+
+The traffic light follows a fixed cycle:
+
+**RED → GREEN → YELLOW → RED → (repeat)**
+
+Each state remains active for a defined duration before transitioning to the next.
+
+##### Arduino C++ Code
+
+```cpp
+// Basic Traffic Light
+// Cycle: RED -> GREEN -> YELLOW -> RED
+
+const int RED    = 8;
+const int YELLOW = 9;
+const int GREEN  = 10;
+
+const unsigned long RED_TIME    = 2000;
+const unsigned long GREEN_TIME  = 2000;
+const unsigned long YELLOW_TIME = 1000;
+
+unsigned long stateStart = 0;
+byte state = 0; // 0=RED, 1=GREEN, 2=YELLOW
+
+void setup() {
+  pinMode(RED, OUTPUT);
+  pinMode(YELLOW, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+
+  digitalWrite(RED, HIGH);
+}
+
+void loop() {
+  unsigned long now = millis();
+
+  if (state == 0 && now - stateStart >= RED_TIME) {
+    digitalWrite(RED, LOW);
+    digitalWrite(GREEN, HIGH);
+    state = 1;
+    stateStart = now;
+  }
+  else if (state == 1 && now - stateStart >= GREEN_TIME) {
+    digitalWrite(GREEN, LOW);
+    digitalWrite(YELLOW, HIGH);
+    state = 2;
+    stateStart = now;
+  }
+  else if (state == 2 && now - stateStart >= YELLOW_TIME) {
+    digitalWrite(YELLOW, LOW);
+    digitalWrite(RED, HIGH);
+    state = 0;
+    stateStart = now;
+  }
+}
+```
+##### Simulation Output
+
+<img src="/src/assets/electronics/trafficlight.gif" alt="Traffic Light System Output" style="width:100%; max-width:800px; display:block; margin:1.25rem auto;" />
+---
+## Example 4: Traffic Light with Motion Detection (Pedestrian Override)
+
+This example extends the traffic light system by introducing a motion sensor to simulate a pedestrian crossing request.
+
+When motion is detected:
+- the traffic light immediately switches to RED 
+- a pedestrian indicator LED turns ON 
+- normal operation resumes after a short hold period 
+
+This example introduces:
+- sensor input handling
+- state interruption and override
+- event-driven behaviour
+
+##### Additional Components Used
+(In addition to Example 3)
+- PIR motion sensor
+- pedestrian indicator LED
+- additional current-limiting resistor
+
+##### Logic Flow
+
+Extended Logic
+Normal operation follows the same cycle as Example 3:
+
+**RED → GREEN → YELLOW → RED → (repeat)**
+
+If motion is detected at any time:
+- the current state is overridden
+- the system forces RED
+- the pedestrian indicator LED is activated
+- after a fixed delay, the normal cycle resumes from RED
+
+##### Arduino C++ Code
+
+```cpp
+// Traffic Light with Motion Override
+// Normal cycle: RED -> GREEN -> YELLOW -> RED
+// Motion detected: force RED + Pedestrian LED
+
+const int RED    = 8;
+const int YELLOW = 9;
+const int GREEN  = 10;
+
+const int PIR     = 2;
+const int PED_LED = 3;
+
+const unsigned long RED_TIME    = 2000;
+const unsigned long GREEN_TIME  = 2000;
+const unsigned long YELLOW_TIME = 1000;
+const unsigned long MOTION_HOLD = 3000;
+
+byte state = 0; // 0=RED, 1=GREEN, 2=YELLOW, 3=MOTION_RED
+unsigned long stateStart = 0;
+
+void setLights(bool r, bool y, bool g) {
+  digitalWrite(RED, r);
+  digitalWrite(YELLOW, y);
+  digitalWrite(GREEN, g);
+}
+
+void enterState(byte s) {
+  state = s;
+  stateStart = millis();
+
+  if (state == 0) {
+    setLights(HIGH, LOW, LOW);
+    digitalWrite(PED_LED, LOW);
+  }
+  else if (state == 1) {
+    setLights(LOW, LOW, HIGH);
+    digitalWrite(PED_LED, LOW);
+  }
+  else if (state == 2) {
+    setLights(LOW, HIGH, LOW);
+    digitalWrite(PED_LED, LOW);
+  }
+  else if (state == 3) {
+    setLights(HIGH, LOW, LOW);
+    digitalWrite(PED_LED, HIGH);
+  }
+}
+
+void setup() {
+  pinMode(RED, OUTPUT);
+  pinMode(YELLOW, OUTPUT);
+  pinMode(GREEN, OUTPUT);
+
+  pinMode(PED_LED, OUTPUT);
+  pinMode(PIR, INPUT);
+
+  enterState(0);
+}
+
+void loop() {
+  unsigned long now = millis();
+
+  if (digitalRead(PIR) == HIGH && state != 3) {
+    enterState(3);
+  }
+
+  if (state == 0 && now - stateStart >= RED_TIME) {
+    enterState(1);
+  }
+  else if (state == 1 && now - stateStart >= GREEN_TIME) {
+    enterState(2);
+  }
+  else if (state == 2 && now - stateStart >= YELLOW_TIME) {
+    enterState(0);
+  }
+  else if (state == 3 && now - stateStart >= MOTION_HOLD) {
+    enterState(0);
+  }
+}
+```
+##### Simulation Output
+
+<img src="/src/assets/electronics/ped.gif" alt="Traffic Light with Motion Detection Output" style="width:100%; max-width:800px; display:block; margin:1.25rem auto;" />
+---
+## Further Exploration
+The examples shown so far focus on understanding how components, timing, logic, and sensors work together in simple systems.
+These circuits can be extended or modified in many ways, for example:
+
+- Adding additional sensors to influence system behaviour
+- Using displays to show system status or counts
+- Introducing priority or override conditions (e.g. safety, emergencies)
+- Expanding single circuits into multi-component systems
+- Recreating the same logic using different microcontrollers or hardware platforms
+
+These ideas can be explored either through simulation or by building physical circuits using real electronic components.
+
