@@ -1,0 +1,271 @@
+---
+title: Logic Gates
+description: How logic gates make decisions using binary inputs
+sidebar:
+    order: 2
+---
+
+## What are Logic Gates?
+
+Logic gates are the building blocks of digital circuits.
+
+They take binary inputs (`0` or `1`) and produce a binary output based on a rule.  
+Think of them as **decision-makers** for computers and electronic systems.
+
+---
+
+## Why Logic Gates Matter
+
+Logic gates are used in:
+
+- Computers and processors
+- Calculators
+- Traffic lights
+- Robots and sensors
+- Games and control systems
+
+Every “decision” a computer makes is built from combinations of logic gates.
+
+---
+
+## AND Gate
+
+**Rule:**  
+Output is `1` only if **all inputs are `1`**  
+(Both conditions must be true)
+
+<div style={{ display: "flex", alignItems: "center", gap: "3.0rem" }}>
+  <div style={{ flex: "0 0 120px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/AND-gate.png" alt="AND Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.25rem" }}>
+      AND gate symbol
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | Output |
+|---|---|--------|
+| 0 | 0 |   0 |
+| 0 | 1 |   0 |
+| 1 | 0 |   0 |
+| 1 | 1 |   1 |
+
+  </div>
+</div>
+
+
+
+
+---
+
+## OR Gate
+
+**Rule:**  
+Output is `1` if **any input is `1`**  
+(At least one condition is true)
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/or.png" alt="OR Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      OR gate symbol
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | Output |
+|---|---|--------|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 1 |
+
+  </div>
+</div>
+
+
+---
+
+## NOT Gate
+
+**Rule:**  
+Output is the **opposite** of the input  
+ON becomes OFF, OFF becomes ON
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/NOT-gate.png" alt="NOT Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      NOT gate symbol
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| Input | Output |
+|-------|--------|
+| 0 | 1 |
+| 1 | 0 |
+
+  </div>
+</div>
+
+
+---
+
+## XOR (Exclusive OR)
+
+**Rule:**  
+Output is `1` **only when the inputs are different**  
+XOR outputs `1` when **exactly one input is `1`**
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/xor.png" alt="XOR Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      XOR gate symbol
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | Output |
+|---|---|--------|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+  </div>
+</div>
+
+
+---
+
+## Gates with Inverted Output (Bubble)
+
+In logic diagrams, a small circle (○) at the output means **NOT (inversion)**.
+
+Adding a circle does not create a new rule —  
+it simply **reverses the output** of the original gate.
+
+---
+
+## NAND Gate
+
+**NAND = AND + NOT**  
+**Rule:** Output is the inverse of AND
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/nand.png" alt="NAND Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      NAND = AND + NOT
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | NAND |
+|---|---|------|
+| 0 | 0 | 1 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+  </div>
+</div>
+
+
+---
+
+## NOR Gate
+
+**NOR = OR + NOT**  
+**Rule:** Output is the inverse of OR
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/NOR.png" alt="NOR Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      NOR = OR + NOT
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | NOR |
+|---|---|-----|
+| 0 | 0 | 1 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 0 |
+
+  </div>
+</div>
+
+
+---
+
+## XNOR Gate
+
+**XNOR = XOR + NOT**  
+**Rule:** Output is the inverse of XOR
+
+<div style={{ display: "flex", alignItems: "center", gap: "3rem" }}>
+  <div style={{ flex: "0 0 140px", textAlign: "center" }}>
+    <img src="/src/assets/electronics/Ex-NOR.png" alt="XNOR Gate" />
+    <div style={{ fontSize: "0.85rem", marginTop: "0.3rem" }}>
+      XNOR = XOR + NOT
+    </div>
+  </div>
+
+  <div style={{ flex: 1 }}>
+
+| A | B | XNOR |
+|---|---|------|
+| 0 | 0 | 1 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+  </div>
+</div>
+
+
+---
+
+## Combined Logic Circuit – Example
+
+<img
+  src="/src/assets/electronics/eg.png"
+  alt="Combined logic circuit example"
+  style={{ maxWidth: "100%", margin: "1.5rem 0" }}
+/>
+
+The circuit shown combines multiple basic logic gates into a single decision structure.
+
+Inputs are processed in **parallel branches** and merged in later stages to produce a final output.
+
+For the input state:
+
+- A = 1, B = 1  
+- C = 0, D = 1  
+- F = 0, G = 1  
+- H = 1, I = 1  
+
+the circuit evaluates as follows:
+
+| Signal | Gate | Input Values | Output |
+|-------|------|--------------|--------|
+| P | AND | 1, 1 | 1 |
+| Q | OR | 0, 1 | 1 |
+| R | XOR | 0, 1 | 1 |
+| S | NAND | 1, 1 | 0 |
+| T | OR | 1, 1 | 1 |
+| U | AND | 1, 0 | 0 |
+
+An XOR gate produces the final output: X = T ⊕ U = 1 ⊕ 0 = 1
+

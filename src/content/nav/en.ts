@@ -5,12 +5,12 @@ export default {
 	'guide.3d': '3D Modelling and Printing',
 	'guide.python': 'Python',
 	'guide.web': 'Web Development',
+	'guide.electronics': 'Electronics',
 	'guide.javascript': 'JS/TS',
 	'guide.database': 'Databases',
 	'guide.development': 'Software Development',
 	'guide.contributing': 'Contribute to this Wiki',
-	'guide.3dgames' : '3D Game Development',
-
+	'guide.3dgames': '3D Game Development',
 
 	ncea: 'NCEA',
 	'ncea.level_1': 'NCEA Level 1',

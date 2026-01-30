@@ -17,7 +17,6 @@ export default tseslint.config(
 	{
 		rules: {
 			'@typescript-eslint/no-explicit-any': 'off',
-
 		},
 	},
 	// Allow triple-slash references in `*.d.ts` files.
@@ -25,7 +24,6 @@ export default tseslint.config(
 		files: ['**/*.d.ts'],
 		rules: {
 			'@typescript-eslint/triple-slash-reference': 'off',
-			
 		},
 	},
 

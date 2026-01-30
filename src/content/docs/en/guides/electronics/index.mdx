@@ -1,0 +1,75 @@
+---
+title: Binary Basics
+description: What is Binary and why computers use it
+sidebar:
+    order: 1
+---
+
+## What is Binary?
+
+Binary is a number system used by computers to represent information using only two digits: `0` and `1`.
+
+Unlike the decimal system (base-10), which uses digits from `0` to `9`, binary is a **base-2 system**.  
+Each binary digit is called a **bit**, and it can be either:
+
+- `0` → OFF  
+- `1` → ON  
+
+This simple ON/OFF idea makes binary perfect for computers and electronic circuits.
+
+---
+
+## Why Binary Matters
+
+Binary is the foundation of how computers and electronic devices work. It is used in:
+
+- Digital storage and memory
+- ON/OFF signals in electronics
+- LEDs, sensors, and microcontrollers
+- Logic gates and decision-making circuits
+
+At the hardware level, electronic components can easily detect two states (ON or OFF), which directly map to `1` and `0`.
+
+---
+## Binary Place Values
+
+Binary numbers are based on **powers of 2**.
+
+Each position in a binary number represents a value that **doubles as you move left**.
+
+| Binary Position | Power of 2 | Value |
+|-----------------|------------|-------|
+| Rightmost bit   | 2⁰         | 1     |
+|                 | 2¹         | 2     |
+|                 | 2²         | 4     |
+|                 | 2³         | 8     |
+|                 | 2⁴         | 16    |
+
+To find the value of a binary number, add up the place values where the bit is `1`.
+
+---
+## Binary Counting (0 to 15)
+
+![Binary Counter](/src/assets/electronics/Binary_counter.gif)
+
+**Figure 1: Binary Counter**
+
+The animation above shows how binary values increment from `0` to `15` by switching bits **ON (`1`)** and **OFF (`0`)**.
+
+Each step increases the number by 1, just like counting in decimal — but using binary rules.
+
+
+
+:::note
+Watch how the **rightmost bit changes the fastest**.
+
+Higher-value bits turn ON only when the lower bits reset.
+:::
+
+
+This same pattern is used in:
+- Binary counters
+- LED displays
+- Microcontroller timers
+- Digital logic circuits
+

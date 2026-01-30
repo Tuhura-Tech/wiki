@@ -1,0 +1,96 @@
+---
+title: RP2040 Microcontroller
+description: Overview of the RP2040 microcontroller and its GPIO pin structure
+sidebar:
+    order: 6
+---
+
+## Overview
+
+The RP2040 is a microcontroller designed and produced by Raspberry Pi Ltd.
+
+It is widely used in development boards for education, prototyping, and embedded projects.
+
+---
+
+## Processor Features
+
+The RP2040 processor features:
+
+- dual-core Arm Cortex-M0+ CPUs  
+- flexible general-purpose input/output (GPIO) pins  
+- support for multiple communication protocols  
+- low-power operation  
+
+Detailed technical specifications are available in the official 
+<a href="https://pip-assets.raspberrypi.com/categories/814-rp2040/documents/RP-008371-DS-1-rp2040-datasheet.pdf?disposition=inline" target="_blank" rel="noopener noreferrer" style="text-decoration:none;"><strong>RP2040 datasheet</strong></a>.
+
+---
+
+## GPIO Pins and Board Layout
+
+RP2040-based development boards expose a set of **General Purpose Input/Output (GPIO)** pins.
+
+These pins allow the microcontroller to interact with external components and circuits.
+
+At a high level, GPIO pins are used for:
+- digital input and output  
+- analog input (on supported pins)  
+- communication interfaces  
+- power and ground connections  
+
+---
+
+## RP2040 Pinout Diagram
+
+The pinout diagram provides a visual reference showing how GPIO, power, and communication pins are arranged on an RP2040-based development board.
+
+<img src="/src/assets/electronics/pinout.png" alt="RP2040 pinout diagram" style="width:100%; max-width:1000px; display:block; margin:1.5rem auto;" />
+
+<div style="font-size:0.85rem; opacity:0.8; text-align:center;">
+Example pinout for an RP2040-based development board
+</div>
+
+:::note
+Pin labels and available features can vary between RP2040-based boards. Always refer to the pinout diagram for your specific board.
+:::
+
+---
+
+## Pin Categories
+
+RP2040 pins can be grouped into the following categories:
+
+- **Power pins** — provide 3.3 V output and ground (GND)  
+- **GPIO pins** — configurable digital input and output pins  
+- **Analog pins** — pins capable of analog input via the ADC  
+- **Communication pins** — used for protocols such as I2C, SPI, and UART  
+
+---
+
+## Typical Pin Labels
+
+Pins on RP2040-based boards are typically labelled using a prefix that indicates the GPIO number.
+
+For example:
+
+- `GP0`, `GP1`, `GP2`, …  
+
+The exact pin mapping depends on the specific development board. Always refer to the board’s reference documentation.
+
+---
+
+## Using Pins in CircuitPython
+
+In CircuitPython, pins are accessed using the `board` module.
+
+Examples:
+
+- `board.GP15` refers to GPIO pin 15  
+- `board.GP0` refers to GPIO pin 0  
+
+Pin names and available features may vary by board. Always confirm pin capabilities using the board’s pinout diagram.
+
+:::note
+Although the RP2040 chip is the same, different development boards may expose different pins and features.
+:::
