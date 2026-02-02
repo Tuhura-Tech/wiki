@@ -1,6 +1,7 @@
 export default {
 	guide: 'Guides and Resources',
 	'guide.game_dev': 'Game Development',
+	'guide.robotics': 'XRP Robotics',
 	'guide.security': 'Cyber Security',
 	'guide.3d': '3D Modelling and Printing',
 	'guide.python': 'Python',
@@ -9,7 +10,7 @@ export default {
 	'guide.database': 'Databases',
 	'guide.development': 'Software Development',
 	'guide.contributing': 'Contribute to this Wiki',
-	'guide.3dgames' : '3D Game Development',
+	'guide.3dgames': '3D Game Development',
 
 
 	ncea: 'NCEA',

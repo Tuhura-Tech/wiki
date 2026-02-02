@@ -73,6 +73,7 @@ export const sidebar = [
 					},
 				],
 			}),
+			group('guide.robotics', { autogenerate: { directory: 'guides/xrp-robotics' } }),
 			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
 			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
 			group('guide.python', {

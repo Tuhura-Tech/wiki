@@ -1,0 +1,126 @@
+---
+title: Experiential Robotics Platform (XRP)
+description: Introducing our little friends!
+---
+import EmbedVideo from "/src/components/videoPlayer/videoPlayer.astro"
+import { Image } from "astro:assets"
+import chooseMode from "src/assets/xrprobotics/choosemode.png"
+import connection from "src/assets/xrprobotics/connection.png"
+
+## Introduction
+
+XRP Robots, or the really long and painful name Experiential Robotics Platform, is a really great way to introduce robotics, electronics, and basic programming for eager students of all ages.
+So, get your clankers ready 'cause we buildin' robots!
+
+These robots are designed to perform simple tasks. The bot runs on a Raspberry Pi RP2350 microcontroller, equipped with RPRM2 for bluetooth and Wifi connectivity. Basically, think of the microcontroller as a brain telling the motors and other parts of the robot what to do.
+Similarly, think of the wires as your nerves, connecting the brain to the other parts of the "body". This allows the robots to do a variety of cool stuff.
+
+
+## Building the robot - 10 minute video
+
+For the sake of simplicity, and frankly speaking, a video would be much better at explaining the putting together of the robot much better than typing it out, so please follow along the embeded video to make sure all coimponents are put together properly.
+
+<EmbedVideo url="https://www.youtube.com/embed/JQyKhzlMSms" title="XRP Assembly and Software Starter Guide"/>
+
+
+Once the robot has been built, plug it into a laptop with a USB to USB-B cable. Ensure the power LED turns on. Then, head to this URL:
+https://xrpcode.wpi.edu/
+
+All the programming can be done using a web=based IDE, so no software setup is required.
+
+## Programming the robot
+
+The XRP bot can be programmed in two ways. Block Editing or via Python. For the sake of this tutorial, we will use the python option.
+
+<Image src={chooseMode} alt="choosemode" width="800" />
+
+Once you've selected python, click the "CONNECT XRP" button on the top right, then click "CONNECT VIA USB". This should pop up on the top left corner of your browser.
+
+<Image src={connection} alt="connection" width="800"/>
+
+The IDE automatically imports the XRP libraries. A blank page should look like this:
+
+```python
+from XRPLib.defaults import *
+
+# available variables from defaults: left_motor, right_motor, drivetrain,
+#      imu, rangefinder, reflectance, servo_one, board, webserver
+# Write your code Here
+
+```
+
+Next, lets make our little guy do something really really simple - just go straight.
+
+```python
+
+from XRPLib.defaults import differentialDrive
+
+motors = DifferentialDrive.get_default_differential_drive()
+
+def driveForward():
+  while True:
+    motors.set_speed(67, 67)
+
+driveForward()
+
+```
+
+Looking at the code above, it's quite verbose don't you think? Firstly, we declare a variable I'll call `motors`, and then lets program a function for the bot to just go straight. 
+In python, we use the syntax `def` to create a function for our bot. Please refer to our <a href="wiki\src\content\docs\en\guides\python\index.mdx" className="link"> python tutorial </a> for a refresher on python syntax.
+
+Those with a keen eye will notice that I used a `while` loop here, so the robot will continue to go straight and straight only, until it runs out of energy. 
+The arguments in the brackets correspond to how fast each wheel is rotating in cm/s. In this case, the both left and the right motors are rotating at 67cm/s.
+
+Be sure to play around with the different speeds, to make some cool shapes and patterns.
+
+```python
+...
+board = Board.get_default_board()
+
+def driveForward():
+  while not (board.is_button_pressed()):
+    motors.set_speed(67, 67)
+
+...
+```
+
+Just changing the code above to make the robot NOT drive itself to exhaustion. We believe in robot rights. This will tell the robot to take a break from working when the user button on the board is pressed.
+
+Now let's try playing around with the sensors that we put on the robot. 
+
+```python
+
+from XRPLib.differential_drive import DifferentialDrive
+from XRPLib.rangefinder import Rangefinder
+
+motors = DifferentialDrive.get_default_differential_drive()
+distance_sensor = Rangefinder.get_default_rangefinder()
+
+def driveForward():
+    while True:
+      motors.set_speed(60, 60)
+      if (distance_sensor.distance()) <= 15:
+        motors.straight((-40), 1)
+        motors.turn(90, 1)
+      motors.set_speed(60, 60)
+    
+
+driveForward()
+
+```
+
+Looks a little complicated, but let's break it down line by line.
+Basically, translating between python and english, the code is saying this:
+
+<div style={{ textAlign: "center"}}>
+  <em> Go straight until something is close/15 units in front of you, then reverse for 40 cms, turn 90 degrees, then move forward again. Repeat until exhaustion. </em>
+</div>
+ 
+Have a play around the different values, and you can make the robot do all sorts of cool dance moves!
+
+For more details and features, have a read through the <a href="https://xrpusersguide.readthedocs.io/en/latest/course/introduction.html" className="link"> official XRP documentation </a>.
+
+
+
+
+
