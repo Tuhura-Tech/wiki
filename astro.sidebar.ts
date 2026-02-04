@@ -164,6 +164,10 @@ export const sidebar = [
 								label: 'Grid',
 								link: 'guides/web/html-css-intro/9-grid/',
 							},
+							{
+								label: 'Dev Tools',
+								link: 'guides/web/html-css-intro/10-devtools/',
+							},
 
 						],
 						collapsed: true,
