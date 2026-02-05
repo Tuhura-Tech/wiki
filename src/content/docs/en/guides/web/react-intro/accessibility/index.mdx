@@ -1,0 +1,45 @@
+---
+title: Accessibility basics
+description: Simple steps to make React apps usable for everyone.
+sidebar:
+  order: 8.5
+
+---
+
+Accessibility means making your app usable by as many people as possible. Small changes help a lot: proper labels, keyboard support, and readable colors.
+
+## Use semantic HTML and labels
+
+Always use the correct HTML elements and label your inputs.
+
+```jsx
+function LabeledInput() {
+  return (
+    <label>
+      Your name
+      <input aria-label="Your name" />
+    </label>
+  )
+}
+```
+
+**Why it matters:** screen readers and keyboard users rely on correct labels to understand the page.
+
+## Keyboard navigation
+
+Make sure interactive elements are reachable with Tab and that custom controls handle keyboard events.
+
+## Color and contrast
+
+Ensure text is readable against background colors. Prefer high-contrast color pairs for important UI.
+
+:::tip[Quick checklist]
+- Add `alt` text for images
+- Use `aria-label` or `<label>` for inputs
+- Ensure focus order is logical (Tab key)
+- Check color contrast for text
+:::
+
+:::note[Try this]
+Inspect a page with only your keyboard: can you reach all buttons and inputs using Tab? If not, fix the order or use native elements instead of divs for controls.
+:::

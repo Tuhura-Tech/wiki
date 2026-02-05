@@ -1,0 +1,282 @@
+---
+title: Props Deep Dive
+description: Master the magic of props - children, destructuring, defaults, and passing functions!
+sidebar:
+  order: 4.5
+
+---
+
+Props are like magical envelopes you give to components! Inside each envelope, you can put messages, numbers, pictures, or even instructions. Let's explore all the cool things you can do with props!
+
+## The Children Prop (Super Special!)
+
+The `children` prop is extra special — it's whatever you put BETWEEN the opening and closing tags of a component. It's like a surprise gift box! 🎁
+
+```jsx
+function Card({ children }) {
+  return (
+    <div style={{ 
+      border: '2px solid #7c3aed', 
+      borderRadius: '12px', 
+      padding: '20px',
+      backgroundColor: '#f3f4f6'
+    }}>
+      {children}
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <Card>
+      <h2>🎉 Surprise!</h2>
+      <p>Anything can go in here!</p>
+      <button>Click me</button>
+    </Card>
+  )
+}
+```
+
+**Output:**
+
+<div style="border: 2px solid var(--sl-color-purple); border-radius: 12px; padding: 20px; background-color: var(--sl-color-bg-sidebar);">
+  <h2>🎉 Surprise!</h2>
+  <p>Anything can go in here!</p>
+  <button style="padding: 8px 16px; border-radius: 4px; border: 1px solid var(--sl-color-gray-5); background-color: var(--sl-color-bg); cursor: pointer;">Click me</button>
+</div>
+
+See? Everything between `<Card>` and `</Card>` becomes the `children` prop. It's like a wrapper for anything!
+
+## Destructuring Props (The Neat Way)
+
+Instead of writing `props.name` and `props.age` over and over, you can unpack props right away! It's like opening all your birthday presents at once!
+
+**Long way (boring):**
+```jsx
+function Greeting(props) {
+  return <h1>Hi, {props.name}! You are {props.age} years old.</h1>
+}
+```
+
+**Short way (cool!):**
+```jsx
+function Greeting({ name, age }) {
+  return <h1>Hi, {name}! You are {age} years old.</h1>
+}
+```
+
+Both do the same thing, but the second one is cleaner and easier to read!
+
+## Default Props
+
+What if someone forgets to send a prop? You can set a backup plan! Default props are like having a spare key in case you lose yours.
+
+```jsx
+function WelcomeBanner({ message = "Welcome!", color = "#10b981" }) {
+  return (
+    <div style={{ 
+      backgroundColor: color, 
+      color: 'white',
+      padding: '15px', 
+      borderRadius: '8px',
+      textAlign: 'center',
+      fontWeight: 'bold'
+    }}>
+      {message}
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <div>
+      <WelcomeBanner />
+      <br />
+      <WelcomeBanner message="Hello, friend!" color="#f59e0b" />
+    </div>
+  )
+}
+```
+
+**Output:**
+
+<div>
+  <div style="background-color: #10b981; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold;">
+    Welcome!
+  </div>
+  <br />
+  <div style="background-color: #f59e0b; color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold;">
+    Hello, friend!
+  </div>
+</div>
+
+The first banner uses the defaults ("Welcome!" and green color), the second one uses custom values!
+
+## Passing Functions as Props
+
+You can give a component a function to call! It's like giving someone a phone number to call you back.
+
+```jsx
+function FancyButton({ label, onClick }) {
+  return (
+    <button 
+      onClick={onClick}
+      style={{
+        backgroundColor: '#ec4899',
+        color: 'white',
+        border: 'none',
+        padding: '10px 20px',
+        borderRadius: '20px',
+        cursor: 'pointer',
+        fontSize: '16px'
+      }}
+    >
+      {label}
+    </button>
+  )
+}
+
+function App() {
+  const handleClick = () => {
+    alert('You clicked the fancy button!')
+  }
+  
+  return <FancyButton label="Press me!" onClick={handleClick} />
+}
+```
+
+**Output:**
+
+<button style="background-color: #ec4899; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-size: 16px;">
+  Press me!
+</button>
+
+When clicked, it shows: "🎈 You clicked the fancy button!"
+
+## Spreading Props (The Copy Machine!)
+
+Sometimes you want to pass LOTS of props without typing each one. The spread operator (`...`) is like a copy machine that passes everything at once!
+
+```jsx
+function ProfileCard({ name, age, hobby, emoji }) {
+  return (
+    <div style={{ 
+      border: '2px solid #6366f1', 
+      padding: '15px', 
+      borderRadius: '10px',
+      backgroundColor: '#ede9fe'
+    }}>
+      <h3>{emoji} {name}</h3>
+      <p>Age: {age}</p>
+      <p>Loves: {hobby}</p>
+    </div>
+  )
+}
+
+function App() {
+  const person = {
+    name: 'Alex',
+    age: 10,
+    hobby: 'Drawing',
+    emoji: 'Artist'
+  }
+  
+  return <ProfileCard {...person} />
+}
+```
+
+**Output:**
+
+<div style="border: 2px solid var(--sl-color-blue); padding: 15px; border-radius: 10px; background-color: var(--sl-color-bg-sidebar);">
+  <h3>Artist Alex</h3>
+  <p>Age: 10</p>
+  <p>Loves: Drawing</p>
+</div>
+
+The `{...person}` spreads all the properties to the component. It's like magic!
+
+## Props Are Read-Only!
+
+Super important rule: **Never change props directly!** Props are like a letter someone sent you — you can read it, but you can't change what they wrote. If you need to change something, use state instead!
+
+```jsx
+// WRONG - Don't do this!
+function BadComponent({ count }) {
+  count = count + 1 // This won't work!
+  return <p>{count}</p>
+}
+
+// RIGHT - Use state if you need to change values!
+import { useState } from 'react'
+
+function GoodComponent({ initialCount }) {
+  const [count, setCount] = useState(initialCount)
+  return (
+    <div>
+      <p>{count}</p>
+      <button onClick={() => setCount(count + 1)}>Add 1</button>
+    </div>
+  )
+}
+```
+
+## Multiple Children Props
+
+You can even have MULTIPLE areas for children! Give them different names so each knows where to go.
+
+```jsx
+function SplitCard({ left, right }) {
+  return (
+    <div style={{ display: 'flex', gap: '10px' }}>
+      <div style={{ 
+        flex: 1, 
+        padding: '15px', 
+        backgroundColor: '#dbeafe',
+        borderRadius: '8px'
+      }}>
+        {left}
+      </div>
+      <div style={{ 
+        flex: 1, 
+        padding: '15px', 
+        backgroundColor: '#fce7f3',
+        borderRadius: '8px'
+      }}>
+        {right}
+      </div>
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <SplitCard 
+      left={<p>🌙 Left side!</p>}
+      right={<p>☀️ Right side!</p>}
+    />
+  )
+}
+```
+
+**Output:**
+
+<div style="display: flex; gap: 10px;">
+  <div style="flex: 1; padding: 15px; background-color: var(--sl-color-blue-low); border: 1px solid var(--sl-color-blue); border-radius: 8px;">
+    <p>🌙 Left side!</p>
+  </div>
+  <div style="flex: 1; padding: 15px; background-color: var(--sl-color-pink-low); border: 1px solid var(--sl-color-pink); border-radius: 8px;">
+    <p>☀️ Right side!</p>
+  </div>
+</div>
+
+:::tip[Pro tip!]
+When you have lots of props, put each one on its own line to keep your code neat and tidy! Like organizing toys on a shelf. 🧸
+:::
+
+:::note[Challenge Time!]
+**Challenge 1:** Create a `Badge` component that accepts `text`, `color`, and `size` props. Use default values: color should be blue (#3b82f6) and size should be "medium".
+
+**Challenge 2:** Make a `Notification` component that uses the `children` prop and accepts a `type` prop ("success", "warning", or "error") that changes the background color!
+
+**Challenge 3:** Create a `UserCard` component that accepts an object prop and uses spread operator to pass all the user info at once!
+:::

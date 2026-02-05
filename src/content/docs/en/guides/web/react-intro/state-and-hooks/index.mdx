@@ -1,0 +1,98 @@
+---
+title: State & Hooks
+description: Component state, lifecycle with hooks, and creating custom hooks.
+sidebar:
+  order: 5
+
+---
+
+Time to make your components come alive! State is like a component's memory — it remembers things and can change over time. Hooks are special React functions that give your components superpowers!
+
+## useState
+
+`useState` is the most popular hook — it adds memory to your components! Every time you click a button or type something, you can save it and show it on the screen.
+
+```jsx
+import { useState } from 'react'
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(c => c + 1)}>Increment</button>
+    </div>
+  )
+}
+```
+
+**Initial Output:**
+
+<div>
+  <p>Count: 0</p>
+  <button>Increment</button>
+</div>
+
+**After clicking the button:**
+
+<div>
+  <p>Count: 1</p>
+  <button>Increment</button>
+</div>
+
+---
+
+### Interactive demo (try it!)
+
+import CounterDemo from './CounterDemo.jsx'
+
+<CounterDemo client:load />
+
+---
+
+## useEffect
+
+`useEffect` is like a robot assistant that does tasks for you at the right time! It can fetch data from the internet, update the page title, or do anything else when your component appears or changes.
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function UsersList() {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    fetch('/api/users')
+      .then(r => r.json())
+      .then(setUsers)
+  }, [])
+
+  return <ul>{users.map(u => <li key={u.id}>{u.name}</li>)}</ul>
+}
+```
+
+**Initial Output (before data loads):**
+
+<ul></ul>
+
+**After data loads:**
+
+<ul>
+  <li>Alice</li>
+  <li>Bob</li>
+  <li>Charlie</li>
+</ul>
+**Usage in a component:**
+```jsx
+function UserProfile({ userId }) {
+  const user = useFetch(`/api/users/${userId}`)
+  return user ? <div>{user.name}</div> : <div>Loading...</div>
+}
+```
+
+**Output when loading:**
+
+<div>Loading...</div>
+
+**Output after data loads:**
+
+<div>Alice</div>

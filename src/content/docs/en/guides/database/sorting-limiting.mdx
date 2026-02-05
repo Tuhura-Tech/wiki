@@ -1,0 +1,538 @@
+---
+title: Sorting & Limiting
+description: Organize your results and show just the top items with ORDER BY and LIMIT!
+sidebar:
+  order: 2.7
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+Imagine getting search results but they're all mixed up. Sorting puts things in order, and limiting shows you just the top results. Let's learn to organize our data.
+
+## ORDER BY - Sorting Results
+
+`ORDER BY` arranges your results in order - like organizing your bookshelf or lining up by height!
+
+### Basic Sorting (Ascending = Smallest to Largest)
+
+```sql
+SELECT * FROM Customers
+ORDER BY age;
+```
+
+**Output:**
+| customer_id | first_name | last_name | age | country |
+|-------------|------------|-----------|-----|---------|
+| 2           | Robert     | Luna      | 22  | USA     |
+| 3           | David      | Robinson  | 22  | UK      |
+| 4           | John       | Reinhardt | 25  | UK      |
+| 5           | Betty      | Doe       | 28  | UAE     |
+| 1           | John       | Doe       | 31  | USA     |
+
+Ages go from youngest (22) to oldest (31)!
+
+### DESC - Reverse Order (Descending = Largest to Smallest)
+
+```sql
+SELECT first_name, last_name, age FROM Customers
+ORDER BY age DESC;
+```
+
+**Output:**
+| first_name | last_name | age |
+|------------|-----------|-----|
+| John       | Doe       | 31  |
+| Betty      | Doe       | 28  |
+| John       | Reinhardt | 25  |
+| Robert     | Luna      | 22  |
+| David      | Robinson  | 22  |
+
+Now oldest first!
+
+## High Scores Table
+
+Let's create a fun gaming leaderboard!
+
+```sql
+CREATE TABLE GameScores (
+  player_id INTEGER PRIMARY KEY,
+  username TEXT,
+  game TEXT,
+  score INTEGER,
+  level INTEGER,
+  playtime_hours REAL
+);
+
+INSERT INTO GameScores VALUES
+  (1, 'ProGamer123', 'Minecraft', 45000, 28, 156.5),
+  (2, 'CoolKid99', 'Fortnite', 89000, 45, 203.0),
+  (3, 'DragonSlayer', 'Minecraft', 67000, 35, 189.2),
+  (4, 'NinjaWarrior', 'Roblox', 52000, 22, 98.5),
+  (5, 'PixelMaster', 'Fortnite', 91000, 48, 215.3),
+  (6, 'SpeedRunner', 'Mario Kart', 38000, 15, 67.8),
+  (7, 'EpicBuilder', 'Minecraft', 71000, 40, 198.7),
+  (8, 'SkyWalker', 'Roblox', 44000, 18, 76.2);
+
+SELECT * FROM GameScores;
+```
+
+**Output:**
+| player_id | username      | game       | score | level | playtime_hours |
+|-----------|---------------|------------|-------|-------|----------------|
+| 1         | ProGamer123   | Minecraft  | 45000 | 28    | 156.5          |
+| 2         | CoolKid99     | Fortnite   | 89000 | 45    | 203.0          |
+| 3         | DragonSlayer  | Minecraft  | 67000 | 35    | 189.2          |
+| 4         | NinjaWarrior  | Roblox     | 52000 | 22    | 98.5           |
+| 5         | PixelMaster   | Fortnite   | 91000 | 48    | 215.3          |
+| 6         | SpeedRunner   | Mario Kart | 38000 | 15    | 67.8           |
+| 7         | EpicBuilder   | Minecraft  | 71000 | 40    | 198.7          |
+| 8         | SkyWalker     | Roblox     | 44000 | 18    | 76.2           |
+
+### Sort by Highest Score First
+```sql
+SELECT username, score FROM GameScores
+ORDER BY score DESC;
+```
+
+**Output:**
+| username     | score |
+|--------------|-------|
+| PixelMaster  | 91000 |
+| CoolKid99    | 89000 |
+| EpicBuilder  | 71000 |
+| DragonSlayer | 67000 |
+| NinjaWarrior | 52000 |
+| ProGamer123  | 45000 |
+| SkyWalker    | 44000 |
+| SpeedRunner  | 38000 |
+
+PixelMaster is the champion!
+
+### Sort by Game Name (Alphabetically)
+```sql
+SELECT username, game, score FROM GameScores
+ORDER BY game;
+```
+
+**Output:**
+| username     | game       | score |
+|--------------|------------|-------|
+| CoolKid99    | Fortnite   | 89000 |
+| PixelMaster  | Fortnite   | 91000 |
+| SpeedRunner  | Mario Kart | 38000 |
+| ProGamer123  | Minecraft  | 45000 |
+| DragonSlayer | Minecraft  | 67000 |
+| EpicBuilder  | Minecraft  | 71000 |
+| NinjaWarrior | Roblox     | 52000 |
+| SkyWalker    | Roblox     | 44000 |
+
+Games are in alphabetical order!
+
+## Multiple Column Sorting
+
+You can sort by multiple columns! It's like organizing books by genre first, then by author!
+
+### Sort by Game, Then by Score
+```sql
+SELECT username, game, score FROM GameScores
+ORDER BY game, score DESC;
+```
+
+**Output:**
+| username     | game       | score |
+|--------------|------------|-------|
+| PixelMaster  | Fortnite   | 91000 |
+| CoolKid99    | Fortnite   | 89000 |
+| SpeedRunner  | Mario Kart | 38000 |
+| EpicBuilder  | Minecraft  | 71000 |
+| DragonSlayer | Minecraft  | 67000 |
+| ProGamer123  | Minecraft  | 45000 |
+| NinjaWarrior | Roblox     | 52000 |
+| SkyWalker    | Roblox     | 44000 |
+
+First sorted by game name, then within each game, highest scores first!
+
+### Sort by Level (DESC), Then by Username (ASC)
+```sql
+SELECT username, level, score FROM GameScores
+ORDER BY level DESC, username ASC;
+```
+
+**Output:**
+| username      | level | score |
+|---------------|-------|-------|
+| PixelMaster   | 48    | 91000 |
+| CoolKid99     | 45    | 89000 |
+| EpicBuilder   | 40    | 71000 |
+| DragonSlayer  | 35    | 67000 |
+| ProGamer123   | 28    | 45000 |
+| NinjaWarrior  | 22    | 52000 |
+| SkyWalker     | 18    | 44000 |
+| SpeedRunner   | 15    | 38000 |
+
+## LIMIT - Show Only Top Results
+
+`LIMIT` is like saying "Just show me the first 3 results!" Perfect for top 10 lists!
+
+### Top 3 Highest Scores
+```sql
+SELECT username, score FROM GameScores
+ORDER BY score DESC
+LIMIT 3;
+```
+
+**Output:**
+| username     | score |
+|--------------|-------|
+| PixelMaster  | 91000 |
+| CoolKid99    | 89000 |
+| EpicBuilder  | 71000 |
+
+The top 3 champions! 🥇🥈🥉
+
+### Lowest 2 Scores
+```sql
+SELECT username, score FROM GameScores
+ORDER BY score ASC
+LIMIT 2;
+```
+
+**Output:**
+| username    | score |
+|-------------|-------|
+| SpeedRunner | 38000 |
+| SkyWalker   | 44000 |
+
+These players need more practice!
+
+### Top 5 by Playtime
+```sql
+SELECT username, playtime_hours FROM GameScores
+ORDER BY playtime_hours DESC
+LIMIT 5;
+```
+
+**Output:**
+| username     | playtime_hours |
+|--------------|----------------|
+| PixelMaster  | 215.3          |
+| CoolKid99    | 203.0          |
+| EpicBuilder  | 198.7          |
+| DragonSlayer | 189.2          |
+| ProGamer123  | 156.5          |
+
+These players LOVE gaming!
+
+## Animals at the Zoo
+
+```sql
+CREATE TABLE ZooAnimals (
+  animal_id INTEGER PRIMARY KEY,
+  name TEXT,
+  species TEXT,
+  age INTEGER,
+  weight_kg REAL,
+  habitat TEXT,
+  feeding_time TEXT
+);
+
+INSERT INTO ZooAnimals VALUES
+  (1, 'Leo', 'Lion', 8, 190.0, 'Savanna', '14:00'),
+  (2, 'Ella', 'Elephant', 25, 4500.0, 'Grassland', '09:00'),
+  (3, 'Zippy', 'Zebra', 5, 350.0, 'Savanna', '10:00'),
+  (4, 'Penny', 'Penguin', 3, 3.5, 'Arctic', '11:00'),
+  (5, 'Gary', 'Giraffe', 12, 1200.0, 'Savanna', '09:30'),
+  (6, 'Coco', 'Chimpanzee', 15, 55.0, 'Rainforest', '13:00'),
+  (7, 'Polly', 'Polar Bear', 7, 450.0, 'Arctic', '12:00'),
+  (8, 'Manny', 'Monkey', 4, 8.5, 'Rainforest', '15:00');
+
+SELECT * FROM ZooAnimals;
+```
+
+**Output:**
+| animal_id | name  | species     | age | weight_kg | habitat    | feeding_time |
+|-----------|-------|-------------|-----|-----------|------------|--------------|
+| 1         | Leo   | Lion        | 8   | 190.0     | Savanna    | 14:00        |
+| 2         | Ella  | Elephant    | 25  | 4500.0    | Grassland  | 09:00        |
+| 3         | Zippy | Zebra       | 5   | 350.0     | Savanna    | 10:00        |
+| 4         | Penny | Penguin     | 3   | 3.5       | Arctic     | 11:00        |
+| 5         | Gary  | Giraffe     | 12  | 1200.0    | Savanna    | 09:30        |
+| 6         | Coco  | Chimpanzee  | 15  | 55.0      | Rainforest | 13:00        |
+| 7         | Polly | Polar Bear  | 7   | 450.0     | Arctic     | 12:00        |
+| 8         | Manny | Monkey      | 4   | 8.5       | Rainforest | 15:00        |
+
+### Heaviest Animals First
+```sql
+SELECT name, species, weight_kg FROM ZooAnimals
+ORDER BY weight_kg DESC;
+```
+
+**Output:**
+| name  | species    | weight_kg |
+|-------|------------|-----------|
+| Ella  | Elephant   | 4500.0    |
+| Gary  | Giraffe    | 1200.0    |
+| Polly | Polar Bear | 450.0     |
+| Zippy | Zebra      | 350.0     |
+| Leo   | Lion       | 190.0     |
+| Coco  | Chimpanzee | 55.0      |
+| Manny | Monkey     | 8.5       |
+| Penny | Penguin    | 3.5       |
+
+Ella the Elephant is HUGE!
+
+### Animals by Name (Alphabetically)
+```sql
+SELECT name, species FROM ZooAnimals
+ORDER BY name;
+```
+
+**Output:**
+| name  | species    |
+|-------|------------|
+| Coco  | Chimpanzee |
+| Ella  | Elephant   |
+| Gary  | Giraffe    |
+| Leo   | Lion       |
+| Manny | Monkey     |
+| Penny | Penguin    |
+| Polly | Polar Bear |
+| Zippy | Zebra      |
+
+### Morning Feeding Schedule (First 3)
+```sql
+SELECT name, species, feeding_time FROM ZooAnimals
+ORDER BY feeding_time
+LIMIT 3;
+```
+
+**Output:**
+| name  | species  | feeding_time |
+|-------|----------|--------------|
+| Ella  | Elephant | 09:00        |
+| Gary  | Giraffe  | 09:30        |
+| Zippy | Zebra    | 10:00        |
+
+These animals eat breakfast first!
+
+### Oldest Animals (Top 4)
+```sql
+SELECT name, species, age FROM ZooAnimals
+ORDER BY age DESC
+LIMIT 4;
+```
+
+**Output:**
+| name | species    | age |
+|------|------------|-----|
+| Ella | Elephant   | 25  |
+| Coco | Chimpanzee | 15  |
+| Gary | Giraffe    | 12  |
+| Leo  | Lion       | 8   |
+
+## Pizza Restaurant Example
+
+```sql
+CREATE TABLE PizzaMenu (
+  pizza_id INTEGER PRIMARY KEY,
+  name TEXT,
+  size TEXT,
+  price REAL,
+  calories INTEGER,
+  vegetarian BOOLEAN
+);
+
+INSERT INTO PizzaMenu VALUES
+  (1, 'Margherita', 'Large', 12.99, 2000, 1),
+  (2, 'Pepperoni', 'Medium', 10.99, 1800, 0),
+  (3, 'Hawaiian', 'Large', 13.99, 2100, 0),
+  (4, 'Veggie Supreme', 'Medium', 11.99, 1600, 1),
+  (5, 'Meat Lovers', 'Large', 15.99, 2500, 0),
+  (6, 'Four Cheese', 'Small', 8.99, 1400, 1),
+  (7, 'BBQ Chicken', 'Medium', 12.99, 1900, 0),
+  (8, 'Garden Fresh', 'Small', 7.99, 1200, 1);
+
+SELECT * FROM PizzaMenu;
+```
+
+**Output:**
+| pizza_id | name          | size   | price | calories | vegetarian |
+|----------|---------------|--------|-------|----------|------------|
+| 1        | Margherita    | Large  | 12.99 | 2000     | 1          |
+| 2        | Pepperoni     | Medium | 10.99 | 1800     | 0          |
+| 3        | Hawaiian      | Large  | 13.99 | 2100     | 0          |
+| 4        | Veggie Supreme| Medium | 11.99 | 1600     | 1          |
+| 5        | Meat Lovers   | Large  | 15.99 | 2500     | 0          |
+| 6        | Four Cheese   | Small  | 8.99  | 1400     | 1          |
+| 7        | BBQ Chicken   | Medium | 12.99 | 1900     | 0          |
+| 8        | Garden Fresh  | Small  | 7.99  | 1200     | 1          |
+
+### Most Expensive Pizzas
+```sql
+SELECT name, price FROM PizzaMenu
+ORDER BY price DESC
+LIMIT 3;
+```
+
+**Output:**
+| name        | price |
+|-------------|-------|
+| Meat Lovers | 15.99 |
+| Hawaiian    | 13.99 |
+| Margherita  | 12.99 |
+
+### Lowest Calorie Options (Vegetarian Only)
+```sql
+SELECT name, calories FROM PizzaMenu
+WHERE vegetarian = 1
+ORDER BY calories
+LIMIT 2;
+```
+
+**Output:**
+| name         | calories |
+|--------------|----------|
+| Garden Fresh | 1200     |
+| Four Cheese  | 1400     |
+
+Healthy choices! 🥗
+
+### Sorted by Size, Then Price
+```sql
+SELECT name, size, price FROM PizzaMenu
+ORDER BY size DESC, price;
+```
+
+**Output:**
+| name           | size   | price |
+|----------------|--------|-------|
+| Garden Fresh   | Small  | 7.99  |
+| Four Cheese    | Small  | 8.99  |
+| Pepperoni      | Medium | 10.99 |
+| Veggie Supreme | Medium | 11.99 |
+| BBQ Chicken    | Medium | 12.99 |
+| Margherita     | Large  | 12.99 |
+| Hawaiian       | Large  | 13.99 |
+| Meat Lovers    | Large  | 15.99 |
+
+## Combining Everything!
+
+Let's use WHERE, ORDER BY, and LIMIT together!
+
+### Top 2 Minecraft Players by Score
+```sql
+SELECT username, score, level FROM GameScores
+WHERE game = 'Minecraft'
+ORDER BY score DESC
+LIMIT 2;
+```
+
+**Output:**
+| username     | score | level |
+|--------------|-------|-------|
+| EpicBuilder  | 71000 | 40    |
+| DragonSlayer | 67000 | 35    |
+
+### Young Zoo Animals (Under 10), Sorted by Weight
+```sql
+SELECT name, species, age, weight_kg FROM ZooAnimals
+WHERE age < 10
+ORDER BY weight_kg DESC
+LIMIT 3;
+```
+
+**Output:**
+| name  | species    | age | weight_kg |
+|-------|------------|-----|-----------|
+| Polly | Polar Bear | 7   | 450.0     |
+| Zippy | Zebra      | 5   | 350.0     |
+| Leo   | Lion       | 8   | 190.0     |
+
+### Cheapest Large Pizzas
+```sql
+SELECT name, price FROM PizzaMenu
+WHERE size = 'Large'
+ORDER BY price
+LIMIT 1;
+```
+
+**Output:**
+| name       | price |
+|------------|-------|
+| Margherita | 12.99 |
+
+Best deal on large pizzas!
+
+## Pro Tips
+
+### Tip 1: ORDER BY Column Position
+You can use numbers instead of column names!
+```sql
+SELECT name, score FROM GameScores
+ORDER BY 2 DESC;  -- Sort by 2nd column (score)
+```
+
+### Tip 2: LIMIT with OFFSET
+Skip the first few results!
+```sql
+-- Skip top 3, show next 2
+SELECT username, score FROM GameScores
+ORDER BY score DESC
+LIMIT 2 OFFSET 3;
+```
+
+**Output:**
+| username     | score |
+|--------------|-------|
+| DragonSlayer | 67000 |
+| NinjaWarrior | 52000 |
+
+### Tip 3: ASC is Default
+You don't need to write ASC, it's automatic!
+```sql
+ORDER BY age      -- Same as ORDER BY age ASC
+ORDER BY age ASC  -- Explicit ascending
+```
+
+:::tip[Think Like a Librarian!]
+Sorting is like organizing a library:
+- **ORDER BY name** = Alphabetical order
+- **ORDER BY age DESC** = Newest to oldest
+- **LIMIT 10** = Show only the top 10
+- Combine them to find exactly what you need!
+:::
+
+:::note[Challenges!]
+Create the tables above in [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and try:
+
+**Challenge 1:** Show the 3 least played games (by playtime_hours)
+
+**Challenge 2:** Find vegetarian pizzas under $12, sorted by price
+
+**Challenge 3:** Show animals in the Savanna, sorted by age, limit to top 2
+
+**Challenge 4:** Create your own table of favorite movies with ratings, then find the top 5 highest rated!
+
+**Challenge 5:** Combine WHERE, ORDER BY, and LIMIT in one cool query!
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Used `ORDER BY` to sort results
+- [ ] Sorted in ascending order (default)
+- [ ] Sorted in descending order with `DESC`
+- [ ] Sorted by multiple columns
+- [ ] Used `LIMIT` to get top N results
+- [ ] Combined `ORDER BY` and `LIMIT` for rankings
+- [ ] Used `OFFSET` to skip rows
+- [ ] Combined `WHERE`, `ORDER BY`, and `LIMIT` together
+- [ ] Created leaderboards and top lists
+- [ ] Practiced with game scores, pizzas, and animals
+</Checklist>
+</Box>
+
+Ready to do math with your data? Let's learn aggregate functions!

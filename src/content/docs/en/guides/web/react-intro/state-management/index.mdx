@@ -1,0 +1,94 @@
+---
+title: State Management
+description: Context API and lifting state for sharing data between components.
+sidebar:
+  order: 8
+
+---
+
+As your app grows bigger, you'll have more components that need to share information. State management is all about organizing where you keep data so all your components can access it easily!
+
+## Lifting state
+
+Sometimes two components need to share the same data — like two friends sharing a toy. The solution? Move the data up to their parent component! This is called "lifting state up."
+
+```jsx
+function App() {
+  const [message, setMessage] = useState('Hello!')
+  
+  return (
+    <div>
+      <Display message={message} />
+      <Editor setMessage={setMessage} />
+    </div>
+  )
+}
+
+function Display({ message }) {
+  return <p>{message}</p>
+}
+
+function Editor({ setMessage }) {
+  return <input onChange={e => setMessage(e.target.value)} />
+}
+```
+
+**Output:**
+
+<div>
+  <p>Hello!</p>
+  <input />
+</div>
+
+## Context API
+
+Context is like a magic backpack that all your components can reach into! Instead of passing props through many components (called "prop drilling"), you put data in Context and any component can grab it. Perfect for themes, user info, or settings!
+
+```jsx
+import { createContext, useContext, useState } from 'react'
+
+const ThemeContext = createContext()
+
+export function ThemeProvider({ children }) {
+  const [theme, setTheme] = useState('light')
+  return <ThemeContext.Provider value={{ theme, setTheme }}>{children}</ThemeContext.Provider>
+}
+
+export function useTheme() { return useContext(ThemeContext) }
+```
+
+**Usage:**
+```jsx
+function ThemeButton() {
+  const { theme, setTheme } = useTheme()
+  return (
+    <button onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
+      Current theme: {theme}
+    </button>
+  )
+}
+
+function App() {
+  return (
+    <ThemeProvider>
+      <ThemeButton />
+    </ThemeProvider>
+  )
+}
+```
+
+:::tip[Closing tags]
+Close tags in JSX — missing closing tags will usually cause compile errors. Self-close empty elements like `<img />`.
+:::
+
+:::note[Try this!]
+Want to share data between components? Make a theme toggle that changes a paragraph's color from light to dark—even though they're in different parts of your app! Use Context to connect them. It's like telepathy for components!
+:::
+
+**Output (initial):**
+
+<button>Current theme: light</button>
+
+**After clicking:**
+
+<button>Current theme: dark</button>

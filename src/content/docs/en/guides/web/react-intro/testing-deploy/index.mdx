@@ -1,0 +1,73 @@
+---
+title: Testing & Deployment
+description: Basics of testing React components and steps to build and deploy your app.
+sidebar:
+  order: 9
+
+---
+
+You've built something cool — now let's make sure it works perfectly and share it with the world!
+
+## Testing with Jest + React Testing Library
+
+Testing is like having a robot check your homework! You write tests that automatically verify your components work correctly. If something breaks later, the tests will catch it. Pretty smart, right?
+
+First, install the testing tools:
+
+```bash
+pnpm add -D jest @testing-library/react @testing-library/jest-dom @testing-library/user-event
+# or npm install --save-dev ...
+```
+
+Here's a simple test that checks if your app shows a heading:
+
+```jsx
+import { render, screen } from '@testing-library/react'
+import App from './App'
+
+test('renders heading', () => {
+  render(<App />)
+  expect(screen.getByRole('heading')).toBeInTheDocument()
+})
+```
+
+**Test Output (if App has a heading):**
+```
+✓ renders heading (2ms)
+```
+
+**Test Output (if App has no heading):**
+```
+✗ renders heading
+
+    expect(element).toBeInTheDocument()
+
+    Received element is not present in the container
+```
+
+## Build & Deploy
+
+Time to show your app to the world! First, you need to build it (turn it into super-fast files):
+
+```bash
+npm run build
+# or pnpm run build
+```
+
+This creates a `dist` folder with all your app's files, optimized and ready to go!
+
+### Where to deploy (it's free!)
+
+- **Vercel**: Super easy! Just connect your GitHub and it deploys automatically.
+- **Netlify**: Drag and drop your `dist` folder — boom, it's live!
+- **GitHub Pages**: Host it right from your GitHub repo.
+
+All of these are free for small projects, and they give you a real URL like `myapp.vercel.app` that you can share with friends! How cool is that?
+
+:::tip[Closing tags]
+Always close tags in JSX (for example `<img />`). Missing closing tags often cause build failures.
+:::
+
+:::note[Play detective!]
+Create a component with two paragraphs, then write a test to check if they both show up. Run the test and watch it pass—it's like having a robot verify your work! Pretty cool, huh?
+:::

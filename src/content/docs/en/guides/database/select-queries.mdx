@@ -1,0 +1,415 @@
+---
+title: SELECT Queries
+description: Learn how to ask the database for exactly what you want!
+sidebar:
+  order: 2.5
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+The `SELECT` statement is like asking the database a question. Let's learn how to get exactly the information we need.
+
+## The Basic SELECT
+
+The simplest way to ask for data is to select everything from a table:
+
+```sql
+SELECT * FROM Customers;
+```
+
+The `*` means "give me ALL columns!" It's like saying "I want to see EVERYTHING!"
+
+**Try it online:** Open [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and run this!
+
+**Output:**
+| customer_id | first_name | last_name | age | country |
+|-------------|------------|-----------|-----|---------|
+| 1           | John       | Doe       | 31  | USA     |
+| 2           | Robert     | Luna      | 22  | USA     |
+| 3           | David      | Robinson  | 22  | UK      |
+| 4           | John       | Reinhardt | 25  | UK      |
+| 5           | Betty      | Doe       | 28  | UAE     |
+
+## Choosing Specific Columns
+
+Sometimes you don't need everything! You can choose which columns to see:
+
+```sql
+SELECT first_name, last_name FROM Customers;
+```
+
+This is like saying "I only want to know their names, not their age or country!"
+
+**Output:**
+| first_name | last_name |
+|------------|-----------|
+| John       | Doe       |
+| Robert     | Luna      |
+| David      | Robinson  |
+| John       | Reinhardt |
+| Betty      | Doe       |
+
+**Pick different columns:**
+```sql
+SELECT first_name, age, country FROM Customers;
+```
+
+**Output:**
+| first_name | age | country |
+|------------|-----|---------|
+| John       | 31  | USA     |
+| Robert     | 22  | USA     |
+| David      | 22  | UK      |
+| John       | 25  | UK      |
+| Betty      | 28  | UAE     |
+
+## Let's Create Our Own Table!
+
+Let's make a fun table about ice cream flavors! Copy this into the online editor:
+
+```sql
+CREATE TABLE IceCream (
+  flavor_id INTEGER PRIMARY KEY,
+  flavor_name TEXT,
+  color TEXT,
+  scoops_sold INTEGER,
+  has_chocolate BOOLEAN,
+  price REAL
+);
+
+INSERT INTO IceCream VALUES
+  (1, 'Vanilla', 'White', 450, 0, 3.50),
+  (2, 'Chocolate', 'Brown', 520, 1, 3.50),
+  (3, 'Strawberry', 'Pink', 380, 0, 3.75),
+  (4, 'Mint Chip', 'Green', 290, 1, 4.00),
+  (5, 'Cookie Dough', 'Tan', 510, 1, 4.25),
+  (6, 'Bubblegum', 'Blue', 220, 0, 3.50),
+  (7, 'Rocky Road', 'Brown', 340, 1, 4.00);
+
+SELECT * FROM IceCream;
+```
+
+**Output:**
+| flavor_id | flavor_name  | color | scoops_sold | has_chocolate | price |
+|-----------|--------------|-------|-------------|---------------|-------|
+| 1         | Vanilla      | White | 450         | 0             | 3.50  |
+| 2         | Chocolate    | Brown | 520         | 1             | 3.50  |
+| 3         | Strawberry   | Pink  | 380         | 0             | 3.75  |
+| 4         | Mint Chip    | Green | 290         | 1             | 4.00  |
+| 5         | Cookie Dough | Tan   | 510         | 1             | 4.25  |
+| 6         | Bubblegum    | Blue  | 220         | 0             | 3.50  |
+| 7         | Rocky Road   | Brown | 340         | 1             | 4.00  |
+
+Now let's practice different SELECT queries on our ice cream data!
+
+### Just the Flavors and Colors
+```sql
+SELECT flavor_name, color FROM IceCream;
+```
+
+**Output:**
+| flavor_name  | color |
+|--------------|-------|
+| Vanilla      | White |
+| Chocolate    | Brown |
+| Strawberry   | Pink  |
+| Mint Chip    | Green |
+| Cookie Dough | Tan   |
+| Bubblegum    | Blue  |
+| Rocky Road   | Brown |
+
+### Prices Only
+```sql
+SELECT flavor_name, price FROM IceCream;
+```
+
+**Output:**
+| flavor_name  | price |
+|--------------|-------|
+| Vanilla      | 3.50  |
+| Chocolate    | 3.50  |
+| Strawberry   | 3.75  |
+| Mint Chip    | 4.00  |
+| Cookie Dough | 4.25  |
+| Bubblegum    | 3.50  |
+| Rocky Road   | 4.00  |
+
+## Doing Math in SELECT!
+
+You can do calculations right in your SELECT statement! It's like having a calculator inside your database!
+
+### Add Sales Tax (10%)
+```sql
+SELECT 
+  flavor_name,
+  price,
+  price * 1.10 as price_with_tax
+FROM IceCream;
+```
+
+**Output:**
+| flavor_name  | price | price_with_tax |
+|--------------|-------|----------------|
+| Vanilla      | 3.50  | 3.85           |
+| Chocolate    | 3.50  | 3.85           |
+| Strawberry   | 3.75  | 4.125          |
+| Mint Chip    | 4.00  | 4.40           |
+| Cookie Dough | 4.25  | 4.675          |
+| Bubblegum    | 3.50  | 3.85           |
+| Rocky Road   | 4.00  | 4.40           |
+
+### Calculate Total Revenue
+```sql
+SELECT 
+  flavor_name,
+  scoops_sold,
+  price,
+  scoops_sold * price as total_revenue
+FROM IceCream;
+```
+
+**Output:**
+| flavor_name  | scoops_sold | price | total_revenue |
+|--------------|-------------|-------|---------------|
+| Vanilla      | 450         | 3.50  | 1575.00       |
+| Chocolate    | 520         | 3.50  | 1820.00       |
+| Strawberry   | 380         | 3.75  | 1425.00       |
+| Mint Chip    | 290         | 4.00  | 1160.00       |
+| Cookie Dough | 510         | 4.25  | 2167.50       |
+| Bubblegum    | 220         | 3.50  | 770.00        |
+| Rocky Road   | 340         | 4.00  | 1360.00       |
+
+Wow! Cookie Dough made the most money!
+
+## Video Games Example
+
+Let's make another fun table:
+
+```sql
+CREATE TABLE VideoGames (
+  game_id INTEGER PRIMARY KEY,
+  title TEXT,
+  platform TEXT,
+  release_year INTEGER,
+  rating INTEGER,
+  copies_sold_millions REAL
+);
+
+INSERT INTO VideoGames VALUES
+  (1, 'Minecraft', 'Multi-platform', 2011, 10, 238.0),
+  (2, 'GTA V', 'Multi-platform', 2013, 9, 185.0),
+  (3, 'Mario Kart 8', 'Switch', 2017, 9, 55.5),
+  (4, 'Pokemon Red/Blue', 'Game Boy', 1996, 10, 31.4),
+  (5, 'The Legend of Zelda', 'Switch', 2017, 10, 30.0),
+  (6, 'Animal Crossing', 'Switch', 2020, 9, 42.8),
+  (7, 'Fortnite', 'Multi-platform', 2017, 8, 350.0);
+
+SELECT * FROM VideoGames;
+```
+
+**Output:**
+| game_id | title             | platform       | release_year | rating | copies_sold_millions |
+|---------|-------------------|----------------|--------------|--------|----------------------|
+| 1       | Minecraft         | Multi-platform | 2011         | 10     | 238.0                |
+| 2       | GTA V             | Multi-platform | 2013         | 9      | 185.0                |
+| 3       | Mario Kart 8      | Switch         | 2017         | 9      | 55.5                 |
+| 4       | Pokemon Red/Blue  | Game Boy       | 1996         | 10     | 31.4                 |
+| 5       | The Legend of Zelda| Switch        | 2017         | 10     | 30.0                 |
+| 6       | Animal Crossing   | Switch         | 2020         | 9      | 42.8                 |
+| 7       | Fortnite          | Multi-platform | 2017         | 8      | 350.0                |
+
+### Just Titles and Ratings
+```sql
+SELECT title, rating FROM VideoGames;
+```
+
+**Output:**
+| title                | rating |
+|----------------------|--------|
+| Minecraft            | 10     |
+| GTA V                | 9      |
+| Mario Kart 8         | 9      |
+| Pokemon Red/Blue     | 10     |
+| The Legend of Zelda  | 10     |
+| Animal Crossing      | 9      |
+| Fortnite             | 8      |
+
+### How Old Are These Games?
+```sql
+SELECT 
+  title,
+  release_year,
+  2026 - release_year as years_old
+FROM VideoGames;
+```
+
+**Output:**
+| title                | release_year | years_old |
+|----------------------|--------------|-----------|
+| Minecraft            | 2011         | 15        |
+| GTA V                | 2013         | 13        |
+| Mario Kart 8         | 2017         | 9         |
+| Pokemon Red/Blue     | 1996         | 30        |
+| The Legend of Zelda  | 2017         | 9         |
+| Animal Crossing      | 2020         | 6         |
+| Fortnite             | 2017         | 9         |
+
+Pokemon is 30 years old! That's older than many parents!
+
+## Dinosaurs Example
+
+```sql
+CREATE TABLE Dinosaurs (
+  dino_id INTEGER PRIMARY KEY,
+  name TEXT,
+  diet TEXT,
+  length_meters REAL,
+  weight_tons REAL,
+  period TEXT,
+  discovered_year INTEGER
+);
+
+INSERT INTO Dinosaurs VALUES
+  (1, 'T-Rex', 'Carnivore', 12.0, 8.4, 'Cretaceous', 1902),
+  (2, 'Triceratops', 'Herbivore', 9.0, 6.0, 'Cretaceous', 1889),
+  (3, 'Stegosaurus', 'Herbivore', 9.0, 3.5, 'Jurassic', 1877),
+  (4, 'Velociraptor', 'Carnivore', 2.0, 0.015, 'Cretaceous', 1923),
+  (5, 'Brachiosaurus', 'Herbivore', 25.0, 56.0, 'Jurassic', 1903),
+  (6, 'Pteranodon', 'Carnivore', 1.8, 0.025, 'Cretaceous', 1876);
+
+SELECT * FROM Dinosaurs;
+```
+
+**Output:**
+| dino_id | name          | diet      | length_meters | weight_tons | period      | discovered_year |
+|---------|---------------|-----------|---------------|-------------|-------------|-----------------|
+| 1       | T-Rex         | Carnivore | 12.0          | 8.4         | Cretaceous  | 1902            |
+| 2       | Triceratops   | Herbivore | 9.0           | 6.0         | Cretaceous  | 1889            |
+| 3       | Stegosaurus   | Herbivore | 9.0           | 3.5         | Jurassic    | 1877            |
+| 4       | Velociraptor  | Carnivore | 2.0           | 0.015       | Cretaceous  | 1923            |
+| 5       | Brachiosaurus | Herbivore | 25.0          | 56.0        | Jurassic    | 1903            |
+| 6       | Pteranodon    | Carnivore | 1.8           | 0.025       | Cretaceous  | 1876            |
+
+### Names and Diets
+```sql
+SELECT name, diet FROM Dinosaurs;
+```
+
+**Output:**
+| name          | diet      |
+|---------------|-----------|
+| T-Rex         | Carnivore |
+| Triceratops   | Herbivore |
+| Stegosaurus   | Herbivore |
+| Velociraptor  | Carnivore |
+| Brachiosaurus | Herbivore |
+| Pteranodon    | Carnivore |
+
+### Size Comparison
+```sql
+SELECT 
+  name,
+  length_meters,
+  weight_tons,
+  weight_tons * 1000 as weight_kilograms
+FROM Dinosaurs;
+```
+
+**Output:**
+| name          | length_meters | weight_tons | weight_kilograms |
+|---------------|---------------|-------------|------------------|
+| T-Rex         | 12.0          | 8.4         | 8400.0           |
+| Triceratops   | 9.0           | 6.0         | 6000.0           |
+| Stegosaurus   | 9.0           | 3.5         | 3500.0           |
+| Velociraptor  | 2.0           | 0.015       | 15.0             |
+| Brachiosaurus | 25.0          | 56.0        | 56000.0          |
+| Pteranodon    | 1.8           | 0.025       | 25.0             |
+
+Brachiosaurus weighs as much as about 40 cars!
+
+## Using AS to Rename Columns
+
+The `AS` keyword lets you give columns a new, friendlier name in your results:
+
+```sql
+SELECT 
+  flavor_name AS Flavor,
+  price AS Cost,
+  scoops_sold AS Popularity
+FROM IceCream;
+```
+
+**Output:**
+| Flavor       | Cost | Popularity |
+|--------------|------|------------|
+| Vanilla      | 3.50 | 450        |
+| Chocolate    | 3.50 | 520        |
+| Strawberry   | 3.75 | 380        |
+| Mint Chip    | 4.00 | 290        |
+| Cookie Dough | 4.25 | 510        |
+| Bubblegum    | 3.50 | 220        |
+| Rocky Road   | 4.00 | 340        |
+
+See how the column names changed? Much friendlier!
+
+## Quick Tips
+
+### Tip 1: SELECT Everything is Lazy (but OK for learning!)
+```sql
+SELECT * FROM Table;  -- Quick but shows everything
+SELECT name, age FROM Table;  -- Better - only what you need!
+```
+
+### Tip 2: Calculations are Fun!
+```sql
+SELECT price * 2 as double_price FROM IceCream;
+SELECT age + 10 as age_in_10_years FROM Customers;
+```
+
+### Tip 3: You Can Select Without a Table!
+```sql
+SELECT 5 + 5;  -- Shows: 10
+SELECT 'Hello World!';  -- Shows: Hello World!
+SELECT 2026 - 1996;  -- Shows: 30
+```
+
+This works in Programiz! Try it!
+
+:::tip[Column Names Matter!]
+When you select columns, spell them exactly right! SQL is case-sensitive in some databases. If you get an error saying "no such column", check your spelling!
+:::
+
+:::note[Challenges!]
+Open the [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and try:
+
+**Challenge 1:** Create a table of your favorite books with columns: book_id, title, author, pages, rating (1-10)
+
+**Challenge 2:** SELECT just the titles and ratings
+
+**Challenge 3:** Calculate how many hours it would take to read each book (assume 1 minute per page)
+
+**Challenge 4:** Use AS to rename the calculated column to "reading_time_minutes"
+
+Show your coolest query to a friend!
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Used `SELECT *` to get all columns
+- [ ] Selected specific columns with `SELECT column1, column2`
+- [ ] Created my own table with `CREATE TABLE`
+- [ ] Inserted data with `INSERT INTO`
+- [ ] Used `AS` to rename columns
+- [ ] Calculated values in SELECT (math operations)
+- [ ] Combined multiple columns with `||`
+- [ ] Used `DISTINCT` to remove duplicates
+- [ ] Practiced with fun examples (ice cream, pets, books)
+- [ ] Understood the difference between `*` and specific columns
+</Checklist>
+</Box>
+
+Ready to learn how to filter your data? Let's go to the next page!

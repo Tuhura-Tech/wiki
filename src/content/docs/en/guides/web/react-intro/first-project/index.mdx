@@ -1,0 +1,597 @@
+---
+title: Build Your First App!
+description: Step-by-step guide to building a fun Emoji Mood Tracker app from scratch!
+sidebar:
+  order: 13.5
+
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+Ready to build something awesome? Let's create an Emoji Mood Tracker together! You'll track how you're feeling each day with fun emojis. This project brings together everything you've learned!
+
+## What We're Building
+
+An app where you can:
+- Click emoji buttons to log your mood
+- See a list of all your moods
+- Delete mood entries
+- Save everything to localStorage (so it stays even when you close the browser!)
+- Make it look colorful and fun!
+
+## Building the Mood Tracker
+
+<Steps>
+
+1. **Set Up Your Project**
+
+    Create a new component file called `MoodTracker.jsx`:
+
+    ```jsx
+    import { useState } from 'react'
+
+    function MoodTracker() {
+      return (
+        <div>
+          <h1>My Mood Tracker</h1>
+          <p>How are you feeling today?</p>
+        </div>
+      )
+    }
+
+    export default MoodTracker
+    ```
+
+    Add it to your `App.jsx`:
+
+    ```jsx
+    import MoodTracker from './MoodTracker'
+
+    function App() {
+      return <MoodTracker />
+    }
+
+    export default App
+    ```
+
+    Run your app and you should see the title!
+
+2. **Add the Mood Buttons**
+
+    Let's create buttons for different moods:
+
+    ```jsx
+    import { useState } from 'react'
+
+    const MOODS = [
+      { emoji: '😊', name: 'Happy' },
+      { emoji: '😢', name: 'Sad' },
+      { emoji: '😴', name: 'Tired' },
+      { emoji: '😎', name: 'Cool' },
+      { emoji: '🤯', name: 'Stressed' },
+      { emoji: '😋', name: 'Hungry' },
+    ]
+
+    function MoodTracker() {
+      return (
+        <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: '20px',
+          fontFamily: 'system-ui'
+        }}>
+          <h1 style={{ textAlign: 'center' }}>🌈 My Mood Tracker</h1>
+          <p style={{ textAlign: 'center', color: '#666' }}>
+            How are you feeling today?
+          </p>
+          
+          <div style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            margin: '20px 0'
+          }}>
+            {MOODS.map(mood => (
+              <button
+                key={mood.name}
+                style={{
+                  fontSize: '32px',
+                  padding: '15px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s'
+                }}
+                onMouseOver={e => e.target.style.transform = 'scale(1.1)'}
+                onMouseOut={e => e.target.style.transform = 'scale(1)'}
+                title={mood.name}
+              >
+                {mood.emoji}
+              </button>
+            ))}
+          </div>
+        </div>
+      )
+    }
+
+    export default MoodTracker
+    ```
+
+    Now you have 6 emoji buttons! When you hover over them, they grow bigger. Cool!
+
+3. **Add State to Track Moods**
+
+    Let's store the moods you click:
+
+    ```jsx
+    import { useState } from 'react'
+
+    const MOODS = [
+      { emoji: '😊', name: 'Happy' },
+      { emoji: '😢', name: 'Sad' },
+      { emoji: '😴', name: 'Tired' },
+      { emoji: '😎', name: 'Cool' },
+      { emoji: '🤯', name: 'Stressed' },
+      { emoji: '😋', name: 'Hungry' },
+    ]
+
+    function MoodTracker() {
+      const [moods, setMoods] = useState([])
+      
+      const addMood = (mood) => {
+        const newEntry = {
+          id: Date.now(), // Unique ID based on time
+          emoji: mood.emoji,
+          name: mood.name,
+          timestamp: new Date().toLocaleString()
+        }
+        setMoods([newEntry, ...moods]) // Add to the beginning
+      }
+      
+      return (
+        <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: '20px',
+          fontFamily: 'system-ui'
+        }}>
+          <h1 style={{ textAlign: 'center' }}>🌈 My Mood Tracker</h1>
+          <p style={{ textAlign: 'center', color: '#666' }}>
+            How are you feeling today?
+          </p>
+          
+          <div style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            margin: '20px 0'
+          }}>
+            {MOODS.map(mood => (
+              <button
+                key={mood.name}
+                onClick={() => addMood(mood)}
+                style={{
+                  fontSize: '32px',
+                  padding: '15px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s'
+                }}
+                onMouseOver={e => e.target.style.transform = 'scale(1.1)'}
+                onMouseOut={e => e.target.style.transform = 'scale(1)'}
+                title={mood.name}
+              >
+                {mood.emoji}
+              </button>
+            ))}
+          </div>
+          
+          <p style={{ textAlign: 'center', color: '#888' }}>
+            Total moods tracked: {moods.length}
+          </p>
+        </div>
+      )
+    }
+
+    export default MoodTracker
+    ```
+
+    Now when you click an emoji, the count goes up! But we can't see the moods yet...
+
+4. **Display the Mood List**
+
+    Let's show all the moods you've logged:
+
+    ```jsx
+    // ... (keep all the code from Step 3)
+
+    function MoodTracker() {
+      const [moods, setMoods] = useState([])
+      
+      const addMood = (mood) => {
+        const newEntry = {
+          id: Date.now(),
+          emoji: mood.emoji,
+          name: mood.name,
+          timestamp: new Date().toLocaleString()
+        }
+        setMoods([newEntry, ...moods])
+      }
+      
+      const deleteMood = (id) => {
+        setMoods(moods.filter(mood => mood.id !== id))
+      }
+      
+      return (
+        <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: '20px',
+          fontFamily: 'system-ui'
+        }}>
+          <h1 style={{ textAlign: 'center' }}>🌈 My Mood Tracker</h1>
+          <p style={{ textAlign: 'center', color: '#666' }}>
+            How are you feeling today?
+          </p>
+          
+          {/* Mood buttons - same as before */}
+          <div style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            margin: '20px 0'
+          }}>
+            {MOODS.map(mood => (
+              <button
+                key={mood.name}
+                onClick={() => addMood(mood)}
+                style={{
+                  fontSize: '32px',
+                  padding: '15px',
+                  border: '2px solid #e0e0e0',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s'
+                }}
+                onMouseOver={e => e.target.style.transform = 'scale(1.1)'}
+                onMouseOut={e => e.target.style.transform = 'scale(1)'}
+                title={mood.name}
+              >
+                {mood.emoji}
+              </button>
+            ))}
+          </div>
+          
+          <h2>📝 My Mood History</h2>
+          
+          {moods.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#999' }}>
+              No moods yet! Click an emoji to get started! 🎯
+            </p>
+          ) : (
+            <div>
+              {moods.map(mood => (
+                <div 
+                  key={mood.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '15px',
+                    margin: '10px 0',
+                    backgroundColor: '#f9fafb',
+                    borderRadius: '8px',
+                    border: '1px solid #e5e7eb'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <span style={{ fontSize: '28px' }}>{mood.emoji}</span>
+                    <div>
+                      <strong>{mood.name}</strong>
+                      <div style={{ fontSize: '12px', color: '#888' }}>
+                        {mood.timestamp}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => deleteMood(mood.id)}
+                    style={{
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      padding: '8px 15px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontSize: '14px'
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )
+    }
+
+    export default MoodTracker
+    ```
+
+    Amazing! Now you can:
+    - Click emojis to add moods
+    - See all your moods in a list
+    - Delete any mood
+
+5. **Save to localStorage**
+
+    Let's make sure your moods don't disappear when you refresh! We'll use localStorage and useEffect:
+
+    ```jsx
+    import { useState, useEffect } from 'react'
+
+    const MOODS = [
+      { emoji: '😊', name: 'Happy' },
+      { emoji: '😢', name: 'Sad' },
+      { emoji: '😴', name: 'Tired' },
+      { emoji: '😎', name: 'Cool' },
+      { emoji: '🤯', name: 'Stressed' },
+      { emoji: '😋', name: 'Hungry' },
+    ]
+
+    function MoodTracker() {
+      const [moods, setMoods] = useState([])
+      
+      // Load moods from localStorage when component mounts
+      useEffect(() => {
+        const saved = localStorage.getItem('moods')
+        if (saved) {
+          setMoods(JSON.parse(saved))
+        }
+      }, [])
+      
+      // Save moods to localStorage whenever they change
+      useEffect(() => {
+        localStorage.setItem('moods', JSON.stringify(moods))
+      }, [moods])
+      
+      const addMood = (mood) => {
+        const newEntry = {
+          id: Date.now(),
+          emoji: mood.emoji,
+          name: mood.name,
+          timestamp: new Date().toLocaleString()
+        }
+        setMoods([newEntry, ...moods])
+      }
+      
+      const deleteMood = (id) => {
+        setMoods(moods.filter(mood => mood.id !== id))
+      }
+      
+      const clearAll = () => {
+        if (window.confirm('Delete all moods? This cannot be undone!')) {
+          setMoods([])
+        }
+      }
+      
+      return (
+        <div style={{ 
+          maxWidth: '600px', 
+          margin: '0 auto', 
+          padding: '20px',
+          fontFamily: 'system-ui',
+          backgroundColor: '#fefce8',
+          minHeight: '100vh'
+        }}>
+          <h1 style={{ textAlign: 'center', color: '#854d0e' }}>🌈 My Mood Tracker</h1>
+          <p style={{ textAlign: 'center', color: '#a16207' }}>
+            How are you feeling today?
+          </p>
+          
+          <div style={{ 
+            display: 'flex', 
+            gap: '10px', 
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            margin: '20px 0'
+          }}>
+            {MOODS.map(mood => (
+              <button
+                key={mood.name}
+                onClick={() => addMood(mood)}
+                style={{
+                  fontSize: '32px',
+                  padding: '15px',
+                  border: '2px solid #fbbf24',
+                  borderRadius: '12px',
+                  backgroundColor: 'white',
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+                }}
+                onMouseOver={e => {
+                  e.target.style.transform = 'scale(1.15)'
+                  e.target.style.boxShadow = '0 4px 12px rgba(251,191,36,0.5)'
+                }}
+                onMouseOut={e => {
+                  e.target.style.transform = 'scale(1)'
+                  e.target.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)'
+                }}
+                title={mood.name}
+              >
+                {mood.emoji}
+              </button>
+            ))}
+          </div>
+          
+          <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center',
+            marginBottom: '15px'
+          }}>
+            <h2 style={{ color: '#854d0e' }}>📝 My Mood History</h2>
+            {moods.length > 0 && (
+              <button
+                onClick={clearAll}
+                style={{
+                  backgroundColor: '#dc2626',
+                  color: 'white',
+                  border: 'none',
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '14px'
+                }}
+              >
+                Clear All
+              </button>
+            )}
+          </div>
+          
+          {moods.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#a16207', fontSize: '18px' }}>
+              No moods yet! Click an emoji above to get started! 🎯
+            </p>
+          ) : (
+            <div>
+              {moods.map(mood => (
+                <div 
+                  key={mood.id}
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    padding: '15px',
+                    margin: '10px 0',
+                    backgroundColor: 'white',
+                    borderRadius: '10px',
+                    border: '2px solid #fde047',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+                    <span style={{ fontSize: '32px' }}>{mood.emoji}</span>
+                    <div>
+                      <strong style={{ color: '#854d0e', fontSize: '16px' }}>
+                        {mood.name}
+                      </strong>
+                      <div style={{ fontSize: '13px', color: '#a16207' }}>
+                        {mood.timestamp}
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => deleteMood(mood.id)}
+                    style={{
+                      backgroundColor: '#ef4444',
+                      color: 'white',
+                      border: 'none',
+                      padding: '8px 15px',
+                      borderRadius: '6px',
+                      cursor: 'pointer',
+                      fontSize: '14px',
+                      transition: 'background-color 0.2s'
+                    }}
+                    onMouseOver={e => e.target.style.backgroundColor = '#dc2626'}
+                    onMouseOut={e => e.target.style.backgroundColor = '#ef4444'}
+                  >
+                    Delete
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          
+          <div style={{ 
+            marginTop: '30px', 
+            padding: '20px', 
+            backgroundColor: 'white',
+            borderRadius: '10px',
+            border: '2px solid #fde047',
+            textAlign: 'center'
+          }}>
+            <p style={{ color: '#854d0e', margin: 0 }}>
+              <strong>Total moods tracked:</strong> {moods.length} 🎊
+            </p>
+          </div>
+        </div>
+      )
+    }
+
+    export default MoodTracker
+    ```
+
+</Steps>
+
+## You Did It!
+
+Congratulations! You built a complete app with:
+
+**State management** - tracking moods with `useState`  
+**Event handling** - click buttons to add moods  
+**Lists** - displaying and mapping over mood entries  
+**Conditional rendering** - showing different content based on whether there are moods  
+**localStorage** - saving data that persists across sessions  
+**useEffect** - loading and saving data at the right time  
+**Beautiful styling** - colorful, fun design with hover effects  
+
+## Bonus Challenges
+
+Want to make it even better? Try these:
+
+**Challenge 1: Mood Stats**  
+Add a section that shows:
+- Which mood you've logged the most
+- How many times you've been happy vs sad
+- Your most recent mood
+
+**Challenge 2: Filter by Mood**  
+Add buttons to filter the list to show only specific moods (like "Show only Happy moods")
+
+**Challenge 3: Dark Mode**  
+Add a toggle button to switch between light and dark themes!
+
+**Challenge 4: Edit Moods**  
+Allow users to click on a mood entry to add a note explaining why they felt that way
+
+**Challenge 5: Weekly View**  
+Show moods grouped by day for the current week
+
+:::tip[You're a React Pro Now!]
+This project combines almost everything from the React guide. You used components, props, state, hooks, events, lists, conditional rendering, styling, and localStorage! Amazing work!
+:::
+
+<Box icon="check-list">
+
+## Checklist
+
+<Checklist>
+- [ ] Created the MoodTracker component
+- [ ] Added mood buttons with emojis
+- [ ] Implemented state to track moods
+- [ ] Added functionality to add new moods
+- [ ] Displayed the list of moods with timestamps
+- [ ] Added delete functionality for individual moods
+- [ ] Implemented localStorage to persist data
+- [ ] Used useEffect to load and save moods
+- [ ] Added a "Clear All" button
+- [ ] Styled the app with colors and hover effects
+- [ ] Tested that moods persist after page reload
+</Checklist>
+
+</Box>
+
+:::note[Share Your App!]
+Show your Mood Tracker to friends and family! Maybe they want to track their moods too. You could even expand it into a family mood tracker where everyone can log their feelings!
+:::
