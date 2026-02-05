@@ -1,0 +1,46 @@
+---
+title: Animations & Transitions
+description: Simple animations using CSS transitions and React state.
+sidebar:
+  order: 6.1
+
+---
+
+import ColorBox from './ColorBox.jsx'
+
+Animations make apps feel alive. Start small with CSS transitions and toggle styles from React.
+
+## Color transition example
+
+```jsx
+import { useState } from 'react'
+
+function ColorBox() {
+  const [on, setOn] = useState(false)
+  return (
+    <div>
+      <div style={{
+        width: 120,
+        height: 80,
+        background: on ? '#16a34a' : '#334155',
+        transition: 'background-color 300ms ease',
+        borderRadius: 8,
+        marginBottom: 8
+      }} />
+      <button onClick={() => setOn(o => !o)}>{on ? 'Turn off' : 'Turn on'}</button>
+    </div>
+  )
+}
+```
+
+**Output:**
+
+<ColorBox client:load />
+
+:::tip[Performance]
+Prefer CSS transitions for simple animations — they are fast and work well across browsers.
+:::
+
+:::note[Try this]
+Add `ColorBox` and click the button to see the color animate. Experiment with different easing or durations.
+:::

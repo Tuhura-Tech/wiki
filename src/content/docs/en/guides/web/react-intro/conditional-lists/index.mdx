@@ -1,0 +1,204 @@
+---
+title: Conditional Rendering & Lists
+description: Showing or hiding elements based on conditions and rendering arrays of data.
+sidebar:
+  order: 5.5
+
+---
+
+Want to show different things based on conditions? Or display a list of items? This is where React really shines! Let's learn how to make your components smart and dynamic.
+
+## Conditional rendering with if/else
+
+Sometimes you want to show different content based on a condition. The simplest way is with a regular if statement:
+
+```jsx
+function Greeting({ isLoggedIn }) {
+  if (isLoggedIn) {
+    return <h1>Welcome back!</h1>
+  }
+  return <h1>Please sign in</h1>
+}
+```
+
+**Output (when isLoggedIn is true):**
+
+<h1>Welcome back!</h1>
+
+**Output (when isLoggedIn is false):**
+
+<h1>Please sign in</h1>
+
+## Using the ternary operator
+
+A shorter way is the ternary operator (`condition ? true : false`):
+
+```jsx
+function StatusMessage({ hasMessages }) {
+  return (
+    <p>
+      {hasMessages ? 'You have new messages!' : 'No messages'}
+    </p>
+  )
+}
+```
+
+**Output (when hasMessages is true):**
+
+<p>You have new messages!</p>
+
+**Output (when hasMessages is false):**
+
+<p>No messages</p>
+
+## Showing/hiding with &&
+
+Use `&&` when you only want to show something if a condition is true:
+
+```jsx
+function Notification({ count }) {
+  return (
+    <div>
+      <h2>Notifications</h2>
+      {count > 0 && <p>You have {count} notifications</p>}
+      {count === 0 && <p>All clear!</p>}
+    </div>
+  )
+}
+```
+
+**Output (when count is 3):**
+
+<div>
+  <h2>Notifications</h2>
+  <p>You have 3 notifications</p>
+</div>
+
+**Output (when count is 0):**
+
+<div>
+  <h2>Notifications</h2>
+  <p>All clear!</p>
+</div>
+
+## Rendering lists with map()
+
+To show a list of items, use the `map()` function. Each item needs a unique `key`:
+
+```jsx
+function FruitList() {
+  const fruits = ['Apple', 'Banana', 'Orange', 'Mango']
+  
+  return (
+    <ul>
+      {fruits.map((fruit, index) => (
+        <li key={index}>{fruit}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+**Output:**
+
+<ul>
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Orange</li>
+  <li>Mango</li>
+</ul>
+
+## Lists with objects
+
+Usually you'll map over objects with IDs:
+
+```jsx
+function UserList() {
+  const users = [
+    { id: 1, name: 'Alice', age: 12 },
+    { id: 2, name: 'Bob', age: 13 },
+    { id: 3, name: 'Charlie', age: 11 }
+  ]
+  
+  return (
+    <ul>
+      {users.map(user => (
+        <li key={user.id}>
+          {user.name} (age {user.age})
+        </li>
+      ))}
+    </ul>
+  )
+}
+```
+
+**Output:**
+
+<ul>
+  <li>Alice (age 12)</li>
+  <li>Bob (age 13)</li>
+  <li>Charlie (age 11)</li>
+</ul>
+
+## Combining conditionals and lists
+
+You can filter lists before mapping them:
+
+```jsx
+function FilteredList() {
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  const evenNumbers = numbers.filter(n => n % 2 === 0)
+  
+  return (
+    <div>
+      <h3>Even numbers:</h3>
+      <ul>
+        {evenNumbers.map(num => (
+          <li key={num}>{num}</li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+```
+
+**Output:**
+
+<div>
+  <h3>Even numbers:</h3>
+  <ul>
+    <li>2</li>
+    <li>4</li>
+    <li>6</li>
+    <li>8</li>
+    <li>10</li>
+  </ul>
+</div>
+
+## Empty list handling
+
+Always handle the case when your list might be empty:
+
+```jsx
+function SmartList({ items }) {
+  return (
+    <div>
+      {items.length > 0 ? (
+        <ul>
+          {items.map(item => <li key={item}>{item}</li>)}
+        </ul>
+      ) : (
+        <p>No items to show</p>
+      )}
+    </div>
+  )
+}
+```
+
+:::tip[Why keys matter]
+Keys help React identify which items changed, were added, or removed. Always use unique, stable IDs (not array indexes if the list can change)!
+:::
+
+:::note[Challenge time!]
+Create a list of your favorite games or hobbies (at least 3). Then add a button that toggles between showing all items and only showing the first one. Bonus: add a search input that filters the list as you type!
+:::

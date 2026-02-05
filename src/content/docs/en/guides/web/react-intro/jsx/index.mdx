@@ -1,0 +1,94 @@
+---
+title: JSX & Rendering
+description: Learn JSX syntax, embedding expressions, and how React renders elements.
+sidebar:
+  order: 3
+
+---
+
+Hey coder, get ready for JSX, it's like a superpower that lets you mix HTML and JavaScript in a fun way! JSX looks just like HTML, but it's actually JavaScript under the hood. Your browser needs a little help to understand it, so build tools like Vite turn it into regular JavaScript.
+
+## A simple JSX example
+
+Check out this cool greeting component:
+
+```jsx
+function Greeting({ name }) {
+  return <h1>Hello, {name}!</h1>;
+}
+
+export default function App() {
+  return <Greeting name="Tuhura" />;
+}
+```
+
+**Output:**
+
+<h1>Hello, Tuhura!</h1>
+
+## Embedding expressions
+
+The magic of JSX is that you can put JavaScript inside curly braces `{}`. It's like a secret portal that lets you drop any JavaScript code right into your HTML!
+
+```jsx
+const count = 3;
+return <p>You have {count} new messages.</p>;
+```
+
+**Output:**
+
+<p>You have 3 new messages.</p>
+
+### More fun with expressions!
+
+You can do math, call functions, and even combine conditions!
+
+```jsx
+function App() {
+  const score = 95;
+  const grade = score >= 90 ? 'A' : 'B';
+  
+  return (
+    <div>
+      <p>Your score: {score}</p>
+      <p>Grade: {grade}</p>
+      <p>Double score: {score * 2}</p>
+    </div>
+  );
+}
+```
+
+**Output:**
+
+<div>
+  <p>Your score: 95</p>
+  <p>Grade: A</p>
+  <p>Double score: 190</p>
+</div>
+
+## Rendering your app
+
+This is how React connects your components to the page:
+
+```jsx
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App'
+
+createRoot(document.getElementById('root')).render(<App />)
+```
+
+This tells React to take your App component and display it in the HTML element with id "root". Easy peasy!
+
+:::tip[Closing tags]
+Remember: JSX requires closed tags. Self-close empty elements (for example `<br />`). Missing closing tags will usually cause compile errors.
+:::
+
+:::note[Experiment time!]
+Try mixing JavaScript into your JSX! Make two paragraphs in `App`:
+
+1. In the first, show a variable (maybe `const favoriteNumber = 42`), then display it with `{favoriteNumber}`.
+2. In the second, try some fun math like `{5 * 8}` or text tricks like `{"react".toUpperCase()}`.
+
+Save and watch your browser update—JavaScript inside HTML, how cool is that?!
+:::

@@ -1,0 +1,210 @@
+---
+title: Styling React Components
+description: Different ways to style your React components with CSS, inline styles, and CSS modules.
+sidebar:
+  order: 6.5
+
+---
+
+Time to make your React apps look amazing! There are several ways to add styles in React, and each has its own superpowers. Let's explore the coolest ways to make your components beautiful.
+
+## Inline styles
+
+You can add styles directly in JSX using the `style` prop. Use an object with camelCase property names:
+
+```jsx
+function StyledButton() {
+  const buttonStyle = {
+    backgroundColor: 'blue',
+    color: 'white',
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '5px',
+    cursor: 'pointer'
+  }
+  
+  return <button style={buttonStyle}>Cool Button</button>
+}
+```
+
+**Output:**
+
+<button style="background-color: blue; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">Cool Button</button>
+
+### Quick inline styles
+
+For simple styles, write them directly:
+
+```jsx
+function ColoredText() {
+  return (
+    <p style={{ color: 'purple', fontSize: '20px', fontWeight: 'bold' }}>
+      I'm purple and bold!
+    </p>
+  )
+}
+```
+
+**Output:**
+
+<p style="color: purple; font-size: 20px; font-weight: bold;">
+  I'm purple and bold!
+</p>
+
+## CSS classes (the classic way)
+
+Import a CSS file and use className (not class!):
+
+**styles.css:**
+```css
+.card {
+  background: lightblue;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.title {
+  color: darkblue;
+  font-size: 24px;
+}
+```
+
+**Component:**
+```jsx
+import './styles.css'
+
+function Card() {
+  return (
+    <div className="card">
+      <h2 className="title">My Card</h2>
+      <p>This is some content</p>
+    </div>
+  )
+}
+```
+
+**Output:**
+
+<div style="background: lightblue; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+  <h2 style="color: darkblue; font-size: 24px;">My Card</h2>
+  <p>This is some content</p>
+</div>
+
+## Conditional classes
+
+Combine classes based on conditions:
+
+```jsx
+function StatusBadge({ status }) {
+  const badgeClass = status === 'active' ? 'badge active' : 'badge inactive'
+  
+  return <span className={badgeClass}>{status}</span>
+}
+```
+
+Or use template literals for more control:
+
+```jsx
+function Button({ primary, large }) {
+  const buttonClass = `btn ${primary ? 'btn-primary' : 'btn-secondary'} ${large ? 'btn-large' : ''}`
+  
+  return <button className={buttonClass}>Click me</button>
+}
+```
+
+## Dynamic inline styles
+
+Change styles based on state:
+
+```jsx
+import { useState } from 'react'
+
+function ColorSwitcher() {
+  const [isRed, setIsRed] = useState(true)
+  
+  const boxStyle = {
+    width: '100px',
+    height: '100px',
+    backgroundColor: isRed ? 'red' : 'blue',
+    transition: 'background-color 0.3s'
+  }
+  
+  return (
+    <div>
+      <div style={boxStyle}></div>
+      <button onClick={() => setIsRed(!isRed)}>
+        Change Color
+      </button>
+    </div>
+  )
+}
+```
+
+**Output (initial - red box):**
+
+<div>
+  <div style="width: 100px; height: 100px; background-color: red;"></div>
+  <button>Change Color</button>
+</div>
+
+## CSS Modules (advanced)
+
+CSS Modules keep your styles scoped to one component (no conflicts!):
+
+**Button.module.css:**
+```css
+.primary {
+  background-color: green;
+  color: white;
+  padding: 10px 15px;
+}
+
+.secondary {
+  background-color: gray;
+  color: white;
+  padding: 10px 15px;
+}
+```
+
+**Button.jsx:**
+```jsx
+import styles from './Button.module.css'
+
+function Button({ variant }) {
+  return (
+    <button className={styles[variant]}>
+      {variant} Button
+    </button>
+  )
+}
+```
+
+## Popular styling libraries
+
+For bigger projects, these libraries make styling easier:
+
+- **Tailwind CSS** - Utility classes like `bg-blue-500 p-4 rounded`
+- **styled-components** - Write CSS directly in JavaScript
+- **Emotion** - Similar to styled-components
+- **Chakra UI** - Pre-built beautiful components
+
+Example with Tailwind:
+```jsx
+function TailwindCard() {
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-2xl font-bold text-blue-600">Title</h2>
+      <p className="text-gray-700 mt-2">Content here</p>
+    </div>
+  )
+}
+```
+
+:::tip[className vs class]
+In React, always use `className` instead of `class` because `class` is a reserved word in JavaScript!
+:::
+
+:::note[Get creative!]
+Create a colorful card component with a title and description. Add a button that changes the card's background color when clicked. Use inline styles or CSS classes - your choice! Make it fun and colorful!
+:::

@@ -1,0 +1,45 @@
+---
+title: Saving data (localStorage)
+description: Persist simple data in the browser so it stays after refresh.
+sidebar:
+  order: 5.2
+
+---
+
+You can save small bits of information in the browser so your app "remembers" things after a refresh. This is great for keeping a player's name, theme choice, or last-level reached.
+
+## Save a name in localStorage
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function SaveName() {
+  const [name, setName] = useState(() => {
+    return window.localStorage.getItem('name') || ''
+  })
+
+  useEffect(() => {
+    window.localStorage.setItem('name', name)
+  }, [name])
+
+  return (
+    <div>
+      <input value={name} onChange={e => setName(e.target.value)} placeholder="Your name" />
+      <p>Saved name: {name}</p>
+    </div>
+  )
+}
+```
+
+**Output (after typing):**
+
+<div>
+  <input value="Alex" placeholder="Your name" />
+  <p>Saved name: Alex</p>
+</div>
+
+Note: data stored in `localStorage` stays until cleared or removed by your code.
+
+:::note[Try this]
+Add `SaveName` to your app, type a name, then reload the page — the name should still be there.
+:::

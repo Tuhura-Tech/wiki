@@ -1,0 +1,103 @@
+---
+title: Forms & Validation
+description: Controlled components, handling input, and simple validation patterns.
+sidebar:
+  order: 7
+
+---
+
+Forms are how users talk to your app! They type their name, pick their favorite color, or send you a message. In React, we make forms extra smart by connecting them to state.
+
+## Controlled components
+
+A "controlled" input is like a puppet — React controls what it shows! Every time someone types, React updates the state, and the input shows what's in the state. This means React is always the boss!
+
+```jsx
+import { useState } from 'react'
+
+function ContactForm() {
+  const [name, setName] = useState('')
+
+  return (
+    <form onSubmit={(e) => { e.preventDefault(); alert(name); }}>
+      <label>
+        Name
+        <input value={name} onChange={e => setName(e.target.value)} />
+      </label>
+      <button type="submit">Send</button>
+    </form>
+  )
+}
+```
+
+**Output (initial):**
+
+<form>
+  <label>
+    Name
+    <input value="" />
+  </label>
+  <button type="submit">Send</button>
+</form>
+
+**Output (after typing "Alex"):**
+
+<form>
+  <label>
+    Name
+    <input value="Alex" />
+  </label>
+  <button type="submit">Send</button>
+</form>
+
+**When submitted, shows alert:** "Alex"
+
+## Simple validation
+
+Validation is like a guard that checks if everything is okay before sending! You can check if a name is too short, if an email looks right, or if a password is strong enough.
+
+```jsx
+function validateName(n) { 
+  return n.trim().length > 1 
+}
+
+function SmartForm() {
+  const [name, setName] = useState('')
+  const [error, setError] = useState('')
+  
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (validateName(name)) {
+      alert(`Welcome, ${name}!`)
+    } else {
+      setError('Name must be at least 2 characters!')
+    }
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <input value={name} onChange={e => setName(e.target.value)} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit">Send</button>
+    </form>
+  )
+}
+```
+
+**Output (with error):**
+
+<form>
+  <input value="A" />
+  <p style="color: red;">Name must be at least 2 characters!</p>
+  <button type="submit">Send</button>
+</form>
+
+For bigger, fancier forms consider libraries like `react-hook-form` — they make forms super easy!
+
+:::tip[Closing tags]
+In JSX remember to close empty elements (for example `<input />`). Unclosed tags will usually cause an error.
+:::
+
+:::note[Build something cool!]
+Create a mini contact form with a name input. Add a paragraph that tells users what to do, and another that appears when they type something too short (like "Name must be longer!"). Make it colorful with some CSS!
+:::

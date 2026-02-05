@@ -1,0 +1,35 @@
+---
+title: Debugging & DevTools
+description: Simple tips for finding and fixing bugs using the browser DevTools and console.
+sidebar:
+  order: 9.5
+
+---
+
+Bugs happen — that's okay. Learning how to find them quickly makes you a better developer. The browser DevTools and simple logging are your friends.
+
+## Use console.log wisely
+
+```jsx
+function ShowThings() {
+  const x = 5
+  console.log('value of x', x)
+  return <p>Look at the console</p>
+}
+```
+
+## Inspect elements and state
+
+Open DevTools (F12) to inspect elements, view network requests, and check for errors in the Console tab.
+
+## React DevTools
+
+Install the React DevTools extension to inspect component trees and props — it helps you see which components rendered and why.
+
+:::note[Tip]
+If something doesn't render, check the Console for errors and ensure components are exported and imported correctly.
+:::
+
+:::note[Try this]
+Open DevTools, cause a deliberate error (for learning) and read the stack trace. Then fix the code and watch the error disappear.
+:::

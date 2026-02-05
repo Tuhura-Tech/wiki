@@ -1,0 +1,158 @@
+---
+title: Events & Interactivity
+description: Handling user interactions like clicks, input changes, and keyboard events.
+sidebar:
+  order: 4.5
+
+---
+
+Time to make your apps respond to what users do! Events are actions like clicking a button, typing in a box, or moving the mouse. React makes it super easy to listen for these events and do something cool when they happen.
+
+## Click events
+
+The most common event is a click! Use `onClick` to run code when someone clicks something.
+
+```jsx
+function ClickButton() {
+  const handleClick = () => {
+    alert('You clicked me!')
+  }
+  
+  return <button onClick={handleClick}>Click me!</button>
+}
+```
+
+**Output:**
+
+<button>Click me!</button>
+
+**After clicking, shows alert:** "You clicked me!"
+
+### Inline event handlers
+
+You can also write the function directly in the JSX (called an "inline" function):
+
+```jsx
+function InlineButton() {
+  return (
+    <button onClick={() => alert('Quick click!')}>
+      Fast Alert
+    </button>
+  )
+}
+```
+
+**Output:**
+
+<button>Fast Alert</button>
+
+## Input events
+
+When you want to track what someone types, use `onChange`:
+
+```jsx
+import { useState } from 'react'
+
+function NameInput() {
+  const [name, setName] = useState('')
+  
+  return (
+    <div>
+      <input 
+        value={name} 
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Type your name"
+      />
+      <p>Hello, {name}!</p>
+    </div>
+  )
+}
+```
+
+**Output (after typing "Alex"):**
+
+<div>
+  <input value="Alex" placeholder="Type your name" />
+  <p>Hello, Alex!</p>
+</div>
+
+## The event object
+
+Every event handler gets an event object (usually called `e` or `event`) with useful info:
+
+```jsx
+function EventInfo() {
+  const handleClick = (e) => {
+    console.log('Button clicked!')
+    console.log('Event type:', e.type)
+    console.log('Target:', e.target)
+  }
+  
+  return <button onClick={handleClick}>Show event info</button>
+}
+```
+
+Check your browser console to see the event details!
+
+## Common events
+
+Here are the most popular events you'll use:
+
+- `onClick` - When something is clicked
+- `onChange` - When an input value changes
+- `onSubmit` - When a form is submitted
+- `onFocus` - When an element gets focus
+- `onBlur` - When an element loses focus
+- `onKeyDown` - When a key is pressed
+- `onMouseEnter` - When the mouse moves over
+- `onMouseLeave` - When the mouse moves away
+
+```jsx
+function MultiEventDemo() {
+  const [message, setMessage] = useState('Hover over me!')
+  
+  return (
+    <div
+      onMouseEnter={() => setMessage('Mouse is here!')}
+      onMouseLeave={() => setMessage('Mouse left!')}
+      style={{ padding: '20px', border: '2px solid blue' }}
+    >
+      {message}
+    </div>
+  )
+}
+```
+
+**Output (on hover):**
+
+<div style="padding: 20px; border: 2px solid blue;">
+  Mouse is here!
+</div>
+
+## Preventing default behavior
+
+Sometimes you want to stop the browser's normal behavior. For example, prevent a form from reloading the page:
+
+```jsx
+function NoReloadForm() {
+  const handleSubmit = (e) => {
+    e.preventDefault()  // Stops the page reload!
+    alert('Form submitted without reload!')
+  }
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" />
+      <button type="submit">Submit</button>
+    </form>
+  )
+}
+```
+
+:::tip[Event naming]
+In React, event names use camelCase (like `onClick`), not lowercase like in HTML (`onclick`). This is important!
+:::
+
+:::note[Try it!]
+Create a button that changes a paragraph's text when clicked. Then add an input that shows what you type in real-time below it. Experiment with different events like `onMouseEnter` to make things appear when you hover!
+:::

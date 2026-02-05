@@ -1,0 +1,351 @@
+---
+title: Try SQL Online! 
+description: Start writing SQL queries in your browser - no installation needed!
+sidebar:
+  order: 1.5
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+You can start writing SQL right now, without installing anything! Let's explore how to use an online SQL editor to practice your database skills.
+
+## What is an Online SQL Editor?
+
+An online SQL editor is a website where you can write and run SQL code right in your browser! It's perfect for:
+
+- Learning SQL without setup
+- Testing quick queries
+- Experimenting and having fun
+- Practicing anywhere - even on a tablet!
+
+## Meet Programiz SQL Online Compiler
+
+The **Programiz SQL Online Compiler** is a FREE, super-friendly tool perfect for beginners!
+
+**Try it here:** [https://www.programiz.com/sql/online-compiler/](https://www.programiz.com/sql/online-compiler/)
+
+### Why Programiz is Awesome:
+
+- **Free forever** - no sign-up needed!  
+- **Sample database included** - start playing immediately  
+- **Clean interface** - not confusing at all  
+- **Instant results** - see output right away  
+- **Works on any device** - phone, tablet, or computer
+
+## Let's Try It!
+
+<Steps>
+
+1. **Open the Editor**
+
+    1. Go to [https://www.programiz.com/sql/online-compiler/](https://www.programiz.com/sql/online-compiler/)
+    2. You'll see a code editor with some SQL already there!
+    3. Look at the three main areas:
+       - **Left side:** Your SQL code
+       - **Top right:** The "Run SQL" button (the magic button!)
+       - **Bottom:** Where results appear
+
+2. **Your First Query!**
+
+    The editor comes with a sample `Customers` table. Let's see all the customers!
+
+    **Type this code:**
+    ```sql
+    SELECT * FROM Customers;
+    ```
+
+    **Click "Run SQL"** and BOOM!
+
+    **You'll see:**
+
+    | customer_id | first_name | last_name | age | country |
+    |-------------|------------|-----------|-----|---------|
+    | 1           | John       | Doe       | 31  | USA     |
+    | 2           | Robert     | Luna      | 22  | USA     |
+    | 3           | David      | Robinson  | 22  | UK      |
+    | 4           | John       | Reinhardt | 25  | UK      |
+    | 5           | Betty      | Doe       | 28  | UAE     |
+
+    Congratulations! You just ran your first SQL query!
+
+3. **Try Different Queries**
+
+    **Get only names:**
+    ```sql
+    SELECT first_name, last_name FROM Customers;
+    ```
+
+    **Output:**
+    | first_name | last_name |
+    |------------|-----------|
+    | John       | Doe       |
+    | Robert     | Luna      |
+    | David      | Robinson  |
+    | John       | Reinhardt |
+    | Betty      | Doe       |
+
+    **Find customers from USA:**
+    ```sql
+    SELECT * FROM Customers
+    WHERE country = 'USA';
+    ```
+
+    **Output:**
+    | customer_id | first_name | last_name | age | country |
+    |-------------|------------|-----------|-----|---------|
+    | 1           | John       | Doe       | 31  | USA     |
+    | 2           | Robert     | Luna      | 22  | USA     |
+
+    **Count how many customers:**
+    ```sql
+    SELECT COUNT(*) as total_customers FROM Customers;
+    ```
+
+    **Output:**
+
+    Amazing! You're already a SQL explorer!
+
+</Steps>
+## Creating Your Own Tables
+
+You can create your own tables too! Here's a fun example with pets:
+
+```sql
+-- Create a pets table
+CREATE TABLE Pets (
+  pet_id INTEGER PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  age INTEGER,
+  color TEXT
+);
+
+-- Add some pets
+INSERT INTO Pets (pet_id, name, type, age, color)
+VALUES 
+  (1, 'Fluffy', 'Cat', 3, 'Orange'),
+  (2, 'Buddy', 'Dog', 5, 'Brown'),
+  (3, 'Whiskers', 'Cat', 2, 'Gray'),
+  (4, 'Max', 'Dog', 7, 'Black'),
+  (5, 'Goldie', 'Fish', 1, 'Gold');
+
+-- See all pets
+SELECT * FROM Pets;
+```
+
+**Output:**
+| pet_id | name     | type | age | color  |
+|--------|----------|------|-----|--------|
+| 1      | Fluffy   | Cat  | 3   | Orange |
+| 2      | Buddy    | Dog  | 5   | Brown  |
+| 3      | Whiskers | Cat  | 2   | Gray   |
+| 4      | Max      | Dog  | 7   | Black  |
+| 5      | Goldie   | Fish | 1   | Gold   |
+
+**Find all cats:**
+```sql
+SELECT * FROM Pets WHERE type = 'Cat';
+```
+
+**Output:**
+| pet_id | name     | type | age | color  |
+|--------|----------|------|-----|--------|
+| 1      | Fluffy   | Cat  | 3   | Orange |
+| 3      | Whiskers | Cat  | 2   | Gray   |
+
+**Find pets older than 3:**
+```sql
+SELECT name, type, age FROM Pets
+WHERE age > 3
+ORDER BY age;
+```
+
+**Output:**
+| name  | type | age |
+|-------|------|-----|
+| Buddy | Dog  | 5   |
+| Max   | Dog  | 7   |
+
+## Sample Tables for Challenges
+
+### Video Games Table
+
+```sql
+CREATE TABLE Games (
+  game_id INTEGER PRIMARY KEY,
+  title TEXT,
+  platform TEXT,
+  rating INTEGER,
+  release_year INTEGER
+);
+
+INSERT INTO Games VALUES
+  (1, 'Minecraft', 'PC', 10, 2011),
+  (2, 'Mario Kart', 'Switch', 9, 2017),
+  (3, 'Pokemon', 'Switch', 9, 2019),
+  (4, 'Roblox', 'PC', 8, 2006),
+  (5, 'Among Us', 'Mobile', 8, 2018);
+
+SELECT * FROM Games;
+```
+
+**Output:**
+| game_id | title     | platform | rating | release_year |
+|---------|-----------|----------|--------|--------------|
+| 1       | Minecraft | PC       | 10     | 2011         |
+| 2       | Mario Kart| Switch   | 9      | 2017         |
+| 3       | Pokemon   | Switch   | 9      | 2019         |
+| 4       | Roblox    | PC       | 8      | 2006         |
+| 5       | Among Us  | Mobile   | 8      | 2018         |
+
+**Find games with rating 9 or higher:**
+```sql
+SELECT title, rating FROM Games
+WHERE rating >= 9;
+```
+
+**Output:**
+| title      | rating |
+|------------|--------|
+| Minecraft  | 10     |
+| Mario Kart | 9      |
+| Pokemon    | 9      |
+
+### Superheroes Table
+
+```sql
+CREATE TABLE Superheroes (
+  hero_id INTEGER PRIMARY KEY,
+  name TEXT,
+  superpower TEXT,
+  strength_level INTEGER,
+  team TEXT
+);
+
+INSERT INTO Superheroes VALUES
+  (1, 'Spider-Man', 'Web-slinging', 85, 'Avengers'),
+  (2, 'Superman', 'Flight & Strength', 100, 'Justice League'),
+  (3, 'Batman', 'Intelligence', 75, 'Justice League'),
+  (4, 'Iron Man', 'Technology', 90, 'Avengers'),
+  (5, 'Wonder Woman', 'Super Strength', 95, 'Justice League');
+
+SELECT * FROM Superheroes;
+```
+
+**Output:**
+| hero_id | name        | superpower        | strength_level | team           |
+|---------|-------------|-------------------|----------------|----------------|
+| 1       | Spider-Man  | Web-slinging      | 85             | Avengers       |
+| 2       | Superman    | Flight & Strength | 100            | Justice League |
+| 3       | Batman      | Intelligence      | 75             | Justice League |
+| 4       | Iron Man    | Technology        | 90             | Avengers       |
+| 5       | Wonder Woman| Super Strength    | 95             | Justice League |
+
+**Find the strongest heroes (strength > 90):**
+```sql
+SELECT name, superpower, strength_level
+FROM Superheroes
+WHERE strength_level > 90
+ORDER BY strength_level DESC;
+```
+
+**Output:**
+| name         | superpower        | strength_level |
+|--------------|-------------------|----------------|
+| Superman     | Flight & Strength | 100            |
+| Wonder Woman | Super Strength    | 95             |
+
+## Pro Tips for Online SQL
+
+### Tip 1: Use Comments
+```sql
+-- This is a comment - SQL ignores it!
+SELECT * FROM Pets; -- Get all pets
+```
+
+### Tip 2: Format Your Code
+Make it readable with proper spacing:
+```sql
+-- Good formatting
+SELECT name, age
+FROM Customers
+WHERE country = 'USA'
+ORDER BY age;
+```
+
+### Tip 3: Save Your Work
+Copy your favorite queries into a text file so you don't lose them!
+
+### Tip 4: Experiment!
+Don't be afraid to try things! You can't break anything - just refresh the page to start over!
+
+### Tip 5: One Query at a Time
+The online editor runs all your code at once. If you want to run just one query, delete or comment out the others!
+
+## Other Free Online SQL Editors
+
+Want to try more? Here are other great options:
+
+1. **SQLite Online** - [https://sqliteonline.com/](https://sqliteonline.com/)
+   - Multiple database types (SQLite, MySQL, PostgreSQL)
+   - Save your databases
+
+2. **DB Fiddle** - [https://www.db-fiddle.com/](https://www.db-fiddle.com/)
+   - Share your queries with friends
+   - Multiple SQL versions
+
+3. **SQL Tryit Editor** - [https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all)
+   - Simple and clean
+   - Good for beginners
+
+## What's Next?
+
+Now that you know how to use online SQL editors, you can:
+
+- Practice all the SQL examples in this guide
+- Create your own fun tables (favorite foods, dream vacations, collections!)
+- Experiment without fear
+- Share cool queries with friends
+
+:::tip[Make it Fun!]
+Create databases about things YOU love! Make a table of:
+- Your favorite games
+- Movies you want to watch
+- Books you've read
+- Pizza toppings ranked by deliciousness
+- Dinosaur facts
+
+When you practice with stuff you enjoy, learning is WAY more fun!
+:::
+
+:::note[Challenges!]
+Open Programiz SQL Online Compiler and:
+
+1. Create a table called `FavoriteFoods` with columns: food_id, name, category, yumminess_rating (1-10)
+2. Insert at least 5 foods
+3. Find all foods with yumminess_rating > 7
+4. Count how many foods you have in each category
+
+Share your coolest table with a friend!
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Opened an online SQL editor in my browser
+- [ ] Ran my first `SELECT` query
+- [ ] Used the Programiz SQL Online Compiler
+- [ ] Created my own custom table
+- [ ] Inserted data into a table
+- [ ] Explored different sample tables (Pets, Games, Superheroes)
+- [ ] Used SQL comments to organize my code
+- [ ] Formatted SQL queries properly
+- [ ] Experimented with `WHERE`, `COUNT`, and `SELECT`
+- [ ] Created a fun database about something I love
+</Checklist>
+</Box>
+
+Ready to learn more SQL? Let's dive into SELECT queries next!

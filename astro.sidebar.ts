@@ -172,6 +172,104 @@ export const sidebar = [
 						],
 						collapsed: true,
 					},
+					{
+						label: 'React Intro',
+						items: [
+							{
+								label: 'Intro',
+								link: 'guides/web/react-intro/intro/',
+							},
+							{
+								label: 'Setup & Tooling',
+								link: 'guides/web/react-intro/setup/',
+							},
+							{
+								label: 'JSX & Rendering',
+								link: 'guides/web/react-intro/jsx/',
+							},
+							{
+								label: 'Components & Props',
+								link: 'guides/web/react-intro/components/',
+							},
+							{
+								label: 'Props Deep Dive',
+								link: 'guides/web/react-intro/props-deep-dive/',
+							},
+							{
+								label: 'Events & Interactivity',
+								link: 'guides/web/react-intro/events/',
+							},
+							{
+								label: 'State & Hooks',
+								link: 'guides/web/react-intro/state-and-hooks/',
+							},
+							{
+								label: 'useEffect Guide',
+								link: 'guides/web/react-intro/useeffect-guide/',
+							},
+							{
+								label: 'useRef & DOM access',
+								link: 'guides/web/react-intro/use-ref/',
+							},
+							{
+								label: 'Saving data (localStorage)',
+								link: 'guides/web/react-intro/local-storage/',
+							},
+							{
+								label: 'Conditional Rendering & Lists',
+								link: 'guides/web/react-intro/conditional-lists/',
+							},
+							{
+								label: 'Animations & Transitions',
+								link: 'guides/web/react-intro/animations/',
+							},
+							{
+								label: 'Routing',
+								link: 'guides/web/react-intro/routing/',
+							},
+							{
+								label: 'Styling React Components',
+								link: 'guides/web/react-intro/styling/',
+							},
+							{
+								label: 'Build Your First App!',
+								link: 'guides/web/react-intro/first-project/',
+							},
+							{
+								label: 'Forms & Validation',
+								link: 'guides/web/react-intro/forms/',
+							},
+							{
+								label: 'Fetching Data & APIs',
+								link: 'guides/web/react-intro/fetching-data/',
+							},
+							{
+								label: 'Accessibility basics',
+								link: 'guides/web/react-intro/accessibility/',
+							},
+							{
+								label: 'State Management',
+								link: 'guides/web/react-intro/state-management/',
+							},
+							{
+								label: 'Fun Component Patterns',
+								link: 'guides/web/react-intro/component-patterns/',
+							},
+							{
+								label: 'Debugging & DevTools',
+								link: 'guides/web/react-intro/debugging/',
+							},
+							{
+								label: 'Testing & Deployment',
+								link: 'guides/web/react-intro/testing-deploy/',
+							},
+							{
+								label: 'React Tips & Tricks',
+								link: 'guides/web/react-intro/tips-tricks/',
+							},
+						],
+						collapsed: true,
+					},
 				],
 			}),
 			group('guide.javascript', {

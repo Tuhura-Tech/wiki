@@ -1,0 +1,492 @@
+---
+title: Filtering Data
+description: Use WHERE, AND, OR to find exactly what you're looking for!
+sidebar:
+  order: 2.6
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+Imagine you have a huge toy box, but you only want the red cars. That's what filtering does. The `WHERE` clause helps you find exactly what you need. Let's become filter masters.
+
+## The WHERE Clause
+
+`WHERE` is like a bouncer at a club - it only lets through the data that meets your rules!
+
+### Basic WHERE Example
+
+```sql
+SELECT * FROM Customers
+WHERE country = 'USA';
+```
+
+**Output:**
+| customer_id | first_name | last_name | age | country |
+|-------------|------------|-----------|-----|---------|
+| 1           | John       | Doe       | 31  | USA     |
+| 2           | Robert     | Luna      | 22  | USA     |
+
+Only customers from USA got through!
+
+## Let's Create a Fun Candy Table!
+
+```sql
+CREATE TABLE Candy (
+  candy_id INTEGER PRIMARY KEY,
+  name TEXT,
+  flavor TEXT,
+  color TEXT,
+  price REAL,
+  is_sour BOOLEAN,
+  sweetness_level INTEGER
+);
+
+INSERT INTO Candy VALUES
+  (1, 'Gummy Bears', 'Fruity', 'Rainbow', 2.50, 0, 8),
+  (2, 'Sour Patch Kids', 'Fruity', 'Rainbow', 3.00, 1, 6),
+  (3, 'Chocolate Bar', 'Chocolate', 'Brown', 2.00, 0, 9),
+  (4, 'Lemon Drops', 'Citrus', 'Yellow', 1.50, 1, 5),
+  (5, 'Mint Gum', 'Mint', 'Green', 1.00, 0, 3),
+  (6, 'Warheads', 'Sour', 'Mixed', 2.75, 1, 2),
+  (7, 'Lollipops', 'Fruity', 'Rainbow', 1.25, 0, 10),
+  (8, 'Licorice', 'Anise', 'Black', 1.75, 0, 7);
+
+SELECT * FROM Candy;
+```
+
+**Output:**
+| candy_id | name            | flavor    | color   | price | is_sour | sweetness_level |
+|----------|-----------------|-----------|---------|-------|---------|-----------------|
+| 1        | Gummy Bears     | Fruity    | Rainbow | 2.50  | 0       | 8               |
+| 2        | Sour Patch Kids | Fruity    | Rainbow | 3.00  | 1       | 6               |
+| 3        | Chocolate Bar   | Chocolate | Brown   | 2.00  | 0       | 9               |
+| 4        | Lemon Drops     | Citrus    | Yellow  | 1.50  | 1       | 5               |
+| 5        | Mint Gum        | Mint      | Green   | 1.00  | 0       | 3               |
+| 6        | Warheads        | Sour      | Mixed   | 2.75  | 1       | 2               |
+| 7        | Lollipops       | Fruity    | Rainbow | 1.25  | 0       | 10              |
+| 8        | Licorice        | Anise     | Black   | 1.75  | 0       | 7               |
+
+Now let's filter this candy!
+
+### Find Only Sour Candy
+```sql
+SELECT name, flavor, price FROM Candy
+WHERE is_sour = 1;
+```
+
+**Output:**
+| name            | flavor | price |
+|-----------------|--------|-------|
+| Sour Patch Kids | Fruity | 3.00  |
+| Lemon Drops     | Citrus | 1.50  |
+| Warheads        | Sour   | 2.75  |
+
+### Find Rainbow Colored Candy
+```sql
+SELECT name, color, price FROM Candy
+WHERE color = 'Rainbow';
+```
+
+**Output:**
+| name            | color   | price |
+|-----------------|---------|-------|
+| Gummy Bears     | Rainbow | 2.50  |
+| Sour Patch Kids | Rainbow | 3.00  |
+| Lollipops       | Rainbow | 1.25  |
+
+### Find Cheap Candy (Under $2.00)
+```sql
+SELECT name, price FROM Candy
+WHERE price < 2.00;
+```
+
+**Output:**
+| name      | price |
+|-----------|-------|
+| Lemon Drops | 1.50|
+| Mint Gum  | 1.00  |
+| Lollipops | 1.25  |
+| Licorice  | 1.75  |
+
+## Comparison Operators
+
+Here are all the ways to compare values:
+
+| Operator | Meaning | Example |
+|----------|---------|---------|
+| `=`      | Equal to | `price = 2.50` |
+| `!=` or `<>`| Not equal to | `color != 'Brown'` |
+| `>`      | Greater than | `sweetness_level > 7` |
+| `<`      | Less than | `price < 2.00` |
+| `>=`     | Greater than or equal | `sweetness_level >= 8` |
+| `<=`     | Less than or equal | `price <= 1.50` |
+
+### Super Sweet Candy (8 or higher)
+```sql
+SELECT name, sweetness_level FROM Candy
+WHERE sweetness_level >= 8;
+```
+
+**Output:**
+| name          | sweetness_level |
+|---------------|-----------------|
+| Gummy Bears   | 8               |
+| Chocolate Bar | 9               |
+| Lollipops     | 10              |
+
+## AND - Both Conditions Must Be True
+
+`AND` is like saying "I want this AND that!" Both rules must match!
+
+### Sour AND Cheap (under $2.00)
+```sql
+SELECT name, price, is_sour FROM Candy
+WHERE is_sour = 1 AND price < 2.00;
+```
+
+**Output:**
+| name        | price | is_sour |
+|-------------|-------|---------|
+| Lemon Drops | 1.50  | 1       |
+
+Only Lemon Drops are both sour AND cheap!
+
+### Fruity AND Sweet (sweetness > 7)
+```sql
+SELECT name, flavor, sweetness_level FROM Candy
+WHERE flavor = 'Fruity' AND sweetness_level > 7;
+```
+
+**Output:**
+| name        | flavor | sweetness_level |
+|-------------|--------|-----------------|
+| Gummy Bears | Fruity | 8               |
+
+## OR - Either Condition Can Be True
+
+`OR` is like saying "I want this OR that!" Just one rule needs to match!
+
+### Chocolate OR Mint Flavor
+```sql
+SELECT name, flavor FROM Candy
+WHERE flavor = 'Chocolate' OR flavor = 'Mint';
+```
+
+**Output:**
+| name          | flavor    |
+|---------------|-----------|
+| Chocolate Bar | Chocolate |
+| Mint Gum      | Mint      |
+
+### Super Cheap OR Super Sweet
+```sql
+SELECT name, price, sweetness_level FROM Candy
+WHERE price < 1.50 OR sweetness_level >= 9;
+```
+
+**Output:**
+| name          | price | sweetness_level |
+|---------------|-------|-----------------|
+| Chocolate Bar | 2.00  | 9               |
+| Mint Gum      | 1.00  | 3               |
+| Lollipops     | 1.25  | 10              |
+
+## Combining AND with OR
+
+You can use both together! Use parentheses () to group conditions, just like in math!
+
+### (Fruity OR Chocolate) AND Expensive (`>=` $2.00)
+```sql
+SELECT name, flavor, price FROM Candy
+WHERE (flavor = 'Fruity' OR flavor = 'Chocolate')
+  AND price >= 2.00;
+```
+
+**Output:**
+| name            | flavor    | price |
+|-----------------|-----------|-------|
+| Gummy Bears     | Fruity    | 2.50  |
+| Sour Patch Kids | Fruity    | 3.00  |
+| Chocolate Bar   | Chocolate | 2.00  |
+
+### Sour OR (Not Sour AND Super Sweet)
+```sql
+SELECT name, is_sour, sweetness_level FROM Candy
+WHERE is_sour = 1 OR (is_sour = 0 AND sweetness_level >= 9);
+```
+
+**Output:**
+| name            | is_sour | sweetness_level |
+|-----------------|---------|-----------------|
+| Sour Patch Kids | 1       | 6               |
+| Chocolate Bar   | 0       | 9               |
+| Lemon Drops     | 1       | 5               |
+| Warheads        | 1       | 2               |
+| Lollipops       | 0       | 10              |
+
+## Pets Example
+
+Let's create a pets table for more practice!
+
+```sql
+CREATE TABLE Pets (
+  pet_id INTEGER PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  age INTEGER,
+  weight_kg REAL,
+  is_trained BOOLEAN,
+  energy_level INTEGER
+);
+
+INSERT INTO Pets VALUES
+  (1, 'Buddy', 'Dog', 5, 25.5, 1, 9),
+  (2, 'Whiskers', 'Cat', 3, 4.2, 0, 6),
+  (3, 'Max', 'Dog', 8, 30.0, 1, 7),
+  (4, 'Luna', 'Cat', 2, 3.8, 1, 8),
+  (5, 'Charlie', 'Dog', 1, 15.0, 0, 10),
+  (6, 'Shadow', 'Cat', 7, 5.5, 1, 4),
+  (7, 'Rocky', 'Dog', 4, 22.0, 1, 9),
+  (8, 'Mittens', 'Cat', 5, 4.0, 0, 5);
+
+SELECT * FROM Pets;
+```
+
+**Output:**
+| pet_id | name     | type | age | weight_kg | is_trained | energy_level |
+|--------|----------|------|-----|-----------|------------|--------------|
+| 1      | Buddy    | Dog  | 5   | 25.5      | 1          | 9            |
+| 2      | Whiskers | Cat  | 3   | 4.2       | 0          | 6            |
+| 3      | Max      | Dog  | 8   | 30.0      | 1          | 7            |
+| 4      | Luna     | Cat  | 2   | 3.8       | 1          | 8            |
+| 5      | Charlie  | Dog  | 1   | 15.0      | 0          | 10           |
+| 6      | Shadow   | Cat  | 7   | 5.5       | 1          | 4            |
+| 7      | Rocky    | Dog  | 4   | 22.0      | 1          | 9            |
+| 8      | Mittens  | Cat  | 5   | 4.0       | 0          | 5            |
+
+### Find All Dogs
+```sql
+SELECT name, type, age FROM Pets
+WHERE type = 'Dog';
+```
+
+**Output:**
+| name    | type | age |
+|---------|------|-----|
+| Buddy   | Dog  | 5   |
+| Max     | Dog  | 8   |
+| Charlie | Dog  | 1   |
+| Rocky   | Dog  | 4   |
+
+### Find Young Pets (3 or younger)
+```sql
+SELECT name, age FROM Pets
+WHERE age <= 3;
+```
+
+**Output:**
+| name     | age |
+|----------|-----|
+| Whiskers | 3   |
+| Luna     | 2   |
+| Charlie  | 1   |
+
+### Trained Dogs Only
+```sql
+SELECT name, type FROM Pets
+WHERE type = 'Dog' AND is_trained = 1;
+```
+
+**Output:**
+| name  | type |
+|-------|------|
+| Buddy | Dog  |
+| Max   | Dog  |
+| Rocky | Dog  |
+
+### High Energy Cats OR Puppies
+```sql
+SELECT name, type, age, energy_level FROM Pets
+WHERE (type = 'Cat' AND energy_level >= 7)
+   OR (type = 'Dog' AND age <= 2);
+```
+
+**Output:**
+| name    | type | age | energy_level |
+|---------|------|-----|--------------|
+| Luna    | Cat  | 2   | 8            |
+| Charlie | Dog  | 1   | 10           |
+
+## Special Keywords
+
+### BETWEEN - Range of Values
+
+Instead of using `>=` AND `<=`, use BETWEEN!
+
+```sql
+SELECT name, age FROM Pets
+WHERE age BETWEEN 3 AND 6;
+```
+
+**Output:**
+| name     | age |
+|----------|-----|
+| Buddy    | 5   |
+| Whiskers | 3   |
+| Rocky    | 4   |
+| Mittens  | 5   |
+
+This is the same as: `WHERE age >= 3 AND age <= 6`
+
+### IN - Match Any Value in a List
+
+Check if a value matches ANY item in a list!
+
+```sql
+SELECT name, type FROM Pets
+WHERE name IN ('Buddy', 'Luna', 'Shadow');
+```
+
+**Output:**
+| name   | type |
+|--------|------|
+| Buddy  | Dog  |
+| Luna   | Cat  |
+| Shadow | Cat  |
+
+### NOT - Opposite of a Condition
+
+`NOT` reverses a condition!
+
+```sql
+SELECT name, type FROM Pets
+WHERE NOT type = 'Cat';
+```
+
+**Output:**
+| name    | type |
+|---------|------|
+| Buddy   | Dog  |
+| Max     | Dog  |
+| Charlie | Dog  |
+| Rocky   | Dog  |
+
+This is the same as: `WHERE type != 'Cat'`
+
+```sql
+SELECT name, age FROM Pets
+WHERE age NOT BETWEEN 3 AND 6;
+```
+
+**Output:**
+| name    | age |
+|---------|-----|
+| Max     | 8   |
+| Luna    | 2   |
+| Charlie | 1   |
+| Shadow  | 7   |
+
+## LIKE - Pattern Matching
+
+`LIKE` lets you search for patterns! Use `%` as a wildcard (matches anything).
+
+### Names Starting with 'M'
+```sql
+SELECT name FROM Pets
+WHERE name LIKE 'M%';
+```
+
+**Output:**
+| name    |
+|---------|
+| Max     |
+| Mittens |
+
+### Names Ending with 'y'
+```sql
+SELECT name FROM Pets
+WHERE name LIKE '%y';
+```
+
+**Output:**
+| name    |
+|---------|
+| Buddy   |
+| Charlie |
+| Rocky   |
+
+### Names Containing 'ad'
+```sql
+SELECT name FROM Pets
+WHERE name LIKE '%ad%';
+```
+
+**Output:**
+| name   |
+|--------|
+| Shadow |
+
+## Pro Filtering Tips
+
+### Tip 1: Use Parentheses for Complex Filters
+```sql
+-- Clear and organized
+WHERE (type = 'Dog' AND age < 3)
+   OR (type = 'Cat' AND is_trained = 1)
+```
+
+### Tip 2: NULL Values Need Special Handling
+```sql
+-- Wrong way
+WHERE email = NULL
+
+-- Right way
+WHERE email IS NULL
+WHERE email IS NOT NULL
+```
+
+### Tip 3: Case Sensitivity
+In some databases, 'Dog' != 'dog'. Be careful with capitalization!
+
+:::tip[Think Like a Detective!]
+When filtering, ask yourself: "What clues am I looking for?" Then build your WHERE clause step by step:
+1. What column am I checking?
+2. What am I comparing it to?
+3. Do I need AND or OR?
+4. Do I need parentheses?
+:::
+
+:::note[Challenges!]
+Open [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and create the Candy table, then try:
+
+**Challenge 1:** Find all candy that costs between $1.50 and $2.50
+
+**Challenge 2:** Find candy that is either Rainbow colored OR has a sweetness level above 8
+
+**Challenge 3:** Find candy that is NOT sour AND costs less than $2.00
+
+**Challenge 4:** Find candy with names containing the letter 'o'
+
+**Challenge 5:** Make your own candy shop! What filters would help customers find what they want?
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Used `WHERE` to filter data
+- [ ] Applied comparison operators (`=`, `!=`, `>`, `<`, `>=`, `<=`)
+- [ ] Combined conditions with `AND`
+- [ ] Combined conditions with `OR`
+- [ ] Used `NOT` to exclude data
+- [ ] Combined `AND`, `OR`, and `NOT` together
+- [ ] Filtered text with `LIKE` and wildcards (`%`, `_`)
+- [ ] Found values in a list with `IN`
+- [ ] Found values in a range with `BETWEEN`
+- [ ] Created fun examples with candy, pets, and movies
+</Checklist>
+</Box>
+
+Ready to learn how to sort your results? Next page!

@@ -1,0 +1,57 @@
+---
+title: useRef & DOM access
+description: How to access DOM nodes and keep mutable values with useRef.
+sidebar:
+  order: 5.1
+
+---
+
+Sometimes you need to reach into the page and touch an element directly — for example to focus an input. `useRef` is a safe way to hold a link to a DOM node or keep a value that doesn't cause a re-render.
+
+## Focus an input with useRef
+
+```jsx
+import { useRef } from 'react'
+
+function FocusInput() {
+  const inputRef = useRef(null)
+
+  return (
+    <div>
+      <input ref={inputRef} placeholder="Type here" />
+      <button onClick={() => inputRef.current && inputRef.current.focus()}>
+        Focus the input
+      </button>
+    </div>
+  )
+}
+```
+
+**Output (initial):**
+
+<div>
+  <input placeholder="Type here" />
+  <button>Focus the input</button>
+</div>
+
+When the button is clicked the cursor moves into the input — handy when building forms or games.
+
+## Keep mutable values without re-rendering
+
+You can also keep a value that changes but shouldn't cause the UI to update (like a timer id).
+
+```jsx
+function Timer() {
+  const countRef = useRef(0)
+  function tick() { countRef.current += 1 }
+  // this does not re-render — use state when you want to show values
+}
+```
+
+:::tip[When to use useRef]
+Use `useRef` for DOM access or storing mutable values that do not affect rendering. For visible values, prefer `useState`.
+:::
+
+:::note[Try this]
+Add the `FocusInput` component to your app and press the button — the input should receive focus. Try this on the keyboard: press Tab to move focus, then use the button to jump back.
+:::

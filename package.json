@@ -61,6 +61,8 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/cloudflare": "^12.0.0",
+    "@astrojs/mdx": "^4.3.13",
+    "@astrojs/react": "^4.4.2",
     "@astrojs/sitemap": "^3.2.1",
     "@astrojs/starlight": "^0.30.3",
     "@astrojs/starlight-tailwind": "^3.0.0",
@@ -69,6 +71,8 @@
     "@lunariajs/core": "https://pkg.pr.new/lunariajs/lunaria/@lunariajs/core@62a858f",
     "canvas-confetti": "^1.6.0",
     "jsdoc-api": "^9.3.4",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
     "rehype-autolink-headings": "^7.1.0",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.0",

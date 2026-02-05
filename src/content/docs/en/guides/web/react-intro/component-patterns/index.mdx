@@ -1,0 +1,504 @@
+---
+title: Fun Component Patterns
+description: Learn cool design patterns like render props and compound components in a playful way!
+sidebar:
+  order: 17.5
+
+---
+
+Ready to level up your React skills? These patterns are like special moves in a video game — once you learn them, you can do amazing things! Let's explore some fun and useful ways to organize your components!
+
+## Pattern 1: Compound Components
+
+Compound components work together like a team! They're separate pieces that only make sense when used together, like puzzle pieces.
+
+### The Magic Tab Component
+
+Imagine building a tab system where tabs and panels know about each other:
+
+```jsx
+import { useState, createContext, useContext } from 'react'
+
+// Magic context to share selected tab
+const TabContext = createContext()
+
+function Tabs({ children, defaultTab }) {
+  const [activeTab, setActiveTab] = useState(defaultTab)
+  
+  return (
+    <TabContext.Provider value={{ activeTab, setActiveTab }}>
+      <div style={{ fontFamily: 'system-ui' }}>
+        {children}
+      </div>
+    </TabContext.Provider>
+  )
+}
+
+function TabList({ children }) {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      gap: '5px', 
+      borderBottom: '2px solid #e5e7eb',
+      marginBottom: '20px'
+    }}>
+      {children}
+    </div>
+  )
+}
+
+function Tab({ id, children }) {
+  const { activeTab, setActiveTab } = useContext(TabContext)
+  const isActive = activeTab === id
+  
+  return (
+    <button
+      onClick={() => setActiveTab(id)}
+      style={{
+        padding: '10px 20px',
+        border: 'none',
+        backgroundColor: isActive ? '#3b82f6' : 'transparent',
+        color: isActive ? 'white' : '#6b7280',
+        cursor: 'pointer',
+        borderRadius: '6px 6px 0 0',
+        fontWeight: isActive ? 'bold' : 'normal',
+        transition: 'all 0.2s'
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
+function TabPanel({ id, children }) {
+  const { activeTab } = useContext(TabContext)
+  
+  if (activeTab !== id) return null
+  
+  return (
+    <div style={{ 
+      padding: '20px',
+      backgroundColor: '#f9fafb',
+      borderRadius: '8px'
+    }}>
+      {children}
+    </div>
+  )
+}
+
+// Put them all together!
+function App() {
+  return (
+    <Tabs defaultTab="home">
+      <TabList>
+        <Tab id="home">🏠 Home</Tab>
+        <Tab id="about">ℹ️ About</Tab>
+        <Tab id="contact">📧 Contact</Tab>
+      </TabList>
+      
+      <TabPanel id="home">
+        <h2>Welcome Home!</h2>
+        <p>This is the home tab content!</p>
+      </TabPanel>
+      
+      <TabPanel id="about">
+        <h2>About Us</h2>
+        <p>We make awesome React components!</p>
+      </TabPanel>
+      
+      <TabPanel id="contact">
+        <h2>Contact</h2>
+        <p>Email us at: hello@example.com</p>
+      </TabPanel>
+    </Tabs>
+  )
+}
+```
+
+**How it works:** Each piece (Tabs, TabList, Tab, TabPanel) works together like a family! They share information through Context. It's like they have a secret walkie-talkie!
+
+## Pattern 2: Render Props
+
+A render prop is when you pass a FUNCTION as a prop, and that function returns JSX! It's like giving a component instructions on what to draw.
+
+### The Mouse Tracker
+
+Track where your mouse is and let components use that data:
+
+```jsx
+import { useState } from 'react'
+
+function MouseTracker({ children }) {
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  
+  const handleMouseMove = (e) => {
+    setPosition({ x: e.clientX, y: e.clientY })
+  }
+  
+  return (
+    <div 
+      onMouseMove={handleMouseMove}
+      style={{ 
+        height: '300px', 
+        border: '2px dashed #3b82f6',
+        borderRadius: '10px',
+        padding: '20px',
+        backgroundColor: '#eff6ff'
+      }}
+    >
+      {children(position)}
+    </div>
+  )
+}
+
+function App() {
+  return (
+    <MouseTracker>
+      {({ x, y }) => (
+        <div>
+          <h2>🐭 Move your mouse!</h2>
+          <p style={{ fontSize: '24px', color: '#3b82f6' }}>
+            Mouse position: X: {x}, Y: {y}
+          </p>
+          <div
+            style={{
+              position: 'absolute',
+              left: x,
+              top: y,
+              width: '20px',
+              height: '20px',
+              backgroundColor: '#f59e0b',
+              borderRadius: '50%',
+              transform: 'translate(-50%, -50%)',
+              pointerEvents: 'none'
+            }}
+          />
+        </div>
+      )}
+    </MouseTracker>
+  )
+}
+```
+
+The `children` is a function! `MouseTracker` calls it and gives it the mouse position. The function decides what to show!
+
+### Another Example: Loading Data
+
+```jsx
+import { useState, useEffect } from 'react'
+
+function DataFetcher({ url, children }) {
+  const [data, setData] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  
+  useEffect(() => {
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        setData(data)
+        setLoading(false)
+      })
+      .catch(err => {
+        setError(err)
+        setLoading(false)
+      })
+  }, [url])
+  
+  return children({ data, loading, error })
+}
+
+function App() {
+  return (
+    <DataFetcher url="/api/users">
+      {({ data, loading, error }) => {
+        if (loading) return <p>Loading... ⏳</p>
+        if (error) return <p>Error! 😢</p>
+        return (
+          <ul>
+            {data.map(user => (
+              <li key={user.id}>{user.name}</li>
+            ))}
+          </ul>
+        )
+      }}
+    </DataFetcher>
+  )
+}
+```
+
+## Pattern 3: Custom Hooks (Super Useful!)
+
+Create your own hooks to reuse logic! It's like inventing your own superpowers!
+
+### useToggle Hook
+
+A simple hook for toggling things on/off:
+
+```jsx
+import { useState } from 'react'
+
+function useToggle(initialValue = false) {
+  const [value, setValue] = useState(initialValue)
+  
+  const toggle = () => setValue(v => !v)
+  
+  return [value, toggle]
+}
+
+// Use it anywhere!
+function App() {
+  const [isOpen, toggleOpen] = useToggle(false)
+  const [isDark, toggleDark] = useToggle(false)
+  
+  return (
+    <div style={{ 
+      backgroundColor: isDark ? '#1f2937' : 'white',
+      color: isDark ? 'white' : 'black',
+      padding: '20px',
+      borderRadius: '10px'
+    }}>
+      <button onClick={toggleDark}>
+        {isDark ? '☀️' : '🌙'} Toggle Theme
+      </button>
+      
+      <button onClick={toggleOpen}>
+        {isOpen ? 'Close' : 'Open'} Menu
+      </button>
+      
+      {isOpen && <div style={{ marginTop: '20px' }}>Menu is open!</div>}
+    </div>
+  )
+}
+```
+
+### useLocalStorage Hook
+
+Save data to localStorage automatically:
+
+```jsx
+import { useState, useEffect } from 'react'
+
+function useLocalStorage(key, initialValue) {
+  const [value, setValue] = useState(() => {
+    const saved = localStorage.getItem(key)
+    return saved ? JSON.parse(saved) : initialValue
+  })
+  
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value))
+  }, [key, value])
+  
+  return [value, setValue]
+}
+
+// Use it!
+function App() {
+  const [name, setName] = useLocalStorage('userName', '')
+  const [favoriteColor, setFavoriteColor] = useLocalStorage('color', '#3b82f6')
+  
+  return (
+    <div>
+      <input 
+        value={name}
+        onChange={e => setName(e.target.value)}
+        placeholder="Your name"
+      />
+      <p>Hello, {name}! 👋</p>
+      
+      <input 
+        type="color"
+        value={favoriteColor}
+        onChange={e => setFavoriteColor(e.target.value)}
+      />
+      <div 
+        style={{ 
+          width: '100px', 
+          height: '100px', 
+          backgroundColor: favoriteColor,
+          borderRadius: '10px',
+          marginTop: '10px'
+        }}
+      />
+    </div>
+  )
+}
+```
+
+Data is saved even when you refresh! Magic!
+
+## Pattern 4: Higher-Order Components (The Wrapper!)
+
+A Higher-Order Component (HOC) takes a component and returns a NEW component with extra features! It's like putting a cool costume on a component!
+
+### withLoading HOC
+
+Add loading state to any component:
+
+```jsx
+function withLoading(Component) {
+  return function WithLoadingComponent({ isLoading, ...props }) {
+    if (isLoading) {
+      return (
+        <div style={{ 
+          padding: '20px', 
+          textAlign: 'center',
+          color: '#6b7280'
+        }}>
+          ⏳ Loading...
+        </div>
+      )
+    }
+    return <Component {...props} />
+  }
+}
+
+// Regular component
+function UserList({ users }) {
+  return (
+    <ul>
+      {users.map(user => <li key={user.id}>{user.name}</li>)}
+    </ul>
+  )
+}
+
+// Add loading feature!
+const UserListWithLoading = withLoading(UserList)
+
+function App() {
+  const [users, setUsers] = useState([])
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    setTimeout(() => {
+      setUsers([
+        { id: 1, name: 'Alice' },
+        { id: 2, name: 'Bob' }
+      ])
+      setLoading(false)
+    }, 2000)
+  }, [])
+  
+  return <UserListWithLoading isLoading={loading} users={users} />
+}
+```
+
+## Pattern 5: Container/Presentational
+
+Split components into:
+- **Container** (smart) - handles logic and data
+- **Presentational** (pretty) - just shows things
+
+```jsx
+// Presentational component - just displays
+function TodoItem({ todo, onToggle, onDelete }) {
+  return (
+    <div style={{ 
+      display: 'flex', 
+      gap: '10px', 
+      padding: '10px',
+      backgroundColor: '#f3f4f6',
+      borderRadius: '6px',
+      marginBottom: '8px'
+    }}>
+      <input 
+        type="checkbox" 
+        checked={todo.completed}
+        onChange={() => onToggle(todo.id)}
+      />
+      <span style={{ 
+        flex: 1,
+        textDecoration: todo.completed ? 'line-through' : 'none'
+      }}>
+        {todo.text}
+      </span>
+      <button 
+        onClick={() => onDelete(todo.id)}
+        style={{
+          backgroundColor: '#ef4444',
+          color: 'white',
+          border: 'none',
+          padding: '4px 12px',
+          borderRadius: '4px',
+          cursor: 'pointer'
+        }}
+      >
+        Delete
+      </button>
+    </div>
+  )
+}
+
+// Container component - handles logic
+function TodoList() {
+  const [todos, setTodos] = useState([
+    { id: 1, text: 'Learn React', completed: false },
+    { id: 2, text: 'Build an app', completed: false }
+  ])
+  
+  const toggleTodo = (id) => {
+    setTodos(todos.map(todo =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    ))
+  }
+  
+  const deleteTodo = (id) => {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+  
+  return (
+    <div>
+      {todos.map(todo => (
+        <TodoItem 
+          key={todo.id}
+          todo={todo}
+          onToggle={toggleTodo}
+          onDelete={deleteTodo}
+        />
+      ))}
+    </div>
+  )
+}
+```
+
+**Why?** The `TodoItem` is simple and reusable. The `TodoList` handles all the brain work!
+
+## When to Use Each Pattern
+
+**Compound Components**
+- When components work as a family (tabs, accordions, dropdowns)
+- You want flexible, composable APIs
+
+**Render Props**
+- When you want to share behavior
+- The component using the data needs control over rendering
+
+**Custom Hooks**
+- When you want to reuse stateful logic
+- Multiple components need the same behavior
+
+**Higher-Order Components**
+- When you want to add features to existing components
+- Cross-cutting concerns (logging, authentication, loading states)
+
+**Container/Presentational**
+- When you want to separate logic from display
+- Makes testing easier!
+
+:::tip[Start Simple!]
+Don't use these patterns everywhere! Start with simple components. When you notice you're repeating code, THEN consider these patterns. Keep it fun and simple!
+:::
+
+:::note[Pattern Practice!]
+**Challenge 1:** Create a custom `useFetch` hook that handles loading, error, and data states!
+
+**Challenge 2:** Build a compound `Accordion` component where panels can open and close!
+
+**Challenge 3:** Make a `withAuth` HOC that only shows components if a user is logged in!
+
+**Challenge 4:** Create a `Counter` component with render props that lets other components display the count in different ways!
+:::
+
+## You're a Pattern Pro!
+
+These patterns are tools in your toolbox. You don't need all of them for every project, but knowing them makes you a more powerful React developer! Keep experimenting and building cool stuff!

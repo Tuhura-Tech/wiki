@@ -1,0 +1,115 @@
+---
+title: Components & Props
+description: Function components, props, and composition patterns in React.
+sidebar:
+  order: 4
+
+---
+
+## Function Components
+
+Think of a component like a LEGO piece — it does one small job and you can snap lots of pieces together to make something cool. A *function component* is just a JavaScript function that returns JSX (that HTML-like code you already know).
+
+```jsx
+function Button({ children, onClick }) {
+  return <button onClick={onClick}>{children}</button>;
+}
+```
+
+**Output:**
+
+<button>Click me</button>
+
+Components can be simple or fancy — it's up to you! Here is a badge component with high-contrast colors and proper spacing so it looks good on dark backgrounds:
+
+```jsx
+function Badge({ text, color }) {
+  const style = {
+    display: 'inline-block',
+    backgroundColor: color,
+    color: '#ffffff',
+    padding: '4px 10px',
+    borderRadius: 9999,
+    fontSize: 13,
+    fontWeight: 600,
+    marginRight: 8,
+    boxShadow: '0 1px 2px rgba(0,0,0,0.2)'
+  }
+  return <span style={style}>{text}</span>;
+}
+
+function App() {
+  return (
+    <div>
+      <Badge text="New" color="#0369a1" />
+      <Badge text="Hot" color="#dc2626" />
+    </div>
+  );
+}
+```
+
+**Output:**
+
+<div>
+  <span style="display: inline-block; background-color: #0369a1; color: #ffffff; padding: 4px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600; margin-right: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);">New</span>
+  <span style="display: inline-block; background-color: #dc2626; color: #ffffff; padding: 4px 10px; border-radius: 9999px; font-size: 13px; font-weight: 600; margin-right: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.2);">Hot</span>
+</div>
+
+## Props
+
+Props are the little notes you pass into a component to tell it what to show — like giving a LEGO label to a block so it knows where to go. Think of props as read-only: you hand them in, the component reads them, and shows something special.
+
+```jsx
+function UserCard({ user }) {
+  return (
+    <div>
+      <h3>{user.name}</h3>
+      <p>{user.email}</p>
+    </div>
+  );
+}
+```
+
+**Output:**
+
+<div>
+  <h3>Alex</h3>
+  <p>alex@example.com</p>
+</div>
+
+:::tip[Quick tip]
+The `user` prop tells `UserCard` which name and email to show — change `user.name` to see a different person.
+:::
+
+## Composition
+
+Big apps are just lots of small pieces working together — like building a robot from LEGO. You *compose* components by putting them inside each other to make something more interesting.
+
+```jsx
+function App() {
+  const user = { name: 'Alex', email: 'alex@example.com' };
+  return (
+    <div>
+      <UserCard user={user} />
+      <Button onClick={() => alert('Clicked')}>Click me</Button>
+    </div>
+  );
+}
+```
+
+**Output:**
+
+<div>
+  <div>
+    <h3>Alex</h3>
+    <p>alex@example.com</p>
+  </div>
+  <button>Click me</button>
+</div>
+
+:::note[Challenge]
+A — Props: Edit `UserCard` so it accepts a different `user` object (change `user.name`) and confirm the card updates.
+
+B — Fun: Try changing the Button text to `Say hi` — what happens when you click it? (Edit the code above to try this.)
+:::
+

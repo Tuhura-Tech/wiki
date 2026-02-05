@@ -1,0 +1,644 @@
+---
+title: Counting & Math Functions
+description: Use aggregate functions to count, add, average, and find max/min values!
+sidebar:
+  order: 2.8
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+Ready to do math with your database? Aggregate functions let you count things, add up numbers, find averages, and more.
+
+## COUNT - Counting Rows
+
+`COUNT` tells you how many rows match your query. It's like counting toys in your toy box!
+
+### Count All Customers
+```sql
+SELECT COUNT(*) FROM Customers;
+```
+
+**Output:**
+| COUNT(*) |
+|----------|
+| 5        |
+
+There are 5 customers! Simple!
+
+### Count with a Column Name
+```sql
+SELECT COUNT(first_name) as total_customers FROM Customers;
+```
+
+**Output:**
+| total_customers |
+|-----------------|
+| 5               |
+
+## Game Collection Example
+
+```sql
+CREATE TABLE GameCollection (
+  game_id INTEGER PRIMARY KEY,
+  title TEXT,
+  genre TEXT,
+  price REAL,
+  hours_played INTEGER,
+  rating INTEGER
+);
+
+INSERT INTO GameCollection VALUES
+  (1, 'Minecraft', 'Sandbox', 26.95, 450, 10),
+  (2, 'Stardew Valley', 'Farming', 14.99, 380, 9),
+  (3, 'Among Us', 'Social', 4.99, 125, 8),
+  (4, 'Terraria', 'Sandbox', 9.99, 290, 9),
+  (5, 'Hollow Knight', 'Adventure', 14.99, 85, 10),
+  (6, 'Celeste', 'Platformer', 19.99, 65, 9),
+  (7, 'Hades', 'Roguelike', 24.99, 210, 10),
+  (8, 'Undertale', 'RPG', 9.99, 45, 9);
+
+SELECT * FROM GameCollection;
+```
+
+**Output:**
+| game_id | title          | genre      | price | hours_played | rating |
+|---------|----------------|------------|-------|--------------|--------|
+| 1       | Minecraft      | Sandbox    | 26.95 | 450          | 10     |
+| 2       | Stardew Valley | Farming    | 14.99 | 380          | 9      |
+| 3       | Among Us       | Social     | 4.99  | 125          | 8      |
+| 4       | Terraria       | Sandbox    | 9.99  | 290          | 9      |
+| 5       | Hollow Knight  | Adventure  | 14.99 | 85           | 10     |
+| 6       | Celeste        | Platformer | 19.99 | 65           | 9      |
+| 7       | Hades          | Roguelike  | 24.99 | 210          | 10     |
+| 8       | Undertale      | RPG        | 9.99  | 45           | 9      |
+
+### How Many Games Do I Have?
+```sql
+SELECT COUNT(*) as total_games FROM GameCollection;
+```
+
+**Output:**
+| total_games |
+|-------------|
+| 8           |
+
+### How Many Games with Rating 10?
+```sql
+SELECT COUNT(*) as perfect_games FROM GameCollection
+WHERE rating = 10;
+```
+
+**Output:**
+| perfect_games |
+|---------------|
+| 3             |
+
+Three perfect 10s!
+
+## SUM - Adding Up Numbers
+
+`SUM` adds all the numbers in a column. Like counting all your money!
+
+### Total Money Spent on Games
+```sql
+SELECT SUM(price) as total_spent FROM GameCollection;
+```
+
+**Output:**
+| total_spent |
+|-------------|
+| 126.88      |
+
+Wow, almost $127 spent on games!
+
+### Total Hours Played
+```sql
+SELECT SUM(hours_played) as total_hours FROM GameCollection;
+```
+
+**Output:**
+| total_hours |
+|-------------|
+| 1650        |
+
+That's 1,650 hours of gaming! That's like 68 days!
+
+### Hours Played on Games with Rating 9+
+```sql
+SELECT SUM(hours_played) as quality_hours FROM GameCollection
+WHERE rating >= 9;
+```
+
+**Output:**
+| quality_hours |
+|---------------|
+| 1605          |
+
+Most hours were on highly-rated games! Good taste!
+
+## AVG - Finding Averages
+
+`AVG` calculates the average (mean) of numbers. Perfect for finding typical values!
+
+### Average Game Price
+```sql
+SELECT AVG(price) as average_price FROM GameCollection;
+```
+
+**Output:**
+| average_price |
+|---------------|
+| 15.86         |
+
+Average price is about $15.86!
+
+### Average Hours Played
+```sql
+SELECT AVG(hours_played) as avg_hours FROM GameCollection;
+```
+
+**Output:**
+| avg_hours |
+|-----------|
+| 206.25    |
+
+On average, each game was played about 206 hours!
+
+### Average Rating
+```sql
+SELECT AVG(rating) as avg_rating FROM GameCollection;
+```
+
+**Output:**
+| avg_rating |
+|------------|
+| 9.25       |
+
+Average rating of 9.25 - great collection! ⭐
+
+## MAX - Finding the Maximum
+
+`MAX` finds the biggest/highest value!
+
+### Most Expensive Game
+```sql
+SELECT MAX(price) as most_expensive FROM GameCollection;
+```
+
+**Output:**
+| most_expensive |
+|----------------|
+| 26.95          |
+
+### Most Hours Played
+```sql
+SELECT MAX(hours_played) as max_hours FROM GameCollection;
+```
+
+**Output:**
+| max_hours |
+|-----------|
+| 450       |
+
+### Show the Actual Game with Most Hours
+```sql
+SELECT title, hours_played FROM GameCollection
+WHERE hours_played = (SELECT MAX(hours_played) FROM GameCollection);
+```
+
+**Output:**
+| title     | hours_played |
+|-----------|--------------|
+| Minecraft | 450          |
+
+Minecraft wins!
+
+## MIN - Finding the Minimum
+
+`MIN` finds the smallest/lowest value!
+
+### Cheapest Game
+```sql
+SELECT MIN(price) as cheapest FROM GameCollection;
+```
+
+**Output:**
+| cheapest |
+|----------|
+| 4.99     |
+
+### Least Hours Played
+```sql
+SELECT MIN(hours_played) as min_hours FROM GameCollection;
+```
+
+**Output:**
+| min_hours |
+|-----------|
+| 45        |
+
+### Show the Least Played Game
+```sql
+SELECT title, hours_played FROM GameCollection
+WHERE hours_played = (SELECT MIN(hours_played) FROM GameCollection);
+```
+
+**Output:**
+| title     | hours_played |
+|-----------|--------------|
+| Undertale | 45           |
+
+Need to play Undertale more!
+
+## Candy Store Example
+
+```sql
+CREATE TABLE CandyStore (
+  candy_id INTEGER PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  price REAL,
+  stock INTEGER,
+  sales_this_week INTEGER
+);
+
+INSERT INTO CandyStore VALUES
+  (1, 'Chocolate Bar', 'Chocolate', 1.50, 120, 45),
+  (2, 'Gummy Bears', 'Gummy', 2.00, 85, 67),
+  (3, 'Lollipops', 'Hard Candy', 0.50, 200, 89),
+  (4, 'Sour Worms', 'Gummy', 2.50, 60, 38),
+  (5, 'Peppermints', 'Hard Candy', 0.75, 150, 52),
+  (6, 'Caramel Chews', 'Chewy', 1.75, 95, 41),
+  (7, 'Licorice', 'Chewy', 1.25, 70, 23),
+  (8, 'Jelly Beans', 'Gummy', 2.25, 110, 71);
+
+SELECT * FROM CandyStore;
+```
+
+**Output:**
+| candy_id | name          | type       | price | stock | sales_this_week |
+|----------|---------------|------------|-------|-------|-----------------|
+| 1        | Chocolate Bar | Chocolate  | 1.50  | 120   | 45              |
+| 2        | Gummy Bears   | Gummy      | 2.00  | 85    | 67              |
+| 3        | Lollipops     | Hard Candy | 0.50  | 200   | 89              |
+| 4        | Sour Worms    | Gummy      | 2.50  | 60    | 38              |
+| 5        | Peppermints   | Hard Candy | 0.75  | 150   | 52              |
+| 6        | Caramel Chews | Chewy      | 1.75  | 95    | 41              |
+| 7        | Licorice      | Chewy      | 1.25  | 70    | 23              |
+| 8        | Jelly Beans   | Gummy      | 2.25  | 110   | 71              |
+
+### How Many Types of Candy?
+```sql
+SELECT COUNT(*) as candy_varieties FROM CandyStore;
+```
+
+**Output:**
+| candy_varieties |
+|-----------------|
+| 8               |
+
+### Total Candy in Stock
+```sql
+SELECT SUM(stock) as total_stock FROM CandyStore;
+```
+
+**Output:**
+| total_stock |
+|-------------|
+| 890         |
+
+890 pieces of candy!
+
+### Average Candy Price
+```sql
+SELECT AVG(price) as avg_price FROM CandyStore;
+```
+
+**Output:**
+| avg_price |
+|-----------|
+| 1.5625    |
+
+About $1.56 on average!
+
+### Total Sales This Week
+```sql
+SELECT SUM(sales_this_week) as total_sales FROM CandyStore;
+```
+
+**Output:**
+| total_sales |
+|-------------|
+| 426         |
+
+426 candies sold this week!
+
+### Most Expensive Candy
+```sql
+SELECT name, MAX(price) as highest_price FROM CandyStore;
+```
+
+**Output:**
+| name       | highest_price |
+|------------|---------------|
+| Sour Worms | 2.50          |
+
+### Best Seller This Week
+```sql
+SELECT name, MAX(sales_this_week) as best_seller FROM CandyStore;
+```
+
+**Output:**
+| name      | best_seller |
+|-----------|-------------|
+| Lollipops | 89          |
+
+Lollipops are a hit!
+
+## Multiple Functions at Once!
+
+You can use several aggregate functions in one query!
+
+```sql
+SELECT 
+  COUNT(*) as total_games,
+  SUM(price) as money_spent,
+  AVG(price) as avg_price,
+  MIN(price) as cheapest,
+  MAX(price) as most_expensive,
+  SUM(hours_played) as total_hours
+FROM GameCollection;
+```
+
+**Output:**
+| total_games | money_spent | avg_price | cheapest | most_expensive | total_hours |
+|-------------|-------------|-----------|----------|----------------|-------------|
+| 8           | 126.88      | 15.86     | 4.99     | 26.95          | 1650        |
+
+All the stats in one query!
+
+### Candy Store Statistics
+```sql
+SELECT 
+  COUNT(*) as varieties,
+  SUM(stock) as total_stock,
+  AVG(price) as avg_price,
+  SUM(sales_this_week) as weekly_sales,
+  MAX(sales_this_week) as best_seller_count
+FROM CandyStore;
+```
+
+**Output:**
+| varieties | total_stock | avg_price | weekly_sales | best_seller_count |
+|-----------|-------------|-----------|--------------|-------------------|
+| 8         | 890         | 1.5625    | 426          | 89                |
+
+## ROUND - Making Numbers Pretty
+
+Use `ROUND` to make decimal numbers cleaner!
+
+```sql
+SELECT 
+  ROUND(AVG(price), 2) as avg_price,
+  ROUND(AVG(hours_played), 0) as avg_hours
+FROM GameCollection;
+```
+
+**Output:**
+| avg_price | avg_hours |
+|-----------|-----------|
+| 15.86     | 206       |
+
+Much cleaner! The second number in ROUND is how many decimal places to keep!
+
+## Pet Shelter Example
+
+```sql
+CREATE TABLE PetShelter (
+  pet_id INTEGER PRIMARY KEY,
+  name TEXT,
+  type TEXT,
+  age_months INTEGER,
+  weight_kg REAL,
+  days_at_shelter INTEGER,
+  adoption_fee REAL
+);
+
+INSERT INTO PetShelter VALUES
+  (1, 'Buddy', 'Dog', 36, 22.5, 12, 150.00),
+  (2, 'Whiskers', 'Cat', 24, 4.2, 45, 75.00),
+  (3, 'Max', 'Dog', 18, 18.0, 8, 125.00),
+  (4, 'Luna', 'Cat', 12, 3.5, 30, 75.00),
+  (5, 'Charlie', 'Dog', 60, 28.0, 90, 100.00),
+  (6, 'Shadow', 'Cat', 48, 5.0, 60, 50.00),
+  (7, 'Rocky', 'Dog', 30, 20.5, 5, 150.00),
+  (8, 'Mittens', 'Cat', 15, 3.8, 22, 75.00);
+
+SELECT * FROM PetShelter;
+```
+
+**Output:**
+| pet_id | name     | type | age_months | weight_kg | days_at_shelter | adoption_fee |
+|--------|----------|------|------------|-----------|-----------------|--------------|
+| 1      | Buddy    | Dog  | 36         | 22.5      | 12              | 150.00       |
+| 2      | Whiskers | Cat  | 24         | 4.2       | 45              | 75.00        |
+| 3      | Max      | Dog  | 18         | 18.0      | 8               | 125.00       |
+| 4      | Luna     | Cat  | 12         | 3.5       | 30              | 75.00        |
+| 5      | Charlie  | Dog  | 60         | 28.0      | 90              | 100.00       |
+| 6      | Shadow   | Cat  | 48         | 5.0       | 60              | 50.00        |
+| 7      | Rocky    | Dog  | 30         | 20.5      | 5               | 150.00       |
+| 8      | Mittens  | Cat  | 15         | 3.8       | 22              | 75.00        |
+
+### How Many Pets Total?
+```sql
+SELECT COUNT(*) as total_pets FROM PetShelter;
+```
+
+**Output:**
+| total_pets |
+|------------|
+| 8          |
+
+### How Many Dogs vs Cats?
+```sql
+SELECT COUNT(*) as dogs FROM PetShelter WHERE type = 'Dog';
+SELECT COUNT(*) as cats FROM PetShelter WHERE type = 'Cat';
+```
+
+**Output (Dogs):**
+| dogs |
+|------|
+| 4    |
+
+**Output (Cats):**
+| cats |
+|------|
+| 4    |
+
+Equal numbers!
+
+### Average Days Waiting for a Home
+```sql
+SELECT ROUND(AVG(days_at_shelter), 1) as avg_wait_days FROM PetShelter;
+```
+
+**Output:**
+| avg_wait_days |
+|---------------|
+| 34.0          |
+
+### Total Adoption Fees if All Adopted
+```sql
+SELECT SUM(adoption_fee) as total_fees FROM PetShelter;
+```
+
+**Output:**
+| total_fees |
+|------------|
+| 800.00     |
+
+### Oldest and Youngest Pets
+```sql
+SELECT 
+  MAX(age_months) as oldest_months,
+  MIN(age_months) as youngest_months
+FROM PetShelter;
+```
+
+**Output:**
+| oldest_months | youngest_months |
+|---------------|-----------------|
+| 60            | 12              |
+
+### Complete Shelter Stats
+```sql
+SELECT 
+  COUNT(*) as total_pets,
+  ROUND(AVG(age_months), 1) as avg_age_months,
+  ROUND(AVG(weight_kg), 2) as avg_weight,
+  ROUND(AVG(days_at_shelter), 1) as avg_days_waiting,
+  SUM(adoption_fee) as potential_revenue,
+  MIN(adoption_fee) as lowest_fee,
+  MAX(adoption_fee) as highest_fee
+FROM PetShelter;
+```
+
+**Output:**
+| total_pets | avg_age_months | avg_weight | avg_days_waiting | potential_revenue | lowest_fee | highest_fee |
+|------------|----------------|------------|------------------|-------------------|------------|-------------|
+| 8          | 30.4           | 13.19      | 34.0             | 800.00            | 50.00      | 150.00      |
+
+Amazing overview!
+
+## Pro Tips
+
+### Tip 1: COUNT(*) vs COUNT(column)
+```sql
+COUNT(*)        -- Counts all rows
+COUNT(name)     -- Counts rows where name is NOT NULL
+```
+
+### Tip 2: Aggregate Functions Ignore NULL
+If a value is NULL, aggregate functions skip it!
+
+### Tip 3: Combine with WHERE
+```sql
+SELECT AVG(price) FROM GameCollection
+WHERE rating >= 9;
+```
+
+Only averages prices of games with rating 9 or higher!
+
+### Tip 4: Math with Aggregates
+```sql
+SELECT 
+  SUM(price * sales_this_week) as total_revenue
+FROM CandyStore;
+```
+
+**Output:**
+| total_revenue |
+|---------------|
+| 730.75        |
+
+That's $730.75 in candy sales!
+
+## Real-World Use Cases
+
+### Class Test Scores
+```sql
+CREATE TABLE TestScores (
+  student TEXT,
+  score INTEGER
+);
+
+SELECT 
+  COUNT(*) as students,
+  AVG(score) as class_average,
+  MAX(score) as highest,
+  MIN(score) as lowest
+FROM TestScores;
+```
+
+### Monthly Expenses
+```sql
+CREATE TABLE Expenses (
+  item TEXT,
+  cost REAL
+);
+
+SELECT 
+  SUM(cost) as total_spent,
+  AVG(cost) as avg_per_item,
+  COUNT(*) as number_of_purchases
+FROM Expenses;
+```
+
+:::tip[Remember the 5 Power Functions!]
+1. **COUNT** - How many?
+2. **SUM** - Add them up!
+3. **AVG** - What's the average?
+4. **MAX** - What's the biggest?
+5. **MIN** - What's the smallest?
+
+These are like superpowers for analyzing data!
+:::
+
+:::note[Challenges!]
+Create the tables in [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and try:
+
+**Challenge 1:** Calculate the total value of all candy in stock (price × stock for each item, then sum)
+
+**Challenge 2:** Find the average weight of dogs only in the PetShelter
+
+**Challenge 3:** What's the difference between the most expensive and cheapest game?
+
+**Challenge 4:** Create a "Books" table with pages and ratings, then find:
+- How many books
+- Average pages
+- Highest rated book
+- Total pages of all books combined
+
+**Challenge 5:** Calculate which candy gives the best "value" (sales divided by price)
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Used `COUNT` to count rows
+- [ ] Used `SUM` to add up numbers
+- [ ] Used `AVG` to find averages
+- [ ] Used `MAX` to find the largest value
+- [ ] Used `MIN` to find the smallest value
+- [ ] Combined multiple aggregate functions in one query
+- [ ] Used `ROUND` to control decimal places
+- [ ] Combined aggregate functions with `WHERE`
+- [ ] Used `COUNT(DISTINCT)` to count unique values
+- [ ] Practiced with games, pets, and candy examples
+</Checklist>
+</Box>
+
+Next up: Learn to GROUP your data for even more powerful analysis!

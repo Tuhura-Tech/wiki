@@ -1,0 +1,83 @@
+---
+title: Routing
+description: Client-side routing with React Router and organizing views.
+sidebar:
+  order: 6
+
+---
+
+Imagine your app is like a house with many rooms — routing lets you move between rooms without leaving the house! With React Router, you can have a Home page, an About page, a Games page, and more. When you click a link, only the content changes, not the whole page. It's super fast!
+
+## React Router basics
+
+First, install React Router in your React app:
+
+```bash
+pnpm add react-router-dom
+# or: npm install react-router-dom
+```
+
+Now you can create different pages! Here's a simple example:
+
+```jsx
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import Home from './Home'
+import About from './About'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+```
+
+**Visual preview (when on Home page):**
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</nav>
+<div>Home Page Content</div>
+
+**Visual preview (when on About page):**
+
+<nav>
+  <a href="/">Home</a>
+  <a href="/about">About</a>
+</nav>
+<div>About Page Content</div>
+
+---
+
+### Interactive demo (try it!)
+
+import InteractiveNav from './InteractiveNav.jsx'
+
+<InteractiveNav client:load />
+
+---
+
+:::tip[Closing tags]
+Remember to always close tags in JSX — missing closing tags often cause compile-time errors. Self-close empty elements like ` <img /> ` or ` <input /> `.
+:::
+
+Notes:
+- Use nested routes for layouts and shared UI.
+- For server-rendered setups or when using frameworks, consult their routing guides.
+
+:::note[Remember]
+Routes define what component to show for each URL path. Links change the URL and render the matching route.
+:::
+
+:::note[Make it dynamic!]
+Set up React Router with two pages—Home and Contact. Add links to jump between them, then click around and watch the URL change *without* a full page reload. Feels like magic, right?
+:::

@@ -1,0 +1,562 @@
+---
+title: Grouping Data
+description: Use GROUP BY to organize data into categories and analyze each group!
+sidebar:
+  order: 2.9
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Box from '/src/components/tutorial/Box.astro';
+import Checklist from '/src/components/Checklist.astro';
+
+Imagine sorting your toys into boxes by type - all cars together, all dolls together. That's what GROUP BY does. It lets you group data and calculate stats for each group.
+
+## What is GROUP BY?
+
+`GROUP BY` organizes rows into groups based on column values, then you can use aggregate functions on each group!
+
+## Video Game Sales Example
+
+```sql
+CREATE TABLE GameSales (
+  sale_id INTEGER PRIMARY KEY,
+  game_title TEXT,
+  platform TEXT,
+  genre TEXT,
+  price REAL,
+  copies_sold INTEGER
+);
+
+INSERT INTO GameSales VALUES
+  (1, 'Minecraft', 'PC', 'Sandbox', 26.95, 5000),
+  (2, 'Minecraft', 'Switch', 'Sandbox', 29.99, 3500),
+  (3, 'Fortnite', 'PC', 'Shooter', 0.00, 8000),
+  (4, 'Fortnite', 'PlayStation', 'Shooter', 0.00, 6500),
+  (5, 'Mario Kart', 'Switch', 'Racing', 59.99, 4200),
+  (6, 'Pokemon', 'Switch', 'RPG', 59.99, 5500),
+  (7, 'GTA V', 'PlayStation', 'Action', 29.99, 4800),
+  (8, 'GTA V', 'PC', 'Action', 29.99, 3200),
+  (9, 'Animal Crossing', 'Switch', 'Simulation', 59.99, 6800),
+  (10, 'The Sims', 'PC', 'Simulation', 39.99, 2900);
+
+SELECT * FROM GameSales;
+```
+
+**Output:**
+| sale_id | game_title       | platform     | genre      | price | copies_sold |
+|---------|------------------|--------------|------------|-------|-------------|
+| 1       | Minecraft        | PC           | Sandbox    | 26.95 | 5000        |
+| 2       | Minecraft        | Switch       | Sandbox    | 29.99 | 3500        |
+| 3       | Fortnite         | PC           | Shooter    | 0.00  | 8000        |
+| 4       | Fortnite         | PlayStation  | Shooter    | 0.00  | 6500        |
+| 5       | Mario Kart       | Switch       | Racing     | 59.99 | 4200        |
+| 6       | Pokemon          | Switch       | RPG        | 59.99 | 5500        |
+| 7       | GTA V            | PlayStation  | Action     | 29.99 | 4800        |
+| 8       | GTA V            | PC           | Action     | 29.99 | 3200        |
+| 9       | Animal Crossing  | Switch       | Simulation | 59.99 | 6800        |
+| 10      | The Sims         | PC           | Simulation | 39.99 | 2900        |
+
+### Total Sales by Platform
+```sql
+SELECT 
+  platform,
+  SUM(copies_sold) as total_sales
+FROM GameSales
+GROUP BY platform;
+```
+
+**Output:**
+| platform     | total_sales |
+|--------------|-------------|
+| PC           | 19100       |
+| PlayStation  | 11300       |
+| Switch       | 20000       |
+
+Switch is winning!
+
+### Sales by Genre
+```sql
+SELECT 
+  genre,
+  SUM(copies_sold) as total_sales,
+  COUNT(*) as number_of_games
+FROM GameSales
+GROUP BY genre
+ORDER BY total_sales DESC;
+```
+
+**Output:**
+| genre      | total_sales | number_of_games |
+|------------|-------------|-----------------|
+| Shooter    | 14500       | 2               |
+| Simulation | 9700        | 2               |
+| Sandbox    | 8500        | 2               |
+| Action     | 8000        | 2               |
+| RPG        | 5500        | 1               |
+| Racing     | 4200        | 1               |
+
+Shooters are most popular!
+
+### Average Price by Platform
+```sql
+SELECT 
+  platform,
+  ROUND(AVG(price), 2) as avg_price,
+  COUNT(*) as games_count
+FROM GameSales
+GROUP BY platform;
+```
+
+**Output:**
+| platform     | avg_price | games_count |
+|--------------|-----------|-------------|
+| PC           | 24.23     | 4           |
+| PlayStation  | 14.99     | 2           |
+| Switch       | 51.99     | 4           |
+
+Switch games are more expensive on average!
+
+## Pizza Orders Example
+
+```sql
+CREATE TABLE PizzaOrders (
+  order_id INTEGER PRIMARY KEY,
+  customer_name TEXT,
+  pizza_size TEXT,
+  topping TEXT,
+  quantity INTEGER,
+  price_per_pizza REAL
+);
+
+INSERT INTO PizzaOrders VALUES
+  (1, 'Alice', 'Large', 'Pepperoni', 2, 15.99),
+  (2, 'Bob', 'Medium', 'Cheese', 1, 11.99),
+  (3, 'Alice', 'Large', 'Veggie', 1, 14.99),
+  (4, 'Charlie', 'Small', 'Pepperoni', 3, 8.99),
+  (5, 'Bob', 'Large', 'Meat Lovers', 1, 17.99),
+  (6, 'Alice', 'Medium', 'Cheese', 2, 11.99),
+  (7, 'Charlie', 'Large', 'Pepperoni', 2, 15.99),
+  (8, 'Diana', 'Medium', 'Veggie', 1, 12.99),
+  (9, 'Bob', 'Small', 'Cheese', 2, 8.99),
+  (10, 'Diana', 'Large', 'Supreme', 1, 18.99);
+
+SELECT * FROM PizzaOrders;
+```
+
+**Output:**
+| order_id | customer_name | pizza_size | topping      | quantity | price_per_pizza |
+|----------|---------------|------------|--------------|----------|-----------------|
+| 1        | Alice         | Large      | Pepperoni    | 2        | 15.99           |
+| 2        | Bob           | Medium     | Cheese       | 1        | 11.99           |
+| 3        | Alice         | Large      | Veggie       | 1        | 14.99           |
+| 4        | Charlie       | Small      | Pepperoni    | 3        | 8.99            |
+| 5        | Bob           | Large      | Meat Lovers  | 1        | 17.99           |
+| 6        | Alice         | Medium     | Cheese       | 2        | 11.99           |
+| 7        | Charlie       | Large      | Pepperoni    | 2        | 15.99           |
+| 8        | Diana         | Medium     | Veggie       | 1        | 12.99           |
+| 9        | Bob           | Small      | Cheese       | 2        | 8.99            |
+| 10       | Diana         | Large      | Supreme      | 1        | 18.99           |
+
+### Total Pizzas by Customer
+```sql
+SELECT 
+  customer_name,
+  SUM(quantity) as total_pizzas
+FROM PizzaOrders
+GROUP BY customer_name
+ORDER BY total_pizzas DESC;
+```
+
+**Output:**
+| customer_name | total_pizzas |
+|---------------|--------------|
+| Alice         | 5            |
+| Bob           | 4            |
+| Charlie       | 5            |
+| Diana         | 2            |
+
+Alice and Charlie love pizza!
+
+### Revenue by Pizza Size
+```sql
+SELECT 
+  pizza_size,
+  SUM(quantity * price_per_pizza) as total_revenue,
+  COUNT(*) as orders
+FROM PizzaOrders
+GROUP BY pizza_size
+ORDER BY total_revenue DESC;
+```
+
+**Output:**
+| pizza_size | total_revenue | orders |
+|------------|---------------|--------|
+| Large      | 119.93        | 5      |
+| Small      | 44.95         | 2      |
+| Medium     | 61.95         | 3      |
+
+Large pizzas make the most money!
+
+### Most Popular Topping
+```sql
+SELECT 
+  topping,
+  SUM(quantity) as pizzas_ordered,
+  COUNT(*) as number_of_orders
+FROM PizzaOrders
+GROUP BY topping
+ORDER BY pizzas_ordered DESC;
+```
+
+**Output:**
+| topping      | pizzas_ordered | number_of_orders |
+|--------------|----------------|------------------|
+| Pepperoni    | 7              | 3                |
+| Cheese       | 5              | 3                |
+| Veggie       | 2              | 2                |
+| Meat Lovers  | 1              | 1                |
+| Supreme      | 1              | 1                |
+
+Pepperoni wins!
+
+## HAVING - Filtering Groups
+
+`HAVING` is like WHERE, but for groups! Use it AFTER GROUP BY to filter groups.
+
+### Customers Who Ordered 3+ Pizzas
+```sql
+SELECT 
+  customer_name,
+  SUM(quantity) as total_pizzas
+FROM PizzaOrders
+GROUP BY customer_name
+HAVING SUM(quantity) >= 3
+ORDER BY total_pizzas DESC;
+```
+
+**Output:**
+| customer_name | total_pizzas |
+|---------------|--------------|
+| Alice         | 5            |
+| Charlie       | 5            |
+| Bob           | 4            |
+
+Diana didn't make the cut (only 2 pizzas)!
+
+### Platforms with 15,000+ Sales
+```sql
+SELECT 
+  platform,
+  SUM(copies_sold) as total_sales
+FROM GameSales
+GROUP BY platform
+HAVING SUM(copies_sold) >= 15000
+ORDER BY total_sales DESC;
+```
+
+**Output:**
+| platform | total_sales |
+|----------|-------------|
+| Switch   | 20000       |
+| PC       | 19100       |
+
+PlayStation didn't qualify (only 11,300)!
+
+## School Grades Example
+
+```sql
+CREATE TABLE StudentGrades (
+  student_id INTEGER PRIMARY KEY,
+  student_name TEXT,
+  subject TEXT,
+  grade INTEGER,
+  semester TEXT
+);
+
+INSERT INTO StudentGrades VALUES
+  (1, 'Emma', 'Math', 92, 'Fall'),
+  (2, 'Emma', 'Science', 88, 'Fall'),
+  (3, 'Emma', 'English', 95, 'Fall'),
+  (4, 'Liam', 'Math', 78, 'Fall'),
+  (5, 'Liam', 'Science', 85, 'Fall'),
+  (6, 'Liam', 'English', 82, 'Fall'),
+  (7, 'Olivia', 'Math', 95, 'Fall'),
+  (8, 'Olivia', 'Science', 92, 'Fall'),
+  (9, 'Olivia', 'English', 90, 'Fall'),
+  (10, 'Noah', 'Math', 88, 'Fall'),
+  (11, 'Noah', 'Science', 90, 'Fall'),
+  (12, 'Noah', 'English', 87, 'Fall');
+
+SELECT * FROM StudentGrades;
+```
+
+**Output:**
+| student_id | student_name | subject | grade | semester |
+|------------|--------------|---------|-------|----------|
+| 1          | Emma         | Math    | 92    | Fall     |
+| 2          | Emma         | Science | 88    | Fall     |
+| 3          | Emma         | English | 95    | Fall     |
+| 4          | Liam         | Math    | 78    | Fall     |
+| 5          | Liam         | Science | 85    | Fall     |
+| 6          | Liam         | English | 82    | Fall     |
+| 7          | Olivia       | Math    | 95    | Fall     |
+| 8          | Olivia       | Science | 92    | Fall     |
+| 9          | Olivia       | English | 90    | Fall     |
+| 10         | Noah         | Math    | 88    | Fall     |
+| 11         | Noah         | Science | 90    | Fall     |
+| 12         | Noah         | English | 87    | Fall     |
+
+### Average Grade per Student
+```sql
+SELECT 
+  student_name,
+  ROUND(AVG(grade), 1) as average_grade,
+  COUNT(*) as subjects_taken
+FROM StudentGrades
+GROUP BY student_name
+ORDER BY average_grade DESC;
+```
+
+**Output:**
+| student_name | average_grade | subjects_taken |
+|--------------|---------------|----------------|
+| Olivia       | 92.3          | 3              |
+| Emma         | 91.7          | 3              |
+| Noah         | 88.3          | 3              |
+| Liam         | 81.7          | 3              |
+
+Olivia has the highest average!
+
+### Average Grade per Subject
+```sql
+SELECT 
+  subject,
+  ROUND(AVG(grade), 1) as class_average,
+  MAX(grade) as highest_grade,
+  MIN(grade) as lowest_grade
+FROM StudentGrades
+GROUP BY subject
+ORDER BY class_average DESC;
+```
+
+**Output:**
+| subject | class_average | highest_grade | lowest_grade |
+|---------|---------------|---------------|--------------|
+| English | 88.5          | 95            | 82           |
+| Science | 88.8          | 92            | 85           |
+| Math    | 88.2          | 95            | 78           |
+
+All subjects have similar averages!
+
+### Students with A Average (90+)
+```sql
+SELECT 
+  student_name,
+  ROUND(AVG(grade), 1) as average_grade
+FROM StudentGrades
+GROUP BY student_name
+HAVING AVG(grade) >= 90
+ORDER BY average_grade DESC;
+```
+
+**Output:**
+| student_name | average_grade |
+|--------------|---------------|
+| Olivia       | 92.3          |
+| Emma         | 91.7          |
+
+Two students with A averages!
+
+## Animal Shelter Example
+
+```sql
+CREATE TABLE ShelterAnimals (
+  animal_id INTEGER PRIMARY KEY,
+  name TEXT,
+  species TEXT,
+  breed TEXT,
+  age_years INTEGER,
+  days_at_shelter INTEGER
+);
+
+INSERT INTO ShelterAnimals VALUES
+  (1, 'Buddy', 'Dog', 'Golden Retriever', 3, 15),
+  (2, 'Max', 'Dog', 'Labrador', 5, 30),
+  (3, 'Whiskers', 'Cat', 'Tabby', 2, 45),
+  (4, 'Luna', 'Cat', 'Siamese', 1, 10),
+  (5, 'Rocky', 'Dog', 'German Shepherd', 4, 20),
+  (6, 'Mittens', 'Cat', 'Persian', 3, 60),
+  (7, 'Charlie', 'Dog', 'Beagle', 2, 8),
+  (8, 'Shadow', 'Cat', 'Black Cat', 6, 90),
+  (9, 'Cooper', 'Dog', 'Golden Retriever', 7, 25),
+  (10, 'Cleo', 'Cat', 'Tabby', 4, 50);
+
+SELECT * FROM ShelterAnimals;
+```
+
+### Count by Species
+```sql
+SELECT 
+  species,
+  COUNT(*) as animal_count,
+  ROUND(AVG(age_years), 1) as avg_age,
+  ROUND(AVG(days_at_shelter), 1) as avg_days_waiting
+FROM ShelterAnimals
+GROUP BY species;
+```
+
+**Output:**
+| species | animal_count | avg_age | avg_days_waiting |
+|---------|--------------|---------|------------------|
+| Cat     | 5            | 3.2     | 51.0             |
+| Dog     | 5            | 4.2     | 19.6             |
+
+Cats wait longer to be adopted!
+
+### Count by Breed
+```sql
+SELECT 
+  breed,
+  species,
+  COUNT(*) as count
+FROM ShelterAnimals
+GROUP BY breed
+ORDER BY count DESC;
+```
+
+**Output:**
+| breed            | species | count |
+|------------------|---------|-------|
+| Golden Retriever | Dog     | 2     |
+| Tabby            | Cat     | 2     |
+| Beagle           | Dog     | 1     |
+| Black Cat        | Cat     | 1     |
+| German Shepherd  | Dog     | 1     |
+| Labrador         | Dog     | 1     |
+| Persian          | Cat     | 1     |
+| Siamese          | Cat     | 1     |
+
+### Animals Waiting 30+ Days
+```sql
+SELECT 
+  species,
+  COUNT(*) as animals_waiting_long,
+  ROUND(AVG(days_at_shelter), 0) as avg_days
+FROM ShelterAnimals
+WHERE days_at_shelter >= 30
+GROUP BY species;
+```
+
+**Output:**
+| species | animals_waiting_long | avg_days |
+|---------|----------------------|----------|
+| Cat     | 4                    | 61       |
+| Dog     | 1                    | 30       |
+
+Most long-waiters are cats!
+
+## GROUP BY with Multiple Columns
+
+You can group by more than one column!
+
+```sql
+SELECT 
+  platform,
+  genre,
+  SUM(copies_sold) as sales
+FROM GameSales
+GROUP BY platform, genre
+ORDER BY platform, sales DESC;
+```
+
+**Output:**
+| platform     | genre      | sales |
+|--------------|------------|-------|
+| PC           | Shooter    | 8000  |
+| PC           | Sandbox    | 5000  |
+| PC           | Action     | 3200  |
+| PC           | Simulation | 2900  |
+| PlayStation  | Shooter    | 6500  |
+| PlayStation  | Action     | 4800  |
+| Switch       | Simulation | 6800  |
+| Switch       | RPG        | 5500  |
+| Switch       | Racing     | 4200  |
+| Switch       | Sandbox    | 3500  |
+
+Grouped by platform first, then genre!
+
+## Pro Tips
+
+### WHERE vs HAVING
+```sql
+-- WHERE filters BEFORE grouping (rows)
+SELECT platform, COUNT(*)
+FROM GameSales
+WHERE price > 0
+GROUP BY platform;
+
+-- HAVING filters AFTER grouping (groups)
+SELECT platform, COUNT(*) as games
+FROM GameSales
+GROUP BY platform
+HAVING COUNT(*) > 2;
+```
+
+### Order Matters!
+The SQL query is executed in this order:
+1. FROM - Get data
+2. WHERE - Filter rows
+3. GROUP BY - Group data
+4. HAVING - Filter groups
+5. SELECT - Choose columns
+6. ORDER BY - Sort results
+7. LIMIT - Limit results
+
+### Grouping Best Practices
+- Always include grouped columns in SELECT or use aggregate functions
+- Use meaningful aliases with AS
+- Order your results for better readability
+
+:::tip[Think Like an Organizer!]
+GROUP BY is like organizing:
+- **GROUP BY species** = Sort animals into cats and dogs
+- **GROUP BY customer_name** = Organize orders by who placed them
+- **HAVING** = Only show groups that meet certain criteria
+
+It's data organization superpowers!
+:::
+
+:::note[Challenges!]
+Create the tables in [Programiz SQL Compiler](https://www.programiz.com/sql/online-compiler/) and try:
+
+**Challenge 1:** Find the total revenue from each topping (quantity × price_per_pizza)
+
+**Challenge 2:** Which student has the most consistent grades? (Use MAX - MIN)
+
+**Challenge 3:** Find platforms where the average game price is above $25
+
+**Challenge 4:** Create a "Store Sales" table and group by month to see seasonal trends
+
+**Challenge 5:** Find breeds at the shelter with more than 1 animal
+
+**Challenge 6:** Group pizza orders by size AND topping to see the most popular combination!
+:::
+
+<Box icon="check-list">
+
+### What You Learned
+<Checklist>
+- [ ] Used `GROUP BY` to organize data into categories
+- [ ] Combined `GROUP BY` with aggregate functions (`COUNT`, `SUM`, `AVG`)
+- [ ] Grouped by multiple columns
+- [ ] Used `HAVING` to filter groups
+- [ ] Understood the difference between `WHERE` and `HAVING`
+- [ ] Calculated totals and averages per group
+- [ ] Found the most/least popular items by category
+- [ ] Used `ORDER BY` with `GROUP BY` for better results
+- [ ] Practiced with games, pizzas, grades, and shelter animals
+- [ ] Understood SQL query execution order
+</Checklist>
+</Box>
+
+You've learned SQL superpowers! Now you can query databases like a pro!

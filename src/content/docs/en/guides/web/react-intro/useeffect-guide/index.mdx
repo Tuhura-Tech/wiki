@@ -1,0 +1,305 @@
+---
+title: useEffect Guide
+description: Master useEffect - side effects, dependencies, cleanup, and lifecycle patterns!
+sidebar:
+  order: 5.5
+
+---
+
+`useEffect` is like having a helpful robot that does chores for you at exactly the right time! It handles "side effects" — things your component needs to do AFTER it appears on the screen. Let's learn all about this super useful hook!
+
+## What Are Side Effects?
+
+Side effects are things your component does that aren't just showing stuff on the screen. Like:
+
+- Fetching data from the internet
+- Updating the page title
+- Setting up timers
+- Listening for keyboard presses
+- Saving data to localStorage
+
+These all happen OUTSIDE of just rendering, so we use `useEffect`!
+
+## Basic useEffect
+
+The simplest `useEffect` runs after EVERY render. It's like a robot that does a task every time something changes.
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function MessageLogger() {
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    console.log('Component rendered! Count is:', count)
+  })
+  
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Add 1</button>
+    </div>
+  )
+}
+```
+
+Every time you click the button, the console shows a new message! But running after EVERY render can be wasteful...
+
+## The Dependency Array (Being Smart!)
+
+You can tell `useEffect` to ONLY run when specific things change. That's the dependency array — it's like giving your robot a checklist!
+
+**Empty array []** = Run ONCE when component first appears:
+
+```jsx
+useEffect(() => {
+  console.log('Hello! I only run once!')
+}, []) // Empty array = run once
+```
+
+**With dependencies** = Run when those values change:
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function TitleUpdater() {
+  const [name, setName] = useState('Friend')
+  const [count, setCount] = useState(0)
+  
+  useEffect(() => {
+    document.title = `Hello, ${name}!`
+  }, [name]) // Only run when 'name' changes
+  
+  return (
+    <div>
+      <input 
+        value={name} 
+        onChange={e => setName(e.target.value)}
+        placeholder="Your name"
+      />
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Add 1</button>
+    </div>
+  )
+}
+```
+
+The page title updates when you type your name, but clicking the count button doesn't trigger the effect! Smart!
+
+## Fetching Data (The Internet Robot!)
+
+One of the coolest uses is fetching data from APIs! Here's a fun example that gets joke facts:
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function RandomFact() {
+  const [fact, setFact] = useState('Loading...')
+  const [loading, setLoading] = useState(true)
+  
+  useEffect(() => {
+    fetch('https://uselessfacts.jsph.pl/random.json?language=en')
+      .then(response => response.json())
+      .then(data => {
+        setFact(data.text)
+        setLoading(false)
+      })
+  }, []) // Empty array = fetch once when component loads
+  
+  return (
+    <div style={{ 
+      padding: '20px', 
+      backgroundColor: 'var(--sl-color-bg-sidebar)', 
+      borderRadius: '12px',
+      border: '2px solid var(--sl-color-orange)'
+    }}>
+      <h3>Random Fact!</h3>
+      {loading ? <p>Loading...</p> : <p>{fact}</p>}
+    </div>
+  )
+}
+```
+
+**Output (initial):**
+
+<div style="padding: 20px; background-color: var(--sl-color-bg-sidebar); border-radius: 12px; border: 2px solid var(--sl-color-orange);">
+  <h3>Random Fact!</h3>
+  <p>Loading...</p>
+</div>
+
+**Output (after data loads):**
+
+<div style="padding: 20px; background-color: var(--sl-color-bg-sidebar); border-radius: 12px; border: 2px solid var(--sl-color-orange);">
+  <h3>Random Fact!</h3>
+  <p>Did you know? Honey never spoils!</p>
+</div>
+
+## Cleanup (Tidying Up!)
+
+Sometimes your effect creates something that needs to be cleaned up when the component disappears. Like closing a door when you leave a room! Return a cleanup function from `useEffect`.
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function Timer() {
+  const [seconds, setSeconds] = useState(0)
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(s => s + 1)
+    }, 1000)
+    
+    // Cleanup function - runs when component unmounts!
+    return () => {
+      clearInterval(interval)
+      console.log('Timer stopped! Cleaning up...')
+    }
+  }, []) // Empty array = setup once, cleanup on unmount
+  
+  return <p>Timer: {seconds} seconds</p>
+}
+```
+
+When the component is removed from the page, the cleanup function stops the timer. No memory leaks!
+
+## Multiple useEffects (Organized!)
+
+You can use `useEffect` multiple times for different jobs. It keeps your code organized — like having different drawers for toys and clothes!
+
+```jsx
+import { useEffect, useState } from 'react'
+
+function MultiEffectDemo() {
+  const [count, setCount] = useState(0)
+  const [name, setName] = useState('Alex')
+  
+  // Effect 1: Update page title
+  useEffect(() => {
+    document.title = `Count: ${count}`
+  }, [count])
+  
+  // Effect 2: Log name changes
+  useEffect(() => {
+    console.log(`Name changed to: ${name}`)
+  }, [name])
+  
+  // Effect 3: Run once on mount
+  useEffect(() => {
+    console.log('Component mounted!')
+  }, [])
+  
+  return (
+    <div>
+      <input value={name} onChange={e => setName(e.target.value)} />
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>Add 1</button>
+    </div>
+  )
+}
+```
+
+Each effect has its own job and dependencies. Clean and organized!
+
+## Common Patterns
+
+### Pattern 1: Fetch on Load
+```jsx
+useEffect(() => {
+  fetch('/api/data')
+    .then(r => r.json())
+    .then(setData)
+}, []) // Run once
+```
+
+### Pattern 2: Subscribe/Unsubscribe
+```jsx
+useEffect(() => {
+  const handleResize = () => setWidth(window.innerWidth)
+  window.addEventListener('resize', handleResize)
+  
+  return () => window.removeEventListener('resize', handleResize)
+}, [])
+```
+
+### Pattern 3: Sync with Props
+```jsx
+useEffect(() => {
+  setLocalValue(propValue)
+}, [propValue]) // Update when prop changes
+```
+
+### Pattern 4: Auto-save
+```jsx
+useEffect(() => {
+  const timer = setTimeout(() => {
+    localStorage.setItem('draft', text)
+  }, 1000)
+  
+  return () => clearTimeout(timer)
+}, [text]) // Save after typing stops
+```
+
+## Common Mistakes (Oops!)
+
+### Forgetting Dependencies
+```jsx
+// BAD - missing 'count' in dependencies!
+useEffect(() => {
+  console.log(count)
+}, [])
+```
+
+### Including All Dependencies
+```jsx
+// GOOD - count is in the array!
+useEffect(() => {
+  console.log(count)
+}, [count])
+```
+
+### Infinite Loop!
+```jsx
+// BAD - setCount causes re-render, which runs effect, which calls setCount...
+useEffect(() => {
+  setCount(count + 1)
+}) // No dependency array = runs on every render!
+```
+
+### Controlled Effects
+```jsx
+// GOOD - only runs when button is clicked
+const handleClick = () => {
+  setCount(count + 1)
+}
+```
+
+## When NOT to Use useEffect
+
+Not everything needs `useEffect`! If you're just calculating something from existing values, do it directly:
+
+```jsx
+// DON'T do this
+const [total, setTotal] = useState(0)
+useEffect(() => {
+  setTotal(price * quantity)
+}, [price, quantity])
+
+// DO this instead
+const total = price * quantity
+```
+
+Simple calculations don't need effects! Just do the math directly.
+
+:::tip[The Golden Rule]
+If your effect uses a value from props or state, add it to the dependency array! React will warn you if you forget.
+:::
+
+:::note[Challenge Time!]
+**Challenge 1:** Create a component that fetches a random cat fact from `https://catfact.ninja/fact` when it loads. Show "Loading..." while fetching!
+
+**Challenge 2:** Make a live clock that updates every second using `useEffect` and a timer. Don't forget cleanup!
+
+**Challenge 3:** Build a component that listens for keyboard presses (like the spacebar) and counts how many times it's pressed. Clean up the listener when done!
+
+**Challenge 4:** Create an auto-save feature that saves text to localStorage 2 seconds after the user stops typing. Use cleanup to cancel the previous timer!
+:::
