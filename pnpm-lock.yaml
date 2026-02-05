@@ -100,8 +100,8 @@ importers:
         specifier: 1.2.2
         version: 1.2.2
       astro-og-canvas:
-        specifier: 0.7.2
-        version: 0.7.2(astro@5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2))
+        specifier: 0.10.1
+        version: 0.10.1(astro@5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2))
       canvaskit-wasm:
         specifier: 0.40.0
         version: 0.40.0
@@ -1516,11 +1516,10 @@ packages:
     peerDependencies:
       astro: ^4.0.0-beta || ^5.0.0-beta || ^3.3.0
 
-  astro-og-canvas@0.7.2:
-    resolution: {integrity: sha512-i7sWbdpl2MMF7wUZqSfzMnhW4c7GQz6s7T4BUJ7E06MqasZRHjJytn0n6D0JJkGDeTpZnU7E00A6Ffx0pRB4kg==}
-    engines: {node: '>=18.14.1'}
+  astro-og-canvas@0.10.1:
+    resolution: {integrity: sha512-cUjsWIOkDBi9Bfkgta1Cr45m2UnTX/jW+tK406SVcD1idhqIHrGD+M5qtwGcJ6OanHeWSgyHGmzQuzELGAwPKg==}
     peerDependencies:
-      astro: ^3.0.0 || ^4.0.0 || ^5.0.0
+      astro: ^5.0.0 || ^6.0.0-alpha
 
   astro@5.16.8:
     resolution: {integrity: sha512-gzZE+epuCrNuxOa8/F1dzkllDOFvxWhGeobQKeBRIAef5sUpUKMHZo/8clse+02rYnKJCgwXBgjW4uTu9mqUUw==}
@@ -1860,8 +1859,8 @@ packages:
     resolution: {integrity: sha512-aKstq2TDOndCn4diEyp9Uq/Flu2i1GlLkc6XIDQSDMuaFE3OPW5OphLCyQ5SpSJZTb4reN+kTcYru5yIfXoRPw==}
     engines: {node: '>=0.12'}
 
-  entities@7.0.0:
-    resolution: {integrity: sha512-FDWG5cmEYf2Z00IkYRhbFrwIwvdFKH07uV8dvNy0omp/Qb1xcyCWp2UDtcwJF4QZZvk0sLudP6/hAu42TaqVhQ==}
+  entities@7.0.1:
+    resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
     engines: {node: '>=0.12'}
 
   error-stack-parser-es@1.0.5:
@@ -5321,12 +5320,12 @@ snapshots:
       astro: 5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2)
       rehype-expressive-code: 0.38.3
 
-  astro-og-canvas@0.7.2(astro@5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2)):
+  astro-og-canvas@0.10.1(astro@5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2)):
     dependencies:
       astro: 5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2)
       canvaskit-wasm: 0.40.0
       deterministic-object-hash: 2.0.2
-      entities: 7.0.0
+      entities: 7.0.1
 
   astro@5.16.8(@types/node@22.19.5)(jiti@1.21.7)(rollup@4.40.2)(typescript@5.9.3)(yaml@2.8.2):
     dependencies:
@@ -5720,7 +5719,7 @@ snapshots:
 
   entities@6.0.0: {}
 
-  entities@7.0.0: {}
+  entities@7.0.1: {}
 
   error-stack-parser-es@1.0.5: {}
 
