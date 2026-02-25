@@ -1,0 +1,141 @@
+---
+type: tutorial
+unitTitle: Godot Clicker Game
+title: Passive Income
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+A big part of any clicker game is **Passive Income.** This means gaining points without having to click!
+
+Let's start by adding the **Nodes** we'll need and then get to **Scripting** 
+
+We'll need two new nodes: a **Timer** and another **Label** 
+
+The Label will display how many points we're getting per second (P/S) and the **Timer** will increase our points by our P/S every second.
+
+
+<Steps>
+1. Create the **Timer** and the **Label** as children of our Root **Game** Node. (First click the Game node, then add the node)
+
+2. The label is going to display our Points Per Second, so rename it to **PPS_Label**
+
+    Then right-click it, and **Access as Unique Name**
+
+3. In the inspector, give it some placeholder Text, like "P/S: 0" and position it where you want it.
+
+4. Click on the **Timer** Node we added, and in the Inspector tick the **Autostart** option so that **Autostart** is On.
+
+    This means that the timer will start going straight away without us having to tell it to.
+
+5. Finally, switch to the **Signals** Tab in the **Inspector** of the **Timer** 
+
+    Click the **timeout()** Signal, click **Connect** and in the window that appears, make sure the **Game** node is selected, then click **Connect.**
+
+</Steps>
+
+
+Here's how my scene looks:
+
+[after pps label]
+
+Great! Let's get onto coding our new features!
+
+Open up your **game.gd** script
+
+<Steps>
+
+1. We'll add some new variables to the top of our script, we need a reference to the label so we can change it, and we need to keep track of our points per second.
+
+    ```gdscript
+    @onready var pps_label = get_node("%PPS_Label")
+    var points_per_second = 0
+    ```
+
+2. Let's also quickly add a line to our **_ready():** function to update the label to our P/S when the game starts.
+
+    ```gdscript
+    pps_label.text = "P/S: " + points_per_second
+    ```
+
+
+3. Next, let's do the **_on_timer_timeout()** function which was added by our signal. Here, well want to increase our points by our P/s
+
+    ```gdscript
+    points = points + points_per_second
+	points_label.text = str(points)
+    ```
+
+4. Then, we'll create one new function, which we'll use to increase our P/S when we buy something that increases it.
+
+    ```gdscript
+    func increase_PPS(amount):
+	    points_per_second = points_per_second + amount
+	    pps_label.text = "P/S: " + points_per_second
+    ```
+
+
+</Steps>
+
+Giving us a full script that looks like this:
+
+```gdscript
+extends Control
+
+var points = 0
+var points_per_click = 1
+var points_per_second = 0
+
+var tween
+
+@onready var points_label = get_node("%Points_Label")
+@onready var button = get_node("%Button")
+@onready var pps_label = get_node("%PPS_Label")
+
+@export var point_number : PackedScene
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	button.pivot_offset = button.size * Vector2(0.5, 0.5)
+	pps_label.text = "P/S: " + points_per_second
+
+func spend_points(spent):
+	points = points - spent
+	points_label.text = str(points)
+
+func _on_button_button_down():
+	points = points + points_per_click
+	points_label.text = str(points)
+	
+	var label = point_number.instantiate()
+	label.text = ("+" + str(points_per_click)) 
+	label.global_position = get_global_mouse_position()
+	button.add_sibling(label)
+	
+	
+	if tween: 
+		tween.kill()
+	button.scale = Vector2(0.9, 0.7)
+
+
+func _on_button_button_up():
+	tween = create_tween().set_ease(Tween.EASE_OUT)
+	tween.set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(button, "scale", Vector2(1,1), 0.25)
+
+func _on_timer_timeout():
+	points = points + points_per_second
+	points_label.text = str(points)
+	
+func increase_PPS(amount):
+	points_per_second = points_per_second + amount
+	pps_label.text = "P/S: " + points_per_second
+
+```
+
+That's all we need to do for automatic point gain!
+
+To test it out, try manually changing the value of the **points_per_second** variable to be a number other than zero.
+
+In the next step we'll add **Buildings** which will increase your P/S when bought!
+

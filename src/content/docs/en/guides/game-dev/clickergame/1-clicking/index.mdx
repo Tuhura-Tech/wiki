@@ -1,0 +1,219 @@
+---
+type: tutorial
+unitTitle: Godot Clicker Game
+title: Something to Click on
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+What's the most important part of a clicker game? Well, something to click on!
+
+Let's start setting up our scene. I'll provide detailed intructions and images for this section, but once we've done something a couple of times, we'll starting doing it quicker.
+
+## Scene Setup
+
+<Steps>
+
+1. Because our is going to exist as UI (User Interface) We'll click 'User Interface' to create a new control node in the empty scene Godot opens on.
+
+    [image]
+
+2. Then, let's double click that new Control node, and rename it to "Game" as this node is going to hold our game's logic.
+
+3. Then, we'll click on that node to select it, and click the 'Plus' to add a child node. In the search window that appears, we want a "Button"
+
+    [two images - adding node and adding button]
+
+4. Let's set up our button so we have something to look at and click. I'll be using the default **icon.svg** that all Godot projects have for my icon, but you can use anything. 
+
+    To do this, click on the **Button** Node, and drag **Icon.svg** from the bottom left (The File System) over to the **Icon** Box in the rightmost section (The Inspector)
+
+    [Dragging image]
+
+5. While we're there, we'll want to tick the **Flat** Box,  right below where you dragged the image.
+
+6. Let's also right-click on the **Button** node and tick the **Access as Unique Name** Box
+
+7. You should now be able to see the image in the middle section! Feel free to drag it wherever you want, mine will be over on the middle left.
+
+</Steps>
+
+## Coding Our Clicking
+
+That's the basics of our scene set up, now lets make something happen when we click our button!
+
+<Steps>
+
+1. To start, we'll click on the root (top) node of our scene, the one we renamed to **game**
+
+2. We'll then click the **Add Script** button (It looks like a piece of paper with a plus)
+
+3. We can leave everything default in the window that appears and just click **Create**
+
+</Steps>
+
+This will attach a script to the node, and open that script. 
+
+Before we start editting the script, we'll want to connect some **Signals** To detect two things:
+
+1. When the player clicks the button
+2. When the player releases the button
+
+A **Signal** is a tool Godot gives us to only run code when something else happens. 
+
+:::note[Signals]
+To read more about signals check out the [Godot Documentation on Signals](https://docs.godotengine.org/en/stable/getting_started/step_by_step/signals.html)
+:::
+
+<Steps>
+
+1. To access the button's Signals, we'll want to make sure we have the **Button** node selected, then, at the top of the Inspector, we'll switch to the **Signals** Tab.
+
+    [signals image]
+
+2. We want to Connect two signals from this list; **button_down()** and **button_up()**
+
+    To do this, first select the signal, then, at the bottom of the Inspector, click connect, and then click connect in the window that appears, to connect it to our script!
+
+3. You'll notice two new **Functions** have appeared in our Script that match the two signals. Code we write here will happen when we click, or release the button.
+
+    Your script should look something like this:
+
+    [empty script image]
+
+</Steps>
+
+Great! We can now start coding our game!
+
+We'll start by setting up some **Variables** to keep track of important info about our game.
+
+But first let's think about what information we need to keep track of:
+
+1. How many Points we have
+2. How many points we get each time we click
+3. A reference to the button, so we can communicate with it
+
+That's all for now! We'll worry about automatically points later.
+
+<Steps>
+
+1. We'll want to define these variables bellow *extends Control* but above *func _ready():*
+
+    ```gdscript
+    var points = 0
+    var points_per_click = 1
+    @onready var button = get_node("%Button")
+    ```
+    To easily create the **@onready** variable without having to type it out,
+
+
+2. Great, now, in *func _on_button_button_down():* created by the signal we can remove the *pass* line (This means do nothing) and add some code that gives us points.
+
+    ```gdscript
+    func _on_button_button_down():
+        points = points + points_per_click
+    ```
+
+3. Giving us a full script that looks like this:
+
+    :::note[Copying & Pasting]
+    Please note, if you copy & paste code, you'll still need to connect the **Signals** through the Signal menu, or it won't work!
+    :::
+
+    ```gdscript
+    extends Control
+
+    var points = 0
+    var points_per_click = 1
+    @onready var button = get_node("%Button")
+
+    # Called when the node enters the scene tree for the first time.
+    func _ready():
+        pass # Replace with function body.
+
+
+    # Called every frame. 'delta' is the elapsed time since the previous frame.
+    func _process(delta):
+        pass
+
+    func _on_button_button_down():
+        points = points + points_per_click
+
+
+    func _on_button_button_up():
+        pass # Replace with function body.
+    ```
+</Steps>
+
+To test your game, click the **Play** Button in the top right and then click **Select Current**
+
+Great! We can now now click on our button to get points! But there's one problem... We can't see our points!
+
+Let's fix that, and then in the next step, we'll give our game some **Juice**
+
+## Seeing our Points
+
+Let's get started adding a way to see our points!
+
+<Steps>
+1. First, let's go back to 2D view so we can edit our scene. You can do this by clicking **2D** at the top of the screen.
+    [return to 2d image]
+
+2. Let's make sure we have our **Root* "Game" node selected.
+
+    Then, we'll click the **Add Node** Button the same way we did when adding our game's Button Node.
+
+    We'll want to add a **Label** Node.
+
+3. Let's rename the Node by double clicking on its name, and change it to **Points_Label**
+
+4. Then, in the **Inspector** of the node, in the **Text** Section at the top, we can just put "0"
+
+5. Feel free to position this node wherever you like, I'm putting mine right above my button.
+
+6. We'll probably want to change the text size, which takes a few steps. 
+
+    In the **Inspector** Scroll until you see **Theme Overrides**
+
+    Under this section you'll see **Font Sizes**
+
+    Here, change this to whatever you like, I'll be doing **32px**
+
+7. Finally, right-click on our new **Points_Label** Node on the left, and select **Access as Unique Name**
+
+</Steps>
+
+Great! Now we can write the (simple) code for our points label!
+
+<Steps>
+1. Let's return to our **Script** by either clicking **Script** on the bar at the very top, or by clicking the little scroll icon next to our **game** node
+
+2. We'll start by creating a new **Variable** that gets our **Points_Label** when the game starts, so we can communicate with it.
+
+    We'll put this at the top with our other **Variables**
+
+    It's important that the name here exactly matches the name of our node exactly.
+
+    ```gdscript
+    @onready var points_label = get_node("%Points_Label")
+    ```
+
+3. Great! Then, in our **_on_button_button_down()** Function, after we increase our points, we'll update the label.
+
+    ```gdscript
+    points_label.text = str(points)
+    ```
+</Steps>
+
+Now try playing your game! The number should go up whenever you click!
+
+In the next step, we'll make our clicking feel more fun, by adding some **Juice**
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,240 @@
+---
+type: tutorial
+unitTitle: Godot Clicker Game
+title: Adding Juice
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+In this step, we'll be making just clicking on our button feel way more fun, with some very simply changes.
+
+This has been seperated out into its own step, because it's technically optional for the game working, but I highly reccomend trying it out!
+
+## Squishing the Button
+
+To add our **Juice** we're first going to make the button bounce whenever we click it.
+
+To do this, we'll use something called a **Tween** 
+
+**Tween** is short for "Inbetween-ing" and is something we can use to smoothly move between two states (In this case, small and big)
+
+To read more about Tweens, check out the [Godot docs on the subject](https://docs.godotengine.org/en/stable/classes/class_tween.html)
+
+The best way to learn is by doing, so let's get into it!
+
+<Steps>
+
+1. We'll create a new variable to store our Tween with our other variables
+
+    ```gdscript
+    var tween
+    ```
+2. We'll also, in our **_ready()** function, tell godot where the middle of the image is.
+
+    ```gdscript
+    func _ready():
+	    button.pivot_offset = button.size * Vector2(0.5, 0.5)
+    ```
+
+3. Then, in our _on_button_button_down() function, we'll check if a Tween exists, if it does, we'll stop it. Then we'll adjust the size of our button.
+
+    ```gdscript
+    if tween: 
+        tween.kill()
+    button.scale = Vector2(0.9, 0.7)
+    ```
+4. In our _on_button_button_up() is where the real magic happens, and where we'll actually create our Tween.
+
+    First, we create a tween. 
+
+    ```gdscript
+    tween = create_tween().set_ease(Tween.EASE_OUT)
+    ```
+
+    Then, we set its transition type
+    
+    ```gdscript
+    tween.set_trans(Tween.TRANS_LINEAR)
+    ```
+
+    Then, finally, we tell it what to modify. In this case that's the scale, or size.
+
+    ```gdscript
+    tween.tween_property(button, "scale", Vector2(1,1), 0.25)   
+    ```
+
+5. Giving us a full script that looks like this:
+
+    ```gdscript
+    extends Control
+
+    var points = 0
+    var points_per_click = 1
+    @onready var points_label = get_node("%Points_Label")
+    @onready var button = get_node("%Button")
+    var tween
+
+    # Called when the node enters the scene tree for the first time.
+    func _ready():
+        button.pivot_offset = button.size * Vector2(0.5, 0.5)
+
+
+    # Called every frame. 'delta' is the elapsed time since the previous frame.
+    func _process(delta):
+        pass
+
+    func _on_button_button_down():
+        points = points + points_per_click
+        points_label.text = str(points)
+        
+        if tween: 
+            tween.kill()
+        button.scale = Vector2(0.9, 0.7)
+
+
+    func _on_button_button_up():
+        tween = create_tween().set_ease(Tween.EASE_OUT)
+        tween.set_trans(Tween.TRANS_LINEAR)
+        tween.tween_property(button, "scale", Vector2(1,1), 0.25)
+    ```
+
+</Steps>
+
+Try playing your game and clicking on the button! It should look and feel much more interesting!
+
+
+## Floating Text
+
+Another way Clicker games often add Juice is by having text appear whenever you click, showing how many points you gained.
+
+Our text will appear where we click on the Button, float upward, and fade out. It'll display how many points we're getting (e.g "+10")
+
+<Steps>
+
+1. To do this, we'll want to make a new **Scene** which we can do either by clicking **Scene -> New Scene** or by clicking the "+" next to our current scene.
+
+    [add scene]
+
+2. Then, for our only Node in this scene, we'll click **Other Node** and search **Label** and click **Add**
+
+3. We'll rename this node to **Point_Number** and then **Save** the scene.
+
+</Steps>
+
+That's our scene set up, now we can get to scripting it!
+
+For our upward movement, we can just adjust the Y position, but for the fading out, we'll use another **Tween**
+
+<Steps>
+
+1. Add a new script to the **Point_Number** Node the same way we've done before, and click **Create**
+
+2. We'll create two variables at the top of our script (But below the **Extends**) they'll store our Tween, and control the speed of the movement.
+
+    ```gdscript
+    var float_speed = 1
+    var tween
+    ```
+
+3. All of our code will exist in the **_process(delta)** function. First let's make it float up.
+
+    ```gdscript 
+    func _process(delta):
+	position.y -= float_speed
+    ```
+
+4. Then, we'll create a tween that effects the "Alpha" (How see through it is) of the label. Most of this will be the exact same as our button tween!
+
+    ```gdscript
+    if !tween:
+		tween = create_tween().set_ease(Tween.EASE_OUT)
+		tween.set_trans(Tween.TRANS_LINEAR)
+		tween.tween_property(self, "modulate:a", 0, 2)
+    ```
+
+5. Then, if the label floats high enough, we delete it.
+
+    ```gdscript
+    if position.y < 250:
+		queue_free()
+    ```
+6. Giving us a full script that looks like this:
+
+    ```gdscript
+    extends Label
+
+    var float_speed = 1
+    var tween
+
+    # Called every frame. 'delta' is the elapsed time since the previous frame.
+    func _process(delta):
+        position.y -= float_speed
+        
+        if !tween:
+            tween = create_tween().set_ease(Tween.EASE_OUT)
+            tween.set_trans(Tween.TRANS_LINEAR)
+            tween.tween_property(self, "modulate:a", 0, 2)
+        
+        if position.y < 250:
+            queue_free()
+    ```
+
+</Steps>
+
+That's all the coding for this scene, now we just need to head on over to our main **game.gd** script and make some changes there!
+
+<Steps>
+
+1. First, we'll add a new variable with all our others. This is going to be a special type of variable, an **Export**
+
+    You can read more about **Export Variables** [Here on the Godot docs](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_exports.html) but basically they let us modify variables in the inspector!
+
+    ```gdscript
+    @export var point_number : PackedScene
+    ```
+
+    Exports are great for things like loading scenes, as we need to be able to tell Godot what scene we want to spawn.
+
+2. Next, in our **_on_button_button_down()** function, we'll: Create a copy of the scene, set its text to the amount of points we're getting, and then set its position to the mouse.
+
+    ```gdscript
+    var label = point_number.instantiate()
+	label.text = ("+" + str(points_per_click)) 
+	label.global_position = get_global_mouse_position()
+	button.add_sibling(label)
+    ```
+
+3. Giving us an **_on_button_button_down()** function that looks like this:
+
+    ```gdscript
+    func _on_button_button_down():
+	points = points + points_per_click
+	points_label.text = str(points)
+	
+	var label = point_number.instantiate()
+	label.text = ("+" + str(points_per_click)) 
+	label.global_position = get_global_mouse_position()
+	button.add_sibling(label)
+	
+	
+	if tween: 
+		tween.kill()
+	button.scale = Vector2(0.9, 0.7)
+    ```
+4. Finally, we need to assign our scene to the **Export** variable we created.
+
+    We do this by first clicking on the **Game** Node to makes its inspector appear.
+
+    Then, we drag **Point_Number.tscn** from our file browser (Bottom left) to the **Empty** "Point Number" slot that's appeared
+
+    [dragging image]
+
+</Steps>
+
+Great! Now load up your game, and try clicking on your button! You should see text floating up whenever we click the button!
+
+The best part is, the number will change the match how many points we're getting per click!
+
+In the next step we'll add upgrades, starting with upgrades that increase how many points we get per click!
+
+

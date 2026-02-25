@@ -1,0 +1,156 @@
+---
+type: tutorial
+unitTitle: Godot Clicker Game
+title: Upgrading our Clicks
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+Let's make our game more of an actual game, by adding ways to get **even more** points!
+
+Let's add a button for the player to click that increases their click power.
+
+
+<Steps>
+
+1. First, select our **Game** Node in our main scene, and add a new **Button** Node.
+
+2. Let's rename it to **Upgrade_Click** by double-clicking on it.
+
+3. Then, let's attach a script to it by clicking the **Add Script** button and then **Create** 
+
+</Steps>
+
+Let's think about how the functionality of our button should work:
+
+It should: Increase the amount of points we get per click IF we have enough points to buy it.
+
+It should then take away (spend) those points, and increase in cost.
+
+Sounds like we'll need some variables!
+
+<Steps>
+
+1. To get started on our script, let's create those variables to keep track of that information.
+
+    ```gdscript
+    var cost = 20
+    var power_increase = 1
+
+    var game
+    ```
+
+    That last variable will hold our **Game** Node, so that we can talk to it.
+
+2. Let's connect the signal for clicking the Button so we can do things when the player clicks it.
+
+    First, make sure you have the **Upgrade_Click** Node selected, then, switch the Inspector to the **Signals** Tab up the top.
+
+    Then, we'll want **button_up()** click it, then click **Connect** Down the bottom.
+
+    Importantly, in the window that pops up, we want to click the **Upgrade_Click** Node again, before finally clicking **Connect**
+
+    We should now see a new function **_on_button_button_up()** in our script.
+
+4. Let's work backwards with our functions, we know we'll need to update the text on the button to show the cost, so let's do that by creating a new function.
+
+    ```gdscript
+    func update_text():
+        var new_text = "Increase Click Power by %s for %s points"
+        text = new_text % [power_increase, cost]
+
+    ```
+
+    :::note[What's %s?]
+    %s is something called a placeholder, we add it in places we want to insert a variable. Then, in the next line, we tell it what variables to replace them with!
+
+    To read more about them, check out the [Godot Docs on the subject](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_format_string.html)
+    :::
+
+5. Then, we know we'll want to increase the cost and power for the next upgrade each time one is bought.
+
+    Let's do that in a new function:
+
+    ```gdscript
+    func increase_cost():
+        cost = cost + (power_increase * 40) * power_increase
+        power_increase = power_increase * 2
+        update_text()
+    ```
+
+    Feel free to mess with the equations here, but basically, the cost increases **Much** faster than the power increases do, meaning each upgrade takes longer than the last to get, but that's why we'll have other upgrades!
+
+6. Next, we'll edit our already existing **func _ready()** to get a reference to our **Game** node, and also set up the initial text.
+
+    ```gdscript
+        func _ready():
+            game = get_parent()
+            update_text()
+    ```
+
+7. Finally, we'll do the **_on_button_button_up()** function created by our signal
+
+    It should: Check if we have enough points, then increase our click power, then take away the points, and increase the cost.
+
+    ```gdscript
+    func _on_button_button_down():
+        if game.points >= cost:
+            game.points_per_click = game.points_per_click + power_increase
+            game.spend_points(cost)
+            increase_cost()
+    ```
+
+    Our full script should look something like this:
+
+    ```gdscript
+    extends Button
+
+    var cost = 20
+    var power_increase = 1
+
+    var game
+
+    # Called when the node enters the scene tree for the first time.
+    func _ready():
+        game = get_parent()
+        update_text()
+
+
+    func _on_button_up():
+        if game.points >= cost:
+            game.points_per_click = game.points_per_click + power_increase
+            game.spend_points(cost)
+            increase_cost()
+
+
+    func increase_cost():
+        cost = cost + (power_increase * 40) * power_increase
+        power_increase = power_increase * 2
+        update_text()
+        
+        
+    func update_text():
+        var new_text = "Increase Click power by %s for %s points"
+        text = new_text % [power_increase, cost]
+	```
+
+    Great! That's everything done for this script! But we're not quite ready to test. You might've noticed we called the **spend_points** function, which doesn't exist yet.
+
+    We'll need to go back to our main **Game** Script to add this new function.
+</Steps>
+
+
+
+Let's open our **game.gd** script, and add a function to remove spend points, by subtracting them from the variable, and then updating our label.
+
+```gdscript
+func spend_points(spent):
+	points = points - spent
+	points_label.text = str(points)
+
+```
+
+That should be all we need to do, we can now click the button to spend some of our points to improve our click!
+
+In the next step, we'll start doing *Passive* Income, gaining points without doing anything via upgrades.
+
