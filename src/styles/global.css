@@ -1,5 +1,18 @@
 :root {
   --sl-content-width: 60%;
+  --sl-font: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --sl-font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --sl-color-white: #fff;
+  --sl-color-gray-1: #e6eff9;
+  --sl-color-gray-2: #b9c3cf;
+  --sl-color-gray-3: #7b8da4;
+  --sl-color-gray-4: #4b5563;
+  --sl-color-gray-5: #29394d;
+  --sl-color-gray-6: #18283a;
+  --sl-color-black: #121921;
+  --sl-color-accent-low: #192819;
+  --sl-color-accent: #407840;
+  --sl-color-accent-high: #bbcfba;
 }
 
  [data-has-hero] .main-pane{
@@ -7,8 +20,29 @@
   background: radial-gradient(var(--sl-color-purple-low),transparent 40%) no-repeat -170vw -55vh / 250vw 250vh,radial-gradient(closest-side,var(--sl-color-red-low),transparent) no-repeat calc(100% + var(--cell-size) * 6) calc(var(--cell-size) * -7) / calc(var(--cell-size) * 12) calc(var(--cell-size) * 19);
  }
 
-  [data-has-sidebar][data-has-toc] .main-pane:where(.astro-fk5sx3ec) {
-      --sl-content-margin-inline: auto auto;
-      order:1;
-      width:calc(var(--sl-content-width) + (100% - var(--sl-content-width) - var(--sl-sidebar-width)) / 2)
-    }
+[data-has-sidebar][data-has-toc] .main-pane:where(.astro-fk5sx3ec) {
+    --sl-content-margin-inline: auto auto;
+    order:1;
+    width:calc(var(--sl-content-width) + (100% - var(--sl-content-width) - var(--sl-sidebar-width)) / 2)
+}
+
+.hero:where(.astro-gy3lmzu4) {
+  grid-template-columns: 7fr 4fr;
+  gap: 3%;
+
+  padding-block-start: clamp(2.5rem, 1rem + 10vmin, 5rem);
+  padding-block-end: clamp(2.5rem, 1rem + 10vmin, 2rem);
+
+}
+
+
+.highlight-box:where(.astro-7ap2y2gv) {
+  position: relative;
+  padding-block: 2rem;
+  padding-inline-start: 2rem;
+  padding-inline-end: 4rem;
+  border: 1px solid var(--sl-color-purple);
+  background-color: var(--sl-color-purple-low);
+  color: var(--sl-color-purple-high);
+  margin-top: 2.5rem !important;
+}
