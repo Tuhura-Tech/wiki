@@ -49,6 +49,11 @@ export default defineConfig({
                   label: 'Guides and Resources',
                   items: [
                       {
+                          label: 'Contribute to this Wiki',
+                          collapsed: true,
+                          autogenerate: { directory: 'guides/contribute' },
+                      },
+                      {
                           label: 'Game Development',
                           items: [
                               // Each item here is one entry in the navigation menu.
@@ -167,8 +172,51 @@ export default defineConfig({
                       },
                       {
                           label: 'Cybersecurity',
-                          autogenerate: { directory: 'guides/Cybersecurity' },
+                          autogenerate: { directory: 'guides/cybersecurity' },
                       },
+                      {
+                          label: 'Blender',
+                          autogenerate: { directory: 'guides/blender' },
+                      },
+                      {
+                          label: 'Databases',
+                          autogenerate: { directory: 'guides/database' },
+                      },
+                      {
+                          label: 'Javascript',
+                          autogenerate: { directory: 'guides/javascript' },
+                      },
+                      {
+                          label: 'Python',
+                          items: [
+                            {label: 'Introduction', slug: 'guides/python'},
+                            {label: 'Conditionals & Loops', slug: 'guides/python/conditionals-loops'},
+                            {label: 'Functions', slug: 'guides/python/functions'},
+                            {label: 'Lists, Tuples, and Dictionaries', slug: 'guides/python/lists-tuples-dicts'},
+                            {label: 'Classes', slug: 'guides/python/classes'},
+                            {
+                                label: 'Turtle',
+                                collapsed: true,
+                                items: [
+                                    {label: '1. Setup', slug: 'guides/python/turtle/0-setup'},
+                                    {label: '2. Basics', slug: 'guides/python/turtle/1-basics'},
+                                    {label: '3. Variables', slug: 'guides/python/turtle/2-variables'},
+                                    {label: '4. Lists', slug: 'guides/python/turtle/3-lists'},
+                                    {label: '5. Extra', slug: 'guides/python/turtle/4-extra'},
+                                    {label: '6. Hangman', slug: 'guides/python/turtle/5-hangman'},
+                                ]
+                            },
+                            {
+                                label: 'Flask',
+                                collapsed: true,
+                                autogenerate: { directory: 'guides/python/Flask' },
+                            },
+                        
+
+                          ],
+                      },
+                      
+                      
                   ]
               },
               {
