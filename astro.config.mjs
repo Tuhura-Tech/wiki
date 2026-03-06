@@ -23,7 +23,7 @@ export default defineConfig({
               replacesTitle: true,
           },
 
-          favicon: '/public/favicon.ico',
+          favicon: '/favicon.ico',
 
           customCss: [
               './src/styles/global.css',
@@ -49,11 +49,19 @@ export default defineConfig({
                   label: 'Guides and Resources',
                   items: [
                       {
-                          label: 'Gamedev',
+                          label: 'Game Development',
                           items: [
                               // Each item here is one entry in the navigation menu.
                               { label: 'About', slug: 'guides/game-dev'},
                               { label: 'Godot Basics', slug: 'guides/game-dev/basics'},
+                                {
+                                label: '2D Platformer',
+                                items: [
+                                    {label: '1. Making the Player', slug: 'guides/game-dev/2dplatformer/0-making-the-player'},
+                                    {label: '2. Creating a level', slug: 'guides/game-dev/2dplatformer/1-creating-a-level'},
+                                ],
+                                },
+                              { label: '2D Platformer', slug: 'guides/game-dev/2dplatformer/0-making-the-player'},
                               { label: 'Top-down Dungeon Crawler', slug: 'guides/game-dev/dungeoncrawler/0-scenesetup' },
                           ],
                       },
@@ -79,7 +87,6 @@ export default defineConfig({
 	],
 
   vite: {
-    // @ts-expect-error (Known issue with vite versions)
     plugins: [tailwindcss()],
   },
 
