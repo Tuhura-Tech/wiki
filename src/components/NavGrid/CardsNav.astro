@@ -27,7 +27,7 @@ const currentPage = new URL(Astro.request.url).pathname;
 	<slot />
 	<Grid {size}>
 		{
-			links.map(({ description, href,  title, tags, lang }) => (
+			links.map(({ description, href, title, tags, lang }) => (
 				<Card
 					{...{ size, href, lang }}
 					current={currentPage.includes(href)}
