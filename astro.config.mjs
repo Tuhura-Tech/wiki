@@ -223,10 +223,10 @@ export default defineConfig({
                   label: 'NCEA',
                   items: []
               },
-              {
-                  label: 'Micro-Credentials',
-                  items: []
-              },
+              //{
+               //   label: 'Micro-Credentials',
+               //   items: []
+              //},
 
 
               
