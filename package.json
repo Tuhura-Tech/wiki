@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@11ty/eleventy-fetch": "^5.1.1",
+    "@astrojs/check": "^0.9.6",
     "@astrojs/starlight": "^0.37.1",
     "@astrojs/starlight-tailwind": "^4.0.2",
     "@docsearch/js": "^4.3.2",
@@ -20,6 +21,7 @@
     "p-retry": "^7.1.1",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3",
     "vite": "^6.4.1"
   }
 }

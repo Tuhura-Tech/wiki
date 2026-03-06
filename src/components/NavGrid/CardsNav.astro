@@ -1,5 +1,4 @@
 ---
-import type { ComponentProps } from 'astro/types';
 import Badge from '~/components/Badge.astro';
 import Card from './Card.astro';
 import Grid from './Grid.astro';
@@ -10,7 +9,7 @@ export interface Props {
 		title: string;
 		description?: string;
 		href: string;
-		logo?: ComponentProps<typeof Card>['logo'];
+
 		/** Map of tag IDs to translated tag display text, e.g. `{ static: 'Statisch' }`. */
 		tags?: Record<string, string>;
 		/** The language of the content if it differs from the main page language. */
@@ -28,9 +27,9 @@ const currentPage = new URL(Astro.request.url).pathname;
 	<slot />
 	<Grid {size}>
 		{
-			links.map(({ description, href, logo, title, tags, lang }) => (
+			links.map(({ description, href,  title, tags, lang }) => (
 				<Card
-					{...{ size, logo, href, lang }}
+					{...{ size, href, lang }}
 					current={currentPage.includes(href)}
 					class={Object.keys(tags || {}).join(' ')}
 				>
