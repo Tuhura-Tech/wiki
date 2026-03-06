@@ -10,12 +10,14 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@11ty/eleventy-fetch": "^5.1.1",
     "@astrojs/starlight": "^0.37.1",
     "@astrojs/starlight-tailwind": "^4.0.2",
     "@docsearch/js": "^4.3.2",
     "@lunariajs/core": "^0.1.1",
     "@tailwindcss/vite": "^4.1.18",
     "astro": "5.16.6",
+    "p-retry": "^7.1.1",
     "sharp": "^0.34.5",
     "tailwindcss": "^4.1.18",
     "vite": "^6.4.1"
