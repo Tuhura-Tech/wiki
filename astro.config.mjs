@@ -221,7 +221,24 @@ export default defineConfig({
               },
               {
                   label: 'NCEA',
-                  items: []
+                  items: [
+                    {
+                        label: 'Level 1',
+                        collapsed: true,
+                        autogenerate: { directory: 'ncea/level-1' },
+                    },
+                    {
+                        label: 'Level 2',
+                        collapsed: true,
+                        autogenerate: { directory: 'ncea/level-2' },
+                    },
+                    {
+                        label: 'Level 3',
+                        collapsed: true,
+                        autogenerate: { directory: 'ncea/level-3' },
+                    },
+
+                  ]
               },
               //{
                //   label: 'Micro-Credentials',
