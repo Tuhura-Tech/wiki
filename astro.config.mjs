@@ -15,7 +15,16 @@ export default defineConfig({
 
           //Site config
           title: 'Wiki',
-          social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+          social: [
+            { icon: 'discord', label: 'Discord', href: 'https://discord.gg/PNxh7cwKfQ' },
+            { icon: 'github', label: 'GitHub', href: 'https://github.com/Tuhura-Tech/Wiki' },
+            { icon: 'mastodon', label: 'Mastodon', href: 'https://mastodon.nzoss.nz/@tuhuratech' },
+            { icon: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/tuhura_tech' },
+            { icon: 'facebook', label: 'Facebook', href: 'https://www.facebook.com/p/T%C5%ABhura-Tech-100083052084710/' },
+            { icon: 'linkedin', label: 'Linkedin', href: 'https://www.linkedin.com/company/tuhuratech' },
+            { icon: 'email', label: 'Email', href: 'mailto:contact@tuhuratech.org.nz' },
+          ],
+          
 
           logo:{
               light: './public/assets/full-logo-light.png',
