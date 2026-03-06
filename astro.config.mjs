@@ -56,9 +56,15 @@ export default defineConfig({
                               { label: 'Godot Basics', slug: 'guides/game-dev/basics'},
                                 {
                                 label: '2D Platformer',
+                                collapsed: true,
                                 items: [
                                     {label: '1. Making the Player', slug: 'guides/game-dev/2dplatformer/0-making-the-player'},
                                     {label: '2. Creating a level', slug: 'guides/game-dev/2dplatformer/1-creating-a-level'},
+                                    {label: '3. Adding Movement', slug: 'guides/game-dev/2dplatformer/2-adding-movement'},
+                                    {label: '4. Adding Killzones', slug: 'guides/game-dev/2dplatformer/3-adding-killzones'},
+                                    {label: '5. Making Enemies', slug: 'guides/game-dev/2dplatformer/4-making-enemies'},
+                                    {label: '6. Adding Items', slug: 'guides/game-dev/2dplatformer/5-adding-items'},
+                                    {label: '7. Connecting Levels', slug: 'guides/game-dev/2dplatformer/6-connecting-levels'},
                                 ],
                                 },
                               { label: '2D Platformer', slug: 'guides/game-dev/2dplatformer/0-making-the-player'},
