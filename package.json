@@ -38,7 +38,7 @@
     "dedent-js": "1.0.1",
     "domhandler": "5.0.3",
     "eslint": "9.39.4",
-    "eslint-plugin-astro": "1.5.0",
+    "eslint-plugin-astro": "1.6.0",
     "fast-glob": "3.3.3",
     "globals": "16.5.0",
     "hast-util-select": "6.0.4",
