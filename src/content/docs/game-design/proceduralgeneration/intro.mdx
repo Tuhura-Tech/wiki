@@ -1,0 +1,141 @@
+---
+title: Understanding Concepts
+description: This page goes through how procedural generation works
+sidebar:
+    order: 3
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+Procedural generation is a technique that uses algorithms to create game content on the fly
+rather than manually. Using rules and randomness inside algorithms, procedural generation enables the
+creation of unique worlds, levels, textures, and assets. This approach is particularly
+useful for games that have expansive environments, replayability, or unpredictable gameplay, such as roguelikes,
+open-world games, or infinite runners.
+
+## What is Procedural Generation?
+
+Procedural generation means letting the computer create parts of the game for you based on a set of rules.
+Instead of designing every level, room, or object yourself, you write instructions in code.
+
+
+Even though randomness is used, procedural generation still follows rules to make sure everything works.
+For example, if you’re making a dungeon, the layout can change every time, but the player still needs to find a starting point,
+an exit, and maybe some enemies.
+
+:::tip[Procedural Generation (PG) or Procedural Content Generation (PCG)?]
+You might see these words being thrown around on the internet, so here are the differences:
+ - PG is the more general term and can apply to any form of data generation, even if it doesn't involve creating content for a game.
+    PG can be used in many fields: from creating complex models in scientific simulations to generating random art or environmental patterns.
+ - PCG is specifically aimed at generating interactive content for games or simulations. It’s a subset of PG that focuses on game-related content.
+    PCG is used primarily in video games, where it automates the generation of in-game content like maps, levels, quests, and characters.
+    It’s designed to create dynamic, engaging worlds that evolve as the player interacts with them.
+:::
+:::note[Procedural Generation vs. Random Generation]
+Some people confuse these two topics, when they are quite different.
+ - Procedural Generation uses algorithms, rules, and parameters to create content in a controlled, purposeful way.
+   It allows for controlled variability that follows specific patterns or structures.
+      Primarily used in games to create dynamic, engaging worlds or content that evolves based on input parameters, ensuring variety with structure.
+ - Random Generation relies solely on chance, producing unpredictable outcomes without rules or structure, often
+   resulting in nonsensical or disconnected content.
+      Used where unpredictability is the goal, with no need for underlying structure or design, such as generating random NPC names or rolling dice.
+:::
+
+## Types of Procedural Content Generation
+Some of the most common applications:
+<Steps>
+1. ###### Runtime Random Level Generation
+   This is the most well-known use of PCG in games. Every time you load up a new world, it's randomly generated, offering a fresh experience.
+   Think of games like Minecraft or Spelunky, where the environment is randomly created each time you start a new game.
+
+2. ###### Designing Level Content
+   Instead of manually placing every element, they can
+   use algorithms to generate large parts of the level, which the designers can tweak afterward. This can save a lot of time, especially
+   for large open-world games.
+3. ###### Instancing of In-Game Entities
+   PCG is also used to create things like characters, objects, or creatures, especially in games with large numbers of enemies or items.
+   Each creature or object can be generated based on a random algorithm, giving each one a unique look or behavior.
+
+4. ###### User Mediated Content
+   This allows players to influence how content is generated. For example, a game might let players set a **seed**
+   (a starting point for the random generation) or adjust settings like how much water or mountains are in the world.
+   This adds a layer of customization and replayability.
+
+5. ###### Dynamic Systems
+   In some games, the world or game systems can change over time in response to player actions. For example, a city
+   might grow or degrade based on player decisions. PCG can generate these changes dynamically as the game unfolds.
+
+6. ###### Procedural Puzzles and Plot Generation
+   PCG can even be used to create puzzles or stories.
+   A game might generate new puzzles or plotlines every time you play, making each playthrough feel like a unique adventure.
+</Steps>
+
+### Extra: Learning the Two Types of Algorithms
+<details>
+<summary>Teleological vs. Ontogenetic Algorithms</summary>
+When we talk about how procedural generation works, we often mention two types of algorithms: teleological and ontogenetic.
+
+
+ - **Teleological Algorithms** simulate processes found in nature.
+   These algorithms create environments by simulating natural phenomena
+   like erosion, rain, or plant growth. The idea is that the process will generate realistic environments over time, just like how
+   mountains and rivers form naturally. Games like Dwarf Fortress use these algorithms to simulate fluid dynamics (like water and magma)
+      or even the growth of plants.
+ - **Ontogenetic Algorithms,** on the other hand, focus more on creating results directly. For example, a maze generator may not simulate
+   the process of maze creation but rather uses specific rules to generate a maze directly. This approach is often used in generating
+   simpler, predictable content like mazes or dungeons.
+</details>
+
+
+## Noise Functions
+One key tool used in procedural generation is noise functions. These functions generate "randomness" that still looks natural and
+structured. For example, imagine a mountain landscape. While we can't predict every rock, we can simulate the general shape of the
+mountains with a noise function that produces a random but smooth result.
+
+The most famous noise functions are **Perlin noise** and
+**Simplex noise**, which generate smooth, natural-looking randomness.
+
+
+By combining multiple layers of noise, we can create more complex and detailed landscapes. For example, we can generate large
+mountains with one noise layer, and then add smaller details like hills or valleys with another layer. This process is called
+octave noise, where each layer has a different frequency (or "period") of detail. By combining different layers, you can create
+highly detailed worlds that feel natural but don't require massive computational power.
+
+### Example: Generating a Map Using Noise
+Let’s say we want to generate a simple 2D map for a game. We start by generating noise for the terrain using a noise function,
+like Perlin or Simplex noise. These functions return values between -1 and 1, where -1 might represent a deep sea and 1 represents
+a mountain.
+
+
+Once we have this map, we can categorize different height values into types of terrain, like:
+- Sea: Anything below 0.25.
+- Coastline: Between 0.25 and 0.65.
+- Hills: Between 0.65 and 1.00.
+- Mountains: Anything above 1.00.
+We can also add colors to represent each terrain type—blue for sea, green for coastlines, brown for hills, and white for mountains.
+
+
+## Procedural Generation in Game Dev
+
+### Examples of what you could do
+- World Generation: Godot has built-in tools for working with noise functions, so you can create huge, randomized worlds.
+   You can apply algorithms like Perlin noise to generate terrain maps and place objects, trees, and enemies randomly.
+- Randomized Dungeons: You can use PCG to create randomized dungeons or levels in your game so that players have a different
+ experience each time they play.
+- Procedural Textures: Godot allows you to generate textures (like water, land, or stone) using noise and other algorithms,
+ which can be used to dynamically create environments.
+- Procedural Animation: You can even use PCG to develop animations, such as random character movements or environmental effects like wind.
+- Mixing up enemy behavior, traps, or treasures.
+
+### Need to Know Features
+- Functions such as `randi()` and `randf()` let you add randomness.
+- Create and position objects (like rooms or platforms) in your game while it’s running, through **Scenes** and **Nodes**.
+- **TileMaps** for 2D games are great for generating levels made of tiles.
+- In 3D, you can place objects like roads, mountains, or buildings with code, using **Meshes** and **3D Objects**.
+- Godot has tools like **FastNoiseLite** (a class which includes all the different types of noise) to make natural-looking terrain or patterns.
+
+
+## Up Next
+
+As you have seen, there are heaps of tutorials which could be made from all of these different situations (and depending on what you want to make).
+So feel free to pick and choose which tutorial suits you best.
