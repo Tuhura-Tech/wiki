@@ -1,7 +1,6 @@
 export default {
 	guide: 'Guides and Resources',
 	'guide.game_dev': 'Game Development',
-	'guide.robotics': 'XRP Robotics',
 	'guide.security': 'Cyber Security',
 	'guide.3d': '3D Modelling and Printing',
 	'guide.python': 'Python',
