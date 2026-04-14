@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Kill the custom Tutorial Tracker everywhere */
+.tutorial-nav,
+.tutorial-tab,
+unit-progress-icon,
+[class*='tutorial-tab'],
+[class*='tutorial-nav'],
+[class*='unit-progress-icon'] {
+    display: none !important;
+}
+
+/* If the TOC wrapper becomes empty after hiding the tracker, hide it too */
+nav[aria-labelledby='starlight__on-this-page']:has(.tutorial-nav),
+nav[aria-labelledby='starlight__on-this-page']:has([class*='tutorial-nav']) {
+    display: none !important;
+}
