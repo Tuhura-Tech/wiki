@@ -1,0 +1,190 @@
+---
+title: Vectors & Embeddings
+description: How embeddings work and how to use them for smart search in Python
+sidebar:
+    order: 3
+---
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## What even is an embedding?
+
+An embedding is just a way of turning text into a list of numbers. That list is called a **vector**.
+
+```
+"dog" → [0.21, -0.77, 0.53, 0.12, ...]
+"cat" → [0.19, -0.71, 0.49, 0.08, ...]
+"car" → [-0.45, 0.33, -0.12, 0.91, ...]
+```
+
+The numbers don't mean anything on their own. What matters is how close they are to each other. Words with similar meanings end up with similar numbers. Words that have nothing to do with each other end up far apart.
+
+Think of it like coordinates. If two cities are close on a map, they're near each other in real life. Vectors work the same way — text with similar meaning lives close together in "vector space".
+
+## A picture (sort of)
+
+Real vectors have hundreds of dimensions, which is impossible to draw. But imagine a 2D version:
+
+```
+                    animals
+                       ↑
+             dog • cat •
+                    
+          ←————————————————→
+    machines               feelings
+                    
+             joy • sadness •
+                       ↓
+```
+
+`dog` and `cat` cluster together. `car` and `truck` go somewhere else. `joy` and `sadness` are near each other — both are emotions — but far from `dog`.
+
+The model learned all of this by reading enormous amounts of text and noticing which words tend to show up in the same contexts.
+
+## The maths is actually interesting
+
+Because meaning is stored as position, you can do maths on it.
+
+A famous example: take the vector for `king`, subtract `man`, add `woman`. What you get is very close to the vector for `queen`.
+
+```
+king − man + woman ≈ queen
+```
+
+It works because `king` and `queen` share everything except gender, and `man` / `woman` differ only by gender. The subtraction cancels out gender, leaving just the royalty part.
+
+This same idea is what makes smart search work. Your query gets turned into a vector. The system finds documents whose vectors are closest to it — even if the query and the document don't share a single word.
+
+## Use a dedicated embedding model
+
+You can use a chat model like `gemma3` to generate embeddings, but there are models built specifically for this. They're smaller, faster, and tuned just for producing good vectors — not for chatting.
+
+`nomic-embed-text` is a solid choice:
+
+```bash
+ollama pull nomic-embed-text
+```
+
+:::tip
+For any project doing search or document lookup, use a dedicated embedding model. Running a full chat model just to get vectors is like using a sledgehammer to hang a picture.
+:::
+
+## Generating embeddings in Python
+
+```bash
+pip install ollama
+```
+
+```python
+import ollama
+
+result = ollama.embeddings(model="nomic-embed-text", prompt="The sky is blue.")
+vector = result["embedding"]
+
+print(f"Vector length: {len(vector)}")
+print(f"First 5 values: {vector[:5]}")
+```
+
+You get back a big list of numbers. That's the vector — the meaning of your text, encoded as position in space.
+
+## Comparing two texts
+
+Vectors that point in the same direction have similar meaning. We measure this with **cosine similarity** — a formula that checks how much two vectors align.
+
+The result is a number between `-1` and `1`:
+
+| Score | What it means |
+|-------|--------------|
+| `1.0` | Basically the same meaning |
+| `0.5` | Somewhat related |
+| `0.0` | Nothing in common |
+| `-1.0` | Opposite meaning |
+
+In practice for natural language, you'll mostly see scores between `0` and `1`.
+
+```python
+import ollama
+import math
+
+def cosine_similarity(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    mag_a = math.sqrt(sum(x ** 2 for x in a))
+    mag_b = math.sqrt(sum(x ** 2 for x in b))
+    return dot / (mag_a * mag_b)
+
+text1 = "The dog ran across the park."
+text2 = "A puppy sprinted through the field."
+text3 = "The stock market closed higher today."
+
+vec1 = ollama.embeddings(model="nomic-embed-text", prompt=text1)["embedding"]
+vec2 = ollama.embeddings(model="nomic-embed-text", prompt=text2)["embedding"]
+vec3 = ollama.embeddings(model="nomic-embed-text", prompt=text3)["embedding"]
+
+print(f"Dog/puppy similarity:  {cosine_similarity(vec1, vec2):.3f}")  # High
+print(f"Dog/stocks similarity: {cosine_similarity(vec1, vec3):.3f}")  # Low
+```
+
+`dog` and `puppy` score high — same vibe, different words. `dog` and `stock market` score low — nothing to do with each other. The model figured this out purely from the numbers.
+
+## Putting it together: simple document search
+
+Here's a full working example. We have a small pile of documents. We want to find the most relevant one for a search query — without any keyword matching.
+
+```python
+import ollama
+import math
+
+def cosine_similarity(a, b):
+    dot = sum(x * y for x, y in zip(a, b))
+    mag_a = math.sqrt(sum(x ** 2 for x in a))
+    mag_b = math.sqrt(sum(x ** 2 for x in b))
+    return dot / (mag_a * mag_b)
+
+def embed(text):
+    return ollama.embeddings(model="nomic-embed-text", prompt=text)["embedding"]
+
+documents = [
+    "Python is a popular programming language for beginners.",
+    "The Amazon rainforest produces 20% of the world's oxygen.",
+    "Machine learning models learn patterns from data.",
+    "Photosynthesis is how plants convert sunlight into energy.",
+    "Neural networks are loosely inspired by the human brain.",
+]
+
+# Embed all documents once upfront
+doc_vectors = [embed(doc) for doc in documents]
+
+# Now search
+query = "How do AI models work?"
+query_vector = embed(query)
+
+scores = [
+    (cosine_similarity(query_vector, dv), doc)
+    for dv, doc in zip(doc_vectors, documents)
+]
+scores.sort(reverse=True)
+
+print(f"Query: {query}\n")
+for score, doc in scores:
+    print(f"  {score:.3f} — {doc}")
+```
+
+The top results should be the AI and machine learning documents. The query `"How do AI models work?"` doesn't share words with `"Neural networks are loosely inspired by the human brain."` — but they live close together in vector space, so the search finds it anyway.
+
+That's the whole trick.
+
+<Box icon="check-list">
+
+## Checklist
+
+<Checklist>
+
+- [ ] I can explain what a vector is in plain terms
+- [ ] I understand why similar words end up with similar vectors
+- [ ] I can generate an embedding using the `ollama` package
+- [ ] I can compare two texts using cosine similarity
+- [ ] I have run the document search example and seen it work
+
+</Checklist>
+
+</Box>
