@@ -123,6 +123,20 @@ export const sidebar = [
 								label: 'Turtle',
 								link: 'guides/python/turtle/0-setup/',
 							},
+							{
+								label: 'Ollama',
+								items: [
+									{
+										label: 'Introduction',
+										link: 'guides/python/ollama/0-introduction/',
+									},
+									{
+										label: 'API & Advanced Features',
+										link: 'guides/python/ollama/1-api/',
+									},
+								],
+								collapsed: true,
+							},
 						],
 						collapsed: true,
 					},

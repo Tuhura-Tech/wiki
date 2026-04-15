@@ -1,0 +1,76 @@
+---
+title: Ollama API & Advanced Features
+description: Using Ollama's local API, image models, embeddings, and Modelfiles
+sidebar:
+    order: 2
+---
+
+## Using Ollama with Your Own Apps
+
+Ollama is not just a little terminal chat buddy. It also gives you a local API, which is basically a way for other apps and tools on your computer to talk to it.
+
+Local API address:
+
+```text
+http://localhost:11434/api
+```
+
+Example using `curl`:
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model": "gemma3",
+  "prompt": "Explain gravity simply."
+}'
+```
+
+You definitely do not need to learn this on day one. But later on, when you feel ready, this is where things start getting really fun and flexible.
+
+## Image-Capable Models
+
+Some models can work with images too, not just text. That means you can do things like:
+
+- Ask what is in a picture
+- Analyse a screenshot
+- Describe a diagram
+
+Example:
+
+```bash
+ollama run gemma3 "What's in this image? /path/to/image.png"
+```
+
+Very cool, very handy.
+
+## Embeddings
+
+Embeddings are a way of turning text into numbers so a computer can compare meaning, not just exact words. That is what makes things like smart search feel smart.
+
+They are useful for:
+
+- Smart search
+- Finding similar notes
+- Document lookup
+- Retrieval systems
+
+You do not need embeddings to enjoy Ollama at all. But if you ever want to build a tool that can search through notes or documents in a clever way, embeddings are one of the secret ingredients.
+
+## Modelfiles
+
+A Modelfile lets you customise how a model behaves before you even start chatting with it. You can use one to make a model explain things simply, act like a tutor, or follow the same special instructions every time.
+
+Example `Modelfile`:
+
+```text
+FROM gemma3
+SYSTEM "You are a friendly tutor who explains things clearly for beginners."
+```
+
+Create and run your custom model:
+
+```bash
+ollama create my-tutor -f Modelfile
+ollama run my-tutor
+```
+
+So instead of repeating yourself every single time, you can set the vibe once and let the model roll with it.
