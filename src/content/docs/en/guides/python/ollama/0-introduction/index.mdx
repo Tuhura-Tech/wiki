@@ -1,0 +1,174 @@
+---
+title: Ollama Guide
+description: Run AI models locally on your own computer using Ollama
+sidebar:
+    order: 1
+---
+
+## What is Ollama?
+
+Ollama is a tool that lets you run AI models on your own computer. Instead of always using an AI tool on a website, you can download a model and use it locally.
+
+This can be great for learning, experimenting, privacy, and building your own projects.
+
+In plain terms:
+- **Ollama** is the app
+- **The model** is the brain you download
+- **Your computer** does the work
+
+You can chat with a model, ask it questions, use it for coding, or connect it to your own apps.
+
+You do not need to be an expert programmer. If you can install software and copy and paste commands, you can do this.
+
+## Key Terms
+
+| Term | Meaning |
+|------|---------|
+| **Ollama** | The program you install |
+| **Model** | The AI you download and run |
+| **Terminal** | The text window where you type commands |
+| **Command** | A line you type into the terminal to make something happen |
+
+Example command:
+```bash
+ollama run gemma3
+```
+This tells Ollama to run a model called `gemma3`.
+
+## Why use Ollama?
+
+A lot of people get into this because they want to try AI locally on their own machine, keep things more private since their data stays on their computer, and get a better feel for how AI tools actually work behind the scenes. It is also a great way to experiment with building your own chatbot or little helper tool for whatever you need.
+
+
+## Before you start
+
+Some models are small and easy to run, while others are much larger and can take up a lot of storage space. If you are using an older or less powerful computer, bigger models may run pretty slowly, and the first download can also take a while depending on your internet speed. For your first go, it is usually better to start with a smaller, beginner-friendly model.
+
+
+## Installing Ollama
+
+Go to [ollama.com](https://ollama.com) and download the version for your computer.
+
+Ollama works on:
+- Windows
+- macOS
+- Linux
+
+After installing, open your terminal and test it:
+```bash
+ollama --version
+```
+
+If it shows a version number, you are good to go.
+
+## Your First Model
+
+import { Steps } from '@astrojs/starlight/components';
+
+<Steps>
+
+1. Type this into the terminal:
+
+   ```bash
+   ollama run gemma3
+   ```
+
+2. Ollama will check if you already have the model. If not, it downloads it.
+
+3. Once loaded, you can start chatting:
+
+   ```
+   Explain black holes like I am 12.
+   ```
+
+   ```
+   Help me write a simple Python program.
+   ```
+
+</Steps>
+
+### Beginner-friendly models
+
+Good starting models:
+- `gemma3`
+- `llama3`
+
+These work well for asking questions, brainstorming, writing help, coding help, and learning.
+
+:::tip
+Start with a smaller model. Smaller models run faster. Bigger models are smarter but heavier. Move up once you are comfortable.
+:::
+
+## Commands Reference
+
+### Run a model
+```bash
+ollama run gemma3
+```
+Starts the model and lets you chat with it.
+
+### Download a model without opening chat
+```bash
+ollama pull gemma3
+```
+Useful if you want to get the model ready first.
+
+### See what models you have downloaded
+```bash
+ollama ls
+```
+
+### See what is currently running
+```bash
+ollama ps
+```
+
+### Stop a model
+```bash
+ollama stop gemma3
+```
+
+### Delete a model
+```bash
+ollama rm gemma3
+```
+
+### Start Ollama manually
+```bash
+ollama serve
+```
+
+## What Actually Happens?
+
+When you run a model, Ollama first finds the model you asked for, loads it into your computer’s memory, and spins up a local chat session so you can start talking to it. After you stop, it keeps the model hanging around in memory for a bit, so if you come back with a follow-up question, it responds much faster instead of starting from scratch.
+
+
+:::note
+A tiny typo causes a lot of confusion in the terminal. Double-check your spelling.
+:::
+
+
+## Quickstart Cheat Sheet
+
+```bash
+# Check Ollama is installed
+ollama --version
+
+# Run a model
+ollama run gemma3
+
+# Download a model
+ollama pull gemma3
+
+# List downloaded models
+ollama ls
+
+# See running models
+ollama ps
+
+# Stop a model
+ollama stop gemma3
+
+# Remove a model
+ollama rm gemma3
+```

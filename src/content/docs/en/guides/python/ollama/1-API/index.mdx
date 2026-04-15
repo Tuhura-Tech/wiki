@@ -1,0 +1,181 @@
+---
+title: Ollama API & Python
+description: Using Ollama's local API from curl and Python scripts
+sidebar:
+    order: 2
+---
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## Ollama is more than a chat window
+
+You've probably been running models straight from the terminal. That's fine, but Ollama is also running a local server in the background the whole time. That server has an API, which means any app, script, or tool on your computer can talk to it.
+
+Websites, bots, game mods, scripts — if it can make an HTTP request, it can use Ollama.
+
+The base address is:
+
+```text
+http://localhost:11434/api
+```
+
+And the endpoint you'll use most is:
+
+```text
+http://localhost:11434/api/generate
+```
+
+## Trying it with curl
+
+Before writing any Python, let's just poke the API directly to see what it does.
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model": "gemma3",
+  "prompt": "Explain gravity simply."
+}'
+```
+
+What comes back isn't plain text. It's structured data — a JSON stream. Each chunk that arrives looks something like:
+
+```json
+{"model":"gemma3","response":"Gravity","done":false}
+{"model":"gemma3","response":" is","done":false}
+...
+{"model":"gemma3","response":"","done":true}
+```
+
+Ollama streams by default, sending the reply back piece by piece as the model generates it. If you'd rather wait and get everything at once, set `"stream": false`.
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model": "gemma3",
+  "prompt": "Explain gravity simply.",
+  "stream": false
+}'
+```
+
+## Using the API from Python
+
+`curl` is good for testing. Python is where you actually build things.
+
+You've got two options.
+
+### Option 1: `requests`
+
+No install needed if you already have it.
+
+```python
+import requests
+
+response = requests.post(
+    "http://localhost:11434/api/generate",
+    json={
+        "model": "gemma3",
+        "prompt": "Explain gravity simply.",
+        "stream": False,
+    },
+)
+
+data = response.json()
+print(data["response"])
+```
+
+`"stream": False` tells Ollama to wait until it's done and return everything in one go. Easier to work with when you're starting out.
+
+### Option 2: the `ollama` package
+
+This one wraps the API for you so you don't have to think about HTTP at all.
+
+```bash
+pip install ollama
+```
+
+```python
+import ollama
+
+response = ollama.chat(
+    model="gemma3",
+    messages=[
+        {"role": "user", "content": "Explain gravity simply."},
+    ],
+)
+
+print(response["message"]["content"])
+```
+
+Cleaner. Handles the connection details. Lets you focus on what you're actually trying to build.
+
+:::tip
+Make sure `ollama serve` is running before your script tries to connect. If Ollama is already open in the background, you're fine.
+:::
+
+## Keeping a conversation going
+
+The `messages` list is the entire conversation history. Add to it and the model remembers. Don't and it forgets.
+
+```python
+import ollama
+
+messages = [
+    {"role": "user", "content": "What is a black hole?"},
+]
+
+# First reply
+response = ollama.chat(model="gemma3", messages=messages)
+reply = response["message"]["content"]
+print(reply)
+
+# Keep going — add the reply, then ask again
+messages.append({"role": "assistant", "content": reply})
+messages.append({"role": "user", "content": "How do they form?"})
+
+response2 = ollama.chat(model="gemma3", messages=messages)
+print(response2["message"]["content"])
+```
+
+That's the whole trick behind chatbots — they're just passing the full message history back every time.
+
+## Image-capable models
+
+Some models can look at images, not just read text. `gemma3` is one of them.
+
+The way this works: images are converted into vectors (lists of numbers) internally, which the model can then reason about alongside text. You don't need to understand the internals to use it — just point the model at an image.
+
+From the terminal:
+
+```bash
+ollama run gemma3 "What's in this image? /path/to/image.png"
+```
+
+Things you can do with this:
+- Ask what's in a photo
+- Analyse a screenshot
+- Describe a diagram
+- Read text from an image
+
+Very handy if you're building anything that works with visual input.
+
+## Quick Reference
+
+| What | How |
+|------|-----|
+| Send a prompt (curl) | `POST /api/generate` with `"model"` and `"prompt"` |
+| Send a prompt (Python) | `ollama.chat()` with a `messages` list |
+| Stream on/off | `"stream": true` or `false` in the request body |
+| Image input | Append the file path to your prompt |
+
+<Box icon="check-list">
+
+## Checklist
+
+<Checklist>
+
+- [ ] I can send a prompt to Ollama using `curl`
+- [ ] I can call the Ollama API from a Python script
+- [ ] I understand what streaming means and how to turn it off
+- [ ] I know how to pass conversation history to keep context
+
+</Checklist>
+
+</Box>

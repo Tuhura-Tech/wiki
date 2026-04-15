@@ -117,11 +117,27 @@ export const sidebar = [
 						collapsed: true,
 					},
 					{
-						label: 'Projects',
+						label: 'Turtle',
+						link: 'guides/python/turtle/0-setup/',
+					},
+					{
+						label: 'Ollama',
 						items: [
 							{
-								label: 'Turtle',
-								link: 'guides/python/turtle/0-setup/',
+								label: 'Introduction',
+								link: 'guides/python/ollama/0-introduction/',
+							},
+							{
+								label: 'API & Python',
+								link: 'guides/python/ollama/1-api/',
+							},
+							{
+								label: 'Vectors & Embeddings',
+								link: 'guides/python/ollama/2-embeddings/',
+							},
+							{
+								label: 'Modelfiles',
+								link: 'guides/python/ollama/3-modelfiles/',
 							},
 						],
 						collapsed: true,
