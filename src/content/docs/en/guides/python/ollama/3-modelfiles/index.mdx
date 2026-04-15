@@ -1,0 +1,99 @@
+---
+title: Modelfiles
+description: Customise how a model behaves using Modelfiles
+sidebar:
+    order: 4
+---
+import Checklist from '/src/components//Checklist.astro';
+import Box from '/src/components/tutorial/Box.astro';
+
+## The problem with starting from scratch every time
+
+Every time you run a model and want it to behave a certain way, you probably type something like:
+
+```
+You are a helpful tutor who explains things simply. Now explain...
+```
+
+Every. Single. Time.
+
+A Modelfile fixes that. It lets you bake instructions into the model upfront so you never have to repeat yourself.
+
+## What a Modelfile looks like
+
+It's just a plain text file called `Modelfile` (no extension). The minimum you need is two things — which base model to use, and what system prompt to give it.
+
+```text
+FROM gemma3
+SYSTEM "You are a friendly tutor who explains things clearly for beginners."
+```
+
+`FROM` tells Ollama which model to build on top of. `SYSTEM` is the instruction that gets loaded before any conversation starts — the model's personality, basically.
+
+## Creating and running your custom model
+
+Once you've saved your `Modelfile`, run these two commands:
+
+```bash
+ollama create my-tutor -f Modelfile
+ollama run my-tutor
+```
+
+`ollama create` packages it up. `ollama run` starts it. Now every conversation with `my-tutor` opens with your system prompt already loaded — no copy-pasting required.
+
+## You can have as many as you want
+
+One Modelfile per vibe. Nothing stopping you from having:
+
+```bash
+ollama run my-tutor          # explains things simply
+ollama run my-code-helper    # strict, technical, no fluff
+ollama run my-writing-buddy  # creative, loose, generates ideas
+```
+
+Each one is just a file. Switch between them whenever.
+
+## Adding more instructions
+
+`SYSTEM` is the main one, but Modelfiles support a few other fields:
+
+```text
+FROM gemma3
+SYSTEM "You are a strict code reviewer. Be concise and point out problems directly."
+PARAMETER temperature 0.2
+```
+
+`temperature` controls how creative vs. predictable the model is. Lower = more focused. Higher = more random. `0.2` is good for anything where you want consistent, factual answers. Try `0.8` or higher for creative writing.
+
+:::note
+Changes to a Modelfile aren't live. Run `ollama create` again after editing to rebuild the model.
+:::
+
+## Sharing your model (locally)
+
+If you want to see all the custom models you've built:
+
+```bash
+ollama ls
+```
+
+Your custom models show up right alongside the ones you pulled. To delete one:
+
+```bash
+ollama rm my-tutor
+```
+
+<Box icon="check-list">
+
+## Checklist
+
+<Checklist>
+
+- [ ] I know what `FROM` and `SYSTEM` do in a Modelfile
+- [ ] I have created at least one custom model with `ollama create`
+- [ ] I understand what `temperature` does
+- [ ] I can list and delete my custom models
+
+</Checklist>
+
+</Box>

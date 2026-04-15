@@ -17,43 +17,55 @@ export const sidebar = [
 			group('guide.game_dev', {
 				items: [
 					{
-						label: 'About',
+						label: 'Start Here',
 						link: 'guides/game-dev',
 					},
 					{
-						label: 'Godot Basics',
-						link: 'guides/game-dev/basics',
+						label: 'Foundations',
+						items: [
+							{
+								label: 'Godot Basics',
+								link: 'guides/game-dev/basics',
+							},
+							{
+								label: 'C# Setup for Godot',
+								link: 'guides/game-dev/projectsetup',
+							},
+							{
+								label: 'Tilemap Navigation',
+								link: 'guides/game-dev/tilemapnavigation',
+							},
+							{
+								label: 'Universal Features',
+								link: 'guides/game-dev/universal',
+							},
+						],
+						collapsed: true,
 					},
 					{
-						label: '2D Platformer',
-						link: 'guides/game-dev/2dplatformer/0-making-the-player',
+						label: '2D Projects',
+						items: [
+							{
+								label: '2D Platformer',
+								link: 'guides/game-dev/2dplatformer/0-making-the-player',
+							},
+							{
+								label: '2D Racing Game',
+								link: 'guides/game-dev/2dracing/0-making-the-cars',
+							},
+							{
+								label: 'Survivors Game',
+								link: 'guides/game-dev/survivors/0-settingup',
+							},
+							{
+								label: 'Dungeon Crawler',
+								link: 'guides/game-dev/dungeoncrawler/0-scenesetup/',
+							},
+						],
+						collapsed: true,
 					},
 					{
-						label: '2D Racing Game',
-						link: 'guides/game-dev/2dracing/0-making-the-cars',
-					},
-					{
-						label: 'Universal Features',
-						link: 'guides/game-dev/universal',
-					},
-					{
-						label: 'Survivors-Like',
-						link: 'guides/game-dev/survivors/0-settingup',
-					},
-					{
-						label: 'Top-down Dungeon Crawler',
-						link: 'guides/game-dev/dungeoncrawler/0-scenesetup/',
-					},
-					{
-						label: 'Setting up C# For Godot',
-						link: 'guides/game-dev/projectsetup',
-					},
-					{
-						label: 'Tilemap Navigation',
-						link: 'guides/game-dev/tilemapnavigation',
-					},
-					{
-						label: '3D Games',
+						label: '3D Projects',
 						items: [
 							{
 								label: '3D Intro',
@@ -67,62 +79,86 @@ export const sidebar = [
 								label: '3D Racing Game',
 								link: 'guides/game-dev/3dracinggame/0-main-scene/',
 							},
-
 						],
 						collapsed: true,
 					},
 				],
 			}),
-			group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
-			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
 			group('guide.python', {
 				items: [
 					{
-						label: 'Python Basics',
+						label: 'Start Here',
 						link: 'guides/python',
 					},
 					{
-						label: 'Conditionals and Loops',
-						link: 'guides/python/conditionals-loops',
-					},
-					{
-						label: 'Lists, Tuples, Dictionaries, and Sets',
-						link: 'guides/python/lists-tuples-dicts',
-					},
-					{
-						label: 'Functions and Docstrings',
-						link: 'guides/python/functions',
-					},
-					{
-						label: 'Classes and Object-Oriented Programming (OOP)',
-						link: 'guides/python/classes',
+						label: 'Fundamentals',
+						items: [
+							{
+								label: 'Setting Up',
+								link: 'guides/python/setting-up',
+							},
+							{
+								label: 'Conditionals and Loops',
+								link: 'guides/python/conditionals-loops',
+							},
+							{
+								label: 'Lists, Tuples, Dictionaries, and Sets',
+								link: 'guides/python/lists-tuples-dicts',
+							},
+							{
+								label: 'Functions and Docstrings',
+								link: 'guides/python/functions',
+							},
+							{
+								label: 'Classes and OOP',
+								link: 'guides/python/classes',
+							},
+						],
+						collapsed: true,
 					},
 					{
 						label: 'Turtle',
 						link: 'guides/python/turtle/0-setup/',
 					},
 					{
-						label: 'Setting Up',
-						link: 'guides/python/setting-up',
+						label: 'Ollama',
+						items: [
+							{
+								label: 'Introduction',
+								link: 'guides/python/ollama/0-introduction/',
+							},
+							{
+								label: 'API & Python',
+								link: 'guides/python/ollama/1-api/',
+							},
+							{
+								label: 'Vectors & Embeddings',
+								link: 'guides/python/ollama/2-embeddings/',
+							},
+							{
+								label: 'Modelfiles',
+								link: 'guides/python/ollama/3-modelfiles/',
+							},
+						],
+						collapsed: true,
 					},
 					{
-						label: 'Flask',
+						label: 'Web Apps with Flask',
 						autogenerate: {
 							directory: 'guides/python/flask',
 						},
 						collapsed: true,
 					},
-
 				],
 			}),
 			group('guide.web', {
 				items: [
 					{
-						label: 'HTML Reference',
+						label: 'Start Here',
 						link: 'guides/web/',
 					},
 					{
-						label: 'HTML & CSS Intro',
+						label: 'HTML & CSS Course',
 						items: [
 							{
 								label: 'Intro',
@@ -141,11 +177,11 @@ export const sidebar = [
 								link: 'guides/web/html-css-intro/3-standard-formatting/',
 							},
 							{
-								label: 'Background, borders, padding',
+								label: 'Background, Borders, and Padding',
 								link: 'guides/web/html-css-intro/4-background-borders-padding/',
 							},
 							{
-								label: 'Divs, IDs, Classes',
+								label: 'Divs, IDs, and Classes',
 								link: 'guides/web/html-css-intro/5-divs-ids-classes/',
 							},
 							{
@@ -177,7 +213,7 @@ export const sidebar = [
 			group('guide.javascript', {
 				items: [
 					{
-						label: 'Setting Up',
+						label: 'Start Here',
 						link: 'guides/javascript',
 					},
 					{
@@ -189,6 +225,8 @@ export const sidebar = [
 					},
 				],
 			}),
+group('guide.security', { autogenerate: { directory: 'guides/cybersecurity' } }),
+			group('guide.3d', { autogenerate: { directory: 'guides/blender' } }),
 			group('guide.database', { autogenerate: { directory: 'guides/database' } }),
 			group('guide.development', { autogenerate: { directory: 'guides/development' } }),
 			group('guide.contributing', { autogenerate: { directory: 'guides/contribute' } }),
@@ -206,16 +244,6 @@ export const sidebar = [
 	}),
 	// Micro Credentials
 	group('microcredentials', {
-		items: [
-			'microcredentials',
-			group('microcredentials.web_dev', { items: [] }),
-			group('microcredentials.security', { items: [] }),
-			group('microcredentials.policy', { items: [] }),
-			group('microcredentials.ai_ml', { items: [] }),
-			group('microcredentials.cloud', { items: [] }),
-			group('microcredentials.electronics', { items: [] }),
-			group('microcredentials.software', { items: [] }),
-			group('microcredentials.game_dev', { items: [] }),
-		],
+		items: ['microcredentials'],
 	}),
 ] satisfies StarlightUserConfig['sidebar'];

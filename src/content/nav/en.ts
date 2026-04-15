@@ -9,7 +9,7 @@ export default {
 	'guide.database': 'Databases',
 	'guide.development': 'Software Development',
 	'guide.contributing': 'Contribute to this Wiki',
-	'guide.3dgames' : '3D Game Development',
+	'guide.3dgames': '3D Game Development',
 
 
 	ncea: 'NCEA',
