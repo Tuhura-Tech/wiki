@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy-fetch": "5.1.2",
-    "@actions/core": "1.11.1",
+    "@actions/core": "3.0.1",
     "@docsearch/css": "3.9.0",
     "@docsearch/js": "3.9.0",
     "@eslint/js": "9.39.4",
